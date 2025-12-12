@@ -1,0 +1,14 @@
+# Ignore List
+
+# System files
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
+.env
+.env.local
+.vscode/
+.idea/
+node_modules/
+
