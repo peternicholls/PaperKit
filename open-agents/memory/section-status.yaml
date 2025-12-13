@@ -1,46 +1,46 @@
 sections:
   introduction:
-    status: "outline"  # outline | drafted | refined | final
+    status: "outline" # outline | drafted | refined | final
     words: 0
-    completeness: 0   # 0-100
+    completeness: 0 # 0-100
     refinement_passes: 0
     notes: ""
-  
+
   background:
     status: "outline"
     words: 0
     completeness: 0
     refinement_passes: 0
     notes: ""
-  
+
   methodology:
     status: "outline"
     words: 0
     completeness: 0
     refinement_passes: 0
     notes: ""
-  
+
   results:
     status: "outline"
     words: 0
     completeness: 0
     refinement_passes: 0
     notes: ""
-  
+
   prior_work:
     status: "outline"
     words: 0
     completeness: 0
     refinement_passes: 0
     notes: ""
-  
+
   implications:
     status: "outline"
     words: 0
     completeness: 0
     refinement_passes: 0
     notes: ""
-  
+
   conclusion:
     status: "outline"
     words: 0

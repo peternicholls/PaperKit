@@ -2,7 +2,9 @@
 
 ---
 
-## Academic Specification Paper Writing System
+## Copilot Research Paper Assistant Kit
+
+Formerly known as the "Academic Specification Paper Writing System".
 
 This project uses a complete **Open Agent System** for planning, researching, structuring, drafting, refining, and publishing high-quality academic specification papers in LaTeX format.
 

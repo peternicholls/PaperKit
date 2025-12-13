@@ -1,4 +1,6 @@
-# Academic Paper Writing System - Quick Start Guide
+# Copilot Research Paper Assistant Kit - Quick Start Guide
+
+Formerly: Academic Paper Writing System.
 
 ## 🎯 What You Have Now
 

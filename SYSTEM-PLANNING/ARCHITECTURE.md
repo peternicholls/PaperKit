@@ -1,5 +1,7 @@
 # System Architecture and File Overview
 
+System name: Copilot Research Paper Assistant Kit (formerly Academic Specification Paper Writing System).
+
 ## 📊 Complete File Structure
 
 ```
