@@ -21,7 +21,7 @@ inputs:
   current-research:
     type: "text"
     description: "Current research status"
-  
+
   paper-outline:
     type: "text"
     description: "Paper outline for comparison"

@@ -29,7 +29,7 @@ inputs:
       - "validate"
       - "generate"
     default: "validate"
-  
+
   sources:
     type: "text"
     description: "New sources to add"

@@ -27,7 +27,7 @@ inputs:
       - "complete"
       - "update"
     default: "list"
-  
+
   task:
     type: "text"
     description: "Task to add or update"

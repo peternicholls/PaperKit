@@ -24,11 +24,11 @@ inputs:
     type: "text"
     description: "Topic to research or consolidate"
     required: true
-  
+
   sources:
     type: "text"
     description: "Available sources, notes, links"
-  
+
   scope:
     type: "choice"
     options:

@@ -86,4 +86,4 @@ success-criteria:
 
 typical-duration: "15–30 minutes"
 can-resume: true
-checkpoint-interval: 5  # minutes
+checkpoint-interval: 5 # minutes

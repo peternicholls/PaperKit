@@ -29,7 +29,7 @@ inputs:
       - "resume-session"
     default: "full-setup"
     description: "Setup depth: full (goals + requirements + spec), quick (goals only), or resume"
-  
+
   collection-process:
     strategy: "progressive-questions"
     avoid-bombardment: true

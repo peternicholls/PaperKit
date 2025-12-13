@@ -23,7 +23,7 @@ inputs:
     type: "text"
     description: "What the paper aims to achieve"
     required: true
-  
+
   success-criteria:
     type: "text"
     description: "How success will be measured"

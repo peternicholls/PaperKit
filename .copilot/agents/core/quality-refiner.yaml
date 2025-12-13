@@ -85,20 +85,20 @@ behavioral-rules:
 
 revision-summary-template: |
   ## Revision Summary
-  
+
   ### Changes Made
   **Clarity improvements:**
   - [List changes]
-  
+
   **Structural improvements:**
   - [List changes]
-  
+
   **Tone/language:**
   - [List changes]
-  
+
   ### Preserved
   - [What was kept and why]
-  
+
   ### Suggestions for User Feedback
   - [Optional improvements for user consideration]
 

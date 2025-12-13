@@ -47,30 +47,30 @@ outputs:
 
 output-template: |
   # Feedback: [Section/Draft Name]
-  
+
   ## Overall Assessment
   [General impression and key observations]
-  
+
   ## Strengths
   [What works well]
-  
+
   ## Areas for Improvement
-  
+
   ### Clarity
   [Specific clarity issues and suggestions]
-  
+
   ### Argument Structure
   [Logic and flow observations]
-  
+
   ### Academic Tone
   [Tone and language feedback]
-  
+
   ### Citations and Evidence
   [Support and attribution observations]
-  
+
   ## Specific Suggestions
   [Concrete improvements with examples]
-  
+
   ## Priority Actions
   [Most important improvements to make]
 
@@ -87,12 +87,12 @@ feedback-criteria:
     - "Is each sentence understandable?"
     - "Do paragraphs have clear topic sentences?"
     - "Is technical language explained?"
-  
+
   argument:
     - "Is the thesis clear?"
     - "Do claims have support?"
     - "Is the logic sound?"
-  
+
   tone:
     - "Is it appropriately academic?"
     - "Is it accessible to the audience?"

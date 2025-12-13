@@ -47,30 +47,30 @@ outputs:
 
 output-template: |
   # Problem Analysis: [Problem Title]
-  
+
   ## Problem Statement
   [Clear articulation of the problem]
-  
+
   ## Root Cause Analysis
   [Why this problem exists]
-  
+
   ## Impact Assessment
   [What this blocks or affects]
-  
+
   ## Solution Options
-  
+
   ### Option 1: [Name]
   - **Approach:** [Description]
   - **Pros:** [Benefits]
   - **Cons:** [Drawbacks]
   - **Effort:** [Low/Medium/High]
-  
+
   ### Option 2: [Name]
   [Same structure]
-  
+
   ## Recommendation
   [Which option and why]
-  
+
   ## Action Plan
   [Specific steps to implement]
 

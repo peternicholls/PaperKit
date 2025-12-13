@@ -52,13 +52,13 @@ outputs:
 
 output-template: |
   \section{Section Name}
-  
+
   \subsection{First Subsection}
   [2-4 paragraphs with citations]
-  
+
   \subsection{Second Subsection}
   [Continued development]
-  
+
   \subsection{Key Takeaways}
   [1-2 paragraphs summarizing major points]
 

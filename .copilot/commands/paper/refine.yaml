@@ -24,7 +24,7 @@ inputs:
     type: "text"
     description: "Section to refine (path or name)"
     required: true
-  
+
   level:
     type: "choice"
     options:
@@ -32,7 +32,7 @@ inputs:
       - "moderate"
       - "deep"
     default: "moderate"
-  
+
   focus:
     type: "text"
     description: "Specific areas to focus on"

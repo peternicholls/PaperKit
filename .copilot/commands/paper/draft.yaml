@@ -24,11 +24,11 @@ inputs:
     type: "text"
     description: "Which section to draft"
     required: true
-  
+
   research-docs:
     type: "text"
     description: "Relevant research documents to reference"
-  
+
   target-length:
     type: "text"
     description: "Target word count"

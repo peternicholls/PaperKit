@@ -40,14 +40,14 @@ operations:
       - scope: "Breadth and depth"
     outputs:
       - "Source recommendations with rationale"
-  
+
   sources:
     description: "Evaluate and organize existing sources"
     inputs:
       - sources: "List of sources to evaluate"
     outputs:
       - "Quality assessment and organization"
-  
+
   gaps:
     description: "Identify research gaps"
     inputs:
@@ -63,27 +63,27 @@ outputs:
 
 output-template: |
   # Research Roadmap: [Topic]
-  
+
   ## Research Goals
   [What we need to understand]
-  
+
   ## Recommended Sources
-  
+
   ### Primary Sources
   [Essential sources with rationale]
-  
+
   ### Secondary Sources
   [Supporting sources]
-  
+
   ### Background Reading
   [Context and foundational material]
-  
+
   ## Source Quality Assessment
   [Evaluation of existing sources]
-  
+
   ## Research Gaps
   [What's missing and why it matters]
-  
+
   ## Recommended Actions
   [Prioritized research tasks]
 

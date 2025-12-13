@@ -57,7 +57,7 @@ validation-checks:
     - "Bibliography file exists with all cited entries"
     - "All \\cite{} commands have matching BibTeX entries"
     - "Cross-references (\\ref{}, \\label{}) are complete"
-  
+
   syntax:
     - "Matching braces: { and }"
     - "Matching environments: \\begin{} and \\end{}"
@@ -77,20 +77,20 @@ compilation-process:
 
 build-report-template: |
   ## LaTeX Build Report
-  
+
   ### Status: [SUCCESS|FAILED]
-  
+
   ### Compilation Summary
   - Date: [timestamp]
   - Pages: [count]
   - Bibliography entries: [count]
-  
+
   ### Validation Results
   [List of checks and results]
-  
+
   ### Warnings (Non-fatal)
   [List of warnings]
-  
+
   ### Output Files
   - main.pdf (publication-ready)
 
@@ -107,7 +107,7 @@ error-handling:
     - "Report clearly to user"
     - "Suggest potential fixes"
     - "Stop if can't proceed"
-  
+
   warnings:
     - "Document but continue"
     - "Report in build summary"

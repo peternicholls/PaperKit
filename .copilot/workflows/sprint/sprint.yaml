@@ -61,4 +61,4 @@ phases:
 
 typical-duration: "Variable (1 day to 1 week)"
 can-resume: true
-supports-parallel-work: false  # one sprint at a time
+supports-parallel-work: false # one sprint at a time

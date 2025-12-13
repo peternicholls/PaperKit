@@ -24,15 +24,15 @@ inputs:
     type: "text"
     description: "Main topic or thesis"
     required: true
-  
+
   scope:
     type: "text"
     description: "What is in and out of scope"
-  
+
   key-themes:
     type: "text"
     description: "Key themes to cover"
-  
+
   audience:
     type: "text"
     description: "Target audience"

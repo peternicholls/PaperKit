@@ -24,7 +24,7 @@ inputs:
   scope:
     type: "text"
     description: "Paper scope and goals"
-  
+
   structure-preference:
     type: "choice"
     options:

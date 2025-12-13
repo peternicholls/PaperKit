@@ -28,7 +28,7 @@ routing-behavior:
       - "Find routing: agent and spec-file"
       - "Load agent spec from agents.yaml"
       - "Invoke agent with context"
-  
+
   natural-language-routing:
     description: "Route natural language to matching triggers"
     process:

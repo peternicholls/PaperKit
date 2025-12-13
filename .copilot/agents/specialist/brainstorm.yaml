@@ -47,19 +47,19 @@ outputs:
 
 output-template: |
   # Brainstorm: [Topic]
-  
+
   ## Initial Ideas
   [Rapid-fire ideas without filtering]
-  
+
   ## Expanded Concepts
   [Deeper exploration of promising ideas]
-  
+
   ## Unexpected Connections
   [Cross-domain or surprising relationships]
-  
+
   ## Questions to Explore
   [Questions that could open new directions]
-  
+
   ## Recommended Next Steps
   [Which ideas to pursue and how]
 

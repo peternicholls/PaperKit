@@ -56,26 +56,26 @@ outputs:
 
 output-template: |
   # Paper Structure: [Paper Title]
-  
+
   ## Overview
   [Paper goal, target audience, scope, intended length]
-  
+
   ## Structural Rationale
   [Why the structure is organized this way]
-  
+
   ## Section Hierarchy
-  
+
   ### I. Introduction
   **Purpose:** [What this section accomplishes]
   - **Length:** [Word count target]
   - **Key content:** [What must be covered]
   - **Research needs:** [What knowledge is required]
-  
+
   [Continue for each section...]
-  
+
   ## Research Roadmap
   [What research needs consolidation before drafting]
-  
+
   ## Cross-References and Dependencies
   [How sections relate to each other]
 

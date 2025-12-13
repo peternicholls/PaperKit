@@ -17,7 +17,7 @@ phases:
     agent: "paper-architect"
     command: "plan"
     description: "Create detailed paper outline within sprint"
-    inputs-from-user: false  # uses existing setup
+    inputs-from-user: false # uses existing setup
     outputs:
       - file: "output-drafts/outlines/"
       - file: "latex/sections/ (skeletons)"
@@ -34,7 +34,7 @@ phases:
       - memory: "research-index"
     next:
       - "draft"
-      - "research (continue)"  # loop for multiple research areas
+      - "research (continue)" # loop for multiple research areas
 
   - id: "draft"
     agent: "section-drafter"
@@ -55,7 +55,7 @@ phases:
     agent: "tutor"
     command: "tutor-feedback"
     description: "Get feedback on draft before refinement (optional)"
-    inputs-from-user: false  # user initiates
+    inputs-from-user: false # user initiates
     outputs:
       - file: "planning/YYYYMMDD-*/tutor-feedback.md"
     next:
@@ -104,4 +104,4 @@ phases:
 
 typical-duration: "Varies by content and refinement cycles"
 can-resume: true
-supports-partial-completion: true  # can skip sections, come back later
+supports-partial-completion: true # can skip sections, come back later

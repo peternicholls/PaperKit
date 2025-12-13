@@ -28,11 +28,11 @@ inputs:
       - "technical-report"
       - "other"
     description: "Publication format"
-  
+
   length:
     type: "text"
     description: "Target length (words or pages)"
-  
+
   constraints:
     type: "text"
     description: "Any specific constraints or requirements"

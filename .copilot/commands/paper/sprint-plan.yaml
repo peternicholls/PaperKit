@@ -24,11 +24,11 @@ inputs:
     type: "text"
     description: "Name or focus of the sprint"
     required: true
-  
+
   duration:
     type: "text"
     description: "Sprint duration (e.g., '1 week', '3 days')"
-  
+
   goals:
     type: "text"
     description: "Sprint goals"

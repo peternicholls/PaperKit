@@ -51,19 +51,19 @@ outputs:
 
 output-template: |
   # [Research Topic Title]
-  
+
   ## Overview
   [Scope and relevance to paper goal]
-  
+
   ## [Major Topic 1]
   [Content with citations]
-  
+
   ## Key Insights and Synthesis
   [Connecting themes across sources]
-  
+
   ## Gaps and Future Research
   [What remains unknown]
-  
+
   ## Bibliography
   [Harvard-formatted sources]
 
