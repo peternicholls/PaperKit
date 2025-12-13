@@ -2,7 +2,22 @@
 
 An **Open Agent System** for writing high-quality academic specification papers in LaTeX format. Six specialized agents handle research consolidation, paper structuring, section drafting, quality refinement, reference management, and document assembly using a progressive, iterative methodology.
 
-**Quick Start:** Jump to [Getting Started](#getting-started) or [The Writing Workflow](#the-writing-workflow)
+**Quick Start:** Jump to [Installation](#installation) or [Getting Started](#getting-started)
+
+---
+
+## Installation
+
+**Get PaperKit up and running in minutes.**
+
+For detailed installation instructions, prerequisites, and platform-specific guidance, see **[INSTALL-INSTRUCTIONS.md](INSTALL-INSTRUCTIONS.md)**.
+
+**Quick Install:**
+```bash
+./paperkit init              # Mac/Linux
+# or
+.\paperkit-install.ps1      # Windows
+```
 
 ---
 
