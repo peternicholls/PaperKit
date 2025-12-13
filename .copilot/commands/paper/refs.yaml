@@ -1,0 +1,56 @@
+# .copilot/commands/paper/refs.yaml
+name: "paper.refs"
+display-name: "Manage references"
+description: "Manage bibliography and citations"
+category: "core"
+version: "1.0"
+
+entry-points:
+  primary: "/paper.refs"
+  alternates:
+    - "references"
+    - "bibliography"
+    - "format references"
+    - "manage citations"
+
+routing:
+  primary-agent: "reference-manager"
+  workflow: "core-writing"
+  load-order:
+    - "open-agents/INSTRUCTIONS.md"
+    - "open-agents/agents/reference_manager.md"
+
+inputs:
+  operation:
+    type: "choice"
+    options:
+      - "extract"
+      - "format"
+      - "validate"
+      - "generate"
+    default: "validate"
+  
+  sources:
+    type: "text"
+    description: "New sources to add"
+
+outputs:
+  files:
+    - "latex/references/references.bib"
+    - "open-agents/output-refined/references/bibliography.md"
+    - "open-agents/output-refined/references/citation_validation.md"
+
+consent-required: true
+tools-used:
+  - "format-references.py"
+
+behavioral-rules:
+  - "Never fabricate citations"
+  - "Verify sources when possible"
+  - "Flag uncertain information"
+  - "Maintain Harvard style"
+
+success-criteria:
+  - "All citations accounted for"
+  - "BibTeX database complete"
+  - "Validation report generated"

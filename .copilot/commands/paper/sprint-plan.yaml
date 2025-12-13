@@ -1,0 +1,56 @@
+# .copilot/commands/paper/sprint-plan.yaml
+name: "paper.sprint-plan"
+display-name: "Plan a sprint"
+description: "Create and plan a new sprint"
+category: "sprint"
+version: "1.0"
+
+entry-points:
+  primary: "/paper.sprint-plan"
+  alternates:
+    - "plan sprint"
+    - "new sprint"
+    - "start sprint"
+
+routing:
+  primary-agent: "paper-architect"
+  workflow: "sprint"
+  load-order:
+    - "open-agents/INSTRUCTIONS.md"
+    - "open-agents/agents/paper_architect.md"
+
+inputs:
+  sprint-name:
+    type: "text"
+    description: "Name or focus of the sprint"
+    required: true
+  
+  duration:
+    type: "text"
+    description: "Sprint duration (e.g., '1 week', '3 days')"
+  
+  goals:
+    type: "text"
+    description: "Sprint goals"
+
+outputs:
+  files:
+    - "planning/YYYYMMDD-[name]/plan.md"
+    - "planning/YYYYMMDD-[name]/tasks.md"
+  memory:
+    - ".copilot/memory/working-reference.md"
+
+consent-required: false
+tools-used: []
+
+behavioral-rules:
+  - "Create dated sprint folder"
+  - "Define clear sprint goals"
+  - "Break down into actionable tasks"
+  - "Set realistic scope"
+
+success-criteria:
+  - "Sprint folder created"
+  - "Goals defined"
+  - "Tasks outlined"
+  - "Ready to execute"

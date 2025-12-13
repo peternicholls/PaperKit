@@ -1,0 +1,34 @@
+# .copilot/commands/paper/specialist/librarian-gaps.yaml
+name: "paper.librarian-gaps"
+display-name: "Identify gaps"
+description: "Identify research gaps"
+category: "specialist"
+version: "1.0"
+
+entry-points:
+  primary: "/paper.librarian-gaps"
+  alternates:
+    - "research gaps"
+    - "what's missing"
+
+routing:
+  primary-agent: "librarian"
+  load-order:
+    - "open-agents/INSTRUCTIONS.md"
+    - ".copilot/agents/specialist/librarian.yaml"
+
+inputs:
+  current-research:
+    type: "text"
+    description: "Current research status"
+  
+  paper-outline:
+    type: "text"
+    description: "Paper outline for comparison"
+
+outputs:
+  files:
+    - "planning/YYYYMMDD-[sprint]/gap-analysis.md"
+
+consent-required: false
+tools-used: []

@@ -1,0 +1,31 @@
+# .copilot/commands/paper/specialist/librarian-research.yaml
+name: "paper.librarian-research"
+display-name: "Find sources"
+description: "Research and find sources on a topic"
+category: "specialist"
+version: "1.0"
+
+entry-points:
+  primary: "/paper.librarian-research"
+  alternates:
+    - "find sources on [topic]"
+    - "librarian research"
+
+routing:
+  primary-agent: "librarian"
+  load-order:
+    - "open-agents/INSTRUCTIONS.md"
+    - ".copilot/agents/specialist/librarian.yaml"
+
+inputs:
+  topic:
+    type: "text"
+    description: "Topic to find sources for"
+    required: true
+
+outputs:
+  files:
+    - "planning/YYYYMMDD-[sprint]/research-roadmap.md"
+
+consent-required: false
+tools-used: []

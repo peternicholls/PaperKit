@@ -1,0 +1,56 @@
+# .copilot/workflows.yaml
+# Master workflow registry - defines sequences and orchestration
+
+version: "1.0.0"
+description: "Registry of all workflows in the Copilot Research Paper Assistant Kit"
+
+workflow-types:
+  initialization: "Project setup with canonical documents"
+  sprint: "Work sprint (plan → tasks → review)"
+  writing: "Paper writing and refinement"
+
+workflows:
+  initialization:
+    name: "Paper Project Initialization"
+    description: "Set up a new paper project with canonical docs (aims, requirements, spec)"
+    entry-points:
+      - "paper.init"
+      - "paper.objectives"
+    file: "workflows/setup/initialization.yaml"
+    typical-duration: "15-30 minutes"
+    phases:
+      - "collect-goals"
+      - "collect-requirements"
+      - "collect-spec"
+      - "complete-setup"
+
+  sprint:
+    name: "Sprint Workflow"
+    description: "Execute a focused sprint with planning, task execution, and review"
+    entry-points:
+      - "paper.sprint-plan"
+    file: "workflows/sprint/sprint.yaml"
+    typical-duration: "Variable (1 day to 1 week)"
+    phases:
+      - "plan-sprint"
+      - "execute-tasks"
+      - "review-outcomes"
+      - "decide-next"
+
+  core-writing:
+    name: "Core Paper Writing Workflow"
+    description: "Main paper writing workflow (plan → research → draft → refine → refs → assemble)"
+    entry-points:
+      - "paper.plan"
+      - "paper.research"
+      - "paper.draft"
+    file: "workflows/paper/core-writing.yaml"
+    typical-duration: "Varies by section"
+    phases:
+      - "plan"
+      - "research"
+      - "draft"
+      - "optional-feedback"
+      - "refine"
+      - "manage-references"
+      - "assemble"

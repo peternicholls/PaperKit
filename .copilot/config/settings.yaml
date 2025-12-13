@@ -1,0 +1,60 @@
+# .copilot/config/settings.yaml
+# System-wide configuration and defaults
+
+version: "1.0.0"
+
+system:
+  name: "Copilot Research Paper Assistant Kit"
+  formal-name: "Copilot Research Paper Assistant Kit"
+  former-name: "Academic Specification Paper Writing System"
+  description: "GitHub Copilot integration for academic paper research and writing"
+  version: "1.0.0"
+
+paths:
+  working-reference: "memory/working-reference.md"
+  canonical-docs: "planning/0000-Project-Overview/"
+  canonical-docs-list:
+    - "aims-and-objectives.md"
+    - "requirements.md"
+    - "content-specification.md"
+  sprint-folder-pattern: "planning/YYYYMMDD-*"
+  drafts: "open-agents/output-drafts/"
+  refined: "open-agents/output-refined/"
+  final: "open-agents/output-final/"
+  latex-source: "latex/"
+  memory: "memory/"
+
+defaults:
+  standards-flexibility: "pragmatic" # or "strict"
+  allow-gap-deferral: true
+  allow-placeholder-citations: true
+  progressive-disclosure: true
+  max-context-size: "large"
+  session-type: "standard" # or "quick", "enterprise"
+
+memory:
+  metadata-file: "memory/paper-metadata.yaml"
+  research-index: "memory/research-index.yaml"
+  section-status: "memory/section-status.yaml"
+  revision-log: "memory/revision-log.md"
+  auto-save: true
+  save-interval: 300 # seconds
+
+ui:
+  progressive-questions: true
+  bombardment-prevention: true
+  suggestion-level: "moderate" # or "minimal", "aggressive"
+  visual-workflows: true
+
+integrations:
+  github-copilot: true
+  vscode-native: true
+  claude-projects: false
+  chatgpt-custom: false
+
+quality:
+  require-citations: true
+  require-sources: true
+  harvard-style: true
+  validate-on-save: true
+  auto-lint: false

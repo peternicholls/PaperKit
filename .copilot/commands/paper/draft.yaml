@@ -1,0 +1,56 @@
+# .copilot/commands/paper/draft.yaml
+name: "paper.draft"
+display-name: "Draft section"
+description: "Draft individual paper section"
+category: "core"
+version: "1.0"
+
+entry-points:
+  primary: "/paper.draft"
+  alternates:
+    - "draft [section]"
+    - "write [section]"
+    - "draft the introduction"
+
+routing:
+  primary-agent: "section-drafter"
+  workflow: "core-writing"
+  load-order:
+    - "open-agents/INSTRUCTIONS.md"
+    - "open-agents/agents/section_drafter.md"
+
+inputs:
+  section:
+    type: "text"
+    description: "Which section to draft"
+    required: true
+  
+  research-docs:
+    type: "text"
+    description: "Relevant research documents to reference"
+  
+  target-length:
+    type: "text"
+    description: "Target word count"
+
+outputs:
+  files:
+    - "open-agents/output-drafts/sections/[section].tex"
+  memory:
+    - ".copilot/memory/section-status.yaml"
+
+consent-required: false
+tools-used: []
+
+behavioral-rules:
+  - "Clarify section purpose and constraints"
+  - "Reference consolidated research"
+  - "Write in LaTeX format"
+  - "Include proper citations"
+  - "Flag uncertain areas"
+
+success-criteria:
+  - "Complete, coherent section draft"
+  - "Proper LaTeX formatting"
+  - "Citations integrated"
+  - "Ready for refinement"

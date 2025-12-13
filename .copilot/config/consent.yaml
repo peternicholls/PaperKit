@@ -1,0 +1,107 @@
+# .copilot/config/consent.yaml
+# Consent policies and scope definitions
+
+version: "1.0.0"
+description: "Consent and permission management for tool execution"
+
+consent-scopes:
+  once:
+    name: "Allow once"
+    description: "Execute this tool one time only"
+    duration: "single-execution"
+    storage: "memory"
+    expires-at: "end-of-call"
+    can-batch: false
+    icon: "⚡"
+
+  session:
+    name: "Allow for this session"
+    description: "Execute this tool anytime in the current chat session"
+    duration: "chat-session"
+    storage: "workspaceState"
+    expires-at: "session-end"
+    can-batch: true
+    icon: "💬"
+
+  workspace:
+    name: "Allow for this workspace"
+    description: "Execute this tool anytime in this workspace"
+    duration: "workspace-lifetime"
+    storage: "workspaceState"
+    expires-at: "never"
+    can-batch: true
+    icon: "📁"
+
+  always:
+    name: "Always allow on this machine"
+    description: "Execute this tool anytime on this machine"
+    duration: "machine-lifetime"
+    storage: "globalState"
+    expires-at: "never"
+    can-batch: true
+    icon: "🔓"
+
+  batch-session:
+    name: "Run all tools for this session"
+    description: "Approve all pending tool executions for the entire session"
+    duration: "chat-session"
+    storage: "workspaceState"
+    expires-at: "session-end"
+    can-batch: true
+    is-meta: true
+    icon: "⚙️"
+
+consent-prompt:
+  title: "Execute tool?"
+  message: "This action requires your permission"
+  options-order:
+    - "once"
+    - "session"
+    - "workspace"
+    - "always"
+    - "batch-session"
+  include-description: true
+  include-side-effects: true
+  include-cancel: true
+
+tool-policies:
+  build-latex:
+    requires-consent: true
+    default-scope: "once"
+    dangerous: true
+    allows-undo: false
+    log-execution: true
+    requires-confirmation: true
+
+  lint-latex:
+    requires-consent: false
+    read-only: true
+    log-execution: false
+
+  validate-structure:
+    requires-consent: false
+    read-only: true
+    log-execution: false
+
+  format-references:
+    requires-consent: true
+    default-scope: "once"
+    allows-undo: true
+    log-execution: true
+    requires-confirmation: false
+
+logging:
+  consent-log-file: ".vscode/agent-consent.log"
+  include-timestamp: true
+  include-user: false
+  include-scope: true
+  include-tool: true
+  retention: "persist" # keep log file between sessions
+  include-decline: true
+
+reset:
+  provide-palette-command: true
+  palette-command-name: "Copilot: Reset Consent Approvals"
+  allow-user-reset-all: true
+  allow-user-reset-per-tool: true
+  allow-clear-log: true

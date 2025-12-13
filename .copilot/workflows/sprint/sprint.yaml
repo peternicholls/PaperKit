@@ -1,0 +1,64 @@
+# .copilot/workflows/sprint/sprint.yaml
+# Sprint Management Workflow
+# Execute focused sprints with planning, task execution, and review
+
+name: "sprint"
+display-name: "Sprint Workflow"
+description: "Execute a focused sprint with planning, task execution, and review"
+version: "1.0"
+
+entry-points:
+  - "paper.sprint-plan"
+
+phases:
+  - id: "plan-sprint"
+    agent: "paper-architect"
+    command: "sprint-plan"
+    description: "Create dated sprint folder and outline methodology"
+    inputs-from-user: true
+    outputs:
+      - folder: "planning/YYYYMMDD-[name]/"
+      - file: "planning/YYYYMMDD-[name]/plan.md"
+      - file: "planning/YYYYMMDD-[name]/tasks.md (empty)"
+      - memory: "working-reference"
+    next:
+      - "execute-tasks"
+
+  - id: "execute-tasks"
+    agent: "user + any-agent"
+    command: "tasks"
+    description: "Execute sprint tasks; agents complete work, user provides direction"
+    type: "loop"
+    loop-condition: "tasks-remain"
+    inputs-from-user: true
+    outputs:
+      - file: "planning/YYYYMMDD-[name]/tasks.md (updated)"
+      - memory: "working-reference (updated)"
+    next:
+      - "review-outcomes"
+      - "execute-tasks (continue)"
+
+  - id: "review-outcomes"
+    agent: "paper-system"
+    command: "review"
+    description: "Reflect on sprint, identify learnings, decide next steps"
+    inputs-from-user: true
+    outputs:
+      - file: "planning/YYYYMMDD-[name]/review.md"
+      - memory: "working-reference"
+    next:
+      - "decide-next"
+
+  - id: "decide-next"
+    agent: "paper-system"
+    type: "decision-point"
+    description: "Choose: continue sprint, iterate, pivot, or new sprint"
+    inputs-from-user: true
+    next:
+      - "execute-tasks (continue same sprint)"
+      - "plan-sprint (new sprint)"
+      - "END"
+
+typical-duration: "Variable (1 day to 1 week)"
+can-resume: true
+supports-parallel-work: false  # one sprint at a time

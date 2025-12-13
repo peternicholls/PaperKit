@@ -1,0 +1,60 @@
+# .copilot/commands/paper/refine.yaml
+name: "paper.refine"
+display-name: "Refine section"
+description: "Refine and improve draft section"
+category: "core"
+version: "1.0"
+
+entry-points:
+  primary: "/paper.refine"
+  alternates:
+    - "refine [section]"
+    - "improve [section]"
+    - "polish [section]"
+
+routing:
+  primary-agent: "quality-refiner"
+  workflow: "core-writing"
+  load-order:
+    - "open-agents/INSTRUCTIONS.md"
+    - "open-agents/agents/quality_refiner.md"
+
+inputs:
+  section:
+    type: "text"
+    description: "Section to refine (path or name)"
+    required: true
+  
+  level:
+    type: "choice"
+    options:
+      - "light"
+      - "moderate"
+      - "deep"
+    default: "moderate"
+  
+  focus:
+    type: "text"
+    description: "Specific areas to focus on"
+
+outputs:
+  files:
+    - "open-agents/output-refined/sections/[section].tex"
+    - "open-agents/output-refined/sections/[section]_revisions.md"
+  memory:
+    - ".copilot/memory/section-status.yaml"
+
+consent-required: false
+tools-used: []
+
+behavioral-rules:
+  - "Enhance, don't rewrite"
+  - "Preserve author intent"
+  - "Document all changes"
+  - "Ask before major reorganization"
+
+success-criteria:
+  - "Section noticeably improved"
+  - "Changes documented"
+  - "Author intent preserved"
+  - "Ready for assembly"

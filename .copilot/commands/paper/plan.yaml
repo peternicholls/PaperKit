@@ -1,0 +1,59 @@
+# .copilot/commands/paper/plan.yaml
+name: "paper.plan"
+display-name: "Plan paper outline"
+description: "Create detailed paper outline and plan"
+category: "core"
+version: "1.0"
+
+entry-points:
+  primary: "/paper.plan"
+  alternates:
+    - "plan paper"
+    - "create outline"
+    - "outline the paper"
+    - "structure the paper"
+
+routing:
+  primary-agent: "paper-architect"
+  workflow: "core-writing"
+  load-order:
+    - "open-agents/INSTRUCTIONS.md"
+    - "open-agents/agents/paper_architect.md"
+
+inputs:
+  scope:
+    type: "text"
+    description: "Paper scope and goals"
+  
+  structure-preference:
+    type: "choice"
+    options:
+      - "standard-academic"
+      - "experimental"
+      - "theoretical"
+      - "survey"
+      - "position"
+    default: "standard-academic"
+
+outputs:
+  files:
+    - "open-agents/output-drafts/outlines/paper_outline.md"
+  latex:
+    - "latex/sections/*.tex (skeletons)"
+  memory:
+    - ".copilot/memory/paper-metadata.yaml"
+
+consent-required: false
+tools-used: []
+
+behavioral-rules:
+  - "Clarify paper goals if unclear"
+  - "Propose structure options when multiple approaches valid"
+  - "Create 5-7 main sections with subsections"
+  - "Generate LaTeX skeleton files"
+
+success-criteria:
+  - "Comprehensive outline created"
+  - "Section hierarchy logical"
+  - "LaTeX skeletons ready"
+  - "Research dependencies identified"
