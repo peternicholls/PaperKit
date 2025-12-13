@@ -1,0 +1,77 @@
+% ==============================================================================
+% Main LaTeX Document
+% ==============================================================================
+% This file integrates all sections and generates the complete document
+% ==============================================================================
+
+\input{preamble}
+\input{settings}
+\input{metadata}
+
+\begin{document}
+
+% ==============================================================================
+% Title Page and Front Matter
+% ==============================================================================
+\maketitle
+
+% Abstract
+\begin{abstract}
+\abstracttext
+\end{abstract}
+
+% Keywords
+\textbf{Keywords:} \keywords
+
+\newpage
+
+% Table of Contents
+\tableofcontents
+
+\newpage
+
+% ==============================================================================
+% Main Sections
+% ==============================================================================
+% Sections are integrated here using \input{} commands
+% Add or remove \input{} lines to match your paper structure
+
+\chapter{Introduction}
+\input{sections/01_introduction}
+
+\chapter{Background and Foundations}
+\input{sections/02_background}
+
+\chapter{Core Methodology}
+\input{sections/03_methodology}
+
+\chapter{Results and Discussion}
+\input{sections/04_results}
+
+\chapter{Comparison with Prior Work}
+\input{sections/05_prior_work}
+
+\chapter{Implications and Applications}
+\input{sections/06_implications}
+
+\chapter{Conclusion and Future Directions}
+\input{sections/07_conclusion}
+
+% ==============================================================================
+% Appendices
+% ==============================================================================
+\appendix
+
+\chapter{Supplementary Material}
+\input{appendices/A_supplementary}
+
+% ==============================================================================
+% Bibliography
+% ==============================================================================
+\newpage
+\printbibliography[title={References}]
+
+% ==============================================================================
+% End of Document
+% ==============================================================================
+\end{document}

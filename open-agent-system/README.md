@@ -1,6 +1,7 @@
 # Open Agent System
 
-An experiment in repurposing AI coding assistants as general-purpose agent hosts.
+An experiment in repurposing AI coding assistants as general-purpose agent hosts.  
+Note: The **active** agent system for this repo lives in `open-agents/`. This folder is the reference definition and spec.
 
 ---
 

@@ -1,0 +1,97 @@
+% ==============================================================================
+% Settings: Fine-tuning and document customization
+% ==============================================================================
+
+% ==============================================================================
+% Custom Document Spacing
+% ==============================================================================
+
+% Title formatting
+\usepackage{titlesec}
+\titleformat{\chapter}[display]
+  {\normalfont\Large\bfseries}
+  {\chaptertitlename\ \thechapter}{20pt}{\Large}
+
+\titleformat{\section}
+  {\normalfont\large\bfseries}
+  {\thesection}{1em}{}
+
+\titleformat{\subsection}
+  {\normalfont\normalsize\bfseries}
+  {\thesubsection}{1em}{}
+
+\titleformat{\subsubsection}
+  {\normalfont\small\bfseries}
+  {\thesubsubsection}{1em}{}
+
+% ==============================================================================
+% Custom Colors for Highlighting and Emphasis
+% ==============================================================================
+
+\definecolor{darkblue}{RGB}{0,51,102}
+\definecolor{darkred}{RGB}{153,0,0}
+\definecolor{darkgreen}{RGB}{0,102,0}
+\definecolor{warningcolor}{RGB}{255,102,0}
+
+% ==============================================================================
+% Figure and Table Configuration
+% ==============================================================================
+
+\renewcommand{\figurename}{Figure}
+\renewcommand{\tablename}{Table}
+
+% Improve caption formatting
+\usepackage{caption}
+\captionsetup{
+  margin=10pt,
+  font=small,
+  labelfont=bf,
+  justification=justified
+}
+
+% ==============================================================================
+% Custom Environments for Important Content
+% ==============================================================================
+
+% Highlight box for key insights
+\newenvironment{keyinsight}{%
+  \begin{quote}\itshape\color{darkblue}%
+}{%
+  \end{quote}%
+}
+
+% Note environment
+\newcommand{\note}[1]{%
+  \par\noindent\textbf{Note:} #1\par
+}
+
+% ==============================================================================
+% Abbreviations and Glossary
+% ==============================================================================
+
+% Define common abbreviations here
+% These can be used throughout the paper for consistency
+
+% ==============================================================================
+% Custom Theorem Numbering (optional)
+% ==============================================================================
+
+% For this paper, theorems are numbered by section: Theorem 1.1, 1.2, etc.
+% This is already configured in preamble.tex
+
+% ==============================================================================
+% PDF Metadata (optional)
+% ==============================================================================
+
+\usepackage{hyperref}
+\hypersetup{
+  pdftitle={Specification Paper Title},
+  pdfauthor={Author Name},
+  pdfkeywords={keyword1, keyword2, keyword3},
+  pdfsubject={Paper Subject},
+  pdfproducer={LaTeX}
+}
+
+% ==============================================================================
+% End of Settings
+% ==============================================================================
