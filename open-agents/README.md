@@ -1,6 +1,8 @@
 # Academic Specification Paper Writing System
 
-An **Open Agent System** for planning, researching, structuring, drafting, refining, and publishing high-quality academic specification papers in LaTeX format using a progressive, iterative research and writing methodology.
+An **Open Agent System** for writing high-quality academic specification papers in LaTeX format. Six specialized agents handle research consolidation, paper structuring, section drafting, quality refinement, reference management, and document assembly using a progressive, iterative methodology.
+
+**Quick Start:** Jump to [Getting Started](#getting-started) or [The Writing Workflow](#the-writing-workflow)
 
 ---
 
@@ -21,58 +23,48 @@ An **Open Agent System** for planning, researching, structuring, drafting, refin
 
 ## System Overview
 
-### Purpose
+This system provides a structured workflow for academic paper writing through specialized agents:
 
-This system transforms your specification paper research and writing into a structured, collaborative workflow between you and specialized agents. Rather than producing documents in isolation, agents help you:
+- **Research Consolidator** — Synthesize information from multiple sources
+- **Paper Architect** — Create logical outlines and section hierarchies  
+- **Section Drafter** — Write individual sections with academic rigor
+- **Quality Refiner** — Improve clarity, coherence, and polish iteratively
+- **Reference Manager** — Maintain citations (Harvard style) and bibliography
+- **LaTeX Assembler** — Integrate sections into final document
 
-- **Research** consolidate and synthesize information from multiple sources
-- **Structure** create logical outlines and section hierarchies
-- **Draft** progressively write each section with academic rigor
-- **Refine** improve quality, clarity, and coherence iteratively
-- **Reference** maintain accurate citations (Harvard system) and bibliography
-- **Assemble** integrate sections into a polished LaTeX document
+### Design Principles
 
-### Core Philosophy
-
-1. **Progressive Disclosure** — Only load what's needed; agents load on demand
-2. **Atomic Context** — Each agent works on focused tasks; no massive context bloat
-3. **Iterative Excellence** — Write, refine, redraft, improve—multiple passes for quality
-4. **Structured Collaboration** — You think strategically; agents execute systematically
-5. **No Noise** — Only create documents that serve the paper; no unnecessary summaries
-6. **LaTeX as Foundation** — The final document lives in modular LaTeX files from day one
+- **Progressive Disclosure** — Agents load on demand; minimal initial context
+- **Modular LaTeX** — Small, focused section files for clean version control
+- **Iterative Quality** — Multiple refinement passes for excellence
+- **Structured Outputs** — Clear file organization; no unnecessary artifacts
 
 ---
 
 ## How This System Works
 
-### The Pointer Pattern (Progressive Disclosure)
+### Architecture: Progressive Disclosure
 
-When you invoke an agent command:
+Agents load on demand through a three-layer pattern:
 
 ```
-User: "/paper draft introduction"
-         ↓
-    AGENTS.md (entry point with read directive)
-         ↓
-    open-agents/INSTRUCTIONS.md (this file—agent index)
-         ↓
-    open-agents/agents/drafter.md (full agent definition—loaded on demand)
-         ↓
-    Agent executes, produces output, updates memory
+User Request → AGENTS.md → INSTRUCTIONS.md → Specific Agent → Output
 ```
 
-This three-layer architecture:
-- **Keeps initial context small** (only INSTRUCTIONS.md at start)
-- **Scales efficiently** (full agent defs load only when needed)
-- **Enables complex workflows** (agents can reference each other)
+**Benefits:**
+- Small initial context (only loads what's needed)
+- Efficient scaling (agents load when invoked)
+- Complex workflows supported (agents can chain)
 
-### What Each Layer Does
+**Layer Details:**
 
-| Layer | File | Role |
-|-------|------|------|
-| Entry | `AGENTS.md` | Quick reference, tool detection, pointer to instructions |
-| Index | `open-agents/INSTRUCTIONS.md` | This file—agent catalog, routing, workflow documentation |
-| Agents | `open-agents/agents/*.md` | Full agent definitions; behavioral specifications; examples |
+| Layer | File | Purpose |
+|-------|------|---------|
+| Entry | `AGENTS.md` | Quick reference and routing |
+| Index | `open-agents/INSTRUCTIONS.md` | Full system documentation |
+| Agents | `open-agents/agents/*.md` | Individual agent specifications |
+
+**Workflow:** Each agent reads its specification, executes tasks, writes outputs to structured directories, and updates system memory.
 
 ---
 
@@ -327,14 +319,16 @@ latex/
 
 ## Routing Logic
 
-| User says... | Agent to Use | Output Location |
-|--------------|--------------|-----------------|
-| "Research..." or "consolidate research on..." | Research Consolidator | `output-refined/research/` |
-| "Outline the paper" or "structure the paper" | Paper Architect | `output-drafts/outlines/` |
-| "Draft the introduction" or "draft [section]" | Section Drafter | `output-drafts/sections/` |
-| "Refine this draft" or "improve quality" | Quality Refiner | `output-refined/sections/` |
-| "Format references" or "create bibliography" | Reference Manager | `output-refined/references/` |
-| "Assemble the paper" or "build document" | LaTeX Assembler | `latex/main.tex`, `output-final/pdf/` |
+Use these triggers to invoke specific agents:
+
+| When you say... | Agent invoked | Output location |
+|-----------------|---------------|------------------|
+| "Research..." / "consolidate research" | Research Consolidator | `output-refined/research/` |
+| "Outline the paper" / "structure..." | Paper Architect | `output-drafts/outlines/` |
+| "Draft [section name]" | Section Drafter | `output-drafts/sections/` |
+| "Refine..." / "improve quality" | Quality Refiner | `output-refined/sections/` |
+| "Format references" / "bibliography" | Reference Manager | `output-refined/references/` |
+| "Assemble" / "build document" | LaTeX Assembler | `latex/`, `output-final/pdf/` |
 
 ---
 
@@ -426,15 +420,25 @@ Agents write sections this way, making assembly trivial.
 
 ### Build Process
 
+**Manual build:**
 ```bash
 cd latex/
 pdflatex main.tex
 bibtex main
-pdflatex main.tex
-pdflatex main.tex
+pdflatex main.tex  # Resolve references
+pdflatex main.tex  # Final pass
 ```
 
-The `build-latex.sh` tool automates this.
+**Automated build:**
+```bash
+./open-agents/tools/build-latex.sh
+```
+
+**Validation:**
+```bash
+./open-agents/tools/lint-latex.sh        # Check syntax
+./open-agents/tools/validate-structure.py # Verify structure
+```
 
 ---
 
@@ -466,36 +470,36 @@ The `build-latex.sh` tool automates this.
 
 ## Git Commit Protocol
 
-Commit frequently in logical batches:
+Commit after each agent completes work:
 
+**Format:** `{Action}: {description}`
+
+**Actions:** `Draft`, `Refine`, `Research`, `Assemble`, `Update`
+
+**Examples:**
 ```bash
-# After each agent completes a task
-git add open-agents/output-drafts/sections/introduction.tex
+# After drafting
+git add output-drafts/sections/
 git commit -m "Draft: introduction section (2500 words)"
 
-# After research consolidation
-git add open-agents/output-refined/research/
+# After research
+git add output-refined/research/
 git commit -m "Research: consolidate color science foundations"
 
-# After refinement pass
-git add open-agents/output-refined/sections/
-git commit -m "Refine: introduction for clarity and flow"
+# After refinement
+git add output-refined/sections/
+git commit -m "Refine: introduction clarity and flow"
 
-# After assembly and successful build
-git add latex/
-git add open-agents/output-final/pdf/
-git commit -m "Assemble: integrate all sections, compile successful"
+# After assembly
+git add latex/ output-final/
+git commit -m "Assemble: compile v1.0 with all sections"
 ```
 
-**Commit message format:**
-```
-{action}: {description}
-
-Optional body with details about changes made,
-decisions, or notes for the reader.
-```
-
-**Actions:** Draft, Refine, Research, Assemble, Add, Update, Remove
+**Best practices:**
+- Commit logical units of work
+- Include word counts for sections
+- Note version numbers for assemblies
+- Add details in commit body when needed
 
 ---
 
@@ -549,16 +553,43 @@ latex/references/references.bib
 
 ---
 
-## Quick Start Checklist
+## Getting Started
 
-- [ ] Read this INSTRUCTIONS.md completely
-- [ ] Review desired paper scope and goals with the Paper Architect
-- [ ] Gather and consolidate research materials with Research Consolidator
-- [ ] Create paper outline with Paper Architect
-- [ ] Begin drafting sections with Section Drafter
-- [ ] Iteratively refine with Quality Refiner
-- [ ] Manage references throughout with Reference Manager
-- [ ] Build and validate final document with LaTeX Assembler
+### First-Time Setup
+
+1. **Install dependencies** — See [DEPENDENCIES.md](DEPENDENCIES.md) for installation guide
+   - Run `./tools/check-dependencies.sh` to verify your setup
+2. **Define your paper scope** — Know your topic, audience, and goals
+3. **Review the system** — Read this README and `INSTRUCTIONS.md`
+4. **Prepare research** — Collect sources in `source/research-notes/`
+5. **Initialize LaTeX** — Ensure `latex/` directory structure exists
+
+### Typical First Session
+
+```bash
+# 1. Create paper outline
+"Outline a paper about [topic]"
+
+# 2. Consolidate initial research  
+"Consolidate research on [topic]"
+
+# 3. Draft first section
+"Draft the introduction section"
+
+# 4. Refine what you wrote
+"Refine the introduction draft"
+```
+
+### Quick Start Checklist
+
+- [ ] Define paper scope and goals
+- [ ] Gather research materials in `source/research-notes/`
+- [ ] Create paper outline (Paper Architect)
+- [ ] Consolidate research (Research Consolidator)  
+- [ ] Draft sections iteratively (Section Drafter)
+- [ ] Refine for quality (Quality Refiner)
+- [ ] Manage references (Reference Manager)
+- [ ] Assemble final document (LaTeX Assembler)
 
 ---
 
@@ -605,15 +636,26 @@ These are updated automatically by agents and help maintain context without mass
 
 ## Summary
 
-This Open Agent System provides:
+### Key Features
 
-✓ **Six specialized agents** for research, structuring, drafting, refining, referencing, and assembly  
-✓ **Modular LaTeX architecture** for efficient context and parallel work  
-✓ **Progressive disclosure** (load agents on demand, not all at once)  
-✓ **Iterative refinement** support for academic quality  
-✓ **Memory system** to track state without context bloat  
-✓ **Automation tools** for building, linting, validating  
-✓ **Clear workflows** for planning, drafting, and publication  
-✓ **Academic rigor** with Harvard referencing and proper citations  
+✓ **Six specialized agents** — Research, structure, draft, refine, reference, assemble  
+✓ **Modular LaTeX** — Small files, clean diffs, parallel work  
+✓ **Progressive loading** — Agents load on demand for efficiency  
+✓ **Iterative quality** — Multiple refinement passes  
+✓ **Memory system** — Track state without bloat  
+✓ **Build automation** — Compile, lint, validate tools included  
+✓ **Harvard citations** — Proper academic referencing  
 
-To begin: Follow the routing logic above to invoke the appropriate agent for your current task.
+### Next Steps
+
+1. Review [Getting Started](#getting-started) above
+2. Read `INSTRUCTIONS.md` for detailed agent specifications
+3. Invoke your first agent using [Routing Logic](#routing-logic)
+4. Follow [The Writing Workflow](#the-writing-workflow) for best results
+
+### Support
+
+- **Installation help:** See [DEPENDENCIES.md](DEPENDENCIES.md)
+- **Dependency check:** Run `./tools/check-dependencies.sh`
+- **Agent details:** See `agents/*.md` for specifications
+- **System architecture:** See `INSTRUCTIONS.md`
