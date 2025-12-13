@@ -1,0 +1,85 @@
+#!/bin/bash
+
+# PaperKit Command Line Interface
+# Version: alpha-1.0.0
+# Main entry point for paperkit commands
+
+VERSION="alpha-1.0.0"
+
+# Color codes
+BLUE='\033[0;34m'
+GREEN='\033[0;32m'
+RED='\033[0;31m'
+YELLOW='\033[1;33m'
+NC='\033[0m'
+
+# Show version
+show_version() {
+    echo "paperkit version $VERSION"
+}
+
+# Show help
+show_help() {
+    cat << EOF
+$(echo -e "${BLUE}PaperKit${NC}") - Research Paper Assistant Kit
+
+Usage:
+  paperkit <command> [options]
+
+Commands:
+  init        Initialize a new paperkit project in current directory
+  version     Show version information
+  help        Show this help message
+
+Examples:
+  paperkit init       # Initialize paperkit in current directory
+  paperkit version    # Show version
+  paperkit help       # Show this help
+
+For more information, visit the documentation in .paper/docs/
+EOF
+}
+
+# Initialize project
+init_project() {
+    echo -e "${BLUE}Initializing PaperKit in current directory...${NC}"
+    
+    # Check if already initialized
+    if [ -f "VERSION" ] && [ -d ".paper" ]; then
+        echo -e "${YELLOW}⚠ PaperKit appears to already be initialized here.${NC}"
+        read -p "Reinitialize? (yes/no): " confirm
+        if [[ ! "$confirm" =~ ^[Yy][Ee][Ss]$ ]]; then
+            echo "Cancelled."
+            exit 0
+        fi
+    fi
+    
+    # Run the installer
+    SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+    if [ -f "$SCRIPT_DIR/paperkit-install.sh" ]; then
+        "$SCRIPT_DIR/paperkit-install.sh"
+    else
+        echo -e "${RED}Error: paperkit-install.sh not found.${NC}"
+        echo "Make sure you have the complete paperkit distribution."
+        exit 1
+    fi
+}
+
+# Main command dispatcher
+case "${1:-help}" in
+    init)
+        init_project
+        ;;
+    version|--version|-v)
+        show_version
+        ;;
+    help|--help|-h|"")
+        show_help
+        ;;
+    *)
+        echo -e "${RED}Error: Unknown command '$1'${NC}"
+        echo ""
+        show_help
+        exit 1
+        ;;
+esac
