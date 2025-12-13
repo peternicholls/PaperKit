@@ -1,0 +1,5 @@
+name,displayName,description,path,requiresConsent
+"build-latex","Build LaTeX","Compile LaTeX document to PDF","tools/build-latex.sh",true
+"lint-latex","Lint LaTeX","Check LaTeX syntax for errors","tools/lint-latex.sh",true
+"validate-structure","Validate Structure","Validate paper structure","tools/validate-structure.py",true
+"format-references","Format References","Format references in Harvard style","tools/format-references.py",true

@@ -1,0 +1,12 @@
+name,displayName,description,module,path
+"consolidate","Consolidate Research","Synthesize research materials into coherent reference documents","core",".paper/core/workflows/research/consolidate.yaml"
+"outline","Create Outline","Design paper structure and create detailed outline","core",".paper/core/workflows/planning/outline.yaml"
+"skeleton","Generate Skeleton","Create LaTeX skeleton files for sections","core",".paper/core/workflows/planning/skeleton.yaml"
+"write-section","Write Section","Draft a complete section with academic rigor","core",".paper/core/workflows/drafting/write-section.yaml"
+"refine-section","Refine Section","Improve draft quality through iterative refinement","core",".paper/core/workflows/refinement/refine-section.yaml"
+"validate-citations","Validate Citations","Check all citations have matching BibTeX entries","core",".paper/core/workflows/references/validate.yaml"
+"build","Build Document","Compile LaTeX document to PDF","core",".paper/core/workflows/assembly/build.yaml"
+"generate-ideas","Generate Ideas","Brainstorm ideas on a topic","specialist",".paper/specialist/workflows/brainstorm/generate.yaml"
+"analyze-problem","Analyze Problem","Root cause analysis and solution options","specialist",".paper/specialist/workflows/problem-solving/analyze.yaml"
+"review-draft","Review Draft","Tutor feedback on draft quality","specialist",".paper/specialist/workflows/tutor/review.yaml"
+"search-sources","Search Sources","Find research sources on topic","specialist",".paper/specialist/workflows/librarian/search.yaml"

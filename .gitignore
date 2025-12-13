@@ -8,7 +8,7 @@ Thumbs.db
 *~
 .env
 .env.local
-.vscode/
 .idea/
 node_modules/
 
+BacktimeCalculator/

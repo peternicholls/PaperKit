@@ -1,0 +1,15 @@
+# OpenAI Codex IDE Configuration
+
+ide: codex
+version: 1.0.0
+
+# Prompt discovery
+prompt_location: ".codex/prompts"
+prompt_pattern: "paper-*.md"
+
+# Naming convention
+prompt_prefix: "paper-"
+
+# Tool exposure
+expose_tools: true
+require_consent: true

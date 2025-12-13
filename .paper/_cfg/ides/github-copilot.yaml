@@ -1,0 +1,19 @@
+# GitHub Copilot IDE Configuration
+
+ide: github-copilot
+version: 1.0.0
+
+# Agent discovery
+agent_location: ".github/agents"
+agent_pattern: "paper-*.agent.md"
+
+# Chat modes
+enable_chat_modes: true
+chat_mode_prefix: "paper-"
+
+# Tool exposure
+expose_tools: true
+require_consent: true
+
+# Settings path
+settings_file: ".vscode/settings.json"
