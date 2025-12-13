@@ -11,4 +11,8 @@ Thumbs.db
 .idea/
 node_modules/
 
+# PaperKit distribution artifacts
+paperkit-*.tar.gz
+paperkit-*.zip
+
 BacktimeCalculator/
