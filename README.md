@@ -23,7 +23,7 @@ An **Open Agent System** for writing high-quality academic specification papers 
 
 ## System Overview
 
-This system provides a structured workflow for academic paper writing through specialized agents:
+Paper Kit provides a structured workflow for academic paper writing through specialized agents:
 
 - **Research Consolidator** — Synthesize information from multiple sources
 - **Paper Architect** — Create logical outlines and section hierarchies  
@@ -38,6 +38,7 @@ This system provides a structured workflow for academic paper writing through sp
 - **Modular LaTeX** — Small, focused section files for clean version control
 - **Iterative Quality** — Multiple refinement passes for excellence
 - **Structured Outputs** — Clear file organization; no unnecessary artifacts
+- **System Identity** — Codename `PaperKit`
 
 ---
 
@@ -317,50 +318,148 @@ latex/
 
 ---
 
-## Routing Logic
+## Commands: Setup to Publication
 
-Use these triggers to invoke specific agents:
+### Initialization Phase
 
-| When you say... | Agent invoked | Output location |
-|-----------------|---------------|------------------|
-| "Research..." / "consolidate research" | Research Consolidator | `output-refined/research/` |
-| "Outline the paper" / "structure..." | Paper Architect | `output-drafts/outlines/` |
-| "Draft [section name]" | Section Drafter | `output-drafts/sections/` |
-| "Refine..." / "improve quality" | Quality Refiner | `output-refined/sections/` |
-| "Format references" / "bibliography" | Reference Manager | `output-refined/references/` |
-| "Assemble" / "build document" | LaTeX Assembler | `latex/`, `output-final/pdf/` |
+| Command | Purpose | Agent |
+|---------|---------|-------|
+| `/paper.init` | Initialize session & capture goals | Paper Architect |
+| `/paper.objectives` | Set aims, objectives, success criteria | Paper Architect |
+| `/paper.requirements` | Define technical & format requirements | Paper Architect |
+| `/paper.spec` | Define content specification & direction | Paper Architect |
+
+### Core Writing Workflow
+
+| Command | Purpose | Agent |
+|---------|---------|-------|
+| `/paper.plan` | Create detailed paper outline & structure | Paper Architect |
+| `/paper.research` | Consolidate & synthesize research materials | Research Consolidator |
+| `/paper.draft` | Draft individual paper section | Section Drafter |
+| `/paper.refine` | Refine & improve draft for quality | Quality Refiner |
+| `/paper.refs` | Manage bibliography and citations | Reference Manager |
+| `/paper.assemble` | Integrate sections and compile to PDF | LaTeX Assembler |
+
+### Sprint Planning
+
+| Command | Purpose | Agent |
+|---------|---------|-------|
+| `/paper.sprint-plan` | Create and plan a new sprint | Paper Architect |
+| `/paper.tasks` | Track and update sprint tasks | System Router |
+| `/paper.review` | Review sprint outcomes & plan next | System Router |
+
+### Specialist Support
+
+| Command | Purpose | Agent |
+|---------|---------|-------|
+| `/paper.brainstorm` | Brainstorm ideas & explore options | Brainstorm Agent |
+| `/paper.solve` | Solve blockers & identify root causes | Problem-Solver Agent |
+| `/paper.tutor-feedback` | Get feedback & critique on draft | Tutor Agent |
+| `/paper.librarian-research` | Find and research sources | Librarian Agent |
+| `/paper.librarian-sources` | Evaluate and track sources | Librarian Agent |
+| `/paper.librarian-gaps` | Identify research gaps | Librarian Agent |
 
 ---
 
 ## The Writing Workflow
 
-### Typical Flow
+### Phase 1: Initialization (One-time Setup)
 
-1. **Define Scope** (You) → Set paper goals, audience, research direction
-2. **Consolidate Research** (Research Consolidator) → Gather and synthesize sources
-3. **Create Outline** (Paper Architect) → Define sections and logical flow
-4. **Draft Sections** (Section Drafter) → Write individual sections sequentially
-5. **Refine Quality** (Quality Refiner) → Iterate on clarity and coherence
-6. **Manage References** (Reference Manager) → Maintain bibliography integrity
-7. **Assemble & Publish** (LaTeX Assembler) → Create final document
+Establish your paper's goals and constraints before writing:
 
-### Iterative Refinement
-
-You're not locked into a linear workflow. Typical patterns:
-
-**Spiral Refinement:**
-```
-Draft Introduction → Refine → Get User Feedback → Redraft → Refine Again
+```bash
+/paper.init              # Initialize session, capture primary goal
+/paper.objectives        # Define aims, objectives, success criteria  
+/paper.requirements      # Technical & formatting requirements
+/paper.spec             # Content specification & direction
 ```
 
-**Just-in-Time Research:**
-```
-Draft Section → Realize Gap → Consolidate Research → Continue Draft
+**Outputs:** Planning documents in `planning/0000-Project-Overview/` with system memory updated.
+
+### Phase 2: Planning & Research (Pre-writing)
+
+Prepare structure and research materials:
+
+```bash
+/paper.plan             # Create detailed outline from goals
+/paper.research         # Consolidate collected research materials
 ```
 
-**Continuous Integration:**
+You now have a paper structure and supporting research ready for drafting.
+
+### Phase 3: Sprint-Based Drafting & Refinement (Iterative)
+
+Develop the paper in manageable sprints:
+
+**Start each sprint:**
+```bash
+/paper.sprint-plan      # Plan this sprint's work (typically 3-5 sections)
 ```
-Draft Section 1 → Draft Section 2 → Refine Both → Assembly → Catch Issues → Local Refinement
+
+**For each section in the sprint:**
+```bash
+/paper.draft "section name"       # Write the section
+/paper.refine "section name"      # Polish for clarity (1-2 passes)
+```
+
+**Manage sprint progress:**
+```bash
+/paper.tasks            # Track and update task status
+/paper.review           # Review sprint, identify blockers, plan next sprint
+```
+
+**Repeat Phase 3 sprints** until all sections are drafted and refined.
+
+### Phase 4: Assembly & Publication (Final)
+
+Prepare the complete, publication-ready document:
+
+```bash
+/paper.refs             # Finalize bibliography and citations
+/paper.assemble         # Integrate all sections, compile final PDF
+```
+
+**Result:** Publication-ready document in `output-final/pdf/`.
+
+### Support Commands (Use Anytime)
+
+Throughout any phase, invoke specialist agents to support your work:
+
+```bash
+/paper.brainstorm       # Explore ideas or creative alternatives
+/paper.tutor-feedback   # Get expert feedback on a draft
+/paper.librarian-research  # Find sources for a specific topic
+/paper.librarian-gaps   # Identify research gaps
+/paper.solve            # Troubleshoot blockers or unclear sections
+```
+
+### Common Workflow Patterns
+
+**Full Path (New Paper):**
+```
+/paper.init → /paper.objectives → /paper.requirements → /paper.spec
+→ /paper.plan → /paper.research
+→ /paper.sprint-plan → /paper.draft → /paper.refine → /paper.tasks → /paper.review (repeat)
+→ /paper.refs → /paper.assemble
+```
+
+**Resume Existing Session:**
+```
+/paper.init --resume → /paper.sprint-plan → draft/refine → /paper.review
+```
+
+**When You Get Stuck:**
+```
+/paper.solve → identify root cause
+/paper.tutor-feedback → get expert feedback
+/paper.brainstorm → explore alternatives
+```
+
+**Research Gap Found During Drafting:**
+```
+/paper.librarian-research → find sources
+/paper.research → consolidate into reference document
+/paper.draft (resume) → continue with new research
 ```
 
 ---
@@ -557,39 +656,43 @@ latex/references/references.bib
 
 ### First-Time Setup
 
-1. **Install dependencies** — See [DEPENDENCIES.md](DEPENDENCIES.md) for installation guide
-   - Run `./tools/check-dependencies.sh` to verify your setup
-2. **Define your paper scope** — Know your topic, audience, and goals
-3. **Review the system** — Read this README and `INSTRUCTIONS.md`
-4. **Prepare research** — Collect sources in `source/research-notes/`
-5. **Initialize LaTeX** — Ensure `latex/` directory structure exists
+1. **Read this README** — Understand the system structure and workflow
+2. **Review AGENTS.md** — Quick reference for all commands and agents
+3. **Define your paper scope** — Know your topic, audience, and goals
+4. **Prepare research materials** — Collect sources in `open-agents/source/research-notes/`
+5. **Initialize the system** — Run `/paper.init` to begin
 
 ### Typical First Session
 
 ```bash
-# 1. Create paper outline
-"Outline a paper about [topic]"
+# Initialization (30 minutes)
+/paper.init                    # Capture goal, audience, scope
+/paper.objectives              # Define specific aims & success criteria
+/paper.requirements            # Set technical & formatting requirements
+/paper.spec                    # Define content direction
 
-# 2. Consolidate initial research  
-"Consolidate research on [topic]"
+# Planning & Research (1-2 hours)
+/paper.plan                    # Create detailed outline
+/paper.research                # Consolidate research materials
 
-# 3. Draft first section
-"Draft the introduction section"
-
-# 4. Refine what you wrote
-"Refine the introduction draft"
+# You're now ready to begin drafting
+/paper.sprint-plan             # Plan first sprint (3-5 sections)
 ```
 
 ### Quick Start Checklist
 
-- [ ] Define paper scope and goals
-- [ ] Gather research materials in `source/research-notes/`
-- [ ] Create paper outline (Paper Architect)
-- [ ] Consolidate research (Research Consolidator)  
-- [ ] Draft sections iteratively (Section Drafter)
-- [ ] Refine for quality (Quality Refiner)
-- [ ] Manage references (Reference Manager)
-- [ ] Assemble final document (LaTeX Assembler)
+- [ ] Read README.md (you're here!)
+- [ ] Read AGENTS.md for command reference
+- [ ] Review planning/0000-Project-Overview/ (if you have existing notes)
+- [ ] Prepare research materials in `open-agents/source/research-notes/`
+- [ ] Run `/paper.init` to initialize session
+- [ ] Run `/paper.objectives`, `/paper.requirements`, `/paper.spec`
+- [ ] Run `/paper.plan` to create outline
+- [ ] Run `/paper.research` to consolidate research
+- [ ] Start first sprint with `/paper.sprint-plan`
+- [ ] Draft sections with `/paper.draft`
+- [ ] Refine with `/paper.refine`
+- [ ] Use `/paper.refs` and `/paper.assemble` for final publication
 
 ---
 
@@ -653,9 +756,13 @@ These are updated automatically by agents and help maintain context without mass
 3. Invoke your first agent using [Routing Logic](#routing-logic)
 4. Follow [The Writing Workflow](#the-writing-workflow) for best results
 
-### Support
+### Support & Community
 
 - **Installation help:** See [DEPENDENCIES.md](DEPENDENCIES.md)
 - **Dependency check:** Run `./tools/check-dependencies.sh`
 - **Agent details:** See `agents/*.md` for specifications
 - **System architecture:** See `INSTRUCTIONS.md`
+- **Version info:** See [VERSION](VERSION)
+- **Questions & discussions:** Visit [GitHub Discussions](https://github.com/peternicholls/PaperKit/discussions)
+- **Report bugs:** Open an [issue](https://github.com/peternicholls/PaperKit/issues)
+- **Contribute:** See [CONTRIBUTING.md](CONTRIBUTING.md)
