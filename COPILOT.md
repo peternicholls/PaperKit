@@ -1,6 +1,4 @@
-## Copilot Research Paper Assistant Kit — GitHub Copilot Integration
-
-Former name: Academic Specification Paper Writing System.
+## Paper Kit: Agentic Academic Style Paper Writing System — GitHub Copilot Integration
 
 This repo includes Copilot agent and slash-command scaffolding that routes into the existing Open Agent System.
 
