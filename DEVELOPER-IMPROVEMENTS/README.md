@@ -21,6 +21,18 @@ This directory contains specification documents for planned improvements to the 
 
 **Total Estimated Effort:** ~453 hours (excluding operational suggestions and open questions)
 
+### Effort by Category
+| Category | Specs | Total Hours |
+|----------|-------|-------------|
+| Core Architecture | 001, 002, 009 | 111h |
+| Security & Safety | 003, 004 | 128h |
+| Quality Assurance | 005 | 48h |
+| Operations | 006, 010 | 80h |
+| Academic Quality | 007 | 44h |
+| Developer Experience | 008 | 42h |
+
+**Resource Assumptions:** Timeline estimates assume 1-2 developers at 50% capacity. Adjust phases accordingly based on actual team availability.
+
 ## Priority Breakdown
 
 ### High Priority (Should implement first)
@@ -77,6 +89,8 @@ Each specification follows this structure:
 ## Implementation Approach
 
 ### Recommended Phases
+
+*Note: Timeline assumes 1-2 developers at 50% capacity. Adjust based on actual team availability.*
 
 **Phase 1: Foundation (Weeks 1-4)**
 - 001-agent-metadata

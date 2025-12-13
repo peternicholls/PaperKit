@@ -50,9 +50,14 @@ Migrate from CSV to YAML/JSON format for agent manifests with full schema valida
 
 3. **Extended Agent Fields**
    ```yaml
-   name: research-consolidator
-   displayName: Alex
-   title: Research Consolidator
+   # Naming Convention:
+   # - name: Machine identifier (kebab-case, used in code/configs)
+   # - displayName: Human persona name (used in UI for personality)
+   # - title: Functional title (used in UI for capability description)
+   
+   name: research-consolidator       # Machine identifier
+   displayName: Alex                 # Persona name shown in UI
+   title: Research Consolidator      # Functional title/role in UI
    version: 1.0.0
    module: core
    

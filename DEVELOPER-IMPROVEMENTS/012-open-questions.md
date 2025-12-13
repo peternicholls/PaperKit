@@ -458,13 +458,31 @@ This document consolidates open questions from all specification documents that 
 
 ## Priority Matrix
 
+This table highlights the **blocking questions** that must be resolved before implementation can proceed. Questions are selected based on their impact on implementation decisions.
+
+### Blocking Questions (Must Decide First)
+
 | Question ID | Impact | Urgency | Blocks |
 |-------------|--------|---------|--------|
-| Q3.1 | High | High | 003 implementation |
-| Q1.1 | High | Medium | 001 implementation |
-| Q5.1 | High | Medium | 005 E2E tests |
+| Q3.1 | High | High | 003 implementation - sandbox technology choice |
+| Q1.1 | High | Medium | 001 implementation - manifest structure |
+| Q5.1 | High | Medium | 005 E2E tests - test determinism |
+| Q2.1 | High | Medium | 002 implementation - validation approach |
+| Q4.1 | Medium | Medium | 004 features - detection sensitivity |
+
+### Important Questions (Should Decide Soon)
+
+| Question ID | Impact | Urgency | Blocks |
+|-------------|--------|---------|--------|
+| Q5.2 | Medium | Medium | 005 test infrastructure |
+| Q6.1 | Medium | Medium | 006 tool selection |
 | Q7.1 | Medium | Low | 007 features |
-| Q8.1 | Low | Low | None |
+| Q9.4 | Medium | Low | 009 features |
+| Q10.2 | Medium | Low | 010 support policy |
+
+### Lower Priority Questions (Can Defer)
+
+Remaining questions (Q1.2, Q1.3, Q2.2-Q2.4, Q3.2-Q3.4, Q4.2-Q4.4, Q5.3-Q5.4, Q6.2-Q6.4, Q7.2-Q7.4, Q8.1-Q8.4, Q9.1-Q9.3, Q10.1, Q10.3-Q10.4) can be decided during implementation or deferred to future iterations.
 
 ---
 

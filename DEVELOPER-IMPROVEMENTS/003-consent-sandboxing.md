@@ -180,8 +180,13 @@ tool:
 
 ```yaml
 # Sandbox configuration
+# Note: Engine is configurable per platform
+# - Linux: firejail, bubblewrap, nsjail, docker
+# - macOS: docker (firejail not available)
+# - Windows: docker, Windows Sandbox
 sandboxConfig:
-  engine: "firejail"  # or docker, bubblewrap, nsjail
+  engine: "auto"  # auto-detect best available, or specify: firejail, docker, bubblewrap
+  fallbackEngine: "docker"  # fallback if preferred not available
   
   profiles:
     latex-build:

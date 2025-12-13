@@ -59,13 +59,17 @@ inputSanitization:
       action: flag_and_sanitize
       
     # Detect potential secrets in input
+    # Note: Patterns are configurable and loaded from external file
+    # to allow updates without code changes
     secretsDetection:
       enabled: true
-      patterns:
+      patternsFile: ".paper/_cfg/security/secret-patterns.yaml"  # External config
+      builtinPatterns:  # Fallback if external file not found
         - regex: "(?i)(api[_-]?key|apikey)[\\s]*[=:][\\s]*['\"]?[a-zA-Z0-9]{20,}"
         - regex: "(?i)(secret|password|token)[\\s]*[=:][\\s]*['\"]?[^\\s'\"]{8,}"
         - regex: "(?i)aws[_-]?(access[_-]?key|secret)"
-        - regex: "sk-[a-zA-Z0-9]{48}"  # OpenAI API key pattern
+        - regex: "sk-[a-zA-Z0-9]{48}"  # OpenAI API key pattern (update as format changes)
+      customPatterns: []  # User-defined patterns loaded at runtime
       action: block_and_alert
       
     # Detect URLs and external references
