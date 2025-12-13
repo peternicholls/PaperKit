@@ -198,7 +198,10 @@ Write-Host @"
 "@ -ForegroundColor Green
 
 Write-Info "Next steps:"
-Write-Host "  1. Review the AGENTS.md file for available agents"
+Write-Host "  1. If you have the complete PaperKit bundle, review AGENTS.md for available agents"
 Write-Host "  2. Open GitHub Copilot or Codex in your IDE"
-Write-Host "  3. Start using paper-architect to begin your research paper"
+Write-Host "  3. Use paper-architect to begin your research paper"
+Write-Host ""
+Write-Info "Note: This alpha installer creates the directory structure."
+Write-Info "Ensure you have the complete PaperKit files (.paper/, .github/, etc.) in this directory."
 Write-Host ""

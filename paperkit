@@ -4,7 +4,9 @@
 # Version: alpha-1.0.0
 # Main entry point for paperkit commands
 
-VERSION="alpha-1.0.0"
+# Get version from VERSION file, fallback to hardcoded if not found
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+VERSION=$(cat "$SCRIPT_DIR/VERSION" 2>/dev/null || echo "alpha-1.0.0")
 
 # Color codes
 BLUE='\033[0;34m'

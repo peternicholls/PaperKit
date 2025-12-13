@@ -51,7 +51,9 @@ cp -r .copilot "$BUNDLE_DIR/" 2>/dev/null || true
 
 # LaTeX templates
 mkdir -p "$BUNDLE_DIR/latex"
-cp -r latex/* "$BUNDLE_DIR/latex/" 2>/dev/null || true
+if [ -d latex ] && [ "$(ls -A latex 2>/dev/null)" ]; then
+    cp -r latex/* "$BUNDLE_DIR/latex/"
+fi
 
 # Open agents system
 [ -d open-agents ] && cp -r open-agents "$BUNDLE_DIR/"

@@ -193,7 +193,10 @@ EOF
 echo -e "${NC}"
 
 info_msg "Next steps:"
-echo "  1. Review the AGENTS.md file for available agents"
+echo "  1. If you have the complete PaperKit bundle, review AGENTS.md for available agents"
 echo "  2. Open GitHub Copilot or Codex in your IDE"
-echo "  3. Start using paper-architect to begin your research paper"
+echo "  3. Use paper-architect to begin your research paper"
+echo ""
+info_msg "Note: This alpha installer creates the directory structure."
+info_msg "Ensure you have the complete PaperKit files (.paper/, .github/, etc.) in this directory."
 echo ""
