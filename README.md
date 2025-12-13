@@ -1,4 +1,4 @@
-# Academic Specification Paper Writing System
+# Paper Kit: Agentic Academic Style Paper Writing System
 
 An **Open Agent System** for writing high-quality academic specification papers in LaTeX format. Six specialized agents handle research consolidation, paper structuring, section drafting, quality refinement, reference management, and document assembly using a progressive, iterative methodology.
 
