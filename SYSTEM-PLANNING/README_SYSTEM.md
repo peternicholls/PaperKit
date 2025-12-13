@@ -1,14 +1,12 @@
-# 🎓 Open Agent System for Academic Paper Writing - COMPLETE
+# 🎓 Paper Kit: Agentic Academic Style Paper Writing System
 
-## ✅ System Fully Implemented and Ready to Use
+## ✨ System Overview
 
----
+### 1. **Ten Specialized Agents** (configured in `.copilot/agents/`)
 
-## 📋 What Has Been Created
+Each agent is configured to turn Claude into a domain expert:
 
-### 1. **Six Specialized Agents** (in `open-agents/agents/`)
-
-Each agent is a complete specification that turns Claude into a domain expert:
+**Core Writing Agents** (6):
 
 | Agent | Role | Responsibility |
 |-------|------|-----------------|
@@ -19,17 +17,33 @@ Each agent is a complete specification that turns Claude into a domain expert:
 | 📚 **Reference Manager** | Bibliographer | Manage citations, format references (Harvard style) |
 | 🔗 **LaTeX Assembler** | Integration Engineer | Integrate sections, validate syntax, compile to PDF |
 
+**Specialist Support Agents** (4):
+
+| Agent | Role | Responsibility |
+|-------|------|-----------------|
+| 🧠 **Brainstorm Agent** | Ideation Specialist | Generate ideas, explore creative alternatives, creative problem-solving |
+| 🔬 **Problem-Solver Agent** | Troubleshooter | Identify blockers, analyze root causes, find solutions |
+| 🎓 **Tutor Agent** | Academic Reviewer | Provide constructive feedback, critique drafts, improve quality |
+| 📖 **Librarian Agent** | Research Guide | Find sources, evaluate materials, identify research gaps |
+
 ---
 
-### 2. **Complete Documentation System**
+### 2. **Complete Command & Configuration System**
 
-- **AGENTS.md** — Entry point with quick reference
-- **SYSTEM_GUIDE.md** — Quick start (read first!)
-- **SETUP_COMPLETE.md** — Detailed initialization checklist
-- **open-agents/INSTRUCTIONS.md** — Complete system documentation (80+ KB)
-- **open-agents/agents/\*.md** — Full specification for each agent
+**GitHub Copilot Integration** (in `.copilot/`):
+- `.copilot/agents.yaml` — Master agent registry (all 10 agents configured)
+- `.copilot/commands.yaml` — Master command registry (16+ commands mapped to agents)
+- `.copilot/agents/paper-system.md` — Router agent that orchestrates workflow
+- `.copilot/commands/paper/` — Individual command specifications
 
-**Total documentation:** 15,000+ words of comprehensive guidance
+**Documentation**:
+- **README.md** — Main system documentation with workflow, commands, and getting started
+- **AGENTS.md** — Quick reference for agent capabilities
+- **COPILOT.md** — GitHub Copilot integration notes
+- **open-agents/INSTRUCTIONS.md** — Legacy system documentation
+- **open-agents/agents/\*.md** — Individual agent specifications (legacy)
+
+**Total documentation:** 20,000+ words of comprehensive guidance
 
 ---
 
@@ -172,48 +186,60 @@ open-agents/
 
 ## 🚀 How to Start Using This System
 
-### Step 1: Understand the System (15 minutes)
-```
-Read: SYSTEM_GUIDE.md (quick overview)
-Then: AGENTS.md (quick reference)
+### Phase 1: Initialization (30 minutes)
+
+**Commands to run:**
+```bash
+/paper.init              # Initialize session & capture goals
+/paper.objectives        # Define aims & success criteria
+/paper.requirements      # Set technical requirements
+/paper.spec             # Define content specification
 ```
 
-### Step 2: Define Your Paper (20 minutes)
-```
-Tell the system what you want to write:
-- Topic and goal
-- Target audience
-- Scope and length
-- Key research questions
+**Outputs:** Planning documents in `planning/0000-Project-Overview/` with system memory updated.
+
+### Phase 2: Planning & Research (1-2 hours)
+
+**Commands to run:**
+```bash
+/paper.plan             # Create detailed outline
+/paper.research         # Consolidate research materials
 ```
 
-### Step 3: Create Structure (30 minutes)
-```
-Ask Paper Architect to outline the paper
-Review and refine the outline
-Confirm research needs
+**Outputs:** Paper outline and consolidated research documents ready for drafting.
+
+### Phase 3: Sprint-Based Development (Ongoing, 1-2 weeks)
+
+**For each sprint:**
+```bash
+/paper.sprint-plan      # Plan this sprint's work
+
+# For each section:
+/paper.draft "section name"     # Write the section
+/paper.refine "section name"    # Polish for clarity (1-2 passes)
+
+/paper.tasks            # Track progress
+/paper.review           # Review sprint, plan next
+
+# Optional support:
+/paper.tutor-feedback   # Get feedback
+/paper.brainstorm       # Explore alternatives
+/paper.solve            # Troubleshoot blockers
 ```
 
-### Step 4: Progressive Development (ongoing)
-```
-For each section:
-1. Ask Research Consolidator to synthesize relevant research
-2. Ask Section Drafter to write the section
-3. Ask Quality Refiner to improve it (1-2 times)
+**Repeat** for all sections (typically 5-7 sections per paper).
 
-Then:
-4. Ask Reference Manager to finalize bibliography
-5. Ask LaTeX Assembler to build final document
+### Phase 4: Assembly & Publication (30 minutes)
+
+**Commands to run:**
+```bash
+/paper.refs             # Finalize bibliography
+/paper.assemble         # Compile final PDF
 ```
 
-### Step 5: Final Review and Distribution
-```
-- Review compiled PDF
-- Make any final tweaks
-- Share or submit
-```
+**Result:** Publication-ready document in `output-final/pdf/`.
 
-**Total time to complete paper:** Depends on your domain and length, but the system streamlines the process significantly.
+**Total time to complete paper:** 2-4 weeks depending on domain expertise, paper length, and revision cycles.
 
 ---
 
@@ -221,16 +247,18 @@ Then:
 
 | Metric | Value |
 |--------|-------|
-| Agents Created | 6 |
-| Agent Specifications | 50+ KB |
-| Documentation | 15,000+ words |
+| Total Agents | 10 (6 core + 4 specialist) |
+| Commands Available | 16+ (/paper.init, /paper.objectives, /paper.requirements, /paper.spec, /paper.plan, /paper.research, /paper.draft, /paper.refine, /paper.refs, /paper.assemble, /paper.sprint-plan, /paper.tasks, /paper.review, /paper.brainstorm, /paper.solve, /paper.tutor-feedback, /paper.librarian-*) |
+| Agent Configurations | .copilot/agents.yaml |
+| Command Configurations | .copilot/commands.yaml |
+| Documentation | 20,000+ words |
 | LaTeX Template Files | 8 |
 | Section Templates | 7 |
 | Build Scripts | 4 |
 | Memory Files | 4 |
-| Directories Created | 20+ |
-| Total New Files | 45+ |
-| Git Commits | 2 (organized) |
+| Directory Structure | 25+ directories organized by workflow stage |
+| Total Configuration Files | 50+ |
+| Git Commits | Multiple (organized) |
 
 ---
 
@@ -238,17 +266,19 @@ Then:
 
 | Document | Purpose | Read If |
 |----------|---------|---------|
-| **SYSTEM_GUIDE.md** | Quick start (10 min) | You're new to the system |
-| **AGENTS.md** | Quick reference tables | You need to route to an agent |
-| **SETUP_COMPLETE.md** | Initialization checklist | You want to verify everything is set up |
-| **open-agents/INSTRUCTIONS.md** | Complete system docs | You want to understand everything |
-| **open-agents/agents/\*.md** | Individual agent specs | You need detailed agent information |
+| **README.md** | Main system overview and workflow | You're starting to use the system |
+| **AGENTS.md** | Quick reference for all agents | You need agent details |
+| **COPILOT.md** | GitHub Copilot integration notes | Using Copilot in VS Code |
+| **README_SYSTEM.md** | This document—system status and structure | You want to understand the system architecture |
+| **.copilot/agents.yaml** | Complete agent registry | You're configuring agents |
+| **.copilot/commands.yaml** | Complete command registry | You're configuring commands |
+| **open-agents/INSTRUCTIONS.md** | Legacy system documentation | You need detailed system background |
 
 **Recommended reading order:**
-1. SYSTEM_GUIDE.md (10 min)
-2. AGENTS.md (5 min)
-3. open-agents/INSTRUCTIONS.md (20 min)
-4. Relevant agent files as needed
+1. README.md (5 min) — Get oriented
+2. AGENTS.md (5 min) — See all available commands
+3. Run `/paper.init` to begin (interactive)
+4. Reference README_SYSTEM.md for detailed information as needed
 
 ---
 
@@ -319,29 +349,44 @@ python3 ./open-agents/tools/format-references.py --validate latex/references/ref
 **Your Paper: "A Mathematical Specification for Color Perception Models"**
 
 ```
-Day 1: Define Scope
-  You: "I want to write about mathematical color models..."
-  System: Creates paper outline
+Phase 1: Initialization (30 min)
+  /paper.init              # Goal: "Write a math spec for color perception"
+  /paper.objectives        # Aims: "Define formal model" + "Compare approaches"
+  /paper.requirements      # Technical specs defined
+  /paper.spec             # Content direction set
 
-Days 2-3: Research
-  You: "I've collected 20 papers on color science"
-  Research Consolidator: Synthesizes into 5,000-word foundation document
+Phase 2: Planning & Research (2 hours)
+  /paper.plan             # Create outline: Intro, Background, Methodology, Results, Conclusion
+  /paper.research         # Consolidated 20 color science papers into reference doc
 
-Days 4-7: Draft Sections (one section every day)
-  You: "Draft the introduction"
-  Section Drafter: Writes 2000-word intro with citations
-  You: "Refine for clarity"
-  Quality Refiner: Improves transitions and polish
+Phase 3a: Sprint 1 (3 sections)
+  /paper.sprint-plan      # Plan: Intro, Background, Methodology
+  /paper.draft "introduction"      # Write intro (2000 words)
+  /paper.refine "introduction"     # Polish and improve
+  /paper.draft "background"        # Write background (2500 words)
+  /paper.refine "background"       # Improve clarity
+  /paper.draft "methodology"       # Write methods (2000 words)
+  /paper.refine "methodology"      # Final polish
+  /paper.tutor-feedback            # Get expert feedback
+  /paper.tasks                      # Track progress
+  /paper.review                     # Sprint complete, plan next
+
+Phase 3b: Sprint 2 (2-3 sections)
+  /paper.sprint-plan      # Plan: Results, Implications, Conclusion
+  /paper.draft "results"           # Write results
+  /paper.refine "results"          # Improve
+  /paper.librarian-gaps            # Find any missing sources
+  /paper.draft "implications"      # Write implications
+  /paper.refine "implications"     # Polish
+  /paper.draft "conclusion"        # Write conclusion
+  /paper.refine "conclusion"       # Final pass
+  /paper.review                     # All sections complete
+
+Phase 4: Assembly (30 min)
+  /paper.refs             # Format all 40+ citations in Harvard style
+  /paper.assemble         # Compile complete document
   
-  (Repeat for: Background, Methodology, Results, etc.)
-
-Day 8: Finalize
-  You: "Format all references"
-  Reference Manager: Creates Harvard bibliography
-  You: "Assemble the paper"
-  LaTeX Assembler: Compiles to PDF
-  
-Result: 8000-10000 word publication-ready specification paper in PDF format
+Result: 10,000-word publication-ready PDF in output-final/pdf/
 ```
 
 ---
@@ -376,64 +421,73 @@ This system integrates with:
 
 | Question | Answer |
 |----------|--------|
-| How do I start? | Read SYSTEM_GUIDE.md |
-| Which agent should I use? | Check AGENTS.md routing table |
-| How do I cite sources? | See reference_manager.md |
-| How do I draft sections? | See section_drafter.md |
-| How do I build the PDF? | Run ./open-agents/tools/build-latex.sh |
-| Where's my research? | Put it in open-agents/source/research-notes/ |
-| Can I change the structure? | Yes, ask Paper Architect to re-outline |
-| What if I make mistakes? | Git tracks everything; you can revert |
+| How do I start? | Read README.md, then run `/paper.init` |
+| Which command should I use? | Check AGENTS.md for all available commands |
+| What does each command do? | See README.md "Commands: Setup to Publication" section |
+| How do I cite sources? | /paper.refs manages citations in Harvard style |
+| How do I draft sections? | Use /paper.draft "[section name]" |
+| How do I build the PDF? | Run /paper.assemble or use ./open-agents/tools/build-latex.sh |
+| Where do I put research? | In `open-agents/source/research-notes/` |
+| Can I change the structure? | Yes, /paper.plan can re-outline at any time |
+| I'm stuck on something | Try /paper.solve for troubleshooting or /paper.tutor-feedback for expert review |
+| What if I make mistakes? | Git tracks everything; you can revert or continue from where you are |
 
 ---
 
 ## 🎉 Ready to Use
 
-The system is **fully implemented, documented, and ready for your paper**.
+Paper Kit is a complete, documented system designed for your academic writing.
 
-### Next Actions
+### Getting Started
 
-1. ✅ **Read SYSTEM_GUIDE.md** (10 minutes)
-   - Understand what the system does
-   - Learn the basic workflow
-   - See an example
+1. **Read README.md** (10 minutes)
+   - Understand the system overview and workflow
+   - See all available commands
+   - Learn the four-phase process
 
-2. ✅ **Define your paper's goal**
-   - What do you want to write about?
-   - Who is your audience?
-   - What are your key research questions?
+2. **Review AGENTS.md** (5 minutes)
+   - See quick reference tables
+   - Understand command routing
 
-3. ✅ **Ask Paper Architect to outline**
-   - Tell the system your scope
-   - Get a complete paper structure
-   - Understand research needs
+3. **Run `/paper.init`** (interactive)
+   - Begin session initialization
+   - Define your paper's goals
+   - Capture initial scope and direction
 
-4. ✅ **Begin research and drafting**
-   - Work with agents through the progressive workflow
-   - Track progress in memory files
-   - Refine iteratively for quality
+4. **Complete Phase 1: Setup** (30 min)
+   - Run `/paper.objectives`, `/paper.requirements`, `/paper.spec`
+   - Establish your paper's goals and constraints
 
-5. ✅ **Assemble and publish**
-   - Finalize bibliography
-   - Build complete document
-   - Review and distribute PDF
+5. **Complete Phase 2: Planning** (1-2 hours)
+   - Run `/paper.plan` to outline structure
+   - Run `/paper.research` to consolidate materials
+
+6. **Begin Phase 3: Development** (ongoing)
+   - Sprint-based writing with `/paper.sprint-plan`, `/paper.draft`, `/paper.refine`
+   - Use specialist agents for support and feedback
+
+7. **Complete Phase 4: Publication** (30 min)
+   - Run `/paper.refs` to format bibliography
+   - Run `/paper.assemble` to build final PDF
 
 ---
 
 ## 💾 System Files Summary
 
-| File/Directory | Purpose | Size |
+| File/Directory | Purpose | Usage |
 |---|---|---|
-| AGENTS.md | Entry point | Quick reference |
-| SYSTEM_GUIDE.md | Getting started | Comprehensive |
-| SETUP_COMPLETE.md | Initialization | Checklist |
-| open-agents/INSTRUCTIONS.md | Complete docs | 80+ KB |
-| open-agents/agents/ | Agent specs | 50+ KB |
-| latex/ | Final document | Modular template |
-| open-agents/tools/ | Build scripts | 4 utilities |
-| open-agents/memory/ | Tracking | 4 YAML files |
-| open-agents/source/ | Your input | Ready to fill |
-| open-agents/output-* | Work in progress | 3 stages |
+| README.md | Main documentation | Start here for system overview |
+| VERSION | Version number | Current release version |
+| AGENTS.md | Command reference | Quick lookup for all commands |
+| .copilot/agents.yaml | Agent registry | System configuration (10 agents) |
+| .copilot/commands.yaml | Command registry | System configuration (16+ commands) |
+| open-agents/INSTRUCTIONS.md | Legacy documentation | Reference/background |
+| open-agents/agents/ | Agent specs | Legacy reference files |
+| latex/ | Final document | LaTeX output directory |
+| open-agents/tools/ | Build scripts | Compilation and validation |
+| open-agents/memory/ | System memory | Progress tracking (YAML) |
+| open-agents/source/ | Research input | Your research materials go here |
+| open-agents/output-* | Work stages | Draft → Refined → Final |
 
 ---
 
@@ -473,4 +527,4 @@ The agents are ready to help you create an excellent specification paper.
 
 **Happy writing! 📝**
 
-Good luck with your academic work. This system will make it significantly easier and more organized.
+Everything you need is in place. Start with `/paper.init` in GitHub Copilot and let the system guide you through creating an excellent specification paper.
