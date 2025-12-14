@@ -1,7 +1,7 @@
 installation:
   version: 1.0.0
-  installDate: "2024-12-13T00:00:00.000Z"
-  lastUpdated: "2024-12-14T00:00:00.000Z"
+  installDate: "2024-12-13"
+  lastUpdated: "2024-12-14"
   systemName: "Copilot Research Paper Assistant Kit"
   description: "Open Agent System for academic specification paper writing"
 modules:

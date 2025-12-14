@@ -36,6 +36,9 @@ except ImportError:
     print("Install with: pip install jsonschema>=4.0")
     sys.exit(1)
 
+# Constants
+AGENT_FILE_EXTENSION = '.yaml'
+
 
 def load_json_schema(schema_path: Path) -> Dict:
     """Load JSON Schema from file"""
@@ -96,14 +99,14 @@ def validate_agent(agent_data: Dict, schema: Dict, agent_name: str) -> Tuple[boo
 def find_agent_files(agents_dir: Path, specific_agent: str = None) -> List[Path]:
     """Find all agent YAML files or a specific one"""
     if specific_agent:
-        agent_file = agents_dir / f"{specific_agent}.yaml"
+        agent_file = agents_dir / f"{specific_agent}{AGENT_FILE_EXTENSION}"
         if agent_file.exists():
             return [agent_file]
         else:
             print(f"Error: Agent '{specific_agent}' not found")
             return []
     else:
-        return sorted(agents_dir.glob("*.yaml"))
+        return sorted(agents_dir.glob(f"*{AGENT_FILE_EXTENSION}"))
 
 
 def main():
