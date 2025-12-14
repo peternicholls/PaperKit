@@ -7,16 +7,24 @@ Validates agent YAML definitions against JSON Schema to ensure completeness
 and consistency of agent metadata.
 
 Usage:
-    python3 validate-agent-schema.py [--agent AGENT_NAME] [--verbose]
+    python3 validate-agent-schema.py [OPTIONS]
     
+Options:
     --agent AGENT_NAME    Validate specific agent only
     --verbose             Show detailed validation information
     --ci                  CI mode: exit with error code on validation failure
+    --schema PATH         Path to JSON Schema file (overrides default)
+    --agents-dir PATH     Path to agents directory (overrides default)
+    
+Environment Variables:
+    PAPERKIT_SCHEMA_PATH    Override default schema path
+    PAPERKIT_AGENTS_DIR     Override default agents directory
 """
 
 import sys
 import json
 import yaml
+import os
 from pathlib import Path
 from typing import Dict, List, Tuple
 import argparse
@@ -103,12 +111,24 @@ def main():
     parser.add_argument('--agent', help='Validate specific agent only')
     parser.add_argument('--verbose', action='store_true', help='Show detailed information')
     parser.add_argument('--ci', action='store_true', help='CI mode: exit with error on failure')
+    parser.add_argument('--schema', help='Path to JSON Schema file (default: .paper/_cfg/schemas/agent-schema.json)')
+    parser.add_argument('--agents-dir', help='Path to agents directory (default: .paper/_cfg/agents)')
     args = parser.parse_args()
     
-    # Paths
+    # Paths - support environment variables and command-line overrides
     repo_root = Path(__file__).parent.parent.parent
-    schema_path = repo_root / ".paper" / "_cfg" / "schemas" / "agent-schema.json"
-    agents_dir = repo_root / ".paper" / "_cfg" / "agents"
+    
+    if args.schema:
+        schema_path = Path(args.schema)
+    else:
+        schema_path = Path(os.getenv('PAPERKIT_SCHEMA_PATH', 
+                                     repo_root / ".paper" / "_cfg" / "schemas" / "agent-schema.json"))
+    
+    if args.agents_dir:
+        agents_dir = Path(args.agents_dir)
+    else:
+        agents_dir = Path(os.getenv('PAPERKIT_AGENTS_DIR',
+                                    repo_root / ".paper" / "_cfg" / "agents"))
     
     print("Agent Schema Validation")
     print("=" * 70)

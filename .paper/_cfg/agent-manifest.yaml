@@ -74,7 +74,7 @@ agents:
     path: .paper/_cfg/agents/problem-solver.yaml
     displayName: Quinn
     title: Problem Solver
-    icon: 🔬
+    icon: 🧩
     status: active
     
   - name: tutor
