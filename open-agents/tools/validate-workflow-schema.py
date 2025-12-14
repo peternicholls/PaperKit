@@ -85,14 +85,6 @@ def validate_workflow(workflow_data: Dict, schema: Dict, workflow_name: str) -> 
         actual_name = workflow_data.get('name', '')
         if actual_name != expected_name:
             errors.append(f"  [name] Name '{actual_name}' doesn't match filename '{expected_name}.yaml'")
-        
-        # Check that workflow path exists
-        workflow_path = workflow_data.get('path', '')
-        if workflow_path:
-            full_path = Path(workflow_path)
-            # Note: workflow path may not exist yet as it's the definition file location
-            # So we only warn if it's pointing to a completely invalid location
-            pass
     
     return len(errors) == 0, errors
 
