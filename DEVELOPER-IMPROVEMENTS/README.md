@@ -1,6 +1,6 @@
 # Developer Improvements
 
-This directory contains specification documents for planned improvements to the Paper Kit system. Each specification addresses a critical issue or enhancement identified during system review.
+This directory contains specification documents for planned improvements to the PaperKit system. Each specification addresses a critical issue or enhancement identified during system review.
 
 ## Specifications Overview
 
