@@ -5,7 +5,7 @@ name: build-latex
 displayName: Build LaTeX
 description: Compile LaTeX document to PDF
 version: 1.0.0
-path: tools/build-latex.sh
+path: open-agents/tools/build-latex.sh
 requiresConsent: true
 
 capabilities:

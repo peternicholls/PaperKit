@@ -5,7 +5,7 @@ name: validate-structure
 displayName: Validate Structure
 description: Validate paper structure
 version: 1.0.0
-path: tools/validate-structure.py
+path: open-agents/tools/validate-structure.py
 requiresConsent: true
 
 capabilities:

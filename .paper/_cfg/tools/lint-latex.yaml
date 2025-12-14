@@ -5,7 +5,7 @@ name: lint-latex
 displayName: Lint LaTeX
 description: Check LaTeX syntax for errors
 version: 1.0.0
-path: tools/lint-latex.sh
+path: open-agents/tools/lint-latex.sh
 requiresConsent: true
 
 capabilities:

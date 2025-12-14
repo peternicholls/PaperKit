@@ -34,7 +34,7 @@
     "path": {
       "type": "string",
       "description": "Path to tool executable or script",
-      "pattern": "^tools/[a-z][a-z0-9-]*\\.(sh|py|js)$"
+      "pattern": "^(open-agents/)?tools/[a-z][a-z0-9-]*\\.(sh|py|js)$"
     },
     "requiresConsent": {
       "type": "boolean",
