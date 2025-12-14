@@ -10,11 +10,12 @@
 
 ## Problem Statement
 
-The `requiresConsent` flags in tool-manifest.csv indicate awareness of consent needs, but there is no standardized, auditable consent flow or sandboxing/permission enforcement for scripts that execute (LaTeX build, linters). Users cannot easily review what tools do before execution.
+The `requiresConsent` flags in tool-manifest.yaml indicate awareness of consent needs, but there is no standardized, auditable consent flow or sandboxing/permission enforcement for scripts that execute (LaTeX build, linters). Users cannot easily review what tools do before execution.
 
 ### Current State
 
-- `tool-manifest.csv` includes `requiresConsent` field (boolean)
+- `tool-manifest.yaml` includes `requiresConsent` field (boolean)
+- Individual tool YAML files in `.paper/_cfg/tools/` define capabilities and constraints
 - All current tools marked as `requiresConsent: true`
 - No UI or programmatic consent mechanism implemented
 - No sandboxing or capability restrictions on tool execution
@@ -370,6 +371,8 @@ class ConsentManager:
 
 ## References
 
-- Current: `.paper/_cfg/tool-manifest.csv`
+- Current: `.paper/_cfg/tool-manifest.yaml`
+- Tool Definitions: `.paper/_cfg/tools/*.yaml`
+- Tool Schema: `.paper/_cfg/schemas/tool-schema.json`
 - Firejail: https://firejail.wordpress.com/
 - Bubblewrap: https://github.com/containers/bubblewrap

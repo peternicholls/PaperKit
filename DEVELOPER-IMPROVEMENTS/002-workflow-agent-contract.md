@@ -14,9 +14,10 @@ The manifests list workflows and agents, but there is no explicit schema definin
 
 ### Current State
 
-- `workflow-manifest.csv` lists workflows with basic metadata
-- Workflow definitions reference agents loosely
-- No formal input/output contracts between workflow steps
+- `workflow-manifest.yaml` lists workflows with basic metadata
+- Individual workflow YAML files in `.paper/_cfg/workflows/` define structure
+- Workflow definitions include agents and steps with descriptions
+- Input/output schemas now defined but not yet enforced
 - State passing between agents is implicit
 - Error handling and fallback behavior undefined
 
@@ -273,6 +274,8 @@ workflow:
 
 ## References
 
-- Current: `.paper/_cfg/workflow-manifest.csv`
+- Current: `.paper/_cfg/workflow-manifest.yaml`
+- Workflow Definitions: `.paper/_cfg/workflows/*.yaml`
+- Workflow Schema: `.paper/_cfg/schemas/workflow-schema.json`
 - OpenAPI: https://spec.openapis.org/
 - AsyncAPI: https://www.asyncapi.com/
