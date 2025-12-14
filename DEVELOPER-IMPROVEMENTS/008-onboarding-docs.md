@@ -382,7 +382,7 @@ docs/
 ├── tutorials/
 │   ├── first-paper.md         # Write your first paper
 │   ├── using-agents.md        # Agent interaction tutorial
-│   ├── latex-basics.md        # LaTeX for Paper Kit
+│   ├── latex-basics.md        # LaTeX for PaperKit
 │   └── citation-management.md # Managing references
 │
 ├── examples/
