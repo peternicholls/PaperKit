@@ -45,9 +45,9 @@ Consolidate and streamline documentation with a unified onboarding guide, compre
 ```markdown
 # docs/GETTING_STARTED.md
 
-# Getting Started with Paper Kit
+# Getting Started with PaperKit
 
-Welcome to Paper Kit! This guide will help you write your first 
+Welcome to PaperKit! This guide will help you write your first 
 academic paper using our AI-powered agent system.
 
 ## Prerequisites
