@@ -10,7 +10,7 @@
 
 ## Problem Statement
 
-Agentic systems that fetch sources and execute tools need explicit mitigations for prompt injection, data exfiltration, and accidental leakage of sensitive data (e.g., private PDFs, API keys). Currently, no formal security model exists for the Paper Kit system.
+Agentic systems that fetch sources and execute tools need explicit mitigations for prompt injection, data exfiltration, and accidental leakage of sensitive data (e.g., private PDFs, API keys). Currently, no formal security model exists for the PaperKit system.
 
 ### Current State
 
