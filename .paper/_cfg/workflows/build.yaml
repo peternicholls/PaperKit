@@ -1,0 +1,60 @@
+# Build Document Workflow Definition
+# Part of PaperKit Core Workflows
+
+name: build
+displayName: Build Document
+description: Compile LaTeX document to PDF
+version: 1.0.0
+module: core
+category: assembly
+path: .paper/core/workflows/assembly/build.yaml
+
+agents:
+  - latex-assembler
+
+steps:
+  - name: validate-structure
+    agent: latex-assembler
+    description: Verify all section files exist and are linked
+  - name: compile-latex
+    agent: latex-assembler
+    description: Run pdflatex compilation
+  - name: process-bibliography
+    agent: latex-assembler
+    description: Run bibtex for references
+  - name: final-compile
+    agent: latex-assembler
+    description: Final compilation pass for cross-references
+
+inputSchema:
+  type: object
+  properties:
+    mainTex:
+      type: string
+      description: Path to main LaTeX file
+      default: latex/main.tex
+    outputDir:
+      type: string
+      description: Directory for output files
+      default: .paper/data/output-final/pdf/
+
+outputSchema:
+  type: object
+  properties:
+    pdfPath:
+      type: string
+      description: Path to generated PDF
+    success:
+      type: boolean
+      description: Whether compilation succeeded
+    errors:
+      type: array
+      description: Compilation errors if any
+      items:
+        type: string
+
+exampleUsage:
+  - "Build complete paper to PDF"
+  - "Compile LaTeX document"
+
+owner: core-team

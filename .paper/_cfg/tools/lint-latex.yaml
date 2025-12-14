@@ -1,0 +1,61 @@
+# Lint LaTeX Tool Definition
+# Part of PaperKit Tool Collection
+
+name: lint-latex
+displayName: Lint LaTeX
+description: Check LaTeX syntax for errors
+version: 1.0.0
+path: tools/lint-latex.sh
+requiresConsent: true
+
+capabilities:
+  - Check LaTeX syntax and structure
+  - Identify common LaTeX errors and warnings
+  - Validate citation references
+  - Check for undefined labels and references
+
+constraints:
+  - Requires chktex or similar LaTeX linter
+  - Static analysis only (does not compile)
+  - May produce false positives for custom commands
+
+dependencies:
+  - chktex (LaTeX linter)
+  - perl (for some lint checks)
+
+inputSchema:
+  type: object
+  properties:
+    file:
+      type: string
+      description: Path to LaTeX file to lint
+    config:
+      type: string
+      description: Path to custom linter config file
+      default: .chktexrc
+
+outputSchema:
+  type: object
+  properties:
+    issues:
+      type: array
+      description: List of identified issues
+      items:
+        type: object
+        properties:
+          line:
+            type: integer
+          message:
+            type: string
+          severity:
+            type: string
+    success:
+      type: boolean
+      description: Whether linting passed without errors
+
+exampleUsage:
+  - "./tools/lint-latex.sh"
+  - "./tools/lint-latex.sh latex/main.tex"
+  - "./tools/lint-latex.sh --file=latex/sections/introduction.tex"
+
+owner: core-team

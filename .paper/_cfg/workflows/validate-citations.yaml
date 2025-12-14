@@ -1,0 +1,63 @@
+# Validate Citations Workflow Definition
+# Part of PaperKit Core Workflows
+
+name: validate-citations
+displayName: Validate Citations
+description: Check all citations have matching BibTeX entries
+version: 1.0.0
+module: core
+category: references
+path: .paper/core/workflows/references/validate.yaml
+
+agents:
+  - reference-manager
+
+steps:
+  - name: scan-citations
+    agent: reference-manager
+    description: Scan all LaTeX files for citation commands
+  - name: check-bibtex
+    agent: reference-manager
+    description: Verify each citation has BibTeX entry
+  - name: validate-format
+    agent: reference-manager
+    description: Check citation format and completeness
+  - name: report-issues
+    agent: reference-manager
+    description: Generate validation report
+
+inputSchema:
+  type: object
+  properties:
+    texFiles:
+      type: array
+      description: List of LaTeX files to scan
+      items:
+        type: string
+    bibFile:
+      type: string
+      description: Path to BibTeX file
+      default: latex/references/references.bib
+
+outputSchema:
+  type: object
+  properties:
+    valid:
+      type: boolean
+      description: Whether all citations are valid
+    missingCitations:
+      type: array
+      description: Citations without BibTeX entries
+      items:
+        type: string
+    errors:
+      type: array
+      description: List of validation errors
+      items:
+        type: string
+
+exampleUsage:
+  - "Validate all citations in paper"
+  - "Check references in introduction section"
+
+owner: core-team
