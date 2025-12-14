@@ -9,3 +9,6 @@
 
 # YAML parsing for metadata and configuration files
 pyyaml>=6.0
+
+# JSON Schema validation for agent definitions
+jsonschema>=4.0
