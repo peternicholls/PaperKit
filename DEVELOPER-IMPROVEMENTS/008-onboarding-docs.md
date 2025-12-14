@@ -407,12 +407,12 @@ docs/
 # Tutorial: Write Your First Paper
 
 This tutorial walks you through creating a complete paper
-using Paper Kit.
+using PaperKit.
 
 ## Setup
 
 Estimated time: 45 minutes
-Prerequisites: Paper Kit installed, VS Code with Copilot
+Prerequisites: PaperKit installed, VS Code with Copilot
 
 ## Part 1: Define Your Paper (5 min)
 
