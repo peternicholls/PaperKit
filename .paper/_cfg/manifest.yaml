@@ -1,7 +1,7 @@
 installation:
   version: 1.0.0
   installDate: "2025-12-13T00:00:00.000Z"
-  lastUpdated: "2025-12-13T00:00:00.000Z"
+  lastUpdated: "2024-12-14T00:00:00.000Z"
   systemName: "Copilot Research Paper Assistant Kit"
   description: "Open Agent System for academic specification paper writing"
 modules:
@@ -10,3 +10,14 @@ modules:
 ides:
   - github-copilot
   - codex
+schemas:
+  agentSchema: .paper/_cfg/schemas/agent-schema.json
+  agentSchemaVersion: 1.0.0
+manifests:
+  agents:
+    yaml: .paper/_cfg/agent-manifest.yaml
+    csv: .paper/_cfg/agent-manifest.csv  # Deprecated: Use YAML format
+    csvDeprecated: true
+    csvDeprecationDate: "2024-12-14"
+  tools: .paper/_cfg/tool-manifest.csv
+  workflows: .paper/_cfg/workflow-manifest.csv
