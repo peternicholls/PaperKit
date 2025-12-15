@@ -1,0 +1,58 @@
+# Build LaTeX Tool Definition
+# Part of PaperKit Tool Collection
+
+name: build-latex
+displayName: Build LaTeX
+description: Compile LaTeX document to PDF
+version: 1.0.0
+path: open-agents/tools/build-latex.sh
+requiresConsent: true
+
+capabilities:
+  - Compile LaTeX source files to PDF format
+  - Resolve references and citations
+  - Generate table of contents and bibliography
+  - Handle multi-pass compilation for cross-references
+
+constraints:
+  - Requires LaTeX distribution (TeX Live or MiKTeX)
+  - Must run in directory containing main.tex or specified .tex file
+  - Requires write permissions for output directory
+
+dependencies:
+  - pdflatex or xelatex
+  - bibtex or biber (for bibliography)
+
+inputSchema:
+  type: object
+  properties:
+    file:
+      type: string
+      description: Path to main LaTeX file
+      default: main.tex
+    outputDir:
+      type: string
+      description: Directory for output files
+      default: .
+
+outputSchema:
+  type: object
+  properties:
+    pdfPath:
+      type: string
+      description: Path to generated PDF file
+    success:
+      type: boolean
+      description: Whether compilation succeeded
+    errors:
+      type: array
+      description: List of compilation errors if any
+      items:
+        type: string
+
+exampleUsage:
+  - "./tools/build-latex.sh"
+  - "./tools/build-latex.sh main.tex"
+  - "./tools/build-latex.sh latex/main.tex"
+
+owner: core-team

@@ -1,0 +1,65 @@
+# Generate Ideas Workflow Definition
+# Part of PaperKit Specialist Workflows
+
+name: generate-ideas
+displayName: Generate Ideas
+description: Brainstorm ideas on a topic
+version: 1.0.0
+module: specialist
+category: brainstorm
+path: .paper/specialist/workflows/brainstorm/generate.yaml
+
+agents:
+  - brainstorm
+
+steps:
+  - name: explore-topic
+    agent: brainstorm
+    description: Explore topic from multiple angles
+  - name: generate-ideas
+    agent: brainstorm
+    description: Generate diverse ideas and approaches
+  - name: organize-ideas
+    agent: brainstorm
+    description: Categorize and structure ideas
+  - name: prioritize
+    agent: brainstorm
+    description: Identify most promising ideas
+
+inputSchema:
+  type: object
+  properties:
+    topic:
+      type: string
+      description: Topic to brainstorm about
+    constraints:
+      type: array
+      description: Any constraints or requirements
+      items:
+        type: string
+    quantity:
+      type: integer
+      description: Number of ideas to generate
+      default: 10
+
+outputSchema:
+  type: object
+  properties:
+    ideas:
+      type: array
+      description: List of generated ideas
+      items:
+        type: object
+        properties:
+          idea:
+            type: string
+          category:
+            type: string
+          priority:
+            type: string
+
+exampleUsage:
+  - "Generate research paper topics on AI"
+  - "Brainstorm approaches to data visualization"
+
+owner: specialist-team

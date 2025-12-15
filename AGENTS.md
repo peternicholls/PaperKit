@@ -61,9 +61,13 @@ This project uses a complete **Open Agent System** for planning, researching, st
 .paper/                           ← Main agent system container
 ├── _cfg/                         ← Configuration and manifests
 │   ├── manifest.yaml            ← System version info
-│   ├── agent-manifest.csv       ← All agents catalog
-│   ├── workflow-manifest.csv    ← All workflows catalog
-│   ├── tool-manifest.csv        ← All tools catalog
+│   ├── agent-manifest.yaml      ← All agents catalog
+│   ├── workflow-manifest.yaml   ← All workflows catalog
+│   ├── tool-manifest.yaml       ← All tools catalog
+│   ├── agents/                  ← Individual agent definitions (YAML)
+│   ├── workflows/               ← Individual workflow definitions (YAML)
+│   ├── tools/                   ← Individual tool definitions (YAML)
+│   ├── schemas/                 ← JSON Schemas for validation
 │   └── ides/                    ← IDE-specific configs
 │
 ├── core/                         ← Core paper writing module
@@ -127,7 +131,9 @@ python3 ./open-agents/tools/validate-structure.py
 |----------|---------|
 | `.paper/docs/github-copilot-instructions.md` | VS Code Copilot usage |
 | `.paper/docs/codex-instructions.md` | OpenAI Codex usage |
-| `.paper/_cfg/agent-manifest.csv` | Complete agent catalog |
+| `.paper/_cfg/agent-manifest.yaml` | Complete agent catalog |
+| `.paper/_cfg/workflow-manifest.yaml` | Complete workflow catalog |
+| `.paper/_cfg/tool-manifest.yaml` | Complete tool catalog |
 | `SYSTEM-PLANNING/SYSTEM_GUIDE.md` | System overview |
 | `open-agents/INSTRUCTIONS.md` | Legacy full documentation |
 

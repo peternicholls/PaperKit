@@ -15,24 +15,33 @@ This document captures smaller operational suggestions that don't warrant full s
 
 ## Manifest Format Migration
 
-### Suggestion
-Prefer YAML/JSON manifests over CSV for agent/workflow/tool manifests for better extensibility.
+### Status
+✅ **COMPLETE** - Migrated 2024-12-14
+
+### What Changed
+All CSV manifests have been migrated to YAML format with JSON Schema validation:
 
 ### Current State
-- `agent-manifest.csv`
-- `workflow-manifest.csv`
-- `tool-manifest.csv`
+- `agent-manifest.yaml` (with individual files in `.paper/_cfg/agents/`)
+- `workflow-manifest.yaml` (with individual files in `.paper/_cfg/workflows/`)
+- `tool-manifest.yaml` (with individual files in `.paper/_cfg/tools/`)
+- JSON Schema validation for all manifest types
+- Individual YAML files for each agent, workflow, and tool
+- CSV files deprecated and renamed to `.csv.deprecated`
 
-### Proposed
-- Migrate to YAML format
-- Single structured file or per-item YAML files
-- JSON Schema validation
-
-### Priority
-Medium
+### Benefits Achieved
+- ✅ Full metadata (no truncation)
+- ✅ Hierarchical structure
+- ✅ JSON Schema validation (local + CI)
+- ✅ Better version control diffs
+- ✅ Easy to extend with new fields
+- ✅ Input/output schemas for tooling
 
 ### Related Specs
-- [001-agent-metadata.md](001-agent-metadata.md)
+- [001-agent-metadata.md](001-agent-metadata.md) - Completed
+- [001-agent-metadata-migration-guide.md](001-agent-metadata-migration-guide.md) - Migration guide
+- [002-workflow-agent-contract.md](002-workflow-agent-contract.md) - Now has YAML foundation
+- [003-consent-sandboxing.md](003-consent-sandboxing.md) - Now has structured tool metadata
 
 ---
 

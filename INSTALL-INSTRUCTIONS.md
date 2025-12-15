@@ -151,7 +151,9 @@ This creates `paperkit-alpha-1.0.0.tar.gz` containing all necessary files.
 | `AGENTS.md` | Quick reference for all agents |
 | `.paper/docs/github-copilot-instructions.md` | VS Code Copilot usage |
 | `.paper/docs/codex-instructions.md` | OpenAI Codex usage |
-| `.paper/_cfg/agent-manifest.csv` | Complete agent catalog |
+| `.paper/_cfg/agent-manifest.yaml` | Complete agent catalog |
+| `.paper/_cfg/workflow-manifest.yaml` | Complete workflow catalog |
+| `.paper/_cfg/tool-manifest.yaml` | Complete tool catalog |
 | `SYSTEM-PLANNING/SYSTEM_GUIDE.md` | System overview |
 | `open-agents/INSTRUCTIONS.md` | Legacy full documentation |
 

@@ -25,6 +25,49 @@ python3 open-agents/tools/validate-agent-schema.py
 **JSON Schema Draft**: Draft-07  
 **Schema ID**: https://paperkit.dev/schemas/agent-schema.json
 
+### tool-schema.json
+
+JSON Schema for validating tool definition files.
+
+**Purpose**: Ensures all tool YAML files have complete, consistent metadata.
+
+**Validates**:
+- Required fields (name, displayName, description, path, requiresConsent)
+- Field formats (kebab-case names, semantic versions, tool paths)
+- Data types and structure
+- Tool capabilities, constraints, and dependencies
+
+**Usage**:
+```bash
+python3 open-agents/tools/validate-tool-schema.py
+```
+
+**Schema Version**: 1.0.0  
+**JSON Schema Draft**: Draft-07  
+**Schema ID**: https://paperkit.dev/schemas/tool-schema.json
+
+### workflow-schema.json
+
+JSON Schema for validating workflow definition files.
+
+**Purpose**: Ensures all workflow YAML files have complete, consistent metadata.
+
+**Validates**:
+- Required fields (name, displayName, description, module, path)
+- Field formats (kebab-case names, semantic versions, workflow paths)
+- Data types and structure
+- Enum constraints (module, category)
+- Workflow steps and agent relationships
+
+**Usage**:
+```bash
+python3 open-agents/tools/validate-workflow-schema.py
+```
+
+**Schema Version**: 1.0.0  
+**JSON Schema Draft**: Draft-07  
+**Schema ID**: https://paperkit.dev/schemas/workflow-schema.json
+
 ## JSON Schema Reference
 
 ### Core Fields
@@ -181,6 +224,12 @@ if (!valid) {
 ## Related Documentation
 
 - **Agent Definitions**: `.paper/_cfg/agents/`
-- **Validation Tool**: `open-agents/tools/validate-agent-schema.py`
-- **Specification**: `DEVELOPER-IMPROVEMENTS/001-agent-metadata.md`
+- **Tool Definitions**: `.paper/_cfg/tools/`
+- **Workflow Definitions**: `.paper/_cfg/workflows/`
+- **Agent Validation Tool**: `open-agents/tools/validate-agent-schema.py`
+- **Tool Validation Tool**: `open-agents/tools/validate-tool-schema.py`
+- **Workflow Validation Tool**: `open-agents/tools/validate-workflow-schema.py`
+- **Agent Specification**: `DEVELOPER-IMPROVEMENTS/001-agent-metadata.md`
+- **Workflow Specification**: `DEVELOPER-IMPROVEMENTS/002-workflow-agent-contract.md`
+- **Tool Specification**: `DEVELOPER-IMPROVEMENTS/003-consent-sandboxing.md`
 - **JSON Schema Docs**: https://json-schema.org/
