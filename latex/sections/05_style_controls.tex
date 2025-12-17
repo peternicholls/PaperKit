@@ -38,7 +38,7 @@ Temperature is implemented via direction blending:
     \vec{v} = (1 - \alpha|T|) \cdot \hat{v}_{\text{base}} + \alpha|T| \cdot \hat{v}_{\text{warm/cool}}
 \end{equation}
 
-where $\hat{v}_{\text{base}}$ is the shortest-path direction and $\hat{v}_{\text{warm/cool}}$ is the target hue direction. The blending coefficient $\alpha < 1$ ensures partial preservation of the base direction, preventing jarring snaps.
+where $\hat{v}_{\text{base}}$ is the shortest-path direction, $\hat{v}_{\text{warm/cool}}$ is the target hue direction, and $\alpha \in (0, 1)$ is a blending coefficient (typically $\alpha = 0.8$) that ensures partial preservation of the base direction, preventing jarring snaps to pure warm or cool paths.
 
 % ------------------------------------------------------------------------------
 % 5.2 Intensity Control
@@ -132,6 +132,8 @@ Range $0.0$ to $2.0$, default $1.0$. Selectively boosts chroma of less-saturated
 \begin{equation}
     C' = C \cdot \left(1 + v \cdot \left(1 - \frac{C}{C_{\max}}\right)\right)
 \end{equation}
+
+where $C_{\max}$ is the maximum achievable chroma at the colour's current lightness $L$ and hue $h$ within the sRGB gamut boundary (see \S\ref{sec:gamut-problem} for gamut constraints).
 
 % ------------------------------------------------------------------------------
 % 5.5 Parameter Interactions
