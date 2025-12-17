@@ -1,0 +1,180 @@
+\babel@toc {english}{}\relax 
+\contentsline {chapter}{\numberline {1}Introduction and Scope}{8}{chapter.1}%
+\contentsline {section}{\numberline {1.1}Motivation}{8}{section.1.1}%
+\contentsline {section}{\numberline {1.2}Scope Definition}{9}{section.1.2}%
+\contentsline {section}{\numberline {1.3}Design Principles}{9}{section.1.3}%
+\contentsline {paragraph}{Perceptual Uniformity as Foundation.}{9}{section.1.3}%
+\contentsline {paragraph}{Discrete Output, Continuous Thinking.}{9}{section.1.3}%
+\contentsline {paragraph}{Constructive, Not Prescriptive.}{10}{section.1.3}%
+\contentsline {paragraph}{Presets Encode Expertise.}{10}{section.1.3}%
+\contentsline {paragraph}{Graceful Degradation.}{10}{section.1.3}%
+\contentsline {section}{\numberline {1.4}Positioning and Novel Contributions}{10}{section.1.4}%
+\contentsline {section}{\numberline {1.5}Paper Organization}{11}{section.1.5}%
+\contentsline {chapter}{\numberline {2}Perceptual Color Foundations}{13}{chapter.2}%
+\contentsline {section}{\numberline {2.1}The Perceptual Uniformity Requirement}{13}{section.2.1}%
+\contentsline {section}{\numberline {2.2}OKLab Colour Space}{13}{section.2.2}%
+\contentsline {section}{\numberline {2.3}Cartesian vs.\ Cylindrical Coordinates}{15}{section.2.3}%
+\contentsline {section}{\numberline {2.4}Colour Space Conversion}{15}{section.2.4}%
+\contentsline {chapter}{\numberline {3}Journey Construction}{18}{chapter.3}%
+\contentsline {section}{\numberline {3.1}The Journey Metaphor}{18}{section.3.1}%
+\contentsline {section}{\numberline {3.2}Anchor Colours}{18}{section.3.2}%
+\contentsline {section}{\numberline {3.3}Mood Expansion (Single-Anchor Case)}{19}{section.3.3}%
+\contentsline {section}{\numberline {3.4}Multi-Anchor Paths}{21}{section.3.4}%
+\contentsline {paragraph}{$C^0$ Continuity (Position).}{21}{equation.3.4}%
+\contentsline {paragraph}{$C^1$ Continuity (Tangent).}{21}{equation.3.4}%
+\contentsline {section}{\numberline {3.5}Bézier Curve Construction}{21}{section.3.5}%
+\contentsline {section}{\numberline {3.6}Arc-Length Parameterisation}{22}{section.3.6}%
+\contentsline {chapter}{\numberline {4}Perceptual Constraints}{24}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Just-Noticeable Difference}{24}{section.4.1}%
+\contentsline {section}{\numberline {4.2}$\Delta _{\min }$ Constraint (Distinguishability)}{25}{section.4.2}%
+\contentsline {section}{\numberline {4.3}$\Delta _{\max }$ Constraint (Coherence)}{25}{section.4.3}%
+\contentsline {section}{\numberline {4.4}Adaptive Sampling}{26}{section.4.4}%
+\contentsline {section}{\numberline {4.5}Constraint Enforcement}{27}{section.4.5}%
+\contentsline {chapter}{\numberline {5}User-Facing Style Controls}{28}{chapter.5}%
+\contentsline {section}{\numberline {5.1}Temperature Control}{28}{section.5.1}%
+\contentsline {section}{\numberline {5.2}Intensity Control}{29}{section.5.2}%
+\contentsline {section}{\numberline {5.3}Smoothness Control}{29}{section.5.3}%
+\contentsline {section}{\numberline {5.4}Secondary Parameters}{30}{section.5.4}%
+\contentsline {paragraph}{Lightness Bias.}{30}{section.5.4}%
+\contentsline {paragraph}{Chroma.}{30}{equation.5.4}%
+\contentsline {paragraph}{Contrast.}{30}{equation.5.4}%
+\contentsline {paragraph}{Vibrancy.}{30}{equation.5.5}%
+\contentsline {section}{\numberline {5.5}Parameter Interactions}{31}{section.5.5}%
+\contentsline {chapter}{\numberline {6}Modes of Operation}{32}{chapter.6}%
+\contentsline {section}{\numberline {6.1}Journey Mode}{32}{section.6.1}%
+\contentsline {section}{\numberline {6.2}Categorical Mode}{33}{section.6.2}%
+\contentsline {section}{\numberline {6.3}Perceptual Velocity}{33}{section.6.3}%
+\contentsline {section}{\numberline {6.4}Mode Selection Guidelines}{35}{section.6.4}%
+\contentsline {chapter}{\numberline {7}Loop Strategies}{36}{chapter.7}%
+\contentsline {section}{\numberline {7.1}Open Strategy}{36}{section.7.1}%
+\contentsline {section}{\numberline {7.2}Closed Strategy}{36}{section.7.2}%
+\contentsline {section}{\numberline {7.3}Ping-Pong Strategy}{37}{section.7.3}%
+\contentsline {section}{\numberline {7.4}Möbius Strategy}{37}{section.7.4}%
+\contentsline {section}{\numberline {7.5}Phased Strategy}{38}{section.7.5}%
+\contentsline {section}{\numberline {7.6}Output Semantics}{39}{section.7.6}%
+\contentsline {chapter}{\numberline {8}Gamut Management}{40}{chapter.8}%
+\contentsline {section}{\numberline {8.1}The Gamut Boundary Problem}{40}{section.8.1}%
+\contentsline {section}{\numberline {8.2}Design-Time Gamut Awareness}{41}{section.8.2}%
+\contentsline {section}{\numberline {8.3}Gamut Correction}{41}{section.8.3}%
+\contentsline {section}{\numberline {8.4}Hue Preservation}{42}{section.8.4}%
+\contentsline {chapter}{\numberline {9}Variation and Determinism}{44}{chapter.9}%
+\contentsline {section}{\numberline {9.1}Determinism Requirement}{44}{section.9.1}%
+\contentsline {section}{\numberline {9.2}Controlled Variation}{45}{section.9.2}%
+\contentsline {section}{\numberline {9.3}Seed Handling}{45}{section.9.3}%
+\contentsline {section}{\numberline {9.4}Reproducibility}{46}{section.9.4}%
+\contentsline {chapter}{\numberline {10}API Design and Output Structure}{47}{chapter.10}%
+\contentsline {section}{\numberline {10.1}API Philosophy}{47}{section.10.1}%
+\contentsline {section}{\numberline {10.2}Input Parameters}{48}{section.10.2}%
+\contentsline {section}{\numberline {10.3}Output Structure}{48}{section.10.3}%
+\contentsline {paragraph}{Palette Array.}{48}{section.10.3}%
+\contentsline {paragraph}{Config Echo.}{48}{section.10.3}%
+\contentsline {paragraph}{Diagnostics.}{48}{section.10.3}%
+\contentsline {section}{\numberline {10.4}Diagnostic Information}{48}{section.10.4}%
+\contentsline {section}{\numberline {10.5}Scope Boundaries}{49}{section.10.5}%
+\contentsline {section}{\numberline {10.6}Performance Characteristics}{49}{section.10.6}%
+\contentsline {chapter}{\numberline {11}Caller Responsibilities}{51}{chapter.11}%
+\contentsline {section}{\numberline {11.1}Input Validation}{51}{section.11.1}%
+\contentsline {section}{\numberline {11.2}Engine Guarantees}{51}{section.11.2}%
+\contentsline {section}{\numberline {11.3}Caller Responsibilities}{52}{section.11.3}%
+\contentsline {paragraph}{Accessibility Testing.}{52}{section.11.3}%
+\contentsline {paragraph}{Colour Blindness.}{52}{section.11.3}%
+\contentsline {paragraph}{Context Suitability.}{52}{section.11.3}%
+\contentsline {paragraph}{Application Constraints.}{52}{section.11.3}%
+\contentsline {paragraph}{Reproducibility.}{52}{section.11.3}%
+\contentsline {section}{\numberline {11.4}Error Handling}{52}{section.11.4}%
+\contentsline {chapter}{\numberline {12}Conclusion and Future Directions}{54}{chapter.12}%
+\contentsline {section}{\numberline {12.1}Summary}{54}{section.12.1}%
+\contentsline {section}{\numberline {12.2}Key Contributions}{54}{section.12.2}%
+\contentsline {section}{\numberline {12.3}Future Directions}{55}{section.12.3}%
+\contentsline {paragraph}{Extended Colour Spaces.}{55}{section.12.3}%
+\contentsline {paragraph}{Accessibility Integration.}{56}{section.12.3}%
+\contentsline {paragraph}{Multi-Palette Harmonisation.}{56}{section.12.3}%
+\contentsline {paragraph}{Preset Discovery.}{56}{section.12.3}%
+\contentsline {paragraph}{Real-Time Animation.}{56}{section.12.3}%
+\contentsline {chapter}{\numberline {A}Preset Reference}{57}{appendix.A}%
+\contentsline {section}{\numberline {A.1}Overview}{57}{section.A.1}%
+\contentsline {section}{\numberline {A.2}Preset Table}{57}{section.A.2}%
+\contentsline {paragraph}{Key.}{58}{table.A.1}%
+\contentsline {section}{\numberline {A.3}Preset Descriptions}{59}{section.A.3}%
+\contentsline {subsection}{\numberline {A.3.1}Basic Presets}{59}{subsection.A.3.1}%
+\contentsline {paragraph}{\texttt {linear}}{59}{subsection.A.3.1}%
+\contentsline {paragraph}{\texttt {smooth}}{59}{subsection.A.3.1}%
+\contentsline {paragraph}{\texttt {vivid}}{59}{subsection.A.3.1}%
+\contentsline {paragraph}{\texttt {muted}}{59}{subsection.A.3.1}%
+\contentsline {subsection}{\numberline {A.3.2}Mood-Based Presets}{59}{subsection.A.3.2}%
+\contentsline {paragraph}{\texttt {sunset}}{59}{subsection.A.3.2}%
+\contentsline {paragraph}{\texttt {sunrise}}{59}{subsection.A.3.2}%
+\contentsline {paragraph}{\texttt {ocean}}{59}{subsection.A.3.2}%
+\contentsline {paragraph}{\texttt {forest}}{59}{subsection.A.3.2}%
+\contentsline {paragraph}{\texttt {autumn}}{59}{subsection.A.3.2}%
+\contentsline {paragraph}{\texttt {arctic}}{60}{subsection.A.3.2}%
+\contentsline {subsection}{\numberline {A.3.3}Stylistic Presets}{60}{subsection.A.3.3}%
+\contentsline {paragraph}{\texttt {neon}}{60}{subsection.A.3.3}%
+\contentsline {paragraph}{\texttt {pastel}}{60}{subsection.A.3.3}%
+\contentsline {paragraph}{\texttt {earth}}{60}{subsection.A.3.3}%
+\contentsline {paragraph}{\texttt {monochrome}}{60}{subsection.A.3.3}%
+\contentsline {subsection}{\numberline {A.3.4}Data Visualisation Presets}{60}{subsection.A.3.4}%
+\contentsline {paragraph}{\texttt {categorical}}{60}{subsection.A.3.4}%
+\contentsline {paragraph}{\texttt {diverging}}{60}{subsection.A.3.4}%
+\contentsline {paragraph}{\texttt {sequential}}{60}{subsection.A.3.4}%
+\contentsline {subsection}{\numberline {A.3.5}Animation Presets}{61}{subsection.A.3.5}%
+\contentsline {paragraph}{\texttt {breathing}}{61}{subsection.A.3.5}%
+\contentsline {paragraph}{\texttt {cycling}}{61}{subsection.A.3.5}%
+\contentsline {paragraph}{\texttt {evolving}}{61}{subsection.A.3.5}%
+\contentsline {section}{\numberline {A.4}Preset Selection Guide}{61}{section.A.4}%
+\contentsline {chapter}{\numberline {B}Mathematical Notation}{62}{appendix.B}%
+\contentsline {section}{\numberline {B.1}Color Space Notation}{62}{section.B.1}%
+\contentsline {subsection}{\numberline {B.1.1}OKLab Coordinates}{62}{subsection.B.1.1}%
+\contentsline {subsection}{\numberline {B.1.2}OKLCh Coordinates (Cylindrical Form)}{62}{subsection.B.1.2}%
+\contentsline {subsection}{\numberline {B.1.3}Conversion Matrices}{63}{subsection.B.1.3}%
+\contentsline {section}{\numberline {B.2}Distance and Constraint Notation}{63}{section.B.2}%
+\contentsline {subsection}{\numberline {B.2.1}Perceptual Distance}{63}{subsection.B.2.1}%
+\contentsline {subsection}{\numberline {B.2.2}Constraint Thresholds}{63}{subsection.B.2.2}%
+\contentsline {section}{\numberline {B.3}Curve and Path Notation}{64}{section.B.3}%
+\contentsline {subsection}{\numberline {B.3.1}Bézier Curve Elements}{64}{subsection.B.3.1}%
+\contentsline {subsection}{\numberline {B.3.2}Path Construction}{64}{subsection.B.3.2}%
+\contentsline {subsection}{\numberline {B.3.3}Bézier Curve Formula}{64}{subsection.B.3.3}%
+\contentsline {section}{\numberline {B.4}Anchor Notation}{65}{section.B.4}%
+\contentsline {section}{\numberline {B.5}Parameter Notation}{65}{section.B.5}%
+\contentsline {subsection}{\numberline {B.5.1}Primary Style Parameters}{65}{subsection.B.5.1}%
+\contentsline {subsection}{\numberline {B.5.2}Secondary Style Parameters}{65}{subsection.B.5.2}%
+\contentsline {subsection}{\numberline {B.5.3}Derived Values}{65}{subsection.B.5.3}%
+\contentsline {section}{\numberline {B.6}Variation and Determinism Notation}{66}{section.B.6}%
+\contentsline {section}{\numberline {B.7}Loop Strategy Notation}{66}{section.B.7}%
+\contentsline {subsection}{\numberline {B.7.1}Loop Parameter Transforms}{66}{subsection.B.7.1}%
+\contentsline {paragraph}{Ping-pong transform:}{66}{subsection.B.7.1}%
+\contentsline {paragraph}{Möbius twist (chromatic inversion at midpoint):}{66}{subsection.B.7.1}%
+\contentsline {paragraph}{Phased shift:}{66}{subsection.B.7.1}%
+\contentsline {section}{\numberline {B.8}Gamut Notation}{66}{section.B.8}%
+\contentsline {section}{\numberline {B.9}Perceptual Velocity Notation}{67}{section.B.9}%
+\contentsline {chapter}{\numberline {C}Implementation Examples}{68}{appendix.C}%
+\contentsline {section}{\numberline {C.1}Basic Usage}{68}{section.C.1}%
+\contentsline {subsection}{\numberline {C.1.1}Simple Two-Anchor Gradient}{68}{subsection.C.1.1}%
+\contentsline {subsection}{\numberline {C.1.2}Multi-Anchor Journey}{68}{subsection.C.1.2}%
+\contentsline {section}{\numberline {C.2}Single-Anchor Expansion}{69}{section.C.2}%
+\contentsline {subsection}{\numberline {C.2.1}Brand Colour State Variants}{69}{subsection.C.2.1}%
+\contentsline {section}{\numberline {C.3}Categorical Mode}{70}{section.C.3}%
+\contentsline {subsection}{\numberline {C.3.1}Categorical with Fixed Anchors}{70}{subsection.C.3.1}%
+\contentsline {section}{\numberline {C.4}Temperature Control}{71}{section.C.4}%
+\contentsline {section}{\numberline {C.5}Loop Strategies}{71}{section.C.5}%
+\contentsline {subsection}{\numberline {C.5.1}Closed Loop for Animation}{71}{subsection.C.5.1}%
+\contentsline {subsection}{\numberline {C.5.2}Ping-Pong for Breathing Effect}{72}{subsection.C.5.2}%
+\contentsline {subsection}{\numberline {C.5.3}Phased Loop for Evolution}{72}{subsection.C.5.3}%
+\contentsline {section}{\numberline {C.6}Full Configuration}{72}{section.C.6}%
+\contentsline {section}{\numberline {C.7}Working with Output}{73}{section.C.7}%
+\contentsline {subsection}{\numberline {C.7.1}Accessing Colour Formats}{73}{subsection.C.7.1}%
+\contentsline {subsection}{\numberline {C.7.2}Using Diagnostics}{74}{subsection.C.7.2}%
+\contentsline {section}{\numberline {C.8}Common Patterns}{74}{section.C.8}%
+\contentsline {subsection}{\numberline {C.8.1}Diverging Colour Scale}{74}{subsection.C.8.1}%
+\contentsline {subsection}{\numberline {C.8.2}Sequential Scale with Preset}{75}{subsection.C.8.2}%
+\contentsline {subsection}{\numberline {C.8.3}Reproducing a Palette}{75}{subsection.C.8.3}%
+\contentsline {chapter}{\numberline {D}Quick Reference}{77}{appendix.D}%
+\contentsline {section}{\numberline {D.1}Quick Reference for Team Discussions}{77}{section.D.1}%
+\contentsline {subsection}{\numberline {D.1.1}Concept Map}{77}{subsection.D.1.1}%
+\contentsline {subsection}{\numberline {D.1.2}Decision Rationale Summary}{77}{subsection.D.1.2}%
+\contentsline {subsection}{\numberline {D.1.3}Parameter Quick Reference}{78}{subsection.D.1.3}%
+\contentsline {subsection}{\numberline {D.1.4}Output Structure Quick Reference}{78}{subsection.D.1.4}%
+\contentsline {subsection}{\numberline {D.1.5}Common Use Cases}{78}{subsection.D.1.5}%
+\contentsline {subsection}{\numberline {D.1.6}Perceptual Distance Interpretation}{78}{subsection.D.1.6}%
+\contentsline {subsection}{\numberline {D.1.7}Troubleshooting Guide}{78}{subsection.D.1.7}%
+\contentsline {subsection}{\numberline {D.1.8}Constraint Summary}{78}{subsection.D.1.8}%
