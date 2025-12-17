@@ -15,7 +15,7 @@
 The engine performs basic input validation, but callers should validate inputs before submission:
 
 \begin{itemize}
-    \item \textbf{Anchor colours} --- Should be valid colour specifications. Out-of-gamut anchors are accepted but may require correction during palette generation.
+    \item \textbf{Anchor colors} --- Should be valid color specifications. Out-of-gamut anchors are accepted but may require correction during palette generation.
     \item \textbf{Count} --- Must be a positive integer. Requests for zero or negative counts return an error.
     \item \textbf{Parameters} --- Should respect documented ranges. The engine clamps out-of-range values but callers should validate to avoid surprises.
     \item \textbf{Presets} --- Unknown preset names return an error.
@@ -31,7 +31,7 @@ The engine provides the following guarantees:
 
 \begin{enumerate}
     \item \textbf{Output count matches request.} The palette contains exactly the requested number of colours.
-    \item \textbf{All outputs are valid sRGB.} Every colour in the palette is displayable on standard monitors.
+    \item \textbf{All outputs are valid sRGB.} Every color in the palette is displayable on standard monitors.
     \item \textbf{Anchors appear in output.} When anchors are specified, they appear at their designated positions in the palette.
     \item \textbf{Perceptual constraints are honoured.} Adjacent colours differ by at least $\Delta_{\min}$ (where achievable).
     \item \textbf{Determinism is maintained.} Identical inputs produce identical outputs across calls and platforms.
@@ -47,11 +47,11 @@ The engine generates palettes; callers are responsible for context-specific conc
 
 \paragraph{Accessibility Testing.} The engine does not check WCAG contrast ratios. Callers must verify that text-background pairings meet accessibility requirements for their target compliance level (AA, AAA).
 
-\paragraph{Colour Blindness.} The engine does not simulate or optimise for colour vision deficiencies. Callers concerned with colour-blind accessibility should test generated palettes with appropriate simulation tools.
+\paragraph{Color Blindness.} The engine does not simulate or optimize for color vision deficiencies. Callers concerned with color-blind accessibility should test generated palettes with appropriate simulation tools.
 
 \paragraph{Context Suitability.} Print and screen have different requirements~\cite{poynton2012}. Callers must verify that generated palettes are suitable for their target medium, including:
 \begin{itemize}
-    \item Colour gamut (sRGB output may not match CMYK print)
+    \item Color gamut (sRGB output may not match CMYK print)
     \item Viewing conditions (ambient light, screen calibration)
     \item Substrate (paper type, coating)
 \end{itemize}

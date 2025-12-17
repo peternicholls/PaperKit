@@ -40,11 +40,11 @@ The \textbf{closed} strategy forms a complete cycle, returning smoothly from the
     J(0) = J(1) = A_1
 \end{equation}
 
-The engine adds a segment from $A_m$ back to $A_1$, creating a closed path with $C^1$ continuity at the wrap point. The tangent leaving $A_m$ toward $A_1$ matches the tangent arriving at $A_1$ from $A_m$, preventing a ``corner'' in colour space.
+The engine adds a segment from $A_m$ back to $A_1$, creating a closed path with $C^1$ continuity at the wrap point. The tangent leaving $A_m$ toward $A_1$ matches the tangent arriving at $A_1$ from $A_m$, preventing a ``corner'' in color space.
 
-In closed loop mode, the output array \emph{omits the duplicate final colour}. The last swatch is adjacent to (but not identical to) $A_1$, because $A_1$ is already the first swatch. When looped, the sequence wraps seamlessly.
+In closed loop mode, the output array \emph{omits the duplicate final color}. The last swatch is adjacent to (but not identical to) $A_1$, because $A_1$ is already the first swatch. When looped, the sequence wraps seamlessly.
 
-Closed loops are appropriate for continuous colour cycling animations, hue wheels, and looping ambient effects.
+Closed loops are appropriate for continuous color cycling animations, hue wheels, and looping ambient effects.
 
 % ------------------------------------------------------------------------------
 % 7.3 Ping-Pong Strategy
@@ -66,7 +66,7 @@ No new colours are generated in the reverse pass---the path is exactly retraced.
 
 Ping-pong output includes the forward sequence; callers can traverse the array forward then backward, or the engine can output the full forward-and-back sequence explicitly.
 
-Ping-pong is appropriate for ``breathing'' or ``pulsing'' colour effects, bidirectional progress indicators, and oscillating state visualisations.
+Ping-pong is appropriate for ``breathing'' or ``pulsing'' color effects, bidirectional progress indicators, and oscillating state visualizations.
 
 % ------------------------------------------------------------------------------
 % 7.4 Möbius Strategy
@@ -74,16 +74,16 @@ Ping-pong is appropriate for ``breathing'' or ``pulsing'' colour effects, bidire
 \section{Möbius Strategy}
 \label{sec:loop-mobius}
 
-The \textbf{Möbius} strategy is a half-twist loop requiring \emph{two complete traversals} to return to the starting colour---named after the Möbius strip, a surface with a half-twist where walking one complete loop brings you to the ``other side,'' requiring a second loop to return to your starting position.
+The \textbf{Möbius} strategy is a half-twist loop requiring \emph{two complete traversals} to return to the starting color---named after the Möbius strip, a surface with a half-twist where walking one complete loop brings you to the ``other side,'' requiring a second loop to return to your starting position.
 
-In colour terms: after one cycle through the journey, you arrive at a colour \emph{related to} but distinct from the start; only after the second cycle do you return to the original. This creates animations that feel subtly different on alternating cycles.
+In color terms: after one cycle through the journey, you arrive at a color \emph{related to} but distinct from the start; only after the second cycle do you return to the original. This creates animations that feel subtly different on alternating cycles.
 
-One approach inverts the chromatic components at the halfway point:
+The chromatic twist is implemented by \emph{gradually} inverting the chromatic components over the course of each loop---not as an instantaneous jump. The transformation progresses smoothly along the path:
 \begin{equation}
-    J_{\text{mobius}}(1) = (L, -a, -b) \quad \text{when } J_{\text{mobius}}(0) = (L, a, b)
+    J_{\text{mobius}}(t) = (L(t), \, (1-2t) \cdot a(t), \, (1-2t) \cdot b(t)) \quad \text{for } t \in [0, 1]
 \end{equation}
 
-This yields the complementary colour (180° hue rotation) at the midpoint. The viewer perceives continuous change that takes two ``laps'' to truly repeat:
+At $t=0$, the color is $(L, a, b)$; at $t=1$, it smoothly arrives at $(L, -a, -b)$---the complementary color (180° hue rotation). The $\Delta_{\max}$ constraint (\S\ref{sec:delta-max}) is enforced throughout this gradual transformation, ensuring that adjacent swatches remain within the coherence threshold even across the conceptual ``wrap point.'' The viewer perceives continuous change that takes two ``laps'' to truly repeat:
 \begin{itemize}
     \item Cycle 1: Journey from Red → \ldots → Cyan (complement)
     \item Cycle 2: Journey from Cyan → \ldots → Red (back to original)
@@ -139,7 +139,7 @@ Phased loops are parameterised by shift amount and dimension. This is the most c
 
 \subsection*{Non-Repetition Rule}
 
-Loop outputs omit duplicate colours at boundaries. If the loop returns to the starting colour, that colour is \emph{not} repeated at the end of the array:
+Loop outputs omit duplicate colors at boundaries. If the loop returns to the starting color, that color is \emph{not} repeated at the end of the array:
 
 \begin{itemize}
     \item Conceptual path: $A \to B \to C \to D \to E \to A$

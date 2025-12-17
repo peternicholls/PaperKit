@@ -32,11 +32,11 @@ Journey Mode is appropriate for:
     \item Timeline visualisations (progress indicators, history)
     \item State transitions (hover, active, disabled)
     \item Mood-based palettes (warm sunset, cool ocean)
-    \item Animation colour cycling
+    \item Animation color cycling
     \item Any context where ``flow'' matters
 \end{itemize}
 
-Journey Mode is \emph{not} appropriate for categorical data where each colour represents a distinct entity, maximum contrast requirements, or semantic colour mapping (red=danger, green=safe).
+Journey Mode is \emph{not} appropriate for categorical data where each color represents a distinct entity, maximum contrast requirements, or semantic color mapping (red=danger, green=safe).
 
 % ------------------------------------------------------------------------------
 % 6.2 Categorical Mode
@@ -44,7 +44,7 @@ Journey Mode is \emph{not} appropriate for categorical data where each colour re
 \section{Categorical Mode}
 \label{sec:categorical-mode}
 
-Categorical Mode optimises for \textbf{maximum distinguishability} between swatches, suitable for discrete data categories, legends, and accessibility-critical applications~\cite{fairchild2013}. Unlike Journey Mode, which optimises adjacent-colour relationships (\S\ref{sec:delta-min}), Categorical Mode optimises all pairwise relationships.
+Categorical Mode optimizes for \textbf{maximum distinguishability} between swatches, suitable for discrete data categories, legends, and accessibility-critical applications~\cite{fairchild2013}. Unlike Journey Mode, which optimizes adjacent-color relationships (\S\ref{sec:delta-min}), Categorical Mode optimizes all pairwise relationships.
 
 \begin{center}
 \begin{tabular}{ll}
@@ -72,7 +72,7 @@ subject to staying within displayable gamut and respecting any semantic constrai
 \textbf{Aspect} & \textbf{Journey Mode} & \textbf{Categorical Mode} \\
 \midrule
 Curve type & Smooth Bézier & May use angular paths \\
-Sampling & Sequential along path & Optimised spacing in colour space \\
+Sampling & Sequential along path & Optimized spacing in color space \\
 Anchor role & Waypoints on path & Fixed category colours \\
 Output order & Meaningful sequence & Order less important \\
 \bottomrule
@@ -87,16 +87,18 @@ Categorical Mode is appropriate for pie charts, bar charts with distinct categor
 \section{Perceptual Velocity}
 \label{sec:perceptual-velocity}
 
-Beyond perceptual \emph{distance} (how different two colours are), \textbf{perceptual velocity} addresses how \emph{fast} colour change feels along a sequence.
+Beyond perceptual \emph{distance} (how different two colors are), \textbf{perceptual velocity} addresses how \emph{fast} color change feels along a sequence.
 
-Fast hue swings feel ``faster'' or more noticeable than the same $\Delta E$ spent on subtle lightness shifts. The \emph{type} of change affects perceived speed, not just the magnitude. This observation is consistent with colour appearance research showing that hue changes are more salient than equivalent lightness or chroma changes~\cite{fairchild2013}.
+Fast hue swings feel ``faster'' or more noticeable than the same $\Delta E$ spent on subtle lightness shifts. The \emph{type} of change affects perceived speed, not just the magnitude. This observation is consistent with color appearance research showing that hue changes are more salient than equivalent lightness or chroma changes~\cite{fairchild2013}.
 
-Perceptual velocity $v$ can be modelled as a weighted sum:
+Perceptual velocity $v$ can be modeled as a weighted sum of the rates of change \emph{with respect to arc-length} $s$:
 \begin{equation}
-    v = w_L \cdot \frac{dL}{dt} + w_C \cdot \frac{dC}{dt} + w_h \cdot \frac{dh}{dt}
+    v = w_L \cdot \frac{dL}{ds} + w_C \cdot \frac{dC}{ds} + w_h \cdot \frac{dh}{ds}
 \end{equation}
 
-The following weights are \emph{design heuristics} derived from practical experimentation, not empirically-validated constants:
+The arc-length parameterization (\S\ref{sec:arc-length}) ensures that equal increments of $s$ correspond to equal perceptual distances along the path. Therefore, velocity here refers to the \emph{rate of attribute change per unit of perceptual distance traveled}---not the raw rate of change with respect to the Bézier parameter $t$, which would vary unpredictably based on control point placement. A high velocity indicates that specific attributes (particularly hue) are changing rapidly relative to the overall perceptual motion through color space.
+
+The following weights are \textbf{proposed engineering constants} derived from practical experimentation during reference implementation testing, not empirically-validated constants from formal psychophysical studies:
 
 \begin{center}
 \begin{tabular}{lll}
@@ -127,7 +129,7 @@ Users do not directly set velocity weights---they are internal heuristics. Inste
     \item \textbf{High temperature} increases hue travel between anchors, raising perceived velocity
     \item \textbf{High intensity} creates more curved paths with greater chromatic excursion
     \item \textbf{Anchors with similar hues} produce low-velocity journeys dominated by lightness changes
-    \item \textbf{Anchors spanning the colour wheel} produce high-velocity journeys with rapid hue shifts
+    \item \textbf{Anchors spanning the color wheel} produce high-velocity journeys with rapid hue shifts
 \end{itemize}
 
 Presets encode velocity profiles implicitly: ``calm'' presets (\texttt{smooth}, \texttt{muted}) prefer parameters that minimise hue change, while ``energetic'' presets (\texttt{vivid}, \texttt{neon}) encourage chromatic drama.
@@ -146,7 +148,7 @@ Presets encode velocity profiles implicitly: ``calm'' presets (\texttt{smooth}, 
 Output for discrete categories? & Categorical \\
 Need smooth animation? & Journey + closed/pingpong loop \\
 Need timeline colours? & Journey + open path \\
-Need mood palette from single colour? & Journey + single anchor \\
+Need mood palette from single color? & Journey + single anchor \\
 Need maximum contrast? & Categorical with high separation \\
 \bottomrule
 \end{tabular}

@@ -48,7 +48,7 @@ const palette = generatePalette({
 \section{Single-Anchor Expansion}
 \label{sec:example-single}
 
-Single-anchor mode (\S\ref{sec:single-anchor}) generates harmonious variations from one colour, useful for UI state variations and monochromatic palettes.
+Single-anchor mode (\S\ref{sec:single-anchor}) generates harmonious variations from one color, useful for UI state variations and monochromatic palettes.
 
 \begin{lstlisting}[language=JavaScript,caption={Single-Anchor Mood Expansion}]
 const palette = generatePalette({
@@ -62,9 +62,9 @@ const palette = generatePalette({
 // Includes lighter, darker, and slightly hue-shifted variants
 \end{lstlisting}
 
-\subsection{Brand Colour State Variants}
+\subsection{Brand Color State Variants}
 
-Generate hover, active, and disabled states from a single brand colour.
+Generate hover, active, and disabled states from a single brand color.
 
 \begin{lstlisting}[language=JavaScript,caption={UI State Variations}]
 const brandColor = '#2563EB';  // Primary blue
@@ -157,7 +157,7 @@ const cyclingPalette = generatePalette({
   smoothness: 0.9
 });
 
-// Last colour transitions smoothly to first
+// Last color transitions smoothly to first
 // Output: 12 colours, no duplicate at end
 // Loop externally: [...cyclingPalette, cyclingPalette[0], ...]
 // Seamless continuous animation
@@ -224,7 +224,7 @@ const result = generatePalette({
 });
 
 // Access output components
-console.log(result.palette);      // Array of 8 colour objects
+console.log(result.palette);      // Array of 8 color objects
 console.log(result.config);       // Effective configuration used
 console.log(result.diagnostics);  // Quality metrics
 \end{lstlisting}
@@ -232,9 +232,9 @@ console.log(result.diagnostics);  // Quality metrics
 \section{Working with Output}
 \label{sec:example-output}
 
-\subsection{Accessing Colour Formats}
+\subsection{Accessing Color Formats}
 
-\begin{lstlisting}[language=JavaScript,caption={Using Output Colour Formats}]
+\begin{lstlisting}[language=JavaScript,caption={Using Output Color Formats}]
 const result = generatePalette({
   count: 5,
   anchors: ['#FF6B6B', '#4ECDC4']
@@ -277,7 +277,7 @@ if (diag.constraintViolations > 0) {
 \section{Common Patterns}
 \label{sec:example-patterns}
 
-\subsection{Diverging Colour Scale}
+\subsection{Diverging Color Scale}
 
 \begin{lstlisting}[language=JavaScript,caption={Diverging Scale for Data}]
 // Diverging: negative (red) -> neutral -> positive (blue)

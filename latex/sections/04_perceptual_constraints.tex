@@ -12,7 +12,7 @@
 \section{Just-Noticeable Difference}
 \label{sec:jnd}
 
-The \textbf{Just Noticeable Difference (JND)} is the smallest colour change that an average human observer can detect under standard viewing conditions. This concept originates from Weber's and Fechner's foundational psychophysics work and has been extensively studied in colour science~\cite{fairchild2013}.
+The \textbf{Just Noticeable Difference (JND)} is the smallest color change that an average human observer can detect under standard viewing conditions. This concept originates from Weber's and Fechner's foundational psychophysics work and has been extensively studied in color science~\cite{fairchild2013}.
 
 In OKLab:
 \begin{itemize}
@@ -20,7 +20,7 @@ In OKLab:
     \item Practical threshold: $\Delta E \approx 2.0$ units (accounting for real-world variability)
 \end{itemize}
 
-The practical threshold of 2.0 units is derived from applying a safety margin to the theoretical JND. Colour science literature consistently shows that laboratory JND values (measured under controlled illumination, neutral adaptation, and foveal viewing) underestimate the threshold needed for reliable discrimination in real applications~\cite{fairchild2013,luo2001}. Factors including ambient lighting variation, observer differences, display calibration, and peripheral viewing all increase the effective threshold. The 2$\times$ multiplier is a conservative engineering choice, not an empirically-validated constant.
+The practical threshold of 2.0 units is derived from applying a safety margin to the theoretical JND. Color science literature consistently shows that laboratory JND values (measured under controlled illumination, neutral adaptation, and foveal viewing) underestimate the threshold needed for reliable discrimination in real applications~\cite{fairchild2013,luo2001}. Factors including ambient lighting variation, observer differences, display calibration, and peripheral viewing all increase the effective threshold. The 2$\times$ multiplier is a conservative engineering choice, not an empirically-validated constant.
 
 \begin{center}
 \begin{tabular}{ll}
@@ -50,7 +50,7 @@ $> 5.0$ & Pronounced difference, may feel like a ``step'' \\
 
 This is the \textbf{minimum allowed perceptual distance} between any two adjacent swatches.
 
-\textbf{Why 2.0?} This value is set at the practical JND threshold (\S\ref{sec:jnd}) to ensure that every colour step is reliably perceptible across typical viewing conditions. Setting $\Delta_{\min}$ at 1.0 (the theoretical JND) would produce steps that are only \emph{sometimes} distinguishable; the 2.0 threshold provides margin for the variability inherent in real-world colour perception~\cite{fairchild2013}. There is no value in generating colours that viewers cannot reliably distinguish---it wastes palette capacity and creates the impression of redundancy.
+\textbf{Why 2.0?} This value is set at the practical JND threshold (\S\ref{sec:jnd}) to ensure that every color step is reliably perceptible across typical viewing conditions. Setting $\Delta_{\min}$ at 1.0 (the theoretical JND) would produce steps that are only \emph{sometimes} distinguishable; the 2.0 threshold provides margin for the variability inherent in real-world color perception~\cite{fairchild2013}. There is no value in generating colors that viewers cannot reliably distinguish---it wastes palette capacity and creates the impression of redundancy.
 
 \subsection*{Enforcement}
 
@@ -74,7 +74,7 @@ When anchors are extremely close ($\Delta < \Delta_{\min}$), the engine does not
 
 This is the \textbf{maximum allowed perceptual distance} between any two adjacent swatches.
 
-\textbf{Why 5.0?} This value represents the upper bound of ``comfortable'' colour transitions---steps large enough to be clearly distinct but not so large as to feel discontinuous. The 5.0 threshold emerges from the JND interpretation table (\S\ref{sec:jnd}): differences above $\sim$5 units cross from ``obvious but smooth'' into ``pronounced step'' territory. This is a design heuristic informed by practical experimentation with generated palettes, not a value derived from formal perceptual studies. Alternative implementations may choose different thresholds based on their aesthetic goals.
+\textbf{Why 5.0?} This value represents the upper bound of ``comfortable'' color transitions---steps large enough to be clearly distinct but not so large as to feel discontinuous. The 5.0 threshold emerges from the JND interpretation table (\S\ref{sec:jnd}): differences above $\sim$5 units cross from ``obvious but smooth'' into ``pronounced step'' territory. This is a \textbf{proposed engineering constant} informed by practical experimentation with generated palettes during reference implementation testing, not a value derived from formal perceptual studies. Alternative implementations may choose different thresholds based on their aesthetic goals; formal user studies to validate this threshold remain future work.
 
 \subsection*{Enforcement}
 
@@ -86,7 +86,7 @@ If a segment between anchors has total distance $D > \Delta_{\max}$:
     \item \textbf{Cap subdivisions:} $n \leq 5$ to prevent excessive palette length
 \end{enumerate}
 
-\textbf{Why cap at 5?} This limit prevents runaway palette growth when anchors are extremely far apart in colour space. The value 5 is chosen to align with the anchor count limit (\S\ref{sec:anchors})---maintaining cognitive tractability. With at most 5 intermediates between any two anchors, users can reason about the palette structure. If anchors are extremely far apart ($D > 25$ units), each step will exceed $\Delta_{\max}$, which is acceptable: the user has explicitly requested a large colour jump by their anchor selection.
+\textbf{Why cap at 5?} This limit prevents runaway palette growth when anchors are extremely far apart in color space. The value 5 is chosen to align with the anchor count limit (\S\ref{sec:anchors})---maintaining cognitive tractability. With at most 5 intermediates between any two anchors, users can reason about the palette structure. If anchors are extremely far apart ($D > 25$ units), each step will exceed $\Delta_{\max}$, which is acceptable: the user has explicitly requested a large color jump by their anchor selection.
 
 % ------------------------------------------------------------------------------
 % 4.4 Adaptive Sampling

@@ -87,15 +87,17 @@ The variation layer uses a \textbf{pseudo-random number generator (PRNG)} with t
 \toprule
 \textbf{Seed Value} & \textbf{Behaviour} \\
 \midrule
-Explicit integer & Use that seed \\
-\texttt{null} or omitted & Default seed (0) or variation disabled \\
+Explicit integer & Use that seed; variation is implicitly enabled \\
+\texttt{null} or omitted & Variation disabled; pure interpolation \\
 \bottomrule
 \end{tabular}
 \end{center}
 
-If variation is requested but no seed provided, the engine uses a \emph{default seed (0)}, not a random seed. This preserves determinism. If you want randomness, you must generate and provide the seed.
+\textit{API clarification:} Providing a seed value implicitly enables variation---there is no separate \texttt{variation: true} toggle. The presence of a seed is sufficient to activate the variation layer. If you want deterministic variation, provide a seed; if you want pure interpolation without variation, omit the seed entirely.
 
-The order in which random numbers are consumed (per-colour L, a, b perturbations) is fixed and documented---changing advancement order would change outputs for existing seeds.
+If variation is requested via a seed, the engine uses that seed for the PRNG. The seed value 0 is valid and distinct from omitting the seed.
+
+The order in which random numbers are consumed (per-color L, a, b perturbations) is fixed and documented---changing advancement order would change outputs for existing seeds.
 
 % ------------------------------------------------------------------------------
 % 9.4 Reproducibility

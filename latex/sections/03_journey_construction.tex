@@ -12,7 +12,7 @@
 \section{The Journey Metaphor}
 \label{sec:journey-metaphor}
 
-The term ``journey'' was deliberately chosen over ``gradient'' or ``palette'' because it emphasises the \emph{constructive process}---a path through colour space---rather than the static result. The journey metaphor captures several key ideas:
+The term ``journey'' was deliberately chosen over ``gradient'' or ``palette'' because it emphasizes the \emph{constructive process}---a path through color space---rather than the static result. The journey metaphor captures several key ideas:
 
 \begin{description}
     \item[Directionality] There is a start and end (or a cycle)
@@ -23,7 +23,7 @@ The term ``journey'' was deliberately chosen over ``gradient'' or ``palette'' be
 
 Critically, the journey is \emph{not} a continuous function that callers sample arbitrarily. The engine outputs discrete swatches only. The continuous curve is an internal construction mechanism; callers receive $N$ specific colours, not an interpolation function.
 
-This distinction matters: callers should not expect to query ``colour at $t=0.347$''. The engine can optimise internal representation freely, and behaviours like ping-pong playback become caller responsibility using the discrete output array.
+This distinction matters: callers should not expect to query ``color at $t=0.347$''. The engine can optimize internal representation freely, and behaviors like ping-pong playback become caller responsibility using the discrete output array.
 
 % ------------------------------------------------------------------------------
 % 3.2 Anchor Colors (Guaranteed Output)
@@ -47,7 +47,7 @@ Output guarantee & Each anchor appears exactly in output \\
 \end{tabular}
 \end{center}
 
-The 5-anchor maximum is a deliberate design constraint informed by cognitive limitations and practical experience. Research on working memory suggests humans can reliably track 4±1 items simultaneously~\cite{cowan2001}; beyond this, the perceptual ``story'' of a colour journey fragments into disconnected segments. Additionally, cubic Bézier curves between consecutive anchors provide $C^1$ continuity guarantees~\cite{farin2002}, but as anchor count increases, maintaining smooth visual flow becomes increasingly difficult. This is a \emph{design choice} balancing expressiveness against cognitive and computational complexity, not a technical limitation.
+The 5-anchor maximum is a deliberate design constraint informed by cognitive limitations and practical experience. Research on working memory suggests humans can reliably track 4±1 items simultaneously~\cite{cowan2001}; beyond this, the perceptual ``story'' of a color journey fragments into disconnected segments. Additionally, cubic Bézier curves between consecutive anchors provide $C^1$ continuity guarantees~\cite{farin2002}, but as anchor count increases, maintaining smooth visual flow becomes increasingly difficult. This is a \emph{design choice} balancing expressiveness against cognitive and computational complexity, not a technical limitation.
 
 Anchors are processed in the order provided: $A_1 \rightarrow A_2 \rightarrow \ldots \rightarrow A_m$. The journey visits each anchor in sequence; for closed loops, it then returns to $A_1$.
 
@@ -59,12 +59,12 @@ Anchors are processed in the order provided: $A_1 \rightarrow A_2 \rightarrow \l
 
 When only one anchor is provided, the engine cannot construct a traditional transition between colours. Instead, it performs \textbf{mood expansion}---creating a set of harmonious colours centred on the single anchor.
 
-\textit{To our knowledge, this single-anchor expansion approach represents a novel contribution.} Traditional palette generators require at least two colours for interpolation; colour harmony systems (complementary, triadic, analogous) generate geometrically-related hues but not perceptually-graded variations. Mood expansion bridges this gap by using the anchor's inherent character to determine expansion direction.
+\textit{To our knowledge, the specific method of single-anchor expansion in perceptual color space---using lightness-weighted directionality and mood-biased trajectories in OKLab---has not been previously formalized.} While existing tools such as Adobe Color or Paletton generate palettes from single colors using geometric harmony rules (e.g., analogous, monochromatic), they operate in perceptually non-uniform spaces and apply fixed angular relationships. The novelty here lies in the \emph{method}: expanding along perceptually-coherent directions determined by the anchor's position in OKLab, rather than relying on predetermined hue rotations in HSL/HSV. Traditional palette generators require at least two colors for interpolation; color harmony systems generate geometrically-related hues but not perceptually-graded variations. Mood expansion bridges this gap by using the anchor's inherent perceptual character to determine expansion direction.
 
 \begin{designdecision}[Mood Expansion Direction]
 \textbf{Choice:} Single-anchor palettes expand along lightness-weighted directions in OKLab, using the anchor's inherent character (hue, chroma, lightness) to determine expansion.
 
-\textbf{Rationale:} Expanding in perceptually-coherent directions preserves the anchor's ``mood'' or character. Grey anchors naturally expand along lightness (the only meaningful axis available); chromatic anchors expand toward complementary or analogous regions based on their position in colour space.
+\textbf{Rationale:} Expanding in perceptually-coherent directions preserves the anchor's ``mood'' or character. Grey anchors naturally expand along lightness (the only meaningful axis available); chromatic anchors expand toward complementary or analogous regions based on their position in color space.
 
 \textbf{Alternatives Considered:}
 \begin{itemize}
@@ -91,7 +91,7 @@ With one anchor $A_1$, the engine:
     \item Forms a closed loop returning to the anchor
 \end{enumerate}
 
-Single-anchor journeys are useful for generating monochromatic palettes with depth, creating UI state variations (hover, active, disabled) from a brand colour, and animating ``breathing'' or ``pulsing'' colour effects.
+Single-anchor journeys are useful for generating monochromatic palettes with depth, creating UI state variations (hover, active, disabled) from a brand color, and animating ``breathing'' or ``pulsing'' color effects.
 
 % ------------------------------------------------------------------------------
 % 3.4 Multi-Anchor Paths
@@ -112,7 +112,7 @@ Each segment is constructed independently but with continuity constraints at jun
 
 \paragraph{$C^0$ Continuity (Position).} The end of segment $\gamma_i$ equals the start of segment $\gamma_{i+1}$. This is automatically satisfied since both meet at anchor $A_{i+1}$.
 
-\paragraph{$C^1$ Continuity (Tangent).} For smooth transitions, the engine matches the direction of approach and departure at each anchor. This prevents ``corners'' in the colour path.
+\paragraph{$C^1$ Continuity (Tangent).} For smooth transitions, the engine matches the direction of approach and departure at each anchor. This prevents ``corners'' in the color path.
 
 By default, the engine applies smoothing at anchor junctions to achieve $C^1$ continuity, making the journey feel fluid rather than segmented. If sharp transitions are desired, this can be adjusted via the smoothness parameter (\S\ref{sec:smoothness}).
 

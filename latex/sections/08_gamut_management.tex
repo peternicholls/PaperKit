@@ -9,7 +9,7 @@
 % ------------------------------------------------------------------------------
 % Chapter Introduction
 % ------------------------------------------------------------------------------
-With path construction, perceptual constraints, style controls, and loop strategies established, one critical concern remains: ensuring that every colour the engine generates is actually displayable. OKLab's perceptual uniformity comes at a cost---it can represent colours that no physical display can reproduce. This chapter addresses gamut management: the techniques for keeping generated colours within the bounds of real displays.
+With path construction, perceptual constraints, style controls, and loop strategies established, one critical concern remains: ensuring that every color the engine generates is actually displayable. OKLab's perceptual uniformity comes at a cost---it can represent colors that no physical display can reproduce. This chapter addresses gamut management: the techniques for keeping generated colors within the bounds of real displays.
 
 % ------------------------------------------------------------------------------
 % 8.1 The Gamut Boundary Problem
@@ -17,7 +17,7 @@ With path construction, perceptual constraints, style controls, and loop strateg
 \section{The Gamut Boundary Problem}
 \label{sec:gamut-problem}
 
-OKLab is a perceptually uniform colour space, but it encompasses colours that lie outside any real display's capabilities~\cite{morovic2008}:
+OKLab is a perceptually uniform color space, but it encompasses colors that lie outside any real display's capabilities~\cite{morovic2008}:
 
 \begin{itemize}
     \item \textbf{High-chroma colours} at certain hue angles exceed sRGB
@@ -63,13 +63,15 @@ This proactive approach reduces the likelihood of out-of-gamut samples, preservi
 
 The second layer handles residual out-of-gamut colours through \textbf{soft correction} at sampling time.
 
-For a candidate colour in OKLCh $(L, C, h)$:
+For a candidate color in OKLCh $(L, C, h)$:
 
 \begin{enumerate}
     \item Check sRGB validity via conversion
-    \item If out-of-gamut, perform binary search for maximum valid chroma at that $(L, h)$
-    \item Return the corrected colour with reduced $C$, preserved $L$ and $h$
+    \item If out-of-gamut, determine the maximum valid chroma at that $(L, h)$ by finding the intersection of the constant-hue ray with the gamut boundary
+    \item Return the corrected color with reduced $C$, preserved $L$ and $h$
 \end{enumerate}
+
+\textit{Implementation note:} The intersection can be found via binary search, geometric approximation, or analytical methods depending on performance requirements. The specification requires only that the maximum valid chroma be determined; the algorithmic approach is an implementation detail.
 
 \begin{designdecision}[Two-Layer Gamut Handling]
 \textbf{Choice:} Gamut management uses two layers: (1) design-time prevention via gamut-aware control point placement, and (2) sample-time correction via chroma reduction with hue preservation.
@@ -81,7 +83,7 @@ For a candidate colour in OKLCh $(L, C, h)$:
   \item \textit{Hard clipping (RGB clamping)} --- Rejected: destroys hue, creates visual artifacts
   \item \textit{HSV/HSL fallback} --- Rejected: breaks perceptual uniformity guarantee
   \item \textit{Post-processing only} --- Rejected: large corrections cause discontinuities
-  \item \textit{Hue rotation to fit gamut} --- Rejected: changes colour identity unacceptably
+  \item \textit{Hue rotation to fit gamut} --- Rejected: changes color identity unacceptably
 \end{itemize}
 
 \textbf{Reference:} \S\ref{sec:gamut-design}, \S\ref{sec:hue-preservation}
