@@ -1,0 +1,64 @@
+% ==============================================================================
+% Section 9: Variation and Determinism
+% ==============================================================================
+% Primary Source: 06_variation_determinism.md
+% Target Length: 400-600 words
+% Dependencies: None (cross-cutting concern)
+% ==============================================================================
+
+% ------------------------------------------------------------------------------
+% 9.1 Determinism Requirement
+% ------------------------------------------------------------------------------
+\section{Determinism Requirement}
+\label{sec:determinism}
+
+% [To be written: ~150 words]
+% Content: Same inputs must produce same outputs
+% Key points:
+%   - Core requirement: identical inputs → identical outputs
+%   - No hidden state, no external dependencies
+%   - Pure function semantics
+%   - Essential for reproducibility in design systems
+
+% ------------------------------------------------------------------------------
+% 9.2 Controlled Variation
+% ------------------------------------------------------------------------------
+\section{Controlled Variation}
+\label{sec:variation}
+
+% [To be written: ~150 words]
+% Content: How to get different results deliberately
+% Key points:
+%   - Variation through explicit parameters, not randomness
+%   - Seed parameter for controlled pseudo-randomness
+%   - Same seed = same "random" variation
+%   - Different seeds = different but reproducible results
+
+% ------------------------------------------------------------------------------
+% 9.3 Seed Handling
+% ------------------------------------------------------------------------------
+\section{Seed Handling}
+\label{sec:seeds}
+
+% [To be written: ~150 words]
+% Content: PRNG with explicit seeds
+% Key points:
+%   - Optional seed parameter (integer)
+%   - If omitted: deterministic default (no randomness)
+%   - If provided: seeds PRNG for variation layer
+%   - PRNG used for: minor jitter, exploration variations
+%   - Seed echoed in output for reproducibility
+
+% ------------------------------------------------------------------------------
+% 9.4 Reproducibility
+% ------------------------------------------------------------------------------
+\section{Reproducibility}
+\label{sec:reproducibility}
+
+% [To be written: ~150 words]
+% Content: Guarantees and version considerations
+% Key points:
+%   - Full reproducibility within same engine version
+%   - Config echo in output enables exact reproduction
+%   - Version changes may affect output (documented)
+%   - Recommended: store full config with generated palettes

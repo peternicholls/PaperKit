@@ -1,0 +1,89 @@
+% ==============================================================================
+% Section 5: User-Facing Style Controls
+% ==============================================================================
+% Primary Source: 04_dynamic_controls.md
+% Target Length: 1,000-1,500 words
+% Dependencies: §3 (Bézier control point manipulation)
+% ==============================================================================
+
+% ------------------------------------------------------------------------------
+% 5.1 Temperature Control
+% ------------------------------------------------------------------------------
+\section{Temperature Control}
+\label{sec:temperature}
+
+% [To be written: ~300 words]
+% Content: Warm/cool bias via direction blending
+% Key points:
+%   - Range: -1.0 (cool) to +1.0 (warm), default 0.0
+%   - Biases expansion/interpolation toward warm or cool hues
+%   - Warm: shifts toward red/orange/yellow region
+%   - Cool: shifts toward blue/cyan region
+%   - Implemented via weighted direction vectors in OKLab a-b plane
+
+% Formula placeholder:
+% \begin{equation}
+%   d_{biased} = d_{neutral} + T \cdot d_{temperature}
+%   \label{eq:temperature}
+% \end{equation}
+
+% ------------------------------------------------------------------------------
+% 5.2 Intensity Control
+% ------------------------------------------------------------------------------
+\section{Intensity Control}
+\label{sec:intensity}
+
+% [To be written: ~300 words]
+% Content: Control point scaling for curve drama
+% Key points:
+%   - Range: 0.0 (minimal) to 1.0 (maximum), default 0.5
+%   - Scales Bézier control point distance from anchors
+%   - Low intensity: gentle, restrained curves
+%   - High intensity: dramatic, sweeping curves
+%   - Affects chroma and lightness excursions
+
+% ------------------------------------------------------------------------------
+% 5.3 Smoothness Control
+% ------------------------------------------------------------------------------
+\section{Smoothness Control}
+\label{sec:smoothness}
+
+% [To be written: ~300 words]
+% Content: Transition character and continuity
+% Key points:
+%   - Range: 0.0 (sharp) to 1.0 (smooth), default 0.7
+%   - Controls transition character between segments
+%   - High smoothness: C¹ or C² continuity, gradual changes
+%   - Low smoothness: more abrupt transitions at anchors
+%   - Affects perceptual velocity consistency
+
+% ------------------------------------------------------------------------------
+% 5.4 Secondary Parameters
+% ------------------------------------------------------------------------------
+\section{Secondary Parameters}
+\label{sec:secondary-params}
+
+% [To be written: ~300 words]
+% Content: Lightness, chroma, contrast, vibrancy, warmth
+% Key points:
+%   - Lightness: overall lightness bias (-1 to +1)
+%   - Chroma: saturation scaling (0 to 1)
+%   - Contrast: lightness range expansion (0 to 1)
+%   - Vibrancy: chroma variance (0 to 1)
+%   - Warmth: synonym/alias for temperature (API convenience)
+%   - Each has sensible default (typically 0.5 or neutral)
+
+% ------------------------------------------------------------------------------
+% 5.5 Parameter Interactions
+% ------------------------------------------------------------------------------
+\section{Parameter Interactions}
+\label{sec:param-interactions}
+
+% [To be written: ~200 words]
+% Content: How parameters combine and potential conflicts
+% Key points:
+%   - Parameters are largely orthogonal but not independent
+%   - High intensity + low smoothness = potentially jarring
+%   - Extreme chroma + gamut limits = correction needed
+%   - Presets encode tested combinations
+%   - Engine validates ranges but allows edge combinations

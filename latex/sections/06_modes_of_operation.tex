@@ -1,0 +1,73 @@
+% ==============================================================================
+% Section 6: Modes of Operation
+% ==============================================================================
+% Primary Source: 11_modes_of_operation.md
+% Target Length: 500-1,000 words
+% Dependencies: §3 (journey construction), §4 (distance constraints)
+% ==============================================================================
+
+% ------------------------------------------------------------------------------
+% 6.1 Journey Mode
+% ------------------------------------------------------------------------------
+\section{Journey Mode}
+\label{sec:journey-mode}
+
+% [To be written: ~250 words]
+% Content: Smooth perceptual transitions (default mode)
+% Key points:
+%   - Default mode of operation
+%   - Optimizes for smooth transitions between adjacent colors
+%   - Respects Δ_max constraint (no jarring jumps)
+%   - Output colors form coherent perceptual sequence
+%   - Best for: gradients, timelines, sequential data
+
+% ------------------------------------------------------------------------------
+% 6.2 Categorical Mode
+% ------------------------------------------------------------------------------
+\section{Categorical Mode}
+\label{sec:categorical-mode}
+
+% [To be written: ~250 words]
+% Content: Maximum distinction between colors
+% Key points:
+%   - Alternative mode for categorical data
+%   - Maximizes perceptual distance between ALL colors (not just adjacent)
+%   - Relaxes Δ_max constraint
+%   - May sacrifice smoothness for distinction
+%   - Best for: legends, categories, labels
+
+% ------------------------------------------------------------------------------
+% 6.3 Perceptual Velocity
+% ------------------------------------------------------------------------------
+\section{Perceptual Velocity}
+\label{sec:perceptual-velocity}
+
+% [To be written: ~250 words]
+% Content: Rate of perceptual change along the journey
+% Key points:
+%   - Velocity = Δ_perceptual / Δ_index
+%   - Journey Mode: aims for constant velocity (uniform change)
+%   - Categorical Mode: velocity is irrelevant (order doesn't matter)
+%   - Smoothness parameter affects velocity consistency
+%   - Useful diagnostic for evaluating palette quality
+
+% ------------------------------------------------------------------------------
+% 6.4 Mode Selection Guidelines
+% ------------------------------------------------------------------------------
+\section{Mode Selection Guidelines}
+\label{sec:mode-selection}
+
+% [To be written: ~200 words]
+% Content: Decision tree for choosing mode
+% Key points:
+%   - Use Journey Mode when order matters (sequential data, animation)
+%   - Use Categorical Mode when distinction matters (labels, categories)
+%   - Hybrid approaches possible via post-processing
+%   - Mode is a top-level API parameter
+
+% Decision tree or table placeholder:
+% \begin{table}[h]
+%   \centering
+%   \caption{Mode Selection Guide}
+%   \label{tab:mode-selection}
+% \end{table}

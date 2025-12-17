@@ -1,0 +1,102 @@
+% ==============================================================================
+% Appendix C: Implementation Examples
+% ==============================================================================
+% Code examples and usage patterns
+% ==============================================================================
+
+\section{Basic Usage}
+\label{sec:example-basic}
+
+% [To be written]
+% Content: Simple example of generating a palette
+
+% Placeholder:
+% \begin{lstlisting}[language=JavaScript,caption={Basic Palette Generation}]
+% const palette = generatePalette({
+%   count: 5,
+%   anchors: ['#FF6B6B', '#4ECDC4'],
+%   preset: 'journey'
+% });
+% 
+% // Result: array of 5 colors
+% // ['#FF6B6B', '#E08B7A', '#8FB8A9', '#5DC5B8', '#4ECDC4']
+% \end{lstlisting}
+
+\section{Single-Anchor Expansion}
+\label{sec:example-single}
+
+% [To be written]
+% Content: Example of mood expansion from one color
+
+% Placeholder:
+% \begin{lstlisting}[language=JavaScript,caption={Single-Anchor Mood Expansion}]
+% const palette = generatePalette({
+%   count: 7,
+%   anchors: ['#6B5B95'],  // Single anchor
+%   temperature: 0.3,
+%   intensity: 0.6
+% });
+% 
+% // Engine expands in perceptually-coherent directions
+% \end{lstlisting}
+
+\section{Categorical Mode}
+\label{sec:example-categorical}
+
+% [To be written]
+% Content: Example of categorical palette for distinct categories
+
+% Placeholder:
+% \begin{lstlisting}[language=JavaScript,caption={Categorical Palette}]
+% const palette = generatePalette({
+%   count: 6,
+%   anchors: ['#2C3E50'],
+%   mode: 'categorical'
+% });
+% 
+% // Result: maximally distinct colors
+% \end{lstlisting}
+
+\section{Loop Strategies}
+\label{sec:example-loops}
+
+% [To be written]
+% Content: Examples of different loop strategies
+
+% Placeholder:
+% \begin{lstlisting}[language=JavaScript,caption={Closed Loop for Animation}]
+% const palette = generatePalette({
+%   count: 12,
+%   anchors: ['#E74C3C', '#3498DB', '#2ECC71'],
+%   loop: 'closed'
+% });
+% 
+% // Last color transitions smoothly to first
+% \end{lstlisting}
+
+\section{Full Configuration}
+\label{sec:example-full}
+
+% [To be written]
+% Content: Example with all parameters specified
+
+% Placeholder:
+% \begin{lstlisting}[language=JavaScript,caption={Complete Configuration}]
+% const result = generatePalette({
+%   count: 8,
+%   anchors: ['#1A1A2E', '#E94560', '#0F3460'],
+%   temperature: 0.2,
+%   intensity: 0.7,
+%   smoothness: 0.8,
+%   lightness: 0.0,
+%   chroma: 0.6,
+%   mode: 'journey',
+%   loop: 'open',
+%   seed: 42
+% });
+% 
+% // Access output
+% console.log(result.palette);      // Color array
+% console.log(result.config);       // Resolved config
+% console.log(result.diagnostics);  // Quality info
+% \end{lstlisting}

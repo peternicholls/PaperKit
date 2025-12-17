@@ -1,0 +1,79 @@
+% ==============================================================================
+% Section 2: Perceptual Color Foundations
+% ==============================================================================
+% Primary Source: 01_perceptual_color_foundations.md
+% Target Length: 1,000-1,500 words
+% Dependencies: None (foundational section)
+% ==============================================================================
+
+% ------------------------------------------------------------------------------
+% 2.1 The Perceptual Uniformity Requirement
+% ------------------------------------------------------------------------------
+\section{The Perceptual Uniformity Requirement}
+\label{sec:perceptual-uniformity}
+
+% [To be written: ~300 words]
+% Content: Why perceptual uniformity matters for palette generation
+% Key points:
+%   - Mathematical distance should correspond to perceived difference
+%   - RGB/HSL are not perceptually uniform
+%   - Equal steps in RGB ≠ equal visual steps
+%   - Foundation for meaningful constraints (JND, Δ_min, Δ_max)
+
+% ------------------------------------------------------------------------------
+% 2.2 OKLab Color Space
+% ------------------------------------------------------------------------------
+\section{OKLab Color Space}
+\label{sec:oklab}
+
+% [To be written: ~400 words]
+% Content: OKLab derivation, properties, coordinate meanings
+% Key points:
+%   - Designed by Björn Ottosson (2020) for perceptual uniformity
+%   - L: lightness (0 = black, 1 = white)
+%   - a: green-red axis
+%   - b: blue-yellow axis
+%   - Euclidean distance approximates perceptual difference
+%   - Advantages over CIELAB for practical use
+
+% Mathematical definition placeholder:
+% \begin{equation}
+%   \Delta E_{OK} = \sqrt{(L_2 - L_1)^2 + (a_2 - a_1)^2 + (b_2 - b_1)^2}
+%   \label{eq:oklab-distance}
+% \end{equation}
+
+% ------------------------------------------------------------------------------
+% 2.3 Cartesian vs. Cylindrical Coordinates
+% ------------------------------------------------------------------------------
+\section{Cartesian vs. Cylindrical Coordinates}
+\label{sec:oklch}
+
+% [To be written: ~300 words]
+% Content: OKLCh cylindrical form and when to use each
+% Key points:
+%   - OKLCh: L (lightness), C (chroma), h (hue angle)
+%   - C = √(a² + b²), h = atan2(b, a)
+%   - Cartesian (Lab): better for interpolation, distance
+%   - Cylindrical (LCh): better for hue-preserving operations
+%   - Engine uses both internally for different operations
+
+% ------------------------------------------------------------------------------
+% 2.4 Color Space Conversion
+% ------------------------------------------------------------------------------
+\section{Color Space Conversion}
+\label{sec:conversion}
+
+% [To be written: ~300 words]
+% Content: Conversion pipeline sRGB → linear → OKLab
+% Key points:
+%   - sRGB gamma expansion to linear RGB
+%   - Linear RGB to OKLab via matrix transformation
+%   - Inverse for output (OKLab → linear → sRGB)
+%   - Precision considerations
+
+% Conversion matrix placeholder:
+% \begin{equation}
+%   \begin{bmatrix} L \\ a \\ b \end{bmatrix} = M_{OKLab} \cdot 
+%   \begin{bmatrix} R_{linear} \\ G_{linear} \\ B_{linear} \end{bmatrix}
+%   \label{eq:oklab-matrix}
+% \end{equation}

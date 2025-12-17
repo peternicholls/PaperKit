@@ -1,0 +1,99 @@
+% ==============================================================================
+% Section 3: Journey Construction
+% ==============================================================================
+% Primary Source: 02_journey_construction.md
+% Target Length: 1,500-2,000 words
+% Dependencies: §2 (OKLab coordinates for path construction)
+% ==============================================================================
+
+% ------------------------------------------------------------------------------
+% 3.1 The Journey Metaphor
+% ------------------------------------------------------------------------------
+\section{The Journey Metaphor}
+\label{sec:journey-metaphor}
+
+% [To be written: ~250 words]
+% Content: Explain the "journey" as a constructive device
+% Key points:
+%   - Colors generated "as if" traveling through perceptual space
+%   - Journey provides coherence and natural ordering
+%   - NOT prescriptive: users can use colors however they want
+%   - Internal construction device, not exposed API concept
+
+% ------------------------------------------------------------------------------
+% 3.2 Anchor Colors
+% ------------------------------------------------------------------------------
+\section{Anchor Colors}
+\label{sec:anchors}
+
+% [To be written: ~300 words]
+% Content: The anchor system (1-5 colors)
+% Key points:
+%   - Anchors are user-specified colors that MUST appear in output
+%   - Support 1-5 anchors (practical limit for coherent journeys)
+%   - Anchors define waypoints the journey must pass through
+%   - Position in output guaranteed (not just "close to")
+
+% ------------------------------------------------------------------------------
+% 3.3 Single-Anchor Expansion
+% ------------------------------------------------------------------------------
+\section{Single-Anchor Expansion}
+\label{sec:single-anchor}
+
+% [To be written: ~400 words]
+% Content: The "mood expansion" algorithm for single anchors
+% Key points:
+%   - Critical innovation: generate palette from ONE color
+%   - Expand in perceptually-coherent directions
+%   - Use anchor's character (hue, lightness) to determine expansion
+%   - Gray anchors: expand along lightness axis
+%   - Chromatic anchors: expand in complementary/analogous directions
+%   - Style controls influence expansion direction and extent
+
+% ------------------------------------------------------------------------------
+% 3.4 Multi-Anchor Paths
+% ------------------------------------------------------------------------------
+\section{Multi-Anchor Paths}
+\label{sec:multi-anchor}
+
+% [To be written: ~300 words]
+% Content: Constructing paths through multiple anchors
+% Key points:
+%   - 2 anchors: single segment between them
+%   - 3+ anchors: piecewise path with smooth connections
+%   - Order matters: anchors visited in sequence
+%   - Path respects anchor positions in output array
+
+% ------------------------------------------------------------------------------
+% 3.5 Bézier Curve Construction
+% ------------------------------------------------------------------------------
+\section{Bézier Curve Construction}
+\label{sec:bezier}
+
+% [To be written: ~400 words]
+% Content: Cubic Bézier curves with C¹ continuity
+% Key points:
+%   - Each segment is cubic Bézier in OKLab space
+%   - Control points determined by anchor positions and style params
+%   - C¹ continuity at anchor points (smooth tangent)
+%   - Intensity parameter scales control point distance
+
+% Bézier formula placeholder:
+% \begin{equation}
+%   B(t) = (1-t)^3 P_0 + 3(1-t)^2 t P_1 + 3(1-t) t^2 P_2 + t^3 P_3
+%   \label{eq:bezier}
+% \end{equation}
+
+% ------------------------------------------------------------------------------
+% 3.6 Arc-Length Parameterization
+% ------------------------------------------------------------------------------
+\section{Arc-Length Parameterization}
+\label{sec:arc-length}
+
+% [To be written: ~300 words]
+% Content: Uniform sampling via arc-length parameterization
+% Key points:
+%   - Parameter t does not give uniform spacing
+%   - Arc-length parameterization: equal t steps = equal distance
+%   - Numerical integration to build arc-length table
+%   - Enables perceptually-uniform sampling along curve

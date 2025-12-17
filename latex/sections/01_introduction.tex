@@ -1,21 +1,64 @@
-\section{Introduction}
+% ==============================================================================
+% Section 1: Introduction and Scope
+% ==============================================================================
+% Primary Source: 10_scope_use_cases_presets.md
+% Target Length: 500-1,000 words
+% ==============================================================================
 
-\subsection{Problem Motivation}
+% ------------------------------------------------------------------------------
+% 1.1 Motivation
+% ------------------------------------------------------------------------------
+\section{Motivation}
+\label{sec:motivation}
 
-% Content to be written by Section Drafter
-[To be written: Establish context, explain why this problem matters, what existing solutions are inadequate. Target: 500-750 words]
+% [To be written: ~200 words]
+% Content: Problem statement - need for perceptually-coherent, deterministic palettes
+% Key points:
+%   - Color palette generation is common in UI, visualization, generative art
+%   - Ad-hoc approaches produce inconsistent perceptual spacing
+%   - Need for principled, reproducible palette generation
 
-\subsection{Scope and Objectives}
+% ------------------------------------------------------------------------------
+% 1.2 Scope Definition
+% ------------------------------------------------------------------------------
+\section{Scope Definition}
+\label{sec:scope}
 
-% Content to be written
-[To be written: Define what this paper specifically addresses. What is included? What is explicitly excluded? Target: 300-500 words]
+% [To be written: ~250 words]
+% Content: What the engine IS vs. ISN'T
+% Key points:
+%   - IS: Deterministic palette generator using perceptual color science
+%   - IS: Discrete swatch output (array of colors)
+%   - ISN'T: Color picker, real-time renderer, color management system
+%   - ISN'T: Accessibility checker (caller responsibility)
 
-\subsection{Thesis Statement}
+% ------------------------------------------------------------------------------
+% 1.3 Design Principles
+% ------------------------------------------------------------------------------
+\section{Design Principles}
+\label{sec:design-principles}
 
-% Content to be written
-[To be written: Clearly state the paper's main contribution and argument. Target: 100-200 words]
+% [To be written: ~300 words]
+% Content: Core philosophy guiding the specification
+% Key themes:
+%   - Perceptual uniformity as foundation
+%   - Discrete output, continuous thinking
+%   - The journey is constructive, not prescriptive
+%   - Presets encode expertise
+%   - Graceful edge case handling
 
-\subsection{Paper Organization}
+% ------------------------------------------------------------------------------
+% 1.4 Paper Organization
+% ------------------------------------------------------------------------------
+\section{Paper Organization}
+\label{sec:organization}
 
-% Content to be written
-[To be written: Brief guide to how the paper is organized and what follows. Target: 100-150 words]
+% [To be written: ~150 words]
+% Content: Roadmap of the paper
+% Structure:
+%   - §2: Perceptual foundations (OKLab)
+%   - §3: Journey construction (anchors, Bézier curves)
+%   - §4-6: Constraints, controls, modes
+%   - §7-9: Loop strategies, gamut, determinism
+%   - §10-11: API design, caller responsibilities
+%   - §12: Conclusion

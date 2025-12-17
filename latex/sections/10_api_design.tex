@@ -1,0 +1,100 @@
+% ==============================================================================
+% Section 10: API Design and Output Structure
+% ==============================================================================
+% Primary Source: 07_api_design_philosophy.md
+% Target Length: 500-1,000 words
+% Dependencies: §5 (parameter documentation)
+% ==============================================================================
+
+% ------------------------------------------------------------------------------
+% 10.1 API Philosophy
+% ------------------------------------------------------------------------------
+\section{API Philosophy}
+\label{sec:api-philosophy}
+
+% [To be written: ~200 words]
+% Content: Pure function model and design principles
+% Key points:
+%   - Pure function: output depends only on input
+%   - No side effects, no global state
+%   - Stateless: each call independent
+%   - Simple default path, full control when needed
+%   - Presets provide convenient entry points
+
+% ------------------------------------------------------------------------------
+% 10.2 Input Parameters
+% ------------------------------------------------------------------------------
+\section{Input Parameters}
+\label{sec:api-input}
+
+% [To be written: ~200 words]
+% Content: Complete parameter specification
+% Key points:
+%   - Required: count (number of colors)
+%   - Required: anchors (1-5 colors, hex or OKLab)
+%   - Optional: style parameters (temperature, intensity, smoothness, etc.)
+%   - Optional: mode (journey/categorical)
+%   - Optional: loop strategy
+%   - Optional: seed
+%   - Presets expand to parameter sets
+
+% Parameter table placeholder:
+% \begin{table}[h]
+%   \centering
+%   \caption{API Input Parameters}
+%   \label{tab:api-params}
+% \end{table}
+
+% ------------------------------------------------------------------------------
+% 10.3 Output Structure
+% ------------------------------------------------------------------------------
+\section{Output Structure}
+\label{sec:api-output}
+
+% [To be written: ~200 words]
+% Content: What the engine returns
+% Key points:
+%   - Primary: palette array (ordered list of colors)
+%   - Each color: hex string + OKLab coordinates
+%   - Config echo: full resolved parameters
+%   - Diagnostics: warnings, constraint status, corrections
+
+% JSON structure placeholder:
+% \begin{lstlisting}[language=json]
+% {
+%   "palette": [...],
+%   "config": {...},
+%   "diagnostics": {...}
+% }
+% \end{lstlisting}
+
+% ------------------------------------------------------------------------------
+% 10.4 Diagnostic Information
+% ------------------------------------------------------------------------------
+\section{Diagnostic Information}
+\label{sec:api-diagnostics}
+
+% [To be written: ~150 words]
+% Content: What diagnostics are provided
+% Key points:
+%   - Constraint violations (which, how resolved)
+%   - Gamut corrections (which colors, how much)
+%   - Effective parameters (after preset expansion)
+%   - Quality metrics (perceptual distances, velocity)
+%   - Informational, not errors
+
+% ------------------------------------------------------------------------------
+% 10.5 Scope Boundaries
+% ------------------------------------------------------------------------------
+\section{Scope Boundaries}
+\label{sec:api-scope}
+
+% [To be written: ~150 words]
+% Content: What's explicitly out of scope
+% Key points:
+%   - NOT: color naming
+%   - NOT: accessibility checking (WCAG contrast)
+%   - NOT: color blindness simulation
+%   - NOT: real-time animation
+%   - NOT: color management / ICC profiles
+%   - Caller responsible for these concerns

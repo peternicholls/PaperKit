@@ -1,0 +1,105 @@
+% ==============================================================================
+% Section 7: Loop Strategies
+% ==============================================================================
+% Primary Source: 05_loop_strategies.md
+% Target Length: 1,000-1,500 words
+% Dependencies: §3 (path construction), §4 (spacing constraints)
+% ==============================================================================
+
+% ------------------------------------------------------------------------------
+% 7.1 Open Strategy
+% ------------------------------------------------------------------------------
+\section{Open Strategy}
+\label{sec:loop-open}
+
+% [To be written: ~200 words]
+% Content: Default open path (no return)
+% Key points:
+%   - Default strategy
+%   - Path starts at first anchor, ends at last
+%   - No repetition, no wrap-around
+%   - Output is linear sequence from start to end
+%   - Best for: one-way progressions, timelines
+
+% ------------------------------------------------------------------------------
+% 7.2 Closed Strategy
+% ------------------------------------------------------------------------------
+\section{Closed Strategy}
+\label{sec:loop-closed}
+
+% [To be written: ~200 words]
+% Content: Return to start color
+% Key points:
+%   - Path returns to starting color
+%   - Creates seamless loop (last → first is smooth)
+%   - Additional segment from last anchor to first
+%   - Output: colors can be traversed cyclically
+%   - Best for: cyclic data, continuous animations
+
+% ------------------------------------------------------------------------------
+% 7.3 Ping-Pong Strategy
+% ------------------------------------------------------------------------------
+\section{Ping-Pong Strategy}
+\label{sec:loop-pingpong}
+
+% [To be written: ~200 words]
+% Content: Reverse at endpoints
+% Key points:
+%   - Path oscillates: forward, then backward, repeat
+%   - No discontinuity at endpoints
+%   - Output unrolled: A→B→C→B→A→B→C→...
+%   - Endpoints appear once per cycle, midpoints twice
+%   - Best for: back-and-forth animations
+
+% ------------------------------------------------------------------------------
+% 7.4 Möbius Strategy
+% ------------------------------------------------------------------------------
+\section{Möbius Strategy}
+\label{sec:loop-mobius}
+
+% [To be written: ~250 words]
+% Content: Return with perceptual shift (half-twist)
+% Key points:
+%   - Returns to start but with transformation
+%   - Like Möbius strip: one loop = half rotation
+%   - Two full cycles to return to original
+%   - Transformation typically in lightness or chroma
+%   - Creates interesting visual patterns
+%   - Best for: evolving loops, generative art
+
+% ------------------------------------------------------------------------------
+% 7.5 Phased Strategy
+% ------------------------------------------------------------------------------
+\section{Phased Strategy}
+\label{sec:loop-phased}
+
+% [To be written: ~200 words]
+% Content: Progressive transformation each cycle
+% Key points:
+%   - Each cycle applies incremental transformation
+%   - Phase shift in hue, lightness, or chroma
+%   - Palette evolves over multiple cycles
+%   - Good for long sequences with gradual drift
+%   - Best for: evolving backgrounds, generative sequences
+
+% ------------------------------------------------------------------------------
+% 7.6 Output Semantics
+% ------------------------------------------------------------------------------
+\section{Output Semantics}
+\label{sec:loop-output}
+
+% [To be written: ~250 words]
+% Content: How loops unroll into output arrays
+% Key points:
+%   - All strategies output flat array of N colors
+%   - Loops "unrolled" into sequential list
+%   - No nested structure or cycle metadata in output
+%   - Caller handles cycling if needed
+%   - Non-repetition: adjacent colors never identical
+
+% Example table placeholder:
+% \begin{table}[h]
+%   \centering
+%   \caption{Loop Strategy Output Examples (N=7, 3 anchors)}
+%   \label{tab:loop-output}
+% \end{table}

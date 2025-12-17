@@ -1,0 +1,191 @@
+\documentclass{article}  
+\usepackage[utf8]{inputenc}  
+\usepackage{amsmath}  
+\usepackage{graphicx}  
+\usepackage{hyperref}  
+\usepackage{geometry}  
+\geometry{margin=1in}  
+\newcommand{\source}[1]{\texttt{#1}}  
+  
+\title{The Color Journey Engine: Conceptual and Mathematical Design}  
+\author{}  
+\date{}  
+  
+\begin{document}  
+  
+\maketitle  
+  
+\section{Introduction}  
+  
+The \emph{Color Journey Engine} is a framework for generating smooth, perceptually coherent sequences of colors (or \emph{color journeys}) under a variety of configurable constraints. It enables developers to define a path through color space that transitions between one or more specified key colors (called \emph{anchors}) while controlling perceptual attributes such as lightness, chroma (colorfulness), warmth (hue bias), vibrancy, and contrast. The engine's design emphasizes a high-level, abstract description of color transitions: it operates in a perceptually uniform color space to ensure smooth visual change, applies formal mathematical reasoning to construct color paths, and offers dynamic controls for biasing the journey's behavior without exposing low-level implementation details. This paper presents a detailed technical overview of the Color Journey Engine's conceptual design and algorithms, including its use of the \textbf{OKLab} perceptual color model, multi-anchor interpolation logic, dynamic parameter influences, looping strategies for continuous or reversible color sequences, methods for introducing pseudo-random variation deterministically, and mechanisms for gamut-awareness and constraint enforcement. We focus on the \emph{why} and \emph{how} at a conceptual level – using equations and formal descriptions to explain the engine's behavior – while avoiding any specific code or implementation-level particulars.
+
+\section{Design Principles}  
+The Color Journey Engine is guided by several key design principles that ensure the generated color sequences are perceptually smooth, configurable, and reproducible:
+
+\begin{itemize}
+\item \textbf{Perceptual Uniformity:} Color interpolation and distance calculations are done in a perceptually uniform space so that equal steps in the journey correspond to equal perceived differences. By using a modern perceptual model (OKLab), the engine avoids the artifacts of naive RGB or HSV interpolation where intermediate colors can appear unsaturated or unexpected. This ensures transitions that \emph{look} smooth to the human eye.
+
+\item \textbf{High-Level Configurability:} The engine provides abstract \textbf{dynamic control parameters} – such as lightness, chroma, warmth, vibrancy, and contrast – that allow the shape of the color journey to be adjusted without manipulating low-level color values directly.
+
+\item \textbf{Anchor-Based Modularity:} The journey is defined by up to $m$ anchor colors (with $1 \leq m \leq 5$) which act as fixed keyframes in color space. This modular design means the overall path is broken into segments between anchors, making complex multi-stage color progressions easier to manage.
+
+\item \textbf{Looping \& Continuity:} The engine supports different \textbf{curve and loop strategies} to determine how the color path begins, ends, and possibly repeats. It can produce \emph{open} journeys, \emph{closed} loops, \emph{ping-pong} oscillations, and \emph{Möbius} loops.
+
+\item \textbf{Dynamic Variation with Determinism:} The engine can introduce controlled randomness via a user-provided seed ensuring that the same input always yields the same color sequence, while different seeds produce distinct variations.
+
+\item \textbf{Gamut Awareness \& Constraint Enforcement:} All color computations are mindful of the target display gamut. The engine includes a gamut-mapping step to ensure no calculated color falls outside the valid range.
+
+\item \textbf{Reproducibility and Purity:} The engine's behavior is deterministic given the same inputs. It does not rely on any hidden state or external context.
+\end{itemize}
+
+\section{Perceptual Color Space: OKLab}  
+  
+Color interpolation and comparison benefit from being performed in a \emph{perceptually uniform} space. In such a space, equal Euclidean distances correspond more closely to equal perceptual differences. We adopt OKLab, which improves on the classic CIELAB space in terms of uniformity.
+
+A color in OKLab is represented by three coordinates $(L,a,b)$:
+\begin{itemize}
+\item $L$ is perceived lightness (0 = black, 1 = white)
+\item $a$ encodes roughly a green–red axis
+\item $b$ encodes a blue–yellow axis
+\end{itemize}
+
+The perceptual distance between two colors $A=(L_A,a_A,b_A)$ and $B=(L_B,a_B,b_B)$ in OKLab is measured by:
+\begin{equation}  
+\Delta E_{AB} = \sqrt{(L_B - L_A)^2 + (a_B - a_A)^2 + (b_B - b_A)^2}
+\end{equation}
+
+OKLab is obtained from linear RGB through:
+\begin{enumerate}
+\item Convert sRGB to linearized XYZ
+\item Apply matrix $M_1$ to obtain LMS cone responses
+\item Apply cube-root to each component
+\item Apply matrix $M_2$ to produce $(L,a,b)$
+\end{enumerate}
+
+\section{Anchors, Swatches and Perceptual Distance Constraints}  
+  
+The input to the engine is a sequence of \emph{anchor colors}. Between consecutive anchors, the engine generates intermediate colors called \emph{swatches}. Two parameters govern the sampling density:
+\begin{itemize}
+\item $\Delta_{\min} \approx 2$ — minimum allowed perceptual distance (JND threshold)
+\item $\Delta_{\max} \approx 5$ — maximum allowed distance (comfort limit)
+\end{itemize}
+
+For anchors $A$ and $B$ with distance $D = \Delta_{AB}$, we subdivide into:
+\begin{equation}  
+n = \left\lceil \frac{D}{\Delta_{\max}} \right\rceil  
+\end{equation}  
+segments, with an upper bound of $n \leq 5$.
+
+Linear interpolation in OKLab:
+\begin{equation}  
+P(t) = A + t(B - A) = \big(L_A + t(L_B - L_A), a_A + t(a_B - a_A), b_A + t(b_B - b_A)\big)
+\end{equation}
+
+\section{Bézier Representation}  
+
+Each segment can be represented as a cubic Bézier curve in OKLab space:
+\begin{equation}  
+\gamma(t) = (1-t)^3 P_0 + 3(1-t)^2 t P_1 + 3(1-t) t^2 P_2 + t^3 P_3
+\end{equation}
+
+At endpoints: $\gamma(0)=P_0$ and $\gamma(1)=P_3$. The tangents are:
+\begin{itemize}
+\item $\gamma'(0) = 3(P_1 - P_0)$
+\item $\gamma'(1) = 3(P_3 - P_2)$
+\end{itemize}
+
+For $C^1$ continuity at anchor $A_{i+1}$, set control point:
+\begin{equation}
+Q_1 = A_{i+1} + (A_{i+1} - P_2)
+\end{equation}
+
+\section{Loop Strategies}
+
+\subsection{Open Path}
+Journey from first anchor to last anchor, no closure.
+
+\subsection{Closed Loop}
+Returns to first anchor: $J(0) = J(1) = A_1$
+
+\subsection{Ping-Pong}
+Traverses forward then backward:
+\begin{equation}
+\tilde{t} = \begin{cases} u & 0 \leq u < 1 \\ 2 - u & 1 \leq u < 2 \end{cases}
+\end{equation}
+
+\subsection{Möbius Loop}
+Half-twist requiring two iterations to return:
+\begin{equation}
+J_{\text{mobius}}(1) = (L, -a, -b) \text{ if } J_{\text{mobius}}(0) = (L, a, b)
+\end{equation}
+
+\section{Dynamic Control Parameters}
+
+\subsection{Lightness Dynamics}
+Shaping function $f_L(\alpha)$ with $f_L(0)=0$, $f_L(1)=1$:
+\begin{equation}
+L(\alpha) = L_i + f_L(\alpha)(L_{i+1}-L_i)
+\end{equation}
+
+Example S-curve for contrast:
+\begin{equation}
+f_L(\alpha) = \frac{\alpha^p}{\alpha^p + (1-\alpha)^p}
+\end{equation}
+
+\subsection{Chroma Dynamics}
+\begin{equation}
+C(\alpha) = C_{\text{lin}}(\alpha) \cdot f_C(\alpha)
+\end{equation}
+
+Vibrant boost: $f_C(\alpha) = 1 + u \sin(\pi \alpha)$
+
+\subsection{Warmth (Hue Bias)}
+Choose hue direction based on bias $w \in [-1, +1]$:
+\begin{itemize}
+\item $w > 0$: rotate toward warm hues (reds, oranges, yellows)
+\item $w < 0$: rotate toward cool hues (greens, blues, purples)
+\item $w = 0$: shortest path
+\end{itemize}
+
+\section{Variation and Pseudo-Random Determinism}
+
+Variation is achieved via a pseudo-random number generator (PRNG) seeded by user-provided seed. Requirements:
+\begin{itemize}
+\item Same seed $\rightarrow$ same output
+\item No external non-determinism (time, threads, etc.)
+\item Variation bounded to not violate constraints
+\end{itemize}
+
+\section{Determinism Guarantee}
+
+For fixed:
+\begin{itemize}
+\item Anchor colors (same order and representation)
+\item Configuration object (dynamics, loop, UI fields)
+\item Variation configuration (mode and seed)
+\item Implementation version
+\end{itemize}
+The engine must produce identical palette, modulo tolerance ($\sim 0.2\%$) for floating-point precision.
+
+\section{Output Structure}
+
+Discrete palette array with each swatch containing:
+\begin{itemize}
+\item \texttt{hex}: sRGB hex string (\texttt{\#RRGGBB})
+\item \texttt{ok}: OKLab coordinates $\{L, a, b\}$
+\end{itemize}
+
+CSS custom properties format:
+\begin{verbatim}
+:root {
+  --cj-1: #hex;
+  --cj-2: #hex;
+  ...
+}
+\end{verbatim}
+
+\section{Conclusion}
+
+The Color Journey Engine combines perceptual color theory, geometric curve construction, and a carefully designed configuration model to generate ordered palettes from a small set of anchors. By treating journeys as internal construction devices and exposing only discrete output plus diagnostics, the engine remains flexible and easy to integrate while offering sophisticated behavior.
+
+\end{document}

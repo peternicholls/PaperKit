@@ -1,0 +1,81 @@
+% ==============================================================================
+% Section 8: Gamut Management
+% ==============================================================================
+% Primary Source: 08_gamut_management.md
+% Target Length: 500-1,000 words
+% Dependencies: §2 (color space boundaries), §3 (control point placement)
+% ==============================================================================
+
+% ------------------------------------------------------------------------------
+% 8.1 The Gamut Boundary Problem
+% ------------------------------------------------------------------------------
+\section{The Gamut Boundary Problem}
+\label{sec:gamut-problem}
+
+% [To be written: ~250 words]
+% Content: Why OKLab paths can exit sRGB gamut
+% Key points:
+%   - OKLab is device-independent, sRGB is bounded
+%   - Valid OKLab coordinates may have no sRGB representation
+%   - High-chroma colors near gamut boundary
+%   - Bézier curves can exit gamut even if anchors are in-gamut
+%   - Must handle gracefully for practical output
+
+% Gamut diagram placeholder:
+% \begin{figure}[h]
+%   \centering
+%   % \includegraphics{gamut_boundary}
+%   \caption{sRGB gamut boundary in OKLab space}
+%   \label{fig:gamut}
+% \end{figure}
+
+% ------------------------------------------------------------------------------
+% 8.2 Design-Time Gamut Awareness
+% ------------------------------------------------------------------------------
+\section{Design-Time Gamut Awareness}
+\label{sec:gamut-design}
+
+% [To be written: ~250 words]
+% Content: First layer - gamut-aware path construction
+% Key points:
+%   - Control points placed with gamut awareness
+%   - Intensity parameter scaled to avoid extreme excursions
+%   - "Soft" boundaries guide but don't hard-clip
+%   - Reduce likelihood of out-of-gamut samples
+%   - Preserves design intent where possible
+
+% ------------------------------------------------------------------------------
+% 8.3 Sample-Time Correction
+% ------------------------------------------------------------------------------
+\section{Sample-Time Correction}
+\label{sec:gamut-correction}
+
+% [To be written: ~250 words]
+% Content: Second layer - per-sample gamut mapping
+% Key points:
+%   - Check each sampled color for sRGB validity
+%   - If out-of-gamut: apply soft correction
+%   - Correction strategy: reduce chroma while preserving hue and lightness
+%   - Iterative reduction until in-gamut
+%   - Diagnostics flag corrected colors
+
+% Algorithm placeholder:
+% \begin{algorithm}
+%   \caption{Gamut Correction}
+%   \label{alg:gamut}
+% \end{algorithm}
+
+% ------------------------------------------------------------------------------
+% 8.4 Hue Preservation
+% ------------------------------------------------------------------------------
+\section{Hue Preservation}
+\label{sec:hue-preservation}
+
+% [To be written: ~200 words]
+% Content: Priority of hue preservation in correction
+% Key points:
+%   - Hue is most important for color identity
+%   - Correction reduces chroma first, then lightness if needed
+%   - Never rotates hue to fit gamut
+%   - Maintains journey coherence even after correction
+%   - Trade-off: may lose saturation but keeps color character

@@ -1,0 +1,186 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{geometry}
+\geometry{margin=1in}
+\newcommand{\source}[1]{\texttt{#1}}
+
+\title{The Color Journey Engine: Conceptual and Mathematical Design}
+\author{}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\section{Introduction}
+
+The \emph{Color Journey Engine} is a framework for generating smooth, perceptually--uniform sequences of colours (or \emph{swatches}) between defined key colours, which we call \emph{anchor colours}.  The engine ensures that colour transitions are aesthetically pleasing and mathematically well--defined by working in a modern perceptual colour space and by enforcing minimum and maximum perceptual distances between consecutive swatches.  This paper presents the design of the engine in a self--contained manner, covering both high--level concepts and the underlying mathematics.  Throughout, colours are converted to and processed in the OKLab space, which is chosen for its perceptual uniformity.  The system adapts the number of swatches to the perceptual distance between anchors rather than fixing it a priori, and it offers multiple interpolation strategies to suit different visual styles.  The narrative here assumes no prior knowledge of earlier discussions; all necessary definitions and formulas are provided.
+
+\section{Perceptual Colour Space: OKLab}
+
+Colour interpolation and comparison benefit from being performed in a \emph{perceptually--uniform} space.  In such a space, equal Euclidean distances correspond more closely to equal perceptual differences.  We adopt OKLab, introduced by Ottosson, which improves on the classic CIELAB space in terms of uniformity\source{【6†L153-L157】}.  A colour in OKLab is represented by three coordinates \( (L,a,b) \), where \(L\) is perceived lightness, \(a\) encodes roughly a green--red axis, and \(b\) encodes a blue--yellow axis.  OKLab is obtained from linear RGB through a sequence of linear transforms and a cube--root nonlinearity: first convert sRGB to a linearised XYZ; then apply a matrix \( M_1 \) to obtain LMS cone responses; apply a cube--root to each component; and finally apply another matrix \( M_2 \) to produce \(L,a,b\).  Full matrices are given in Ottosson's paper\source{【8†L228-L238】【8†L241-L249】}; the details need not be reproduced here, but the transformation is invertible, allowing conversion back to sRGB.
+
+The perceptual distance between two colours \(A=(L_A,a_A,b_A)\) and \(B=(L_B,a_B,b_B)\) in OKLab is measured by the Euclidean norm
+\begin{equation}
+\Delta_{AB} = \sqrt{(L_B - L_A)^2 + (a_B - a_A)^2 + (b_B - b_A)^2}\,,
+\end{equation}
+which acts as a colour difference metric analogous to \(\Delta E^\ast\) in CIELAB\source{【8†L204-L208】}.  Differences of about two to three units in this space are near the threshold of human discernment, while differences above roughly five units are clearly perceptible\source{【21†L293-L297】}.  The engine uses these values to regulate swatch spacing.
+
+To convert between sRGB and OKLab, two functions are needed:
+
+\begin{verbatim}
+struct Color { double r, g, b; };   // sRGB in 0--1 range
+struct Lab   { double L, a, b; };   // OKLab coordinates
+
+Lab srgbToOklab(Color c) {
+    // (1) convert c from sRGB to linear XYZ;
+    // (2) apply matrix M1 to get LMS;
+    // (3) take cube--root of each component;
+    // (4) apply matrix M2 to get (L,a,b).
+    Lab lab;
+    // ... computations ...
+    return lab;
+}
+
+Color oklabToSrgb(Lab lab) {
+    // inverse of srgbToOklab: undo M2, cube roots, and M1.
+    Color c;
+    return c;
+}
+\end{verbatim}
+
+Implementations may use precomputed matrices to speed these conversions.  Once colours are in OKLab, interpolation and distance calculations become straightforward.
+
+\section{Anchors, Swatches and Perceptual Distance Constraints}
+
+\subsection{Anchors and Swatches}
+
+The input to the engine is a sequence of \emph{anchor colours}.  Anchors are the fixed colours that define key points along the desired palette.  Between consecutive anchors, the engine generates intermediate colours called \emph{swatches}.  A swatch sequence thus forms a continuous colour gradient from one anchor to the next.  Importantly, there is no globally fixed number of swatches; rather, the number is determined adaptively from the perceptual distance between each pair of anchors.
+
+Consider two anchors \(A\) and \(B\) in OKLab coordinates.  Their distance \(D = \Delta_{AB}\) determines how many intermediate swatches are needed.  Two parameters govern the spacing: a minimum allowed perceptual distance \(\Delta_{\min}\) and a maximum allowed distance \(\Delta_{\max}\).  These thresholds are chosen so that adjacent colours are neither too similar (making the difference imperceptible) nor too far apart (causing abrupt jumps).  Typical values are \(\Delta_{\min} \approx 2\) and \(\Delta_{\max} \approx 5\) in OKLab units\source{【21†L293-L297】}.  If \(D \le \Delta_{\max}\), one can place colour \(B\) directly after \(A\) with no intermediate swatches; if \(D < \Delta_{\min}\), the colours may be visually indistinguishable, and the system could treat them as essentially the same anchor.  Otherwise, we subdivide the interval into
+\begin{equation}
+n = \left\lceil \frac{D}{\Delta_{\max}} \right\rceil
+\end{equation}
+segments, with \(n \le 5\) by design (we fix an upper bound of five segments to keep the palette manageable).  Each segment then has length \(D/n\), guaranteeing it does not exceed \(\Delta_{\max}\).  The engine inserts \(n-1\) intermediate swatches at positions \(t = i/n\) for \(i=1,2,\dots,n-1\).  Linearly interpolating in OKLab space gives
+\begin{equation}
+P(t) = A + t\,(B-A) = \bigl(L_A + t(L_B-L_A),\; a_A + t(a_B-a_A),\; b_A + t(b_B-b_A)\bigr)
+\end{equation}
+for \(0 \le t \le 1\).  After computing \(P(t)\) in OKLab, we convert back to the output colour space (e.g.\ sRGB) for display.
+
+Below is pseudocode illustrating adaptive generation of swatches between two anchors:
+
+\begin{verbatim}
+const double DELTA_MIN = 2.0;
+const double DELTA_MAX = 5.0;
+const int    MAX_SEGMENTS = 5;
+
+void addSegmentWithIntermediates(Color anchor1, Color anchor2, vector<Color>& out) {
+    Lab lab1 = srgbToOklab(anchor1);
+    Lab lab2 = srgbToOklab(anchor2);
+    double D = oklabDistance(lab1, lab2);
+    if (D < DELTA_MIN) {
+        // colours nearly identical: append only the second anchor
+        out.push_back(anchor2);
+        return;
+    }
+    int segments = (int)ceil(D / DELTA_MAX);
+    if (segments > MAX_SEGMENTS) segments = MAX_SEGMENTS;
+    for (int i = 1; i <= segments; ++i) {
+        double t = (double)i / segments;
+        Lab interp;
+        interp.L = lab1.L + t * (lab2.L - lab1.L);
+        interp.a = lab1.a + t * (lab2.a - lab1.a);
+        interp.b = lab1.b + t * (lab2.b - lab1.b);
+        Color c = oklabToSrgb(interp);
+        out.push_back(c);
+    }
+}
+\end{verbatim}
+
+The vector \texttt{out} accumulates the sequence of colours; each call inserts enough swatches so that successive colours differ by at most \(\Delta_{\max}\).  Users may provide up to five anchor colours; the engine concatenates segments across all pairs of anchors.  The design imposes a hard maximum of five segments (four intermediate swatches) between any two anchors to balance perceptual precision with palette length.
+
+\subsection{Multi--Anchor Journeys}
+
+With more than two anchors, the journey becomes a chain of segments \(\gamma_0,\gamma_1,\dots\) from \(A_0\) to \(A_1\), then \(A_1\) to \(A_2\), and so on.  The continuity condition is \(\gamma_i(1) = A_{i+1} = \gamma_{i+1}(0)\).  The engine processes each segment independently using the above subdivision logic, concatenating the resulting swatches.  For a smooth overall trajectory, one may optionally enforce continuity in the derivative at anchors (\(C^1\) smoothness) by matching tangent directions.  If \(P_1\) and \(P_2\) are control points for a cubic Bézier (see below), setting the first control point of segment \(i+1\) to be \(Q_1 = A_{i+1} + (A_{i+1} - P_2)\) matches the outgoing tangent to the incoming tangent.
+
+\section{Colour Transition Strategies}
+
+The engine offers several \emph{interpolation strategies}.  These define how colours change along a segment in perceptual space.  Some strategies are built into the engine and are not exposed to the user, such as clamping colours to the display gamut and ensuring minimum/maximum perceptual distances.  Others are configurable to allow different stylistic effects.  We outline both categories.
+
+\subsection{Internal Strategies}
+
+\begin{itemize}
+  \item \textbf{Perceptual distance enforcement.}  As described above, the engine enforces \(\Delta_{\min} \le \Delta \le \Delta_{\max}\) for adjacent swatches.  This internal rule prevents redundant near--duplicates and large jumps.
+
+  \item \textbf{Gamut clamping.}  Linear interpolation in OKLab may produce intermediate colours outside the displayable sRGB gamut.  The engine automatically maps such colours back into gamut, typically by reducing chroma (saturation) until all RGB components lie in \([0,1]\)\source{【17†L9-L12】【17†L23-L25】}.  This clamping is internal and not user--configurable.
+
+  \item \textbf{Hue wrapping.}  For strategies that interpolate hue as an angle (in OKLCH), the system takes the shorter of the two angular differences (i.e., the principal arc on the circle).  This avoids sudden hue jumps near the wrap--around boundary at 360°.
+
+  \item \textbf{Implicit smoothing at anchors.}  When three or more anchors are present, the derivative of the path can change abruptly at anchor points.  The engine may insert a very short additional segment or adjust the first or last swatch around an anchor to smooth the transition.  This optional smoothing is akin to using Bézier curves rather than piecewise linear segments.  In the present design, smoothing can be implemented by adjusting control points as described in the next subsection.
+\end{itemize}
+
+\subsection{Exposed Strategies}
+
+Users can choose among several high--level interpolation styles.  Each strategy takes the anchor colours and returns a continuous path in OKLab from one anchor to the next.  The engine then samples that path subject to the distance constraints.
+
+\paragraph{Direct Linear Interpolation.}  The default strategy uses the straight line in OKLab between two anchors, as in equation (3).  Because OKLab is nearly perceptually uniform, linear blends produce smooth and balanced transitions\source{【6†L153-L157】}.  In the formula above, all three components \(L,a,b\) change at constant rates, which often results in slight desaturation mid--way when anchors differ greatly in hue.
+
+\paragraph{Chromatic Curve (OKLCH Interpolation).}  To maintain saturation and produce more vibrant intermediate hues, one may convert anchors to OKLCH (polar form of OKLab) and linearly interpolate lightness \(L\), chroma \(C\) and hue angle \(h\) separately, taking the shortest hue path.  For anchors with coordinates \((L_A,C_A,h_A)\) and \((L_B,C_B,h_B)\), set
+\begin{equation}
+L(t) = L_A + t(L_B-L_A),\quad C(t) = C_A + t(C_B-C_A),\quad h(t) = h_A + t\,\Delta h
+\end{equation}
+where \(\Delta h\) is the minimal signed hue difference (accounting for wrap--around).  Converting \(L,C,h\) back to Lab via \(a=C\cos h,\,b=C\sin h\) yields a colourful trajectory that hugs the surface of the colour space\source{【13†L73-L80】}.  This strategy prevents mid--point greying and is exposed as a \textit{Vibrant} mode.
+
+\paragraph{Two--Phase Strategies.}  These strategies introduce an implicit intermediate anchor to change one attribute first, then another.  They are useful when the anchors differ markedly in both lightness and hue.
+\begin{itemize}
+  \item \textbf{Lightness--First.}  Construct a temporary colour \(M\) having the hue and chroma of the starting anchor but the lightness of the target.  In Lab coordinates, let \(M=(L_B,a_A,b_A)\).  First interpolate from \(A\) to \(M\), then from \(M\) to \(B\).  Each half is handled by the standard distance--regulated sampler.  Visually, this causes the colour to lighten or darken early before changing hue.
+  \item \textbf{Hue--First.}  Conversely, let \(M\) carry the lightness of \(A\) but the hue of \(B\).  In OKLCH, set \(L_M=L_A\), \(h_M=h_B\), and choose chroma \(C_M\) near that of \(A\).  Interpolate in two stages: \(A\rightarrow M\) changes hue while keeping brightness, and \(M\rightarrow B\) adjusts lightness.  This keeps the middle of the journey similar in brightness to the anchors.
+\end{itemize}
+
+\paragraph{Neutral Pivot.}  For very different hues where a direct path yields an undesirable intermediate (e.g.\ a muddy colour), one can insert a neutral grey anchor in between.  A typical neutral pivot sets the midpoint to have the average lightness of the anchors and zero chroma, then interpolates in two stages: \(A\rightarrow \text{neutral}\rightarrow B\).  This produces a fade to grey followed by a fade in to the second colour.  It is an optional style for special effects.
+
+\paragraph{Continuation and Loop Strategies.}  When a user requests more swatches than are available in the perceptually justified journey (i.e.\ beyond the maximum distinct steps), the engine extends the path.  Several internal loop topologies can be used:
+\begin{itemize}
+  \item \emph{Tile Loop:} repeat the base journey periodically.  If \(\gamma:[0,1]\rightarrow \mathbb{R}^3\) is the base segment, then \(\Gamma(u) = \gamma(u\bmod 1)\).  This forms a simple closed loop.
+  \item \emph{Ping--Pong Loop:} traverse the journey forward then backward repeatedly.  Define \(\tilde{t} = 2t\) for \(t\le 1/2\) and \(\tilde{t} = 2 - 2t\) for \(t>1/2\).  Then \(\Gamma(u) = \gamma(\tilde{u})\) where \(u\) increases linearly over time.
+  \item \emph{Phased Loop:} apply a small group action (e.g.\ a constant hue shift) on each repetition.  If \(h\) is the hue coordinate and \(k\) is the loop index, one may set \(h\mapsto h + k\Delta h\) when starting the \(k\)-th repetition.
+  \item \emph{Möbius Loop:} twist the journey after each lap, such as by reflecting lightness around 0.5 or reversing the hue direction.  In a Möbius loop, the second lap traverses a colour--inverted version of the path before returning to the original; two laps are required to return to the starting orientation.  This produces a visually interesting, non--trivial repetition.
+\end{itemize}
+The loop topology is chosen internally based on the number of requested swatches and the style parameters described in the next section.  Users need not select the topology directly; they specify a high--level \emph{loop enabled} flag and stylistic biases, and the engine chooses an appropriate strategy.
+
+\section{Stylistic Parameters}
+
+While the engine operates with rigorous perceptual rules by default, it provides users with simple, continuous parameters that steer the appearance of the journey.  These parameters map to mathematical adjustments in the Bézier control points that define the path.
+
+\subsection{Bézier Representation and Control Point Nudging}
+
+Within each segment, the engine can represent the colour path as a cubic Bézier curve in OKLab.  A Bézier curve with endpoints \(P_0\) (start) and \(P_3\) (end) and control points \(P_1,P_2\) is given by
+\begin{equation}
+\gamma(t) = (1-t)^3 P_0 + 3(1-t)^2 t P_1 + 3(1-t) t^2 P_2 + t^3 P_3,
+\quad 0\le t\le 1.
+\end{equation}
+The derivative at the start is \(\gamma'(0) = 3(P_1-P_0)\) and at the end is \(\gamma'(1) = 3(P_3-P_2)\).  To extend a journey beyond an anchor, one may add another Bézier segment starting at the same point \(P_3\) and match its first control point \(Q_1\) to ensure tangent continuity: set \(Q_1 = P_3 + (P_3 - P_2)\).  The second control point \(Q_2\) and far endpoint \(Q_3\) are then chosen to nudge the path in a desired direction (e.g.\ increasing chroma or rotating hue), subject to gamut constraints.
+
+\subsection{User Controls: Temperature, Intensity and Smoothness}
+
+The engine exposes a few intuitive parameters that influence the path without requiring knowledge of Bézier control points:
+
+\begin{itemize}
+  \item \textbf{Temperature} (\(-1\) to \(+1\)).  This parameter biases the path towards cooler (blue--green) or warmer (red--orange) hues.  Mathematically, when choosing control points for the Bézier extension, a warm bias adds a small offset in the hue angle towards warm hues, while a cool bias shifts towards cool hues.  It affects both the primary segment and any extension; positive values favour warm hues and negative values favour cool hues.
+  \item \textbf{Intensity} (0 to 1).  Intensity controls how far the path swings out in chroma.  An intensity of 0 yields a nearly straight line in OKLab (modest chroma variation), while an intensity of 1 pulls the control points further into high--chroma areas, producing vivid, high--saturation intermediate colours.  In code, if \(P_0\) and \(P_3\) are anchors, one might set \(P_1 = \text{lerp}(P_0,P_3,1/3) + \text{intensity} \times \text{offset}_1\) and similarly for \(P_2\).
+  \item \textbf{Smoothness} (0 to 1).  Smoothness determines how evenly curvature is distributed.  A value near 1 produces gentle, evenly distributed curvature (\(C^1\) smooth) whereas a value near 0 may permit sharper turns, placing control points closer to the anchors and creating a more ``punchy'' transition.
+  \item \textbf{Loop Enabled}.  A boolean flag indicating whether the palette should extend beyond the primary journey.  If set, the engine chooses an internal loop strategy (tile, ping--pong, phased, or Möbius) based on the other settings and the number of requested swatches.
+\end{itemize}
+
+These controls map directly to the placement of control points and to the choice of extension strategy.  For example, a warm temperature with high intensity might favour a phased loop that rotates hue slightly each lap, whereas a neutral temperature and high smoothness might use a simple tile loop with gentle Bézier curves.
+
+\section{Conclusion}
+
+We have presented a comprehensive design for the Color Journey Engine that combines perceptual colour science with adaptive sampling and flexible interpolation strategies.  The engine operates in the OKLab space, ensuring that Euclidean distances correspond closely to perceived colour differences\source{【6†L153-L157】}.  It enforces a minimum and maximum distance between consecutive swatches, thereby determining the number of intermediate colours required without pre--specifying the count.  The system supports up to five segments between any two anchors, guaranteeing visual smoothness while keeping palettes concise.  A variety of interpolation strategies—linear OKLab, chromatic OKLCH, two--phase lightness or hue first, neutral pivot, and several looping topologies—allow users to tailor the character of the colour journey to their needs.  Internal mechanisms such as gamut clamping and hue wrapping maintain validity and smoothness.
+
+Users influence the journey via high--level parameters (temperature, intensity, smoothness, and loop enablement).  These parameters map to mathematical adjustments in Bézier control points and to the selection of continuation strategies.  The result is a tool that hides the complexity of colour conversion and interpolation behind a simple interface, yet provides mathematically grounded and perceptually coherent palettes.  Such a system is valuable in interface design, data visualization, and artistic applications where controlled colour transitions are essential.  Future work might extend the engine to more complex perceptual models or real--time interactive controls, but the foundation presented here offers a complete and self--contained solution for constructing perceptually aware colour journeys.
+
+\end{document}

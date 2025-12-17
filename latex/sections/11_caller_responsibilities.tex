@@ -1,0 +1,66 @@
+% ==============================================================================
+% Section 11: Caller Responsibilities
+% ==============================================================================
+% Primary Sources: 09_diagnostics_validation.md, 10_scope_use_cases_presets.md
+% Target Length: 400-600 words
+% Dependencies: §10 (API contract)
+% ==============================================================================
+
+% ------------------------------------------------------------------------------
+% 11.1 Input Validation
+% ------------------------------------------------------------------------------
+\section{Input Validation}
+\label{sec:input-validation}
+
+% [To be written: ~150 words]
+% Content: What callers must validate
+% Key points:
+%   - Anchor colors should be valid (in-gamut preferred)
+%   - Count must be positive integer
+%   - Parameter ranges respected (engine clamps but caller should check)
+%   - Preset names must be valid
+
+% ------------------------------------------------------------------------------
+% 11.2 Engine Guarantees
+% ------------------------------------------------------------------------------
+\section{Engine Guarantees}
+\label{sec:guarantees}
+
+% [To be written: ~150 words]
+% Content: What the engine promises
+% Key points:
+%   - Output count matches requested count (or closest valid)
+%   - All output colors are valid sRGB
+%   - Anchors appear in output (exact positions)
+%   - Adjacent colors differ by at least Δ_min
+%   - Deterministic: same input = same output
+
+% ------------------------------------------------------------------------------
+% 11.3 Caller Responsibilities
+% ------------------------------------------------------------------------------
+\section{Caller Responsibilities}
+\label{sec:caller-duties}
+
+% [To be written: ~200 words]
+% Content: What callers must handle themselves
+% Key points:
+%   - Accessibility testing (WCAG contrast ratios)
+%   - Context-specific suitability (print vs. screen)
+%   - Color blindness considerations
+%   - Application-specific constraints (brand colors, etc.)
+%   - Storage/caching of generated palettes
+%   - Version tracking for reproducibility
+
+% ------------------------------------------------------------------------------
+% 11.4 Error Handling
+% ------------------------------------------------------------------------------
+\section{Error Handling}
+\label{sec:error-handling}
+
+% [To be written: ~100 words]
+% Content: How errors and edge cases are handled
+% Key points:
+%   - Invalid inputs: engine returns error (no partial output)
+%   - Constraint conflicts: engine resolves gracefully, flags in diagnostics
+%   - Impossible requests: closest valid alternative returned
+%   - No silent failures: all adaptations documented in diagnostics
