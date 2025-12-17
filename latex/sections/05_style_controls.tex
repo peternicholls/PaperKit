@@ -12,7 +12,7 @@
 \section{Temperature Control}
 \label{sec:temperature}
 
-Temperature biases the journey's hue path toward warm or cool colours.
+Temperature biases the journey's hue path toward warm or cool colours~\cite{hunt2004}. This control operates in the hue dimension of OKLCh (\S\ref{sec:oklch}), biasing the path selection when multiple hue routes are possible.
 
 \begin{center}
 \begin{tabular}{ll}
@@ -71,7 +71,7 @@ Mathematically, intensity scales the control point offset:
 
 where $\iota$ is the intensity parameter and $\vec{s}_1$, $\vec{s}_2$ are style-determined offset vectors (typically into higher-chroma regions).
 
-Intensity affects path geometry, not endpoint colours. The anchors remain unchanged; only the route between them becomes more or less dramatic.
+Intensity affects path geometry, not endpoint colours. The anchors remain unchanged (\S\ref{sec:anchors}); only the route between them becomes more or less dramatic. This is achieved by scaling the Bézier control point offset (\S\ref{sec:bezier}).
 
 % ------------------------------------------------------------------------------
 % 5.3 Smoothness Control
@@ -128,7 +128,7 @@ Range $0.0$ to $2.0$, default $1.0$. Expands or compresses the lightness range. 
 where $p$ is derived from the contrast parameter.
 
 \paragraph{Vibrancy.}
-Range $0.0$ to $2.0$, default $1.0$. Selectively boosts chroma of less-saturated colours while leaving already-vibrant colours unchanged. Useful for counteracting desaturation in complementary-colour interpolation.
+Range $0.0$ to $2.0$, default $1.0$. Selectively boosts chroma of less-saturated colours while leaving already-vibrant colours unchanged~\cite{poynton2012}. Useful for counteracting desaturation in complementary-colour interpolation.
 \begin{equation}
     C' = C \cdot \left(1 + v \cdot \left(1 - \frac{C}{C_{\max}}\right)\right)
 \end{equation}
@@ -162,6 +162,6 @@ High temperature + cool anchors & Long hue path, more colours needed \\
 \end{tabular}
 \end{center}
 
-The engine applies all dynamics as specified, then performs gamut mapping. Conflicts are resolved by clamping to valid values, not by preventing the combination. Diagnostics report when settings caused gamut corrections.
+The engine applies all dynamics as specified, then performs gamut mapping (\S\ref{sec:gamut-problem}--\S\ref{sec:hue-preservation}). Conflicts are resolved by clamping to valid values, not by preventing the combination. Diagnostics report when settings caused gamut corrections (\S\ref{sec:api-diagnostics}).
 
 With all parameters at default values, the engine produces simple linear interpolation---the most predictable baseline. Presets encode tested combinations that work well together for specific aesthetic goals.

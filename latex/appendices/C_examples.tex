@@ -7,96 +7,323 @@
 \section{Basic Usage}
 \label{sec:example-basic}
 
-% [To be written]
-% Content: Simple example of generating a palette
+This appendix provides practical code examples demonstrating common usage patterns for the Color Journey Engine. All examples use a JavaScript-like pseudocode that maps directly to the API structure defined in \S\ref{sec:api-input}.
 
-% Placeholder:
-% \begin{lstlisting}[language=JavaScript,caption={Basic Palette Generation}]
-% const palette = generatePalette({
-%   count: 5,
-%   anchors: ['#FF6B6B', '#4ECDC4'],
-%   preset: 'journey'
-% });
-% 
-% // Result: array of 5 colors
-% // ['#FF6B6B', '#E08B7A', '#8FB8A9', '#5DC5B8', '#4ECDC4']
-% \end{lstlisting}
+\subsection{Simple Two-Anchor Gradient}
+
+The most basic usage: interpolate between two colours to create a smooth gradient.
+
+\begin{lstlisting}[language=JavaScript,caption={Basic Two-Anchor Gradient}]
+const palette = generatePalette({
+  count: 5,
+  anchors: ['#FF6B6B', '#4ECDC4']
+});
+
+// Result: 5 colours from coral to teal
+// [
+//   { hex: '#FF6B6B', ok: { L: 0.70, a: 0.14, b: 0.05 } },
+//   { hex: '#E08B7A', ok: { L: 0.68, a: 0.08, b: 0.03 } },
+//   { hex: '#8FB8A9', ok: { L: 0.72, a: -0.03, b: 0.02 } },
+//   { hex: '#5DC5B8', ok: { L: 0.74, a: -0.08, b: 0.01 } },
+//   { hex: '#4ECDC4', ok: { L: 0.76, a: -0.10, b: 0.00 } }
+// ]
+\end{lstlisting}
+
+\subsection{Multi-Anchor Journey}
+
+Three or more anchors create a journey that passes through each waypoint.
+
+\begin{lstlisting}[language=JavaScript,caption={Three-Anchor Journey}]
+const palette = generatePalette({
+  count: 9,
+  anchors: ['#1A1A2E', '#E94560', '#0F3460'],
+  smoothness: 0.8
+});
+
+// Result: dark blue -> vibrant red -> deep blue
+// Anchors appear at positions 0, 4, and 8 (approximately)
+// Intermediate colours flow smoothly between them
+\end{lstlisting}
 
 \section{Single-Anchor Expansion}
 \label{sec:example-single}
 
-% [To be written]
-% Content: Example of mood expansion from one color
+Single-anchor mode (\S\ref{sec:single-anchor}) generates harmonious variations from one colour, useful for UI state variations and monochromatic palettes.
 
-% Placeholder:
-% \begin{lstlisting}[language=JavaScript,caption={Single-Anchor Mood Expansion}]
-% const palette = generatePalette({
-%   count: 7,
-%   anchors: ['#6B5B95'],  // Single anchor
-%   temperature: 0.3,
-%   intensity: 0.6
-% });
-% 
-% // Engine expands in perceptually-coherent directions
-% \end{lstlisting}
+\begin{lstlisting}[language=JavaScript,caption={Single-Anchor Mood Expansion}]
+const palette = generatePalette({
+  count: 7,
+  anchors: ['#6B5B95'],  // Single purple anchor
+  preset: 'monochrome'
+});
+
+// Engine expands along lightness and subtle hue directions
+// Result: tonal variations centred on the anchor
+// Includes lighter, darker, and slightly hue-shifted variants
+\end{lstlisting}
+
+\subsection{Brand Colour State Variants}
+
+Generate hover, active, and disabled states from a single brand colour.
+
+\begin{lstlisting}[language=JavaScript,caption={UI State Variations}]
+const brandColor = '#2563EB';  // Primary blue
+
+const states = generatePalette({
+  count: 5,
+  anchors: [brandColor],
+  intensity: 0.2,      // Subtle variations
+  smoothness: 0.95     // Very smooth transitions
+});
+
+// Use positions for different states:
+// states[0] - darkest (pressed/active)
+// states[2] - anchor (normal state)
+// states[4] - lightest (hover/highlight)
+\end{lstlisting}
 
 \section{Categorical Mode}
 \label{sec:example-categorical}
 
-% [To be written]
-% Content: Example of categorical palette for distinct categories
+Categorical Mode (\S\ref{sec:categorical-mode}) maximises perceptual distance between all colours, essential for data visualisation.
 
-% Placeholder:
-% \begin{lstlisting}[language=JavaScript,caption={Categorical Palette}]
-% const palette = generatePalette({
-%   count: 6,
-%   anchors: ['#2C3E50'],
-%   mode: 'categorical'
-% });
-% 
-% // Result: maximally distinct colors
-% \end{lstlisting}
+\begin{lstlisting}[language=JavaScript,caption={Categorical Palette for Chart}]
+const chartColors = generatePalette({
+  count: 6,
+  anchors: ['#2C3E50'],  // Starting point hint
+  mode: 'categorical'
+});
+
+// Result: 6 maximally distinct colours
+// Each pair has maximum perceptual separation
+// Suitable for pie charts, bar charts, legends
+\end{lstlisting}
+
+\subsection{Categorical with Fixed Anchors}
+
+Pin specific semantic colours while filling remaining slots.
+
+\begin{lstlisting}[language=JavaScript,caption={Semantic Categorical Palette}]
+const statusColors = generatePalette({
+  count: 5,
+  anchors: [
+    '#DC2626',  // Red (error) - fixed
+    '#16A34A',  // Green (success) - fixed
+    '#2563EB'   // Blue (info) - fixed
+  ],
+  mode: 'categorical'
+});
+
+// Anchors preserved exactly
+// Two additional colours generated with maximum distinction
+\end{lstlisting}
+
+\section{Temperature Control}
+\label{sec:example-temperature}
+
+Temperature (\S\ref{sec:temperature}) biases the hue path toward warm or cool regions.
+
+\begin{lstlisting}[language=JavaScript,caption={Warm Temperature Bias}]
+// Same anchors, different temperatures
+const coolPalette = generatePalette({
+  count: 7,
+  anchors: ['#8B5CF6', '#10B981'],  // Purple to green
+  temperature: -0.6                   // Cool: via blues
+});
+
+const warmPalette = generatePalette({
+  count: 7,
+  anchors: ['#8B5CF6', '#10B981'],  // Same anchors
+  temperature: +0.6                   // Warm: via reds/yellows
+});
+
+// coolPalette passes through cyans and teals
+// warmPalette passes through magentas and yellows
+// Dramatically different character, same endpoints
+\end{lstlisting}
 
 \section{Loop Strategies}
 \label{sec:example-loops}
 
-% [To be written]
-% Content: Examples of different loop strategies
+Loop strategies (\S\ref{sec:loop-open}--\S\ref{sec:loop-phased}) control how the palette wraps or cycles.
 
-% Placeholder:
-% \begin{lstlisting}[language=JavaScript,caption={Closed Loop for Animation}]
-% const palette = generatePalette({
-%   count: 12,
-%   anchors: ['#E74C3C', '#3498DB', '#2ECC71'],
-%   loop: 'closed'
-% });
-% 
-% // Last color transitions smoothly to first
-% \end{lstlisting}
+\subsection{Closed Loop for Animation}
+
+\begin{lstlisting}[language=JavaScript,caption={Closed Loop for Continuous Cycling}]
+const cyclingPalette = generatePalette({
+  count: 12,
+  anchors: ['#E74C3C', '#3498DB', '#2ECC71'],
+  loop: 'closed',
+  smoothness: 0.9
+});
+
+// Last colour transitions smoothly to first
+// Output: 12 colours, no duplicate at end
+// Loop externally: [...cyclingPalette, cyclingPalette[0], ...]
+// Seamless continuous animation
+\end{lstlisting}
+
+\subsection{Ping-Pong for Breathing Effect}
+
+\begin{lstlisting}[language=JavaScript,caption={Ping-Pong Breathing Animation}]
+const breathingPalette = generatePalette({
+  count: 16,
+  anchors: ['#1E3A5F', '#60A5FA'],  // Dark to light blue
+  loop: 'pingpong',
+  preset: 'breathing'
+});
+
+// Smooth oscillation: dark -> light -> dark
+// 16 colours cover full forward-backward cycle
+// No discontinuity at reversal point
+\end{lstlisting}
+
+\subsection{Phased Loop for Evolution}
+
+\begin{lstlisting}[language=JavaScript,caption={Phased Loop for Progressive Evolution}]
+const evolvingPalette = generatePalette({
+  count: 24,
+  anchors: ['#F59E0B', '#8B5CF6'],
+  loop: 'phased'
+  // Each cycle shifts hue slightly
+});
+
+// Cycle 1: Amber -> Violet
+// Cycle 2: Amber+shift -> Violet+shift
+// Never exactly repeats, feels alive
+\end{lstlisting}
 
 \section{Full Configuration}
 \label{sec:example-full}
 
-% [To be written]
-% Content: Example with all parameters specified
+Comprehensive example demonstrating all parameters.
 
-% Placeholder:
-% \begin{lstlisting}[language=JavaScript,caption={Complete Configuration}]
-% const result = generatePalette({
-%   count: 8,
-%   anchors: ['#1A1A2E', '#E94560', '#0F3460'],
-%   temperature: 0.2,
-%   intensity: 0.7,
-%   smoothness: 0.8,
-%   lightness: 0.0,
-%   chroma: 0.6,
-%   mode: 'journey',
-%   loop: 'open',
-%   seed: 42
-% });
-% 
-% // Access output
-% console.log(result.palette);      // Color array
-% console.log(result.config);       // Resolved config
-% console.log(result.diagnostics);  // Quality info
-% \end{lstlisting}
+\begin{lstlisting}[language=JavaScript,caption={Complete Configuration Example}]
+const result = generatePalette({
+  // Required
+  count: 8,
+  anchors: ['#1A1A2E', '#E94560', '#0F3460'],
+  
+  // Primary style controls
+  temperature: 0.2,      // Slightly warm bias
+  intensity: 0.7,        // Dramatic curves
+  smoothness: 0.8,       // Smooth anchor transitions
+  
+  // Secondary controls
+  lightness: 0.0,        // No lightness shift
+  chroma: 1.2,           // Boost saturation 20%
+  contrast: 1.1,         // Slightly increase contrast
+  vibrancy: 1.0,         // Default vibrancy
+  
+  // Behaviour
+  mode: 'journey',       // Smooth sequential path
+  loop: 'open',          // Start to finish, no wrap
+  
+  // Reproducibility
+  seed: 42               // Deterministic output
+});
+
+// Access output components
+console.log(result.palette);      // Array of 8 colour objects
+console.log(result.config);       // Effective configuration used
+console.log(result.diagnostics);  // Quality metrics
+\end{lstlisting}
+
+\section{Working with Output}
+\label{sec:example-output}
+
+\subsection{Accessing Colour Formats}
+
+\begin{lstlisting}[language=JavaScript,caption={Using Output Colour Formats}]
+const result = generatePalette({
+  count: 5,
+  anchors: ['#FF6B6B', '#4ECDC4']
+});
+
+// Each swatch has both formats
+result.palette.forEach((swatch, i) => {
+  console.log(`Color ${i}:`);
+  console.log(`  Hex: ${swatch.hex}`);           // For CSS/display
+  console.log(`  OKLab L: ${swatch.ok.L}`);      // For computation
+  console.log(`  OKLab a: ${swatch.ok.a}`);
+  console.log(`  OKLab b: ${swatch.ok.b}`);
+});
+\end{lstlisting}
+
+\subsection{Using Diagnostics}
+
+\begin{lstlisting}[language=JavaScript,caption={Checking Quality Diagnostics}]
+const result = generatePalette({
+  count: 20,
+  anchors: ['#FFFFFF', '#000000'],  // White to black
+  chroma: 2.0                        // High chroma request
+});
+
+const diag = result.diagnostics;
+console.log(`Min Delta E: ${diag.minDeltaE}`);
+console.log(`Max Delta E: ${diag.maxDeltaE}`);
+console.log(`Mean Delta E: ${diag.meanDeltaE}`);
+console.log(`Gamut corrections: ${diag.gamutCorrections}`);
+
+if (diag.gamutCorrections > 0) {
+  console.log('Some colours were desaturated to fit sRGB gamut');
+}
+
+if (diag.constraintViolations > 0) {
+  console.log('Some step sizes exceeded ideal range');
+}
+\end{lstlisting}
+
+\section{Common Patterns}
+\label{sec:example-patterns}
+
+\subsection{Diverging Colour Scale}
+
+\begin{lstlisting}[language=JavaScript,caption={Diverging Scale for Data}]
+// Diverging: negative (red) -> neutral -> positive (blue)
+const divergingScale = generatePalette({
+  count: 11,
+  anchors: ['#DC2626', '#F5F5F5', '#2563EB'],
+  preset: 'diverging'
+});
+
+// Index 5 is neutral (near white)
+// Indices 0-4 are increasingly red
+// Indices 6-10 are increasingly blue
+\end{lstlisting}
+
+\subsection{Sequential Scale with Preset}
+
+\begin{lstlisting}[language=JavaScript,caption={Sequential Scale Using Preset}]
+const heatmapScale = generatePalette({
+  count: 9,
+  anchors: ['#FEF3C7', '#DC2626'],  // Light yellow to red
+  preset: 'sequential'
+});
+
+// Low values: light warm colours
+// High values: intense red
+// Ideal for heatmaps, intensity visualisations
+\end{lstlisting}
+
+\subsection{Reproducing a Palette}
+
+\begin{lstlisting}[language=JavaScript,caption={Storing and Reproducing Configuration}]
+// Generate and store config
+const result = generatePalette({
+  count: 8,
+  anchors: ['#FF6B6B', '#4ECDC4'],
+  temperature: 0.3,
+  seed: 12345
+});
+
+// Store the effective config (compact)
+const storedConfig = result.config;
+localStorage.setItem('myPalette', JSON.stringify(storedConfig));
+
+// Later: regenerate identical palette
+const savedConfig = JSON.parse(localStorage.getItem('myPalette'));
+const regenerated = generatePalette(savedConfig);
+
+// regenerated.palette is identical to original
+\end{lstlisting}

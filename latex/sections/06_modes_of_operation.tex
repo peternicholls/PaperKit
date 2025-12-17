@@ -12,7 +12,7 @@
 \section{Journey Mode}
 \label{sec:journey-mode}
 
-Journey Mode is the default mode of operation, optimising for \textbf{smooth, ordered sequences} suitable for timelines, gradients, transitions, and contexts where perceptual continuity matters.
+Journey Mode is the default mode of operation, optimising for \textbf{smooth, ordered sequences} suitable for timelines, gradients, transitions, and contexts where perceptual continuity matters. It leverages the full journey construction pipeline (\S\ref{sec:journey-metaphor}--\S\ref{sec:arc-length}) with perceptual constraints (\S\ref{sec:jnd}--\S\ref{sec:constraint-enforcement}).
 
 \begin{center}
 \begin{tabular}{ll}
@@ -44,7 +44,7 @@ Journey Mode is \emph{not} appropriate for categorical data where each colour re
 \section{Categorical Mode}
 \label{sec:categorical-mode}
 
-Categorical Mode optimises for \textbf{maximum distinguishability} between swatches, suitable for discrete data categories, legends, and accessibility-critical applications.
+Categorical Mode optimises for \textbf{maximum distinguishability} between swatches, suitable for discrete data categories, legends, and accessibility-critical applications~\cite{fairchild2013}. Unlike Journey Mode, which optimises adjacent-colour relationships (\S\ref{sec:delta-min}), Categorical Mode optimises all pairwise relationships.
 
 \begin{center}
 \begin{tabular}{ll}
@@ -89,26 +89,28 @@ Categorical Mode is appropriate for pie charts, bar charts with distinct categor
 
 Beyond perceptual \emph{distance} (how different two colours are), \textbf{perceptual velocity} addresses how \emph{fast} colour change feels along a sequence.
 
-Fast hue swings feel ``faster'' or more noticeable than the same $\Delta E$ spent on subtle lightness shifts. The \emph{type} of change affects perceived speed, not just the magnitude.
+Fast hue swings feel ``faster'' or more noticeable than the same $\Delta E$ spent on subtle lightness shifts. The \emph{type} of change affects perceived speed, not just the magnitude. This observation is consistent with colour appearance research showing that hue changes are more salient than equivalent lightness or chroma changes~\cite{fairchild2013}.
 
 Perceptual velocity $v$ can be modelled as a weighted sum:
 \begin{equation}
     v = w_L \cdot \frac{dL}{dt} + w_C \cdot \frac{dC}{dt} + w_h \cdot \frac{dh}{dt}
 \end{equation}
 
-where hue changes tend to have higher perceptual weight:
+The following weights are \emph{design heuristics} derived from practical experimentation, not empirically-validated constants:
 
 \begin{center}
 \begin{tabular}{lll}
 \toprule
 \textbf{Dimension} & \textbf{Relative Weight} & \textbf{Perceptual Effect} \\
 \midrule
-Lightness ($L$) & 1.0 & Subtle, gradual feel \\
-Chroma ($C$) & 1.2 & Moderate drama \\
-Hue ($h$) & 1.5--2.0 & High impact, ``fast'' feel \\
+Lightness ($L$) & 1.0 (baseline) & Subtle, gradual feel \\
+Chroma ($C$) & $\sim$1.2 & Moderate drama \\
+Hue ($h$) & $\sim$1.5--2.0 & High impact, ``fast'' feel \\
 \bottomrule
 \end{tabular}
 \end{center}
+
+\textit{Note: These weights reflect observed behaviour in prototype testing. Formal psychophysical validation remains future work.}
 
 Velocity is relevant for temporal applications:
 \begin{itemize}

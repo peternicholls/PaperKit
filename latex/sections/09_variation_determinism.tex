@@ -12,7 +12,7 @@
 \section{Determinism Requirement}
 \label{sec:determinism}
 
-The Color Journey Engine \emph{must} be programmatically deterministic. Given the same inputs, it \emph{must} produce the same outputs, up to small numerical differences ($\sim$0.2\%) arising from floating-point arithmetic and platform differences.
+The Color Journey Engine \emph{must} be programmatically deterministic. Given the same inputs, it \emph{must} produce the same outputs, up to small numerical differences ($\sim$0.2\%) arising from floating-point arithmetic and platform differences. This requirement enables the ``config as ID'' pattern central to the API philosophy (\S\ref{sec:api-philosophy}).
 
 This is a hard requirement, not a preference:
 
@@ -60,7 +60,7 @@ Variation adds small offsets to interpolated colours in OKLab space:
 
 where perturbations are drawn from a Gaussian distribution with standard deviation scaled by mode.
 
-Anchors are \emph{never} perturbed---variation applies only to interpolated colours. This ensures user-specified key colours remain exact. Perturbations taper near anchors (scaling by $\sin(\pi t)$) for smooth transitions.
+Anchors are \emph{never} perturbed---variation applies only to interpolated colours. This ensures user-specified key colours remain exact (\S\ref{sec:anchors}). Perturbations taper near anchors (scaling by $\sin(\pi t)$) for smooth transitions.
 
 % ------------------------------------------------------------------------------
 % 9.3 Seed Handling
@@ -68,13 +68,13 @@ Anchors are \emph{never} perturbed---variation applies only to interpolated colo
 \section{Seed Handling}
 \label{sec:seeds}
 
-The variation layer uses a \textbf{pseudo-random number generator (PRNG)} with these properties:
+The variation layer uses a \textbf{pseudo-random number generator (PRNG)} with these properties~\cite{knuth1997}:
 
 \begin{itemize}
     \item \textbf{Seeded} --- Initialised from user-provided seed
     \item \textbf{Deterministic} --- Same seed produces same sequence
     \item \textbf{Well-distributed} --- Numbers uniformly distributed
-    \item \textbf{Specified algorithm} --- Implementation uses documented algorithm (e.g., xoshiro256**)
+    \item \textbf{Specified algorithm} --- Implementation uses documented algorithm (e.g., xoshiro256**~\cite{blackman2018})
 \end{itemize}
 
 \begin{center}

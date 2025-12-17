@@ -14,9 +14,9 @@
 
 This specification presents the Color Journey Engine, a deterministic system for generating perceptually-uniform colour palettes. The engine addresses a persistent challenge in digital colour tools: how to create multi-colour palettes that feel coherent while respecting the non-linear, device-dependent nature of human colour perception.
 
-The solution rests on three pillars. First, the OKLab colour space provides a perceptually uniform foundation where equal numerical distances correspond to equal perceived differences. Second, the journey metaphor---implemented through cubic Bézier curves with arc-length parameterisation---ensures smooth, coherent transitions between colours. Third, the constraint system ($\Delta_{\min}$, $\Delta_{\max}$, JND-based adaptive sampling) guarantees that generated colours are both distinguishable and aesthetically pleasing.
+The solution rests on three pillars. First, the OKLab colour space \cite{ottosson2020} provides a perceptually uniform foundation where equal numerical distances correspond to equal perceived differences. Second, the journey metaphor---implemented through cubic Bézier curves \cite{farin2002} with arc-length parameterisation---ensures smooth, coherent transitions between colours. Third, the constraint system ($\Delta_{\min}$, $\Delta_{\max}$, JND-based adaptive sampling) guarantees that generated colours are both distinguishable and aesthetically pleasing.
 
-The result is a pure function that transforms configuration into palette: stateless, deterministic, and predictable.
+The result is a pure function that transforms configuration into palette: stateless, deterministic, and predictable. For quick navigation during team discussions, see Appendix~D for a concept map and decision rationale summaries.
 
 % ------------------------------------------------------------------------------
 % 12.2 Key Contributions
@@ -24,19 +24,29 @@ The result is a pure function that transforms configuration into palette: statel
 \section{Key Contributions}
 \label{sec:contributions}
 
-This specification makes several contributions to the field of algorithmic colour palette generation:
+This specification makes several contributions to the practice of algorithmic colour palette generation:
 
 \begin{enumerate}
     \item \textbf{Formal Specification.} A complete, reproducible specification for palette generation that eliminates the ``magic'' often present in colour tools. Same inputs yield same outputs, always.
     
-    \item \textbf{Mood Expansion Algorithm.} A novel approach for generating coherent multi-colour journeys from a single anchor, using style parameters to expand in perceptually meaningful directions.
+    \item \textbf{Mood Expansion Algorithm.} A novel approach for generating coherent multi-colour journeys from a single anchor, using style parameters to expand in perceptually meaningful directions. To our knowledge, this single-anchor expansion approach has not been formally documented elsewhere.
     
-    \item \textbf{Perceptual Constraint Framework.} A JND-based system for ensuring minimum distinguishability while allowing stylistic variation, with clear priority hierarchies for conflict resolution.
+    \item \textbf{Perceptual Constraint Framework.} A system for ensuring minimum distinguishability while allowing stylistic variation. The specific threshold values ($\Delta_{\min} \approx 2.0$, $\Delta_{\max} \approx 5.0$) are design heuristics informed by colour science literature~\cite{fairchild2013} and practical experimentation, not empirically-validated constants.
     
-    \item \textbf{Two-Layer Gamut Management.} A prevention-then-correction strategy that maintains journey character while guaranteeing displayable output, with hue preservation as a priority.
+    \item \textbf{Two-Layer Gamut Management.} A prevention-then-correction strategy following established gamut mapping principles~\cite{morovic2008}, maintaining journey character while guaranteeing displayable output.
     
-    \item \textbf{Clear Responsibility Boundaries.} Explicit delineation between engine core and caller responsibilities, enabling a lean, high-performance core (5.6M colours/second) while supporting extension.
+    \item \textbf{Clear Responsibility Boundaries.} Explicit delineation between engine core and caller responsibilities, enabling a lean, high-performance core while supporting extension.
 \end{enumerate}
+
+\subsection*{Limitations and Caveats}
+
+Several aspects of this specification warrant further investigation:
+
+\begin{itemize}
+    \item The perceptual weights for velocity calculation (\S\ref{sec:perceptual-velocity}) are design heuristics, not empirically-validated values.
+    \item OKLab's JND correspondence ($\Delta E \approx 1.0$) is a design target~\cite{ottosson2020}; formal perceptual validation specific to OKLab remains limited.
+    \item The constraint thresholds ($\Delta_{\min}$, $\Delta_{\max}$) and subdivision caps represent engineering judgment; alternative values may be appropriate for different use cases.
+\end{itemize}
 
 % ------------------------------------------------------------------------------
 % 12.3 Future Directions

@@ -12,7 +12,7 @@
 \section{The Gamut Boundary Problem}
 \label{sec:gamut-problem}
 
-OKLab is a perceptually uniform colour space, but it encompasses colours that lie outside any real display's capabilities:
+OKLab is a perceptually uniform colour space, but it encompasses colours that lie outside any real display's capabilities~\cite{morovic2008}:
 
 \begin{itemize}
     \item \textbf{High-chroma colours} at certain hue angles exceed sRGB
@@ -88,7 +88,7 @@ For a candidate colour in OKLCh $(L, C, h)$:
 \section{Hue Preservation}
 \label{sec:hue-preservation}
 
-When gamut mapping is required, the engine follows a strict priority hierarchy:
+When gamut mapping is required, the engine follows a strict priority hierarchy rooted in established gamut mapping practice~\cite{morovic2008}:
 
 \begin{enumerate}
     \item \textbf{Hue is sacred} --- Never shift hue to fit gamut
@@ -96,7 +96,9 @@ When gamut mapping is required, the engine follows a strict priority hierarchy:
     \item \textbf{Chroma absorbs the compromise} --- Reduce saturation to fit
 \end{enumerate}
 
-This preserves the journey's ``character'' (its hue story) even when display limitations require desaturation. A ``sunset palette'' remains warm-hued even if some oranges must be less saturated.
+This hierarchy is not arbitrary: research on gamut mapping algorithms shows that hue shifts are perceptually more objectionable than chroma reductions~\cite{morovic2008,fairchild2013}. Humans are particularly sensitive to hue changes in familiar objects (skin tones, sky, foliage), and even small hue shifts can appear ``wrong'' while equivalent chroma reductions appear merely ``less vivid.''
+
+This preserves the journey's ``character'' (its hue story) even when display limitations require desaturation~\cite{hunt2004}. A ``sunset palette'' remains warm-hued even if some oranges must be less saturated.
 
 \subsection*{Interaction with Style Controls}
 

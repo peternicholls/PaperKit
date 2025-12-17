@@ -16,7 +16,7 @@ Human vision perceives colour differences nonlinearly. A linear blend in RGB spa
 
 Similarly, equal numerical changes in HSV or HSL frequently produce uneven perceptual steps. Some hue regions appear to change faster than others; lightness and saturation interact in ways the coordinate system does not capture.
 
-To address this fundamental mismatch, scientists have developed \emph{perceptually uniform} colour spaces where Euclidean distances correspond more closely to perceived colour differences. In such spaces, moving a given distance in any direction produces a change that observers judge to be of similar magnitude.
+To address this fundamental mismatch, scientists have developed \emph{perceptually uniform} colour spaces where Euclidean distances correspond more closely to perceived colour differences \cite{cie1976,fairchild2013}. In such spaces, moving a given distance in any direction produces a change that observers judge to be of similar magnitude.
 
 The engine \emph{must} work in a perceptually uniform space so that equal steps along the journey correspond to equal perceived differences. This is non-negotiable for achieving smooth, natural colour transitions.
 
@@ -28,7 +28,7 @@ The engine \emph{must} work in a perceptually uniform space so that equal steps 
 
 OKLab, introduced by Björn Ottosson in 2020 \cite{ottosson2020}, is a modern perceptual colour space designed to predict human colour perception accurately while remaining computationally efficient. It has gained rapid adoption, appearing in CSS Color Level 4 \cite{csscolor4} and various creative tools.
 
-Compared to alternatives, OKLab offers an excellent balance:
+Compared to alternatives \cite{mahy1994,safdar2017}, OKLab offers an excellent balance. The following comparison synthesises Ottosson's original analysis~\cite{ottosson2020} with established colour science literature~\cite{fairchild2013}:
 
 \begin{center}
 \begin{tabular}{lcccc}
@@ -43,6 +43,8 @@ CAM16-UCS & Excellent & High & Good & No \\
 \bottomrule
 \end{tabular}
 \end{center}
+
+\textit{Uniformity} refers to how closely Euclidean distances match perceived differences; \textit{Cost} measures computational complexity (matrix operations vs.\ iterative solving); \textit{Stability} indicates behaviour at gamut boundaries and extreme lightness values. OKLab achieves CAM16-level uniformity~\cite{safdar2017} with CIELAB-level computational cost---a key factor for real-time applications.
 
 A colour in OKLab is represented by three coordinates $(L, a, b)$:
 
@@ -63,7 +65,7 @@ The perceptual distance between two colours is computed as Euclidean distance:
     \label{eq:oklab-distance}
 \end{equation}
 
-A $\Delta E$ of approximately 1.0 in OKLab corresponds to a just-noticeable difference (JND) for an average observer under standard viewing conditions.
+Ottosson designed OKLab such that a $\Delta E$ of approximately 1.0 corresponds to a just-noticeable difference (JND) for an average observer under standard viewing conditions~\cite{ottosson2020}. This design goal aligns with the broader colour science literature on JND thresholds~\cite{luo2001,fairchild2013}, though direct perceptual validation studies specific to OKLab remain limited. The 1.0 threshold is a design target rather than an empirically-validated constant across all viewing conditions.
 
 % ------------------------------------------------------------------------------
 % 2.3 Cartesian vs. Cylindrical Coordinates

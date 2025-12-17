@@ -49,7 +49,7 @@ The engine generates palettes; callers are responsible for context-specific conc
 
 \paragraph{Colour Blindness.} The engine does not simulate or optimise for colour vision deficiencies. Callers concerned with colour-blind accessibility should test generated palettes with appropriate simulation tools.
 
-\paragraph{Context Suitability.} Print and screen have different requirements. Callers must verify that generated palettes are suitable for their target medium, including:
+\paragraph{Context Suitability.} Print and screen have different requirements~\cite{poynton2012}. Callers must verify that generated palettes are suitable for their target medium, including:
 \begin{itemize}
     \item Colour gamut (sRGB output may not match CMYK print)
     \item Viewing conditions (ambient light, screen calibration)

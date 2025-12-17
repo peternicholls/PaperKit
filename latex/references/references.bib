@@ -1,28 +1,279 @@
-# Empty BibTeX Database
+% ==============================================================================
+% Bibliography Database
+% Color Journey Engine Specification Paper
+% ==============================================================================
+% Citation Style: Harvard
+% Format: BibTeX
+% Last Updated: 2024-12-17
+% ==============================================================================
 
-This file will be populated with bibliography entries in BibTeX format.
+% ------------------------------------------------------------------------------
+% PRIMARY: OKLab and Perceptual Color Spaces
+% ------------------------------------------------------------------------------
 
-Example entry structure:
-
-```bibtex
-@article{smith_2020,
-  author = {Smith, John and Jones, Jane},
-  title = {Important Research Finding},
-  journal = {Journal Name},
-  year = {2020},
-  volume = {10},
-  number = {3},
-  pages = {123--145},
-  doi = {10.1234/example.doi}
+@misc{ottosson2020,
+  author       = {Ottosson, Bj{\"o}rn},
+  title        = {A perceptual color space for image processing},
+  year         = {2020},
+  howpublished = {Online},
+  url          = {https://bottosson.github.io/posts/oklab/},
+  note         = {Accessed: 2024-12-17}
 }
 
-@book{author_2019,
-  author = {Author, A. A.},
-  title = {Book Title Here},
-  publisher = {Publisher Name},
-  year = {2019},
-  edition = {2nd}
+@techreport{csscolor4,
+  author      = {{W3C CSS Working Group}},
+  title       = {{CSS Color Module Level 4}},
+  institution = {World Wide Web Consortium (W3C)},
+  year        = {2022},
+  type        = {W3C Candidate Recommendation},
+  url         = {https://www.w3.org/TR/css-color-4/},
+  note        = {Accessed: 2024-12-17}
 }
-```
 
-All citations used in the paper will be added here by the Reference Manager agent.
+% ------------------------------------------------------------------------------
+% COLOR SCIENCE: Perceptual Uniformity and Color Difference
+% ------------------------------------------------------------------------------
+
+@book{itten1961,
+  author    = {Itten, Johannes},
+  title     = {The Art of Color: The Subjective Experience and Objective Rationale of Color},
+  publisher = {Reinhold Publishing},
+  year      = {1961},
+  note      = {Revised edition 1973}
+}
+
+@article{stone2006,
+  author  = {Stone, Maureen C. and Szafir, Danielle Albers and Setlur, Vidya},
+  title   = {An engineering model for color difference as a function of size},
+  journal = {Color and Imaging Conference},
+  year    = {2014},
+  volume  = {2014},
+  number  = {1},
+  pages   = {228--233},
+  note    = {Broader context on perceptual colour issues in digital tools}
+}
+
+@article{mahy1994,
+  author  = {Mahy, Marc and Van Eycken, Luc and Oosterlinck, Andr{\'e}},
+  title   = {Evaluation of uniform color spaces developed after the adoption of {CIELAB} and {CIELUV}},
+  journal = {Color Research \& Application},
+  year    = {1994},
+  volume  = {19},
+  number  = {2},
+  pages   = {105--121},
+  doi     = {10.1002/col.5080190207}
+}
+
+@article{luo2001,
+  author  = {Luo, Ming Ronnier and Cui, Guihua and Rigg, Bryan},
+  title   = {The development of the {CIE} 2000 colour-difference formula: {CIEDE2000}},
+  journal = {Color Research \& Application},
+  year    = {2001},
+  volume  = {26},
+  number  = {5},
+  pages   = {340--350},
+  doi     = {10.1002/col.1049}
+}
+
+@techreport{cie1976,
+  author      = {{CIE}},
+  title       = {Recommendations on Uniform Color Spaces, Color-Difference Equations, Psychometric Color Terms},
+  institution = {Commission Internationale de l'{\'E}clairage},
+  year        = {1976},
+  type        = {CIE Publication},
+  number      = {15}
+}
+
+@book{fairchild2013,
+  author    = {Fairchild, Mark D.},
+  title     = {Color Appearance Models},
+  edition   = {3rd},
+  publisher = {Wiley},
+  year      = {2013},
+  isbn      = {978-1-119-96703-3}
+}
+
+@article{safdar2017,
+  author  = {Safdar, Muhammad and Cui, Guihua and Kim, Youn Jin and Luo, Ming Ronnier},
+  title   = {Perceptually uniform color space for image signals including high dynamic range and wide gamut},
+  journal = {Optics Express},
+  year    = {2017},
+  volume  = {25},
+  number  = {13},
+  pages   = {15131--15151},
+  doi     = {10.1364/OE.25.015131}
+}
+
+% ------------------------------------------------------------------------------
+% COMPUTATIONAL GEOMETRY: Bézier Curves and Splines
+% ------------------------------------------------------------------------------
+
+@book{farin2002,
+  author    = {Farin, Gerald},
+  title     = {Curves and Surfaces for {CAGD}: A Practical Guide},
+  edition   = {5th},
+  publisher = {Morgan Kaufmann},
+  year      = {2002},
+  isbn      = {978-1-55860-737-8}
+}
+
+@book{deboor1978,
+  author    = {de Boor, Carl},
+  title     = {A Practical Guide to Splines},
+  publisher = {Springer-Verlag},
+  year      = {1978},
+  series    = {Applied Mathematical Sciences},
+  volume    = {27},
+  isbn      = {978-0-387-95366-3}
+}
+
+@book{piegl1997,
+  author    = {Piegl, Les and Tiller, Wayne},
+  title     = {The {NURBS} Book},
+  edition   = {2nd},
+  publisher = {Springer},
+  year      = {1997},
+  isbn      = {978-3-540-61545-3}
+}
+
+% ------------------------------------------------------------------------------
+% MATRIX MULTIPLICATION: Algorithmic Efficiency (Referenced in Research)
+% ------------------------------------------------------------------------------
+
+@article{moosbauer2025,
+  author       = {Moosbauer, Jakob and Poole, Michael J.},
+  title        = {Flip Graphs with Symmetry and New Matrix Multiplication Schemes},
+  year         = {2025},
+  eprint       = {2502.04514},
+  archiveprefix = {arXiv},
+  primaryclass = {cs.SC},
+  note         = {arXiv:2502.04514v1}
+}
+
+@article{strassen1969,
+  author  = {Strassen, Volker},
+  title   = {Gaussian elimination is not optimal},
+  journal = {Numerische Mathematik},
+  year    = {1969},
+  volume  = {13},
+  pages   = {354--356},
+  doi     = {10.1007/BF02165411}
+}
+
+% ------------------------------------------------------------------------------
+% ADDITIONAL REFERENCES (Add as needed during drafting)
+% ------------------------------------------------------------------------------
+
+% Color naming and semantics
+% @book{berlin1969,
+%   author    = {Berlin, Brent and Kay, Paul},
+%   title     = {Basic Color Terms: Their Universality and Evolution},
+%   publisher = {University of California Press},
+%   year      = {1969}
+% }
+
+% Gamut mapping
+@book{morovic2008,
+  author    = {Morovi{\v{c}}, J{\'a}n},
+  title     = {Color Gamut Mapping},
+  publisher = {Wiley},
+  year      = {2008},
+  isbn      = {978-0-470-03032-5}
+}
+
+% ------------------------------------------------------------------------------
+% COLOR REPRODUCTION AND VIDEO
+% ------------------------------------------------------------------------------
+
+@book{hunt2004,
+  author    = {Hunt, R. W. G.},
+  title     = {The Reproduction of Colour},
+  edition   = {6th},
+  publisher = {Wiley},
+  year      = {2004},
+  isbn      = {978-0-470-02425-6}
+}
+
+@book{poynton2012,
+  author    = {Poynton, Charles},
+  title     = {Digital Video and {HD}: Algorithms and Interfaces},
+  edition   = {2nd},
+  publisher = {Morgan Kaufmann},
+  year      = {2012},
+  isbn      = {978-0-12-391926-7}
+}
+
+% ------------------------------------------------------------------------------
+% COMPUTER GRAPHICS
+% ------------------------------------------------------------------------------
+
+@book{foley1990,
+  author    = {Foley, James D. and van Dam, Andries and Feiner, Steven K. and Hughes, John F.},
+  title     = {Computer Graphics: Principles and Practice},
+  edition   = {2nd},
+  publisher = {Addison-Wesley},
+  year      = {1990},
+  isbn      = {978-0-201-12110-0}
+}
+
+% ------------------------------------------------------------------------------
+% RANDOM NUMBER GENERATION AND DETERMINISM
+% ------------------------------------------------------------------------------
+
+@article{blackman2018,
+  author  = {Blackman, David and Vigna, Sebastiano},
+  title   = {Scrambled linear pseudorandom number generators},
+  journal = {ACM Transactions on Mathematical Software},
+  year    = {2021},
+  volume  = {47},
+  number  = {4},
+  pages   = {1--32},
+  doi     = {10.1145/3460772},
+  note    = {Originally arXiv:1805.01407, 2018}
+}
+
+@book{knuth1997,
+  author    = {Knuth, Donald E.},
+  title     = {The Art of Computer Programming, Volume 2: Seminumerical Algorithms},
+  edition   = {3rd},
+  publisher = {Addison-Wesley},
+  year      = {1997},
+  isbn      = {978-0-201-89684-8}
+}
+
+% ------------------------------------------------------------------------------
+% COGNITIVE SCIENCE
+% ------------------------------------------------------------------------------
+
+@article{cowan2001,
+  author  = {Cowan, Nelson},
+  title   = {The magical number 4 in short-term memory: A reconsideration of mental storage capacity},
+  journal = {Behavioral and Brain Sciences},
+  year    = {2001},
+  volume  = {24},
+  number  = {1},
+  pages   = {87--114},
+  doi     = {10.1017/S0140525X01003922}
+}
+
+% ------------------------------------------------------------------------------
+% API AND SOFTWARE DESIGN
+% ------------------------------------------------------------------------------
+
+@book{bloch2008,
+  author    = {Bloch, Joshua},
+  title     = {Effective Java},
+  edition   = {2nd},
+  publisher = {Addison-Wesley},
+  year      = {2008},
+  isbn      = {978-0-321-35668-0}
+}
+
+@book{gamma1994,
+  author    = {Gamma, Erich and Helm, Richard and Johnson, Ralph and Vlissides, John},
+  title     = {Design Patterns: Elements of Reusable Object-Oriented Software},
+  publisher = {Addison-Wesley},
+  year      = {1994},
+  isbn      = {978-0-201-63361-0}
+}
+

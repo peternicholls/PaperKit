@@ -10,27 +10,172 @@ This appendix provides rapid lookup of key concepts, design decisions, and secti
 \toprule
 \textbf{Topic} & \textbf{Section} & \textbf{Key Insight} \\
 \midrule
-Why OKLab? & \S2.1 & Perceptual uniformity; industry adoption \\
-Anchor guarantee & \S3.2 & Anchors appear exactly, not "close to" \\
-Mood expansion & \S3.3 & Single-anchor uses lightness direction \\
-$\Delta_{min}$ constraint & \S4.2 & JND-based (\~2 $\Delta E$), distinguishability \\
-$\Delta_{max}$ constraint & \S4.3 & Ensures coherence, no jarring jumps \\
-Loop output & \S7.6 & Flat array (unrolled), no nested structure \\
-Gamut correction & \S8.3 & Reduce chroma, preserve hue \\
-Determinism & \S9 & Same inputs = same outputs (pure function) \\
-Performance & \S10.5 & Microsecond-range, 5.6M colors/second \\
+Why OKLab? & \S\ref{sec:oklab} & Perceptual uniformity; CAM16-level accuracy, low cost \\
+OKLCh vs OKLab & \S\ref{sec:oklch} & Cylindrical for hue ops; Cartesian for distance \\
+Anchor guarantee & \S\ref{sec:anchors} & Anchors appear exactly, not ``close to'' \\
+Mood expansion & \S\ref{sec:single-anchor} & Single-anchor uses lightness-weighted directions \\
+Bézier curves & \S\ref{sec:bezier} & Cubic curves for flexibility and $C^1$ continuity \\
+Arc-length sampling & \S\ref{sec:arc-length} & Uniform perceptual steps, not parametric steps \\
+JND threshold & \S\ref{sec:jnd} & $\sim$1.0 theoretical, $\sim$2.0 practical \\
+$\Delta_{\min}$ constraint & \S\ref{sec:delta-min} & JND-based ($\sim$2 $\Delta E$); ensures distinguishability \\
+$\Delta_{\max}$ constraint & \S\ref{sec:delta-max} & Coherence cap ($\sim$5 $\Delta E$); no jarring jumps \\
+Adaptive sampling & \S\ref{sec:adaptive-sampling} & Auto-subdivide long segments, cap at 5 \\
+Temperature control & \S\ref{sec:temperature} & Bias hue path warm (+) or cool ($-$) \\
+Intensity control & \S\ref{sec:intensity} & Scale control point offset from anchor line \\
+Smoothness control & \S\ref{sec:smoothness} & $C^1$ continuity strength at junctions \\
+Journey vs Categorical & \S\ref{sec:mode-selection} & Sequential flow vs maximum pairwise distinction \\
+Perceptual velocity & \S\ref{sec:perceptual-velocity} & Hue changes feel ``faster'' than $L$/$C$ changes \\
+Loop output & \S\ref{sec:loop-output} & Flat array (unrolled), no nested structure \\
+Gamut prevention & \S\ref{sec:gamut-design} & Control points prefer moderate chroma \\
+Gamut correction & \S\ref{sec:gamut-correction} & Reduce chroma, preserve hue (never shift hue) \\
+Determinism & \S\ref{sec:determinism} & Same inputs = same outputs (pure function) \\
+Variation layer & \S\ref{sec:variation} & Seeded PRNG; anchors never perturbed \\
+API philosophy & \S\ref{sec:api-philosophy} & Stateless, focused, no side effects \\
+Performance & \S\ref{sec:performance} & Microsecond-range; 5.6M colours/second \\
 \bottomrule
 \end{tabular}
 \caption{Quick reference mapping topics to sections}
 \end{table}
 
 \subsection{Decision Rationale Summary}
-% Summaries of tcolorboxes in main text. Keep concise.
+
+This section summarises the key design decisions documented throughout the paper. Each decision box in the main text explains the choice, rationale, and rejected alternatives.
+
 \begin{itemize}
-    \item Mood expansion (\S3.3): Single-anchor path uses lightness direction; alternative (naive hue spin) rejected to avoid non-perceptual artifacts.
-    \item Loop output (\S7.6): Unrolled arrays prevent nested structures; alternatives (segmented outputs) rejected for caller simplicity.
-    \item Gamut handling (\S8.2--\S8.3): Two-layer approach (prevention + correction); hard clipping rejected to preserve hue; HSV fallback rejected to maintain perceptual uniformity.
-    \item API scope (\S10): Engine owns core generation; bindings/apps own naming, accessibility, and usage-specific logic.
+    \item \textbf{Mood expansion} (\S\ref{sec:single-anchor}): Single-anchor path uses lightness-weighted directions; naive hue spin rejected to avoid non-perceptual artifacts.
+    
+    \item \textbf{Loop output} (\S\ref{sec:loop-output}): Unrolled arrays prevent nested structures; segmented outputs rejected for caller simplicity.
+    
+    \item \textbf{Gamut handling} (\S\ref{sec:gamut-design}--\S\ref{sec:gamut-correction}): Two-layer approach (prevention + correction); hard clipping rejected to preserve hue; HSV fallback rejected to maintain perceptual uniformity.
+    
+    \item \textbf{API scope} (\S\ref{sec:api-scope}): Engine owns core generation; naming, accessibility, and colour blindness simulation are caller responsibilities.
 \end{itemize}
 
-% Note: Ensure \usepackage{booktabs} in preamble for \toprule/\midrule/\bottomrule.
+\subsection{Parameter Quick Reference}
+
+\begin{table}[h]
+\centering
+\begin{tabular}{llll}
+\toprule
+\textbf{Parameter} & \textbf{Range} & \textbf{Default} & \textbf{Effect} \\
+\midrule
+\texttt{count} & $\mathbb{Z}^+$ & (required) & Number of output colours \\
+\texttt{anchors} & 1--5 colours & (required) & Key colours to pass through \\
+\texttt{temperature} & $[-1, +1]$ & 0 & Warm/cool hue bias \\
+\texttt{intensity} & $[0, 1]$ & 0.5 & Curve drama (control point offset) \\
+\texttt{smoothness} & $[0, 1]$ & 0.7 & $C^1$ continuity at anchors \\
+\texttt{lightness} & $[-1, +1]$ & 0 & Global lightness shift \\
+\texttt{chroma} & $[0, 2]$ & 1 & Saturation multiplier \\
+\texttt{contrast} & $[0, 2]$ & 1 & Lightness range expansion \\
+\texttt{vibrancy} & $[0, 2]$ & 1 & Selective chroma boost \\
+\texttt{mode} & enum & \texttt{journey} & \texttt{journey} or \texttt{categorical} \\
+\texttt{loop} & enum & \texttt{open} & \texttt{open}, \texttt{closed}, \texttt{pingpong}, etc. \\
+\texttt{seed} & integer & null & Variation seed (omit = no variation) \\
+\texttt{preset} & string & null & Named parameter set \\
+\bottomrule
+\end{tabular}
+\caption{Input parameters quick reference}
+\end{table}
+
+\subsection{Output Structure Quick Reference}
+
+\begin{table}[h]
+\centering
+\begin{tabular}{ll}
+\toprule
+\textbf{Field} & \textbf{Contents} \\
+\midrule
+\texttt{palette[]} & Array of swatch objects \\
+\texttt{palette[i].hex} & sRGB hex code (\texttt{\#RRGGBB}) \\
+\texttt{palette[i].ok} & OKLab coordinates \texttt{\{L, a, b\}} \\
+\texttt{config} & Effective configuration (for reproducibility) \\
+\texttt{diagnostics.minDeltaE} & Smallest adjacent distance \\
+\texttt{diagnostics.maxDeltaE} & Largest adjacent distance \\
+\texttt{diagnostics.meanDeltaE} & Average distance \\
+\texttt{diagnostics.gamutCorrections} & Count of gamut-mapped colours \\
+\texttt{diagnostics.constraintViolations} & Count of constraint issues \\
+\bottomrule
+\end{tabular}
+\caption{Output structure quick reference}
+\end{table}
+
+\subsection{Common Use Cases}
+
+\begin{table}[h]
+\centering
+\begin{tabular}{p{5cm}ll}
+\toprule
+\textbf{Use Case} & \textbf{Mode} & \textbf{Recommended Preset} \\
+\midrule
+Smooth gradient background & journey & \texttt{smooth} \\
+Warm sunset atmosphere & journey & \texttt{sunset} \\
+Cool professional theme & journey & \texttt{ocean} or \texttt{arctic} \\
+Chart legend colours & categorical & \texttt{categorical} \\
+Heatmap scale & journey & \texttt{sequential} \\
+Positive/negative diverging & journey & \texttt{diverging} \\
+UI state variations & journey & \texttt{monochrome} \\
+Continuous animation loop & journey (closed) & \texttt{cycling} \\
+Pulsing/breathing effect & journey (pingpong) & \texttt{breathing} \\
+High-energy vibrant palette & journey & \texttt{neon} or \texttt{vivid} \\
+Soft, approachable colours & journey & \texttt{pastel} \\
+\bottomrule
+\end{tabular}
+\caption{Use case to preset mapping}
+\end{table}
+
+\subsection{Perceptual Distance Interpretation}
+
+\begin{table}[h]
+\centering
+\begin{tabular}{ll}
+\toprule
+\textbf{$\Delta E$ Range} & \textbf{Interpretation} \\
+\midrule
+$< 1.0$ & Imperceptible to most observers \\
+$1.0 - 2.0$ & Barely perceptible, subtle \\
+$2.0 - 3.0$ & Noticeable, clear difference \\
+$3.0 - 5.0$ & Obvious difference, still smooth \\
+$> 5.0$ & Pronounced difference, may feel like a ``step'' \\
+\bottomrule
+\end{tabular}
+\caption{Perceptual distance interpretation guide (from \S\ref{sec:jnd})}
+\end{table}
+
+\subsection{Troubleshooting Guide}
+
+\begin{table}[h]
+\centering
+\begin{tabular}{p{4.5cm}p{6cm}}
+\toprule
+\textbf{Symptom} & \textbf{Likely Cause / Solution} \\
+\midrule
+Colours look washed out & High chroma caused gamut mapping; reduce \texttt{chroma} \\
+Unexpected colour in middle & Temperature bias routing through different hues; check \texttt{temperature} \\
+Visible ``jump'' between colours & Step size exceeds $\Delta_{\max}$; add anchors or increase \texttt{count} \\
+Colours too similar & Anchors too close; use different anchors or Categorical Mode \\
+Animation has visible seam & Using \texttt{open} loop; switch to \texttt{closed} \\
+Different output each run & Missing \texttt{seed} with variation; provide explicit seed \\
+Palette doesn't match saved & Engine version changed; store full config for reproducibility \\
+\bottomrule
+\end{tabular}
+\caption{Common issues and solutions}
+\end{table}
+
+\subsection{Constraint Summary}
+
+\begin{table}[h]
+\centering
+\begin{tabular}{lll}
+\toprule
+\textbf{Constraint} & \textbf{Value} & \textbf{Purpose} \\
+\midrule
+Maximum anchors & 5 & Cognitive tractability (\S\ref{sec:anchors}) \\
+$\Delta_{\min}$ & $\sim$2.0 $\Delta E$ & Ensure distinguishability (\S\ref{sec:delta-min}) \\
+$\Delta_{\max}$ & $\sim$5.0 $\Delta E$ & Prevent jarring jumps (\S\ref{sec:delta-max}) \\
+Max subdivisions & 5 & Prevent runaway palette growth (\S\ref{sec:delta-max}) \\
+\bottomrule
+\end{tabular}
+\caption{Engine constraints summary}
+\end{table}
+
+% Note: Ensure \usepackage{booktabs} and \usepackage{longtable} in preamble.
