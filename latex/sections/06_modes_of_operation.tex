@@ -12,14 +12,31 @@
 \section{Journey Mode}
 \label{sec:journey-mode}
 
-% [To be written: ~250 words]
-% Content: Smooth perceptual transitions (default mode)
-% Key points:
-%   - Default mode of operation
-%   - Optimizes for smooth transitions between adjacent colors
-%   - Respects Δ_max constraint (no jarring jumps)
-%   - Output colors form coherent perceptual sequence
-%   - Best for: gradients, timelines, sequential data
+Journey Mode is the default mode of operation, optimising for \textbf{smooth, ordered sequences} suitable for timelines, gradients, transitions, and contexts where perceptual continuity matters.
+
+\begin{center}
+\begin{tabular}{ll}
+\toprule
+\textbf{Aspect} & \textbf{Behaviour} \\
+\midrule
+Adjacency constraint & Enforces $\Delta_{\min} \leq \Delta(C_i, C_{i+1}) \leq \Delta_{\max}$ \\
+Path construction & Smooth Bézier curves through anchors \\
+Continuity & $C^1$ continuity at anchor junctions \\
+Sampling & Arc-length parameterised for perceptual uniformity \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+Journey Mode is appropriate for:
+\begin{itemize}
+    \item Timeline visualisations (progress indicators, history)
+    \item State transitions (hover, active, disabled)
+    \item Mood-based palettes (warm sunset, cool ocean)
+    \item Animation colour cycling
+    \item Any context where ``flow'' matters
+\end{itemize}
+
+Journey Mode is \emph{not} appropriate for categorical data where each colour represents a distinct entity, maximum contrast requirements, or semantic colour mapping (red=danger, green=safe).
 
 % ------------------------------------------------------------------------------
 % 6.2 Categorical Mode
@@ -27,14 +44,42 @@
 \section{Categorical Mode}
 \label{sec:categorical-mode}
 
-% [To be written: ~250 words]
-% Content: Maximum distinction between colors
-% Key points:
-%   - Alternative mode for categorical data
-%   - Maximizes perceptual distance between ALL colors (not just adjacent)
-%   - Relaxes Δ_max constraint
-%   - May sacrifice smoothness for distinction
-%   - Best for: legends, categories, labels
+Categorical Mode optimises for \textbf{maximum distinguishability} between swatches, suitable for discrete data categories, legends, and accessibility-critical applications.
+
+\begin{center}
+\begin{tabular}{ll}
+\toprule
+\textbf{Aspect} & \textbf{Behaviour} \\
+\midrule
+Distance goal & Maximise perceptual distance between all pairs \\
+Path construction & May use hue maximisation, not smooth curves \\
+Continuity & Not prioritised \\
+Output order & Less meaningful than in Journey Mode \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+Instead of constraining adjacent distances, Categorical Mode maximises minimum pairwise distance:
+\begin{equation}
+    \max \min_{i \neq j} \|C_i - C_j\|_{\text{OKLab}}
+\end{equation}
+
+subject to staying within displayable gamut and respecting any semantic constraints.
+
+\begin{center}
+\begin{tabular}{lll}
+\toprule
+\textbf{Aspect} & \textbf{Journey Mode} & \textbf{Categorical Mode} \\
+\midrule
+Curve type & Smooth Bézier & May use angular paths \\
+Sampling & Sequential along path & Optimised spacing in colour space \\
+Anchor role & Waypoints on path & Fixed category colours \\
+Output order & Meaningful sequence & Order less important \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+Categorical Mode is appropriate for pie charts, bar charts with distinct categories, legend colours, and status indicators (error, warning, success, info).
 
 % ------------------------------------------------------------------------------
 % 6.3 Perceptual Velocity
@@ -42,14 +87,35 @@
 \section{Perceptual Velocity}
 \label{sec:perceptual-velocity}
 
-% [To be written: ~250 words]
-% Content: Rate of perceptual change along the journey
-% Key points:
-%   - Velocity = Δ_perceptual / Δ_index
-%   - Journey Mode: aims for constant velocity (uniform change)
-%   - Categorical Mode: velocity is irrelevant (order doesn't matter)
-%   - Smoothness parameter affects velocity consistency
-%   - Useful diagnostic for evaluating palette quality
+Beyond perceptual \emph{distance} (how different two colours are), \textbf{perceptual velocity} addresses how \emph{fast} colour change feels along a sequence.
+
+Fast hue swings feel ``faster'' or more noticeable than the same $\Delta E$ spent on subtle lightness shifts. The \emph{type} of change affects perceived speed, not just the magnitude.
+
+Perceptual velocity $v$ can be modelled as a weighted sum:
+\begin{equation}
+    v = w_L \cdot \frac{dL}{dt} + w_C \cdot \frac{dC}{dt} + w_h \cdot \frac{dh}{dt}
+\end{equation}
+
+where hue changes tend to have higher perceptual weight:
+
+\begin{center}
+\begin{tabular}{lll}
+\toprule
+\textbf{Dimension} & \textbf{Relative Weight} & \textbf{Perceptual Effect} \\
+\midrule
+Lightness ($L$) & 1.0 & Subtle, gradual feel \\
+Chroma ($C$) & 1.2 & Moderate drama \\
+Hue ($h$) & 1.5--2.0 & High impact, ``fast'' feel \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+Velocity is relevant for temporal applications:
+\begin{itemize}
+    \item \textbf{Calm presets} prefer $L/C$ changes over hue (low velocity)
+    \item \textbf{Energetic presets} use more hue swings (high velocity)
+    \item \textbf{Rhythmic effects} alternate high/low velocity regions
+\end{itemize}
 
 % ------------------------------------------------------------------------------
 % 6.4 Mode Selection Guidelines
@@ -57,17 +123,28 @@
 \section{Mode Selection Guidelines}
 \label{sec:mode-selection}
 
-% [To be written: ~200 words]
-% Content: Decision tree for choosing mode
-% Key points:
-%   - Use Journey Mode when order matters (sequential data, animation)
-%   - Use Categorical Mode when distinction matters (labels, categories)
-%   - Hybrid approaches possible via post-processing
-%   - Mode is a top-level API parameter
+\begin{center}
+\begin{tabular}{p{5cm}l}
+\toprule
+\textbf{Use Case} & \textbf{Recommended Mode} \\
+\midrule
+Output for discrete categories? & Categorical \\
+Need smooth animation? & Journey + closed/pingpong loop \\
+Need timeline colours? & Journey + open path \\
+Need mood palette from single colour? & Journey + single anchor \\
+Need maximum contrast? & Categorical with high separation \\
+\bottomrule
+\end{tabular}
+\end{center}
 
-% Decision tree or table placeholder:
-% \begin{table}[h]
-%   \centering
-%   \caption{Mode Selection Guide}
-%   \label{tab:mode-selection}
-% \end{table}
+\subsection*{Hybrid Approaches}
+
+Some applications benefit from combining modes:
+
+\begin{enumerate}
+    \item \textbf{Categorical anchors, journey fill:} Use Categorical Mode to select maximally distinct anchors, then Journey Mode for smooth transitions between them
+    
+    \item \textbf{Journey with velocity control:} Use Journey Mode but adjust sampling based on velocity for rhythmic effects
+    
+    \item \textbf{Mode switching:} Different parts of an application use different modes (categorical for legend, journey for timeline)
+\end{enumerate}

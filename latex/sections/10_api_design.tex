@@ -12,14 +12,21 @@
 \section{API Philosophy}
 \label{sec:api-philosophy}
 
-% [To be written: ~200 words]
-% Content: Pure function model and design principles
-% Key points:
-%   - Pure function: output depends only on input
-%   - No side effects, no global state
-%   - Stateless: each call independent
-%   - Simple default path, full control when needed
-%   - Presets provide convenient entry points
+The engine is a \textbf{pure function} that transforms configuration into palette:
+
+\begin{equation*}
+    (\text{anchors}, \text{config}) \rightarrow \text{palette}
+\end{equation*}
+
+Key characteristics:
+\begin{itemize}
+    \item \textbf{Stateless} --- No memory between calls
+    \item \textbf{Deterministic} --- Same inputs produce same outputs
+    \item \textbf{Focused} --- Does one thing well (colour journey generation)
+    \item \textbf{No side effects} --- No global state, no external dependencies
+\end{itemize}
+
+The guiding principle: the engine should do only what the caller cannot do themselves. Complexity belongs in construction, not in the public interface.
 
 % ------------------------------------------------------------------------------
 % 10.2 Input Parameters
@@ -27,23 +34,25 @@
 \section{Input Parameters}
 \label{sec:api-input}
 
-% [To be written: ~200 words]
-% Content: Complete parameter specification
-% Key points:
-%   - Required: count (number of colors)
-%   - Required: anchors (1-5 colors, hex or OKLab)
-%   - Optional: style parameters (temperature, intensity, smoothness, etc.)
-%   - Optional: mode (journey/categorical)
-%   - Optional: loop strategy
-%   - Optional: seed
-%   - Presets expand to parameter sets
+\begin{center}
+\begin{tabular}{llll}
+\toprule
+\textbf{Parameter} & \textbf{Type} & \textbf{Required} & \textbf{Description} \\
+\midrule
+\texttt{count} & integer & Yes & Number of colours to generate \\
+\texttt{anchors} & array & Yes & 1--5 colours (hex, RGB, or OKLab) \\
+\texttt{temperature} & float & No & $-1$ to $+1$, default $0$ \\
+\texttt{intensity} & float & No & $0$ to $1$, default $0.5$ \\
+\texttt{smoothness} & float & No & $0$ to $1$, default $0.7$ \\
+\texttt{mode} & enum & No & \texttt{journey} or \texttt{categorical} \\
+\texttt{loop} & enum & No & \texttt{open}, \texttt{closed}, \texttt{pingpong}, etc. \\
+\texttt{seed} & integer & No & Variation seed (omit for no variation) \\
+\texttt{preset} & string & No & Named preset (expands to parameters) \\
+\bottomrule
+\end{tabular}
+\end{center}
 
-% Parameter table placeholder:
-% \begin{table}[h]
-%   \centering
-%   \caption{API Input Parameters}
-%   \label{tab:api-params}
-% \end{table}
+When a preset is specified, it expands to a parameter set. Explicit parameters override preset defaults.
 
 % ------------------------------------------------------------------------------
 % 10.3 Output Structure
@@ -51,22 +60,19 @@
 \section{Output Structure}
 \label{sec:api-output}
 
-% [To be written: ~200 words]
-% Content: What the engine returns
-% Key points:
-%   - Primary: palette array (ordered list of colors)
-%   - Each color: hex string + OKLab coordinates
-%   - Config echo: full resolved parameters
-%   - Diagnostics: warnings, constraint status, corrections
+The engine returns discrete swatches (not continuous functions) with three components:
 
-% JSON structure placeholder:
-% \begin{lstlisting}[language=json]
-% {
-%   "palette": [...],
-%   "config": {...},
-%   "diagnostics": {...}
-% }
-% \end{lstlisting}
+\paragraph{Palette Array.} An ordered list of colour swatches, each containing:
+\begin{itemize}
+    \item \texttt{hex} --- sRGB hex code (\texttt{\#RRGGBB})
+    \item \texttt{ok} --- OKLab coordinates (\texttt{\{L, a, b\}})
+\end{itemize}
+
+Both sRGB (for immediate use) and OKLab (for further computation) are provided.
+
+\paragraph{Config Echo.} The effective configuration used, enabling reproducibility. Callers can log, store, or transmit the config to regenerate the same palette later.
+
+\paragraph{Diagnostics.} Quality metrics and constraint status for transparency.
 
 % ------------------------------------------------------------------------------
 % 10.4 Diagnostic Information
@@ -74,46 +80,47 @@
 \section{Diagnostic Information}
 \label{sec:api-diagnostics}
 
-% [To be written: ~150 words]
-% Content: What diagnostics are provided
-% Key points:
-%   - Constraint violations (which, how resolved)
-%   - Gamut corrections (which colors, how much)
-%   - Effective parameters (after preset expansion)
-%   - Quality metrics (perceptual distances, velocity)
-%   - Informational, not errors
+Diagnostics report quality metrics and constraint status:
+
+\begin{center}
+\begin{tabular}{ll}
+\toprule
+\textbf{Metric} & \textbf{Description} \\
+\midrule
+\texttt{minDeltaE} & Smallest perceptual distance between adjacent swatches \\
+\texttt{maxDeltaE} & Largest perceptual distance between adjacent swatches \\
+\texttt{meanDeltaE} & Average distance \\
+\texttt{constraintViolations} & Count of constraint violations \\
+\texttt{gamutCorrections} & Count of colours requiring gamut mapping \\
+\texttt{traversalStrategy} & Algorithm used (e.g., ``arc-length'') \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+Diagnostics are informational, not prescriptive. The engine does not fail on constraint violations---it reports them and produces output anyway.
 
 % ------------------------------------------------------------------------------
 % 10.5 Scope Boundaries (Core vs. Caller)
 % ------------------------------------------------------------------------------
-\section{Scope Boundaries (Core vs.\ Caller)}
+\section{Scope Boundaries}
 \label{sec:api-scope}
 
-% [To be written: ~150 words]
-% Content: What's explicitly out of scope
-% Key points:
-%   - NOT: color naming
-%   - NOT: accessibility checking (WCAG contrast)
-%   - NOT: color blindness simulation
-%   - NOT: real-time animation
-%   - NOT: color management / ICC profiles
-%   - Caller responsible for these concerns
-
-% Design Decision Box
 \begin{designdecision}[Engine Core vs.\ Caller Responsibilities]
-\textbf{Choice:} The engine core owns palette generation only. Color naming, accessibility checking (WCAG), color blindness simulation, and ICC color management are explicitly caller responsibilities.
+\textbf{Choice:} The engine core owns palette generation only. Colour naming, accessibility checking (WCAG), colour blindness simulation, and ICC colour management are explicitly caller responsibilities.
 
-\textbf{Rationale:} Keeping the core lean enables production-grade performance (5.6M colors/second) and avoids bloating with features that vary by use case. Language bindings and applications can add these capabilities as needed.
+\textbf{Rationale:} Keeping the core lean enables production-grade performance (5.6M colours/second) and avoids bloating with features that vary by use case. Language bindings and applications can add these capabilities as needed.
 
 \textbf{Alternatives Considered:}
 \begin{itemize}
   \item \textit{Integrated accessibility checking} --- Rejected: varies by standard (WCAG 2.1, 3.0), adds dependencies
-  \item \textit{Built-in color naming} --- Rejected: naming systems are culturally/contextually specific
-  \item \textit{Color blindness simulation} --- Rejected: simulation algorithms evolve independently
+  \item \textit{Built-in colour naming} --- Rejected: naming systems are culturally/contextually specific
+  \item \textit{Colour blindness simulation} --- Rejected: simulation algorithms evolve independently
 \end{itemize}
 
 \textbf{Reference:} \S\ref{sec:caller-responsibilities}, Appendix~D
 \end{designdecision}
+
+Features that can be implemented by callers using the core output are not built into the engine. Examples of excluded features: ``play animation at 30fps'', ``apply palette to image'', ``export to Photoshop swatch file''.
 
 % ------------------------------------------------------------------------------
 % 10.6 Performance Characteristics
@@ -121,20 +128,25 @@
 \section{Performance Characteristics}
 \label{sec:performance}
 
-% [To be written: ~200 words]
-% Content: Production-grade performance metrics
-% Key points:
-%   - The C-core implementation achieves production-grade performance
-%   - Per-color generation: microsecond range
-%   - Throughput: 5.6 million colors per second (single-threaded)
-%   - Memory: minimal, no caching required
-%
-% Computational Complexity:
-%   - Journey construction: O(1) per anchor (fixed degree Bézier)
-%   - Arc-length parameterization: O(n) precomputation, O(1) lookup
-%   - Sampling: O(n) for n colors with constraint checking
-%
-% Implication:
-%   - Enables real-time palette generation in interactive applications
-%   - No precomputation or caching needed
-%   - Suitable for high-throughput batch processing
+The C-core implementation achieves production-grade performance:
+
+\begin{center}
+\begin{tabular}{ll}
+\toprule
+\textbf{Metric} & \textbf{Value} \\
+\midrule
+Per-colour generation & Microsecond range \\
+Throughput & 5.6 million colours/second (single-threaded) \\
+Memory & Minimal; no caching required \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+Computational complexity:
+\begin{itemize}
+    \item Journey construction: $O(1)$ per anchor (fixed-degree Bézier)
+    \item Arc-length parameterisation: $O(n)$ precomputation, $O(1)$ lookup
+    \item Sampling: $O(n)$ for $n$ colours with constraint checking
+\end{itemize}
+
+This performance enables real-time palette generation in interactive applications, eliminates the need for precomputation or caching, and supports high-throughput batch processing.

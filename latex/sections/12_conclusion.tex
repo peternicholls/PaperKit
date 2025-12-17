@@ -12,14 +12,11 @@
 \section{Summary}
 \label{sec:summary}
 
-% [To be written: ~200 words]
-% Content: Recap of the specification
-% Key points:
-%   - Color Journey Engine: deterministic, perceptually-uniform palette generator
-%   - Built on OKLab color space for perceptual foundation
-%   - Journey metaphor provides coherence through Bézier curves
-%   - Constraints (JND, Δ_min, Δ_max) ensure quality
-%   - Flexible API with presets for common use cases
+This specification presents the Color Journey Engine, a deterministic system for generating perceptually-uniform colour palettes. The engine addresses a persistent challenge in digital colour tools: how to create multi-colour palettes that feel coherent while respecting the non-linear, device-dependent nature of human colour perception.
+
+The solution rests on three pillars. First, the OKLab colour space provides a perceptually uniform foundation where equal numerical distances correspond to equal perceived differences. Second, the journey metaphor---implemented through cubic Bézier curves with arc-length parameterisation---ensures smooth, coherent transitions between colours. Third, the constraint system ($\Delta_{\min}$, $\Delta_{\max}$, JND-based adaptive sampling) guarantees that generated colours are both distinguishable and aesthetically pleasing.
+
+The result is a pure function that transforms configuration into palette: stateless, deterministic, and predictable.
 
 % ------------------------------------------------------------------------------
 % 12.2 Key Contributions
@@ -27,15 +24,19 @@
 \section{Key Contributions}
 \label{sec:contributions}
 
-% [To be written: ~200 words]
-% Content: What this specification contributes
-% Key points:
-%   - Formal specification for reproducible palette generation
-%   - Single-anchor "mood expansion" algorithm
-%   - Perceptual constraint framework (JND-based)
-%   - Two-layer gamut management strategy
-%   - Complete API design with clear responsibilities
-%   - Preset system encoding expert knowledge
+This specification makes several contributions to the field of algorithmic colour palette generation:
+
+\begin{enumerate}
+    \item \textbf{Formal Specification.} A complete, reproducible specification for palette generation that eliminates the ``magic'' often present in colour tools. Same inputs yield same outputs, always.
+    
+    \item \textbf{Mood Expansion Algorithm.} A novel approach for generating coherent multi-colour journeys from a single anchor, using style parameters to expand in perceptually meaningful directions.
+    
+    \item \textbf{Perceptual Constraint Framework.} A JND-based system for ensuring minimum distinguishability while allowing stylistic variation, with clear priority hierarchies for conflict resolution.
+    
+    \item \textbf{Two-Layer Gamut Management.} A prevention-then-correction strategy that maintains journey character while guaranteeing displayable output, with hue preservation as a priority.
+    
+    \item \textbf{Clear Responsibility Boundaries.} Explicit delineation between engine core and caller responsibilities, enabling a lean, high-performance core (5.6M colours/second) while supporting extension.
+\end{enumerate}
 
 % ------------------------------------------------------------------------------
 % 12.3 Future Directions
@@ -43,13 +44,16 @@
 \section{Future Directions}
 \label{sec:future}
 
-% [To be written: ~200 words]
-% Content: Potential enhancements and open questions
-% Key points:
-%   - Extended color spaces (Display P3, Rec. 2020)
-%   - Accessibility-aware palette generation
-%   - Multi-palette harmonization
-%   - Real-time/animated palette generation
-%   - Machine learning for preset discovery
-%   - Integration with design systems
-%   - Open questions from research phase
+Several directions merit future investigation:
+
+\paragraph{Extended Colour Spaces.} While the current specification targets sRGB output, the OKLab foundation supports wider gamuts. Future versions could target Display P3 or Rec.~2020 while maintaining backward compatibility.
+
+\paragraph{Accessibility Integration.} Though accessibility checking remains a caller responsibility, future work could explore optional WCAG-aware generation modes that constrain palettes to meet contrast requirements.
+
+\paragraph{Multi-Palette Harmonisation.} Design systems often require multiple coordinated palettes (primary, secondary, semantic). Algorithms for generating harmonised palette families present an interesting extension.
+
+\paragraph{Preset Discovery.} The current preset system encodes expert knowledge manually. Machine learning approaches could discover effective presets from successful palette examples.
+
+\paragraph{Real-Time Animation.} The engine's performance enables real-time generation. Formalising smooth interpolation between palettes could support animated colour transitions in interactive applications.
+
+The Color Journey Engine provides a foundation for these extensions while delivering immediate value: deterministic, perceptually-sound palette generation with a clean, predictable API.

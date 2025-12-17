@@ -12,14 +12,15 @@
 \section{Open Strategy}
 \label{sec:loop-open}
 
-% [To be written: ~200 words]
-% Content: Default open path (no return)
-% Key points:
-%   - Default strategy
-%   - Path starts at first anchor, ends at last
-%   - No repetition, no wrap-around
-%   - Output is linear sequence from start to end
-%   - Best for: one-way progressions, timelines
+The \textbf{open} strategy is the default: the journey proceeds from the first anchor to the last anchor and stops. There is no attempt to connect the end back to the beginning.
+
+\begin{equation}
+    J(t): t \in [0, 1] \quad \text{where } J(0) = A_1, \quad J(1) = A_m
+\end{equation}
+
+The output is a finite sequence with no wrap consideration. If looped externally by the caller, there will be a visible jump from $A_m$ back to $A_1$.
+
+Open paths are appropriate for one-time state transitions, linear progress indicators, and palettes not intended to cycle.
 
 % ------------------------------------------------------------------------------
 % 7.2 Closed Strategy
@@ -27,14 +28,16 @@
 \section{Closed Strategy}
 \label{sec:loop-closed}
 
-% [To be written: ~200 words]
-% Content: Return to start color
-% Key points:
-%   - Path returns to starting color
-%   - Creates seamless loop (last → first is smooth)
-%   - Additional segment from last anchor to first
-%   - Output: colors can be traversed cyclically
-%   - Best for: cyclic data, continuous animations
+The \textbf{closed} strategy forms a complete cycle, returning smoothly from the last anchor back to the first:
+\begin{equation}
+    J(0) = J(1) = A_1
+\end{equation}
+
+The engine adds a segment from $A_m$ back to $A_1$, creating a closed path with $C^1$ continuity at the wrap point. The tangent leaving $A_m$ toward $A_1$ matches the tangent arriving at $A_1$ from $A_m$, preventing a ``corner'' in colour space.
+
+In closed loop mode, the output array \emph{omits the duplicate final colour}. The last swatch is adjacent to (but not identical to) $A_1$, because $A_1$ is already the first swatch. When looped, the sequence wraps seamlessly.
+
+Closed loops are appropriate for continuous colour cycling animations, hue wheels, and looping ambient effects.
 
 % ------------------------------------------------------------------------------
 % 7.3 Ping-Pong Strategy
@@ -42,14 +45,21 @@
 \section{Ping-Pong Strategy}
 \label{sec:loop-pingpong}
 
-% [To be written: ~200 words]
-% Content: Reverse at endpoints
-% Key points:
-%   - Path oscillates: forward, then backward, repeat
-%   - No discontinuity at endpoints
-%   - Output unrolled: A→B→C→B→A→B→C→...
-%   - Endpoints appear once per cycle, midpoints twice
-%   - Best for: back-and-forth animations
+The \textbf{ping-pong} strategy proceeds from start to end, then reverses back to start, creating back-and-forth oscillation.
+
+For parameter $u \in [0, 2]$:
+\begin{equation}
+    \tilde{t} = \begin{cases}
+        u & 0 \leq u < 1 \\
+        2 - u & 1 \leq u < 2
+    \end{cases}
+\end{equation}
+
+No new colours are generated in the reverse pass---the path is exactly retraced. Smooth reversal occurs at the turning point ($A_m$) and smooth loop at the return point ($A_1$).
+
+Ping-pong output includes the forward sequence; callers can traverse the array forward then backward, or the engine can output the full forward-and-back sequence explicitly.
+
+Ping-pong is appropriate for ``breathing'' or ``pulsing'' colour effects, bidirectional progress indicators, and oscillating state visualisations.
 
 % ------------------------------------------------------------------------------
 % 7.4 Möbius Strategy
@@ -57,15 +67,22 @@
 \section{Möbius Strategy}
 \label{sec:loop-mobius}
 
-% [To be written: ~250 words]
-% Content: Return with perceptual shift (half-twist)
-% Key points:
-%   - Returns to start but with transformation
-%   - Like Möbius strip: one loop = half rotation
-%   - Two full cycles to return to original
-%   - Transformation typically in lightness or chroma
-%   - Creates interesting visual patterns
-%   - Best for: evolving loops, generative art
+The \textbf{Möbius} strategy is a half-twist loop requiring \emph{two complete traversals} to return to the starting colour---named after the Möbius strip with its 180° twist.
+
+After one traversal ($t = 0 \to 1$), you arrive at a colour related to the start but with some attribute inverted. After the second traversal ($t = 1 \to 2$), you return to the original colour.
+
+One approach inverts the chromatic components at the halfway point:
+\begin{equation}
+    J_{\text{mobius}}(1) = (L, -a, -b) \quad \text{when } J_{\text{mobius}}(0) = (L, a, b)
+\end{equation}
+
+This yields the complementary colour (180° hue rotation) at the midpoint. The viewer perceives continuous change that takes two ``laps'' to truly repeat:
+\begin{itemize}
+    \item Cycle 1: Journey from Red → \ldots → Cyan (complement)
+    \item Cycle 2: Journey from Cyan → \ldots → Red (back to original)
+\end{itemize}
+
+Möbius is an advanced option requiring careful understanding of the twist behaviour. It is appropriate for complex animations with implicit alternation, effects that should vary between loops, and artistic/generative applications.
 
 % ------------------------------------------------------------------------------
 % 7.5 Phased Strategy
@@ -73,33 +90,33 @@
 \section{Phased Strategy}
 \label{sec:loop-phased}
 
-% [To be written: ~200 words]
-% Content: Progressive transformation each cycle
-% Key points:
-%   - Each cycle applies incremental transformation
-%   - Phase shift in hue, lightness, or chroma
-%   - Palette evolves over multiple cycles
-%   - Good for long sequences with gradual drift
-%   - Best for: evolving backgrounds, generative sequences
+The \textbf{phased} strategy applies a systematic shift each repetition, so the palette evolves over time rather than repeating exactly.
+
+On cycle $k$:
+\begin{equation}
+    J_k(t) = J_0(t) + k \cdot \text{shift}
+\end{equation}
+
+where the shift is a per-cycle offset in hue, lightness, or other dimensions.
+
+Visual effect:
+\begin{itemize}
+    \item Cycle 1: Blue → Green
+    \item Cycle 2: Blue+10° → Green+10° (slightly shifted hues)
+    \item Cycle 3: Blue+20° → Green+20°
+    \item \ldots eventually wraps around
+\end{itemize}
+
+Phased loops are parameterised by shift amount and dimension. This is the most complex loop type, appropriate only when continuous evolution is specifically desired---slowly evolving animations, generative art with progressive change, and long-running visualisations that should not feel static.
 
 % ------------------------------------------------------------------------------
 % 7.6 Output Semantics (Unrolled Arrays)
 % ------------------------------------------------------------------------------
-\section{Output Semantics (Unrolled Arrays)}
+\section{Output Semantics}
 \label{sec:loop-output}
 
-% [To be written: ~250 words]
-% Content: How loops unroll into output arrays
-% Key points:
-%   - All strategies output flat array of N colors
-%   - Loops "unrolled" into sequential list
-%   - No nested structure or cycle metadata in output
-%   - Caller handles cycling if needed
-%   - Non-repetition: adjacent colors never identical
-
-% Design Decision Box
 \begin{designdecision}[Unrolled Loop Output]
-\textbf{Choice:} All loop strategies output a flat array of $N$ colors. Loops are ``unrolled'' into a sequential list with no nested structure or cycle metadata.
+\textbf{Choice:} All loop strategies output a flat array of $N$ colours. Loops are ``unrolled'' into a sequential list with no nested structure or cycle metadata.
 
 \textbf{Rationale:} Flat arrays are universally consumable across languages and use cases. Callers needing cycle information can compute it from strategy and count; most callers don't need it.
 
@@ -113,9 +130,18 @@
 \textbf{Reference:} \S\ref{sec:api-output}, Appendix~D
 \end{designdecision}
 
-% Example table placeholder:
-% \begin{table}[h]
-%   \centering
-%   \caption{Loop Strategy Output Examples (N=7, 3 anchors)}
-%   \label{tab:loop-output}
-% \end{table}
+\subsection*{Non-Repetition Rule}
+
+Loop outputs omit duplicate colours at boundaries. If the loop returns to the starting colour, that colour is \emph{not} repeated at the end of the array:
+
+\begin{itemize}
+    \item Conceptual path: $A \to B \to C \to D \to E \to A$
+    \item Output array: $[A, B, C, D, E]$ (5 elements)
+    \item When looped: $A, B, C, D, E, A, B, C, D, E, \ldots$ ($A$ follows $E$ naturally)
+\end{itemize}
+
+This prevents doubled colours when looping externally and reduces array length.
+
+\subsection*{Caller Responsibilities}
+
+Simple repetition behaviours are caller responsibility, not engine features. The engine provides smooth loop paths and appropriate swatch sequences; the caller controls ``play N times then stop'', animation timing, and pause/resume.

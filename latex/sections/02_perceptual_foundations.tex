@@ -12,68 +12,149 @@
 \section{The Perceptual Uniformity Requirement}
 \label{sec:perceptual-uniformity}
 
-% [To be written: ~300 words]
-% Content: Why perceptual uniformity matters for palette generation
-% Key points:
-%   - Mathematical distance should correspond to perceived difference
-%   - RGB/HSL are not perceptually uniform
-%   - Equal steps in RGB ≠ equal visual steps
-%   - Foundation for meaningful constraints (JND, Δ_min, Δ_max)
+Human vision perceives colour differences nonlinearly. A linear blend in RGB space does not produce a linear perceptual transition---interpolating between saturated blue and yellow often produces washed-out greys or unexpected hues at the midpoint, because the intermediate colours pass through an unsaturated region of colour space.
+
+Similarly, equal numerical changes in HSV or HSL frequently produce uneven perceptual steps. Some hue regions appear to change faster than others; lightness and saturation interact in ways the coordinate system does not capture.
+
+To address this fundamental mismatch, scientists have developed \emph{perceptually uniform} colour spaces where Euclidean distances correspond more closely to perceived colour differences. In such spaces, moving a given distance in any direction produces a change that observers judge to be of similar magnitude.
+
+The engine \emph{must} work in a perceptually uniform space so that equal steps along the journey correspond to equal perceived differences. This is non-negotiable for achieving smooth, natural colour transitions.
 
 % ------------------------------------------------------------------------------
 % 2.2 OKLab Color Space
 % ------------------------------------------------------------------------------
-\section{OKLab Color Space}
+\section{OKLab Colour Space}
 \label{sec:oklab}
 
-% [To be written: ~400 words]
-% Content: OKLab derivation, properties, coordinate meanings
-% Key points:
-%   - Designed by Björn Ottosson (2020) for perceptual uniformity
-%   - L: lightness (0 = black, 1 = white)
-%   - a: green-red axis
-%   - b: blue-yellow axis
-%   - Euclidean distance approximates perceptual difference
-%   - Advantages over CIELAB for practical use
+OKLab, introduced by Björn Ottosson in 2020 \cite{ottosson2020}, is a modern perceptual colour space designed to predict human colour perception accurately while remaining computationally efficient. It has gained rapid adoption, appearing in CSS Color Level 4 \cite{csscolor4} and various creative tools.
 
-% Mathematical definition placeholder:
-% \begin{equation}
-%   \Delta E_{OK} = \sqrt{(L_2 - L_1)^2 + (a_2 - a_1)^2 + (b_2 - b_1)^2}
-%   \label{eq:oklab-distance}
-% \end{equation}
+Compared to alternatives, OKLab offers an excellent balance:
+
+\begin{center}
+\begin{tabular}{lcccc}
+\toprule
+\textbf{Colour Space} & \textbf{Uniformity} & \textbf{Cost} & \textbf{Stability} & \textbf{Selected} \\
+\midrule
+sRGB & Poor & Low & Good & No \\
+HSV/HSL & Poor & Low & Poor & No \\
+CIELAB (1976) & Moderate & Moderate & Poor at extremes & No \\
+CAM16-UCS & Excellent & High & Good & No \\
+\textbf{OKLab} & \textbf{Excellent} & \textbf{Low} & \textbf{Excellent} & \textbf{Yes} \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+A colour in OKLab is represented by three coordinates $(L, a, b)$:
+
+\begin{description}
+    \item[$L$ --- Perceived lightness] ranges from 0 (perceptual black) to 1 (brightest white). Equal differences in $L$ correspond to equal perceived brightness changes.
+    
+    \item[$a$ --- Green--red opponent axis] with positive values indicating reddish tints and negative values indicating greenish tints. Zero is achromatic along this axis.
+    
+    \item[$b$ --- Blue--yellow opponent axis] with positive values indicating yellowish tints and negative values indicating bluish tints. Zero is achromatic along this axis.
+\end{description}
+
+The $L$, $a$, $b$ axes are designed to be \emph{approximately orthogonal in perception}. Altering $L$ alone should not significantly change perceived hue or chroma; altering $a$ or $b$ primarily affects hue and saturation without changing perceived lightness.
+
+The perceptual distance between two colours is computed as Euclidean distance:
+
+\begin{equation}
+    \Delta E_{OK} = \sqrt{(L_2 - L_1)^2 + (a_2 - a_1)^2 + (b_2 - b_1)^2}
+    \label{eq:oklab-distance}
+\end{equation}
+
+A $\Delta E$ of approximately 1.0 in OKLab corresponds to a just-noticeable difference (JND) for an average observer under standard viewing conditions.
 
 % ------------------------------------------------------------------------------
 % 2.3 Cartesian vs. Cylindrical Coordinates
 % ------------------------------------------------------------------------------
-\section{Cartesian vs. Cylindrical Coordinates}
+\section{Cartesian vs.\ Cylindrical Coordinates}
 \label{sec:oklch}
 
-% [To be written: ~300 words]
-% Content: OKLCh cylindrical form and when to use each
-% Key points:
-%   - OKLCh: L (lightness), C (chroma), h (hue angle)
-%   - C = √(a² + b²), h = atan2(b, a)
-%   - Cartesian (Lab): better for interpolation, distance
-%   - Cylindrical (LCh): better for hue-preserving operations
-%   - Engine uses both internally for different operations
+For certain operations---particularly hue manipulation---a cylindrical form is more convenient. OKLCh represents the same colours using:
+
+\begin{description}
+    \item[$L$ --- Lightness] identical to OKLab
+    \item[$C$ --- Chroma] defined as $C = \sqrt{a^2 + b^2}$, representing distance from the neutral axis (colourfulness/saturation)
+    \item[$h$ --- Hue angle] defined as $h = \mathrm{atan2}(b, a)$, the angle around the $a$--$b$ plane
+\end{description}
+
+The conversion is straightforward:
+\begin{align}
+    C &= \sqrt{a^2 + b^2} \\
+    h &= \mathrm{atan2}(b, a)
+\end{align}
+
+The engine uses both representations internally:
+\begin{itemize}
+    \item \textbf{Cartesian (OKLab)} for distance calculations and Bézier interpolation, where linear operations are meaningful
+    \item \textbf{Cylindrical (OKLCh)} for hue-related manipulations such as warmth bias and complementary colour calculations
+\end{itemize}
+
+This separation allows clean reasoning about lightness dynamics (along $L$) versus chromatic dynamics (in the $a$--$b$ plane or around $h$).
 
 % ------------------------------------------------------------------------------
 % 2.4 Color Space Conversion
 % ------------------------------------------------------------------------------
-\section{Color Space Conversion}
+\section{Colour Space Conversion}
 \label{sec:conversion}
 
-% [To be written: ~300 words]
-% Content: Conversion pipeline sRGB → linear → OKLab
-% Key points:
-%   - sRGB gamma expansion to linear RGB
-%   - Linear RGB to OKLab via matrix transformation
-%   - Inverse for output (OKLab → linear → sRGB)
-%   - Precision considerations
+The transformation from sRGB to OKLab follows a well-defined pipeline:
 
-% Conversion matrix placeholder:
-% \begin{equation}
-%   \begin{bmatrix} L \\ a \\ b \end{bmatrix} = M_{OKLab} \cdot 
-%   \begin{bmatrix} R_{linear} \\ G_{linear} \\ B_{linear} \end{bmatrix}
-%   \label{eq:oklab-matrix}
-% \end{equation}
+\begin{enumerate}
+    \item \textbf{Linearise sRGB} --- Remove gamma encoding to obtain linear RGB values
+    \item \textbf{RGB to XYZ} --- Apply the standard sRGB-to-XYZ matrix
+    \item \textbf{XYZ to LMS} --- Apply matrix $M_1$ to approximate cone responses
+    \item \textbf{Nonlinear compression} --- Apply cube root: $(l', m', s') = (l^{1/3}, m^{1/3}, s^{1/3})$
+    \item \textbf{LMS to Lab} --- Apply matrix $M_2$ to obtain final $(L, a, b)$
+\end{enumerate}
+
+The transformation matrices are:
+
+\begin{equation}
+    M_1 = \begin{pmatrix}
+    0.8189330101 & 0.3618667424 & -0.1288597137 \\
+    0.0329845436 & 0.9293118715 & 0.0361456387 \\
+    0.0482003018 & 0.2643662691 & 0.6338517070
+    \end{pmatrix}
+    \label{eq:oklab-m1}
+\end{equation}
+
+\begin{equation}
+    M_2 = \begin{pmatrix}
+    0.2104542553 & 0.7936177850 & -0.0040720468 \\
+    1.9779984951 & -2.4285922050 & 0.4505937099 \\
+    0.0259040371 & 0.7827717662 & -0.8086757660
+    \end{pmatrix}
+    \label{eq:oklab-m2}
+\end{equation}
+
+Each step models aspects of human vision: $M_1$ approximates L, M, S cone responses; the cube root models nonlinear perceptual compression; $M_2$ extracts lightness as a weighted average and opponent-colour signals as cone differences.
+
+\subsection*{Computational Efficiency}
+
+The OKLab conversion is computationally trivial:
+\begin{itemize}
+    \item \textbf{Per conversion:} approximately 50--100 CPU cycles
+    \item \textbf{Operations:} 18 multiplications, 12 additions, 3 cube roots
+    \item \textbf{Memory:} no allocations; all register operations
+    \item \textbf{Parallelisation:} trivially vectorisable with SIMD
+\end{itemize}
+
+This efficiency enables real-time palette generation. The entire forward/inverse pipeline uses fixed, known constant matrices---no iterative solving, no conditionals, no special cases.
+
+\subsection*{Implications for the Engine}
+
+The choice of OKLab has cascading implications:
+
+\begin{enumerate}
+    \item \textbf{Linear interpolation works} --- A straight line between two colours in OKLab produces a perceptually smooth gradient
+    
+    \item \textbf{Distance calculations are meaningful} --- Constraints like $\Delta_{\min}$ and $\Delta_{\max}$ correspond to actual perceived differences
+    
+    \item \textbf{Dynamics are separable} --- The orthogonality of $L$, $a$, $b$ means lightness can be adjusted independently of chromaticity
+    
+    \item \textbf{Hue interpolation is stable} --- Unlike HSV, where interpolating across the 0°/360° boundary causes problems, OKLab's Cartesian representation avoids discontinuities
+\end{enumerate}
+
+Because OKLab is unbounded---it can represent colours outside any physical display gamut---the engine must include explicit gamut mapping (\S\ref{sec:gamut-problem}).

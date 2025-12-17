@@ -12,41 +12,79 @@
 \section{Just-Noticeable Difference}
 \label{sec:jnd}
 
-% [To be written: ~200 words]
-% Content: JND threshold in OKLab
-% Key points:
-%   - JND ≈ 2 OKLab units (empirical threshold)
-%   - Colors closer than JND may appear identical
-%   - Foundation for minimum distance constraint
-%   - Context-dependent (viewing conditions affect perception)
+The \textbf{Just Noticeable Difference (JND)} is the smallest colour change that an average human observer can detect under standard viewing conditions.
+
+In OKLab:
+\begin{itemize}
+    \item Theoretical JND threshold: $\Delta E \approx 1.0$ unit
+    \item Practical threshold: $\Delta E \approx 2.0$ units (accounting for viewing conditions, observer variability, and typical display conditions)
+\end{itemize}
+
+\begin{center}
+\begin{tabular}{ll}
+\toprule
+$\Delta E$ \textbf{Range} & \textbf{Perceptual Interpretation} \\
+\midrule
+$< 1.0$ & Imperceptible to most observers \\
+$1.0 - 2.0$ & Barely perceptible, subtle \\
+$2.0 - 3.0$ & Noticeable, clear difference \\
+$3.0 - 5.0$ & Obvious difference, still smooth \\
+$> 5.0$ & Pronounced difference, may feel like a ``step'' \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+These thresholds are context-dependent. Dark-adapted viewing, low-contrast backgrounds, and peripheral vision all affect perception. The practical threshold of 2.0 provides margin for real-world variability.
 
 % ------------------------------------------------------------------------------
 % 4.2 Δ_min Constraint (Distinguishability)
 % ------------------------------------------------------------------------------
-\section{$\Delta_{min}$ Constraint (Distinguishability)}
+\section{$\Delta_{\min}$ Constraint (Distinguishability)}
 \label{sec:delta-min}
 
-% [To be written: ~200 words]
-% Content: Δ_min constraint rationale and value
-% Key points:
-%   - Δ_min ≈ 2 (at or above JND)
-%   - Ensures adjacent colors are distinguishable
-%   - Prevents "muddy" palettes with imperceptible differences
-%   - May limit maximum palette size for given path
+\begin{equation}
+    \Delta_{\min} \approx 2.0
+\end{equation}
+
+This is the \textbf{minimum allowed perceptual distance} between any two adjacent swatches.
+
+Setting $\Delta_{\min}$ at the JND threshold ensures that every colour step is perceptible. There is no value in generating colours that viewers cannot distinguish---it wastes palette capacity and creates the illusion of redundancy.
+
+\subsection*{Enforcement}
+
+If two anchors are closer than $\Delta_{\min}$:
+\begin{itemize}
+    \item \textbf{Collapse case:} The engine may treat them as essentially the same anchor, producing no intermediate swatches
+    \item \textbf{Skip intermediates:} No interpolation is performed; the journey jumps directly from one to the other
+\end{itemize}
+
+When anchors are extremely close ($\Delta < \Delta_{\min}$), the engine does not attempt to create meaningless intermediate colours.
 
 % ------------------------------------------------------------------------------
 % 4.3 Δ_max Constraint (Coherence)
 % ------------------------------------------------------------------------------
-\section{$\Delta_{max}$ Constraint (Coherence)}
+\section{$\Delta_{\max}$ Constraint (Coherence)}
 \label{sec:delta-max}
 
-% [To be written: ~200 words]
-% Content: Δ_max constraint rationale and value
-% Key points:
-%   - Δ_max ≈ 5 (soft upper bound)
-%   - Prevents jarring jumps in palette
-%   - Maintains journey coherence
-%   - Can be relaxed in Categorical Mode
+\begin{equation}
+    \Delta_{\max} \approx 5.0
+\end{equation}
+
+This is the \textbf{maximum allowed perceptual distance} between any two adjacent swatches.
+
+Setting $\Delta_{\max}$ at approximately 5 units ensures that no single step is so large that it feels like an abrupt jump. Differences above $\sim$5 are readily noticeable and can break the sense of smooth progression.
+
+\subsection*{Enforcement}
+
+If a segment between anchors has total distance $D > \Delta_{\max}$:
+
+\begin{enumerate}
+    \item \textbf{Subdivide:} The segment is divided into $n$ sub-segments where $n = \lceil D / \Delta_{\max} \rceil$
+    \item \textbf{Insert intermediates:} $n-1$ intermediate swatches are inserted
+    \item \textbf{Cap subdivisions:} $n \leq 5$ to prevent excessive palette length
+\end{enumerate}
+
+At most 5 segments (4 intermediate swatches) are created between any two anchors, keeping palettes manageable. If anchors are extremely far apart, each step approaches $\Delta_{\max}$.
 
 % ------------------------------------------------------------------------------
 % 4.4 Adaptive Sampling
@@ -54,20 +92,35 @@
 \section{Adaptive Sampling}
 \label{sec:adaptive-sampling}
 
-% [To be written: ~250 words]
-% Content: Algorithm for sampling within constraints
-% Key points:
-%   - Start with uniform arc-length samples
-%   - Check distances between adjacent samples
-%   - If distance < Δ_min: remove intermediate samples
-%   - If distance > Δ_max: insert additional samples
-%   - Iterate until all constraints satisfied or limit reached
+Given anchors $A$ and $B$ with perceptual distance $D$, the adaptive sampling algorithm:
 
-% Algorithm pseudocode placeholder:
-% \begin{algorithm}
-%   \caption{Adaptive Sampling}
-%   \label{alg:adaptive}
-% \end{algorithm}
+\begin{enumerate}
+    \item If $D < \Delta_{\min}$: append only $B$ to output (skip intermediates)
+    \item Otherwise: compute $n = \min(5, \lceil D / \Delta_{\max} \rceil)$
+    \item For $i = 1$ to $n$: interpolate at $t = i/n$ and append to output
+\end{enumerate}
+
+Each segment has length $D/n$, guaranteeing:
+\begin{itemize}
+    \item Each step $\leq \Delta_{\max}$
+    \item Each step $\geq \Delta_{\min}$ (approximately, given the constraints)
+\end{itemize}
+
+\begin{center}
+\begin{tabular}{ccc}
+\toprule
+\textbf{Total Distance $D$} & \textbf{Segments $n$} & \textbf{Step Size $D/n$} \\
+\midrule
+3.0 & 1 & 3.0 \\
+7.0 & 2 & 3.5 \\
+12.0 & 3 & 4.0 \\
+20.0 & 4 & 5.0 \\
+30.0 & 5 (capped) & 6.0 \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+When $D$ is very large and capped at $n=5$, step sizes may exceed $\Delta_{\max}$. This is a trade-off for palette manageability.
 
 % ------------------------------------------------------------------------------
 % 4.5 Constraint Enforcement
@@ -75,10 +128,18 @@
 \section{Constraint Enforcement}
 \label{sec:constraint-enforcement}
 
-% [To be written: ~150 words]
-% Content: What happens when constraints conflict
-% Key points:
-%   - Requested N may be impossible within constraints
-%   - Engine returns closest valid palette
-%   - Diagnostics indicate constraint status
-%   - Δ_min takes priority (distinguishability paramount)
+Some anchor configurations make constraints impossible to satisfy fully---two anchors very close together cannot yield many distinguishable steps; requesting 100 swatches between nearby colours is unsatisfiable.
+
+The engine prioritises producing output over strict enforcement:
+
+\begin{enumerate}
+    \item \textbf{Best effort:} The engine produces the closest valid palette
+    \item \textbf{Diagnostics:} Constraint violations are reported (not thrown as errors)
+    \item \textbf{$\Delta_{\min}$ priority:} Distinguishability takes precedence---colours below JND are never output
+\end{enumerate}
+
+Distance constraints are evaluated on the actual path (after dynamics and gamut mapping are applied), not the straight-line distance between anchors. If dynamics increase path length, more intermediate swatches may be needed; if gamut clipping shortens effective distances, fewer may suffice.
+
+\subsection*{The Perceptual Comfort Zone}
+
+The ideal step size falls in the range $2.0 \leq \Delta E \leq 5.0$---steps are clearly distinguishable but not jarring. This is the ``sweet spot'' where palettes feel both coherent and varied.

@@ -12,54 +12,60 @@
 \section{The Gamut Boundary Problem}
 \label{sec:gamut-problem}
 
-% [To be written: ~250 words]
-% Content: Why OKLab paths can exit sRGB gamut
-% Key points:
-%   - OKLab is device-independent, sRGB is bounded
-%   - Valid OKLab coordinates may have no sRGB representation
-%   - High-chroma colors near gamut boundary
-%   - Bézier curves can exit gamut even if anchors are in-gamut
-%   - Must handle gracefully for practical output
+OKLab is a perceptually uniform colour space, but it encompasses colours that lie outside any real display's capabilities:
 
-% Gamut diagram placeholder:
-% \begin{figure}[h]
-%   \centering
-%   % \includegraphics{gamut_boundary}
-%   \caption{sRGB gamut boundary in OKLab space}
-%   \label{fig:gamut}
-% \end{figure}
+\begin{itemize}
+    \item \textbf{High-chroma colours} at certain hue angles exceed sRGB
+    \item \textbf{Very dark or very light saturated colours} clip
+    \item \textbf{Certain hue regions} (cyan-blue, yellow-green) are particularly constrained
+\end{itemize}
+
+When constructing journeys, naive Bézier curves may traverse impossible colours. Hard clipping (clamping RGB values) creates visible discontinuities and hue shifts. Perceptual uniformity breaks down at gamut boundaries.
+
+The fundamental constraint: all journey colours must satisfy
+\begin{equation}
+    \gamma(t) \in G_{\text{sRGB}} \subset \text{OKLab} \quad \forall t
+\end{equation}
+where $G_{\text{sRGB}}$ represents the sRGB gamut volume mapped into OKLab space.
 
 % ------------------------------------------------------------------------------
 % 8.2 Design-Time Gamut Awareness (Prevention Layer)
 % ------------------------------------------------------------------------------
-\section{Design-Time Gamut Awareness (Prevention Layer)}
+\section{Design-Time Gamut Awareness}
 \label{sec:gamut-design}
 
-% [To be written: ~250 words]
-% Content: First layer - gamut-aware path construction
-% Key points:
-%   - Control points placed with gamut awareness
-%   - Intensity parameter scaled to avoid extreme excursions
-%   - "Soft" boundaries guide but don't hard-clip
-%   - Reduce likelihood of out-of-gamut samples
-%   - Preserves design intent where possible
+The first layer of gamut management is \textbf{prevention}---constructing paths that stay within gamut.
+
+When placing Bézier control points, the engine:
+
+\begin{enumerate}
+    \item \textbf{Prefers moderate chroma levels} --- Control points default to $\sim$70--80\% of maximum chroma at their hue/lightness
+    
+    \item \textbf{Detects candidate out-of-gamut points} --- Before finalising control points, checks sRGB validity
+    
+    \item \textbf{Pulls toward lower chroma} --- If out-of-gamut detected, reduces chroma while preserving hue and lightness
+    
+    \item \textbf{Uses gamut envelope models} --- Employs OKLCh gamut boundary approximations for efficient checking
+\end{enumerate}
+
+This proactive approach reduces the likelihood of out-of-gamut samples, preserving design intent where possible.
 
 % ------------------------------------------------------------------------------
 % 8.3 Gamut Correction (Hue-Preserving Chroma Reduction)
 % ------------------------------------------------------------------------------
-\section{Gamut Correction (Hue-Preserving Chroma Reduction)}
+\section{Gamut Correction}
 \label{sec:gamut-correction}
 
-% [To be written: ~250 words]
-% Content: Second layer - per-sample gamut mapping
-% Key points:
-%   - Check each sampled color for sRGB validity
-%   - If out-of-gamut: apply soft correction
-%   - Correction strategy: reduce chroma while preserving hue and lightness
-%   - Iterative reduction until in-gamut
-%   - Diagnostics flag corrected colors
+The second layer handles residual out-of-gamut colours through \textbf{soft correction} at sampling time.
 
-% Design Decision Box
+For a candidate colour in OKLCh $(L, C, h)$:
+
+\begin{enumerate}
+    \item Check sRGB validity via conversion
+    \item If out-of-gamut, perform binary search for maximum valid chroma at that $(L, h)$
+    \item Return the corrected colour with reduced $C$, preserved $L$ and $h$
+\end{enumerate}
+
 \begin{designdecision}[Two-Layer Gamut Handling]
 \textbf{Choice:} Gamut management uses two layers: (1) design-time prevention via gamut-aware control point placement, and (2) sample-time correction via chroma reduction with hue preservation.
 
@@ -70,29 +76,55 @@
   \item \textit{Hard clipping (RGB clamping)} --- Rejected: destroys hue, creates visual artifacts
   \item \textit{HSV/HSL fallback} --- Rejected: breaks perceptual uniformity guarantee
   \item \textit{Post-processing only} --- Rejected: large corrections cause discontinuities
-  \item \textit{Hue rotation to fit gamut} --- Rejected: changes color identity unacceptably
+  \item \textit{Hue rotation to fit gamut} --- Rejected: changes colour identity unacceptably
 \end{itemize}
 
 \textbf{Reference:} \S\ref{sec:gamut-design}, \S\ref{sec:hue-preservation}
 \end{designdecision}
 
-% Algorithm placeholder:
-% \begin{algorithm}
-%   \caption{Gamut Correction}
-%   \label{alg:gamut}
-% \end{algorithm}
-
 % ------------------------------------------------------------------------------
 % 8.4 Hue Preservation (Correction Priority)
 % ------------------------------------------------------------------------------
-\section{Hue Preservation (Correction Priority)}
+\section{Hue Preservation}
 \label{sec:hue-preservation}
 
-% [To be written: ~200 words]
-% Content: Priority of hue preservation in correction
-% Key points:
-%   - Hue is most important for color identity
-%   - Correction reduces chroma first, then lightness if needed
-%   - Never rotates hue to fit gamut
-%   - Maintains journey coherence even after correction
-%   - Trade-off: may lose saturation but keeps color character
+When gamut mapping is required, the engine follows a strict priority hierarchy:
+
+\begin{enumerate}
+    \item \textbf{Hue is sacred} --- Never shift hue to fit gamut
+    \item \textbf{Lightness is strongly preserved} --- Only adjust if absolutely necessary
+    \item \textbf{Chroma absorbs the compromise} --- Reduce saturation to fit
+\end{enumerate}
+
+This preserves the journey's ``character'' (its hue story) even when display limitations require desaturation. A ``sunset palette'' remains warm-hued even if some oranges must be less saturated.
+
+\subsection*{Interaction with Style Controls}
+
+Dynamic controls affect gamut behaviour:
+
+\begin{center}
+\begin{tabular}{ll}
+\toprule
+\textbf{Control} & \textbf{Gamut Implication} \\
+\midrule
+Chroma $> 1.0$ & Increases gamut pressure; more mapping likely \\
+Chroma $< 1.0$ & Reduces gamut pressure; safer \\
+Vibrancy high & Pushes mid-journey toward gamut edges \\
+Lightness extreme & May limit available chroma range \\
+Temperature shift & Changes which hue regions are under pressure \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+If dynamics push colours out of gamut, chroma is the first to be moderated. Diagnostics report when dynamic settings caused gamut corrections.
+
+\subsection*{Diagnostics}
+
+The engine reports gamut-related information:
+\begin{itemize}
+    \item Number of colours requiring correction
+    \item Maximum chroma reduction applied
+    \item Which anchors were at gamut boundaries
+\end{itemize}
+
+This allows callers to understand why output differs from the theoretical ideal and adjust anchors or dynamics to avoid corrections.

@@ -12,20 +12,33 @@
 \section{Temperature Control}
 \label{sec:temperature}
 
-% [To be written: ~300 words]
-% Content: Warm/cool bias via direction blending
-% Key points:
-%   - Range: -1.0 (cool) to +1.0 (warm), default 0.0
-%   - Biases expansion/interpolation toward warm or cool hues
-%   - Warm: shifts toward red/orange/yellow region
-%   - Cool: shifts toward blue/cyan region
-%   - Implemented via weighted direction vectors in OKLab a-b plane
+Temperature biases the journey's hue path toward warm or cool colours.
 
-% Formula placeholder:
-% \begin{equation}
-%   d_{biased} = d_{neutral} + T \cdot d_{temperature}
-%   \label{eq:temperature}
-% \end{equation}
+\begin{center}
+\begin{tabular}{ll}
+\toprule
+\textbf{Range} & $-1.0$ (cool) to $+1.0$ (warm), default $0.0$ \\
+\textbf{Effect} & Shifts interpolation path through warm or cool hue regions \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+When interpolating hue in OKLCh, there are always two possible paths around the colour wheel. By default, the engine takes the shortest path. The temperature parameter overrides this:
+
+\begin{itemize}
+    \item \textbf{Positive values} ($+0.1$ to $+1.0$): Bias toward warm hues (reds, oranges, yellows)
+    \item \textbf{Negative values} ($-0.1$ to $-1.0$): Bias toward cool hues (blues, cyans, greens)
+    \item \textbf{Zero}: Take the shortest hue path (default)
+\end{itemize}
+
+The same anchor pair can produce vastly different palettes: purple-to-green with temperature $0$ passes through blue (cool, oceanic), while temperature $+1$ passes through red and yellow (warm, sunset-like).
+
+Temperature is implemented via direction blending:
+\begin{equation}
+    \vec{v} = (1 - \alpha|T|) \cdot \hat{v}_{\text{base}} + \alpha|T| \cdot \hat{v}_{\text{warm/cool}}
+\end{equation}
+
+where $\hat{v}_{\text{base}}$ is the shortest-path direction and $\hat{v}_{\text{warm/cool}}$ is the target hue direction. The blending coefficient $\alpha < 1$ ensures partial preservation of the base direction, preventing jarring snaps.
 
 % ------------------------------------------------------------------------------
 % 5.2 Intensity Control
@@ -33,14 +46,32 @@
 \section{Intensity Control}
 \label{sec:intensity}
 
-% [To be written: ~300 words]
-% Content: Control point scaling for curve drama
-% Key points:
-%   - Range: 0.0 (minimal) to 1.0 (maximum), default 0.5
-%   - Scales Bézier control point distance from anchors
-%   - Low intensity: gentle, restrained curves
-%   - High intensity: dramatic, sweeping curves
-%   - Affects chroma and lightness excursions
+Intensity controls the chromatic drama of the journey---how far control points deviate from straight-line interpolation.
+
+\begin{center}
+\begin{tabular}{ll}
+\toprule
+\textbf{Range} & $0.0$ (minimal) to $1.0$ (maximum), default $0.5$ \\
+\textbf{Effect} & Scales Bézier control point offset from the anchor line \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\begin{itemize}
+    \item \textbf{Low intensity} ($0.0$--$0.3$): Subtle, nearly linear paths; control points close to the anchor line
+    \item \textbf{Medium intensity} ($0.4$--$0.6$): Moderate curves with balanced chromatic excursions
+    \item \textbf{High intensity} ($0.7$--$1.0$): Dramatic arcs; pronounced curves through colour space
+\end{itemize}
+
+Mathematically, intensity scales the control point offset:
+\begin{align}
+    P_1 &= \mathrm{lerp}(P_0, P_3, \tfrac{1}{3}) + \iota \cdot \vec{s}_1 \\
+    P_2 &= \mathrm{lerp}(P_0, P_3, \tfrac{2}{3}) + \iota \cdot \vec{s}_2
+\end{align}
+
+where $\iota$ is the intensity parameter and $\vec{s}_1$, $\vec{s}_2$ are style-determined offset vectors (typically into higher-chroma regions).
+
+Intensity affects path geometry, not endpoint colours. The anchors remain unchanged; only the route between them becomes more or less dramatic.
 
 % ------------------------------------------------------------------------------
 % 5.3 Smoothness Control
@@ -48,14 +79,26 @@
 \section{Smoothness Control}
 \label{sec:smoothness}
 
-% [To be written: ~300 words]
-% Content: Transition character and continuity
-% Key points:
-%   - Range: 0.0 (sharp) to 1.0 (smooth), default 0.7
-%   - Controls transition character between segments
-%   - High smoothness: C¹ or C² continuity, gradual changes
-%   - Low smoothness: more abrupt transitions at anchors
-%   - Affects perceptual velocity consistency
+Smoothness controls the strength of $C^1$ continuity enforcement at anchor junctions.
+
+\begin{center}
+\begin{tabular}{ll}
+\toprule
+\textbf{Range} & $0.0$ (sharp) to $1.0$ (smooth), default $0.7$ \\
+\textbf{Effect} & Controls transition character at anchor points \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\begin{itemize}
+    \item \textbf{High smoothness} ($0.8$--$1.0$): Full tangent matching; the journey flows smoothly through anchors
+    \item \textbf{Medium smoothness} ($0.4$--$0.7$): Partial tangent matching; gentle rounding at junctions
+    \item \textbf{Low smoothness} ($0.0$--$0.3$): Minimal smoothing; sharper transitions at anchors
+\end{itemize}
+
+High smoothness is appropriate for gradients and animations where flow matters. Low smoothness may be preferred when anchors represent distinct states and clear transitions are desired.
+
+Smoothness also affects perceived velocity consistency---higher values produce more uniform perceptual change rates along the journey.
 
 % ------------------------------------------------------------------------------
 % 5.4 Secondary Parameters
@@ -63,15 +106,32 @@
 \section{Secondary Parameters}
 \label{sec:secondary-params}
 
-% [To be written: ~300 words]
-% Content: Lightness, chroma, contrast, vibrancy, warmth
-% Key points:
-%   - Lightness: overall lightness bias (-1 to +1)
-%   - Chroma: saturation scaling (0 to 1)
-%   - Contrast: lightness range expansion (0 to 1)
-%   - Vibrancy: chroma variance (0 to 1)
-%   - Warmth: synonym/alias for temperature (API convenience)
-%   - Each has sensible default (typically 0.5 or neutral)
+Beyond the primary triad (temperature, intensity, smoothness), several secondary parameters provide finer control:
+
+\paragraph{Lightness Bias.}
+Range $-1.0$ to $+1.0$, default $0$. Shifts all colours lighter (positive) or darker (negative). Applied proportionally to avoid clipping:
+\begin{equation}
+    L' = \begin{cases}
+        L + \lambda(1 - L) & \text{if } \lambda > 0 \\
+        L + \lambda \cdot L & \text{if } \lambda < 0
+    \end{cases}
+\end{equation}
+
+\paragraph{Chroma.}
+Range $0.0$ to $2.0$, default $1.0$. Multiplies the chroma (saturation) of all colours. Values $>1$ increase saturation; values $<1$ desaturate toward greyscale.
+
+\paragraph{Contrast.}
+Range $0.0$ to $2.0$, default $1.0$. Expands or compresses the lightness range. High contrast darkens darks and lightens lights; low contrast pushes toward mid-grey. Implemented via S-curve:
+\begin{equation}
+    f_L(\alpha) = \frac{\alpha^p}{\alpha^p + (1-\alpha)^p}
+\end{equation}
+where $p$ is derived from the contrast parameter.
+
+\paragraph{Vibrancy.}
+Range $0.0$ to $2.0$, default $1.0$. Selectively boosts chroma of less-saturated colours while leaving already-vibrant colours unchanged. Useful for counteracting desaturation in complementary-colour interpolation.
+\begin{equation}
+    C' = C \cdot \left(1 + v \cdot \left(1 - \frac{C}{C_{\max}}\right)\right)
+\end{equation}
 
 % ------------------------------------------------------------------------------
 % 5.5 Parameter Interactions
@@ -79,11 +139,29 @@
 \section{Parameter Interactions}
 \label{sec:param-interactions}
 
-% [To be written: ~200 words]
-% Content: How parameters combine and potential conflicts
-% Key points:
-%   - Parameters are largely orthogonal but not independent
-%   - High intensity + low smoothness = potentially jarring
-%   - Extreme chroma + gamut limits = correction needed
-%   - Presets encode tested combinations
-%   - Engine validates ranges but allows edge combinations
+Dynamics parameters are designed to be \emph{largely independent}:
+
+\begin{itemize}
+    \item Lightness affects only $L$
+    \item Chroma affects only $C$
+    \item Temperature affects only hue path
+    \item Contrast affects $L$ distribution, not absolute values
+\end{itemize}
+
+However, some combinations can conflict:
+
+\begin{center}
+\begin{tabular}{ll}
+\toprule
+\textbf{Combination} & \textbf{Potential Issue} \\
+\midrule
+High chroma + low lightness & May exceed gamut \\
+High contrast + extreme anchors & May clip at black/white \\
+High temperature + cool anchors & Long hue path, more colours needed \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+The engine applies all dynamics as specified, then performs gamut mapping. Conflicts are resolved by clamping to valid values, not by preventing the combination. Diagnostics report when settings caused gamut corrections.
+
+With all parameters at default values, the engine produces simple linear interpolation---the most predictable baseline. Presets encode tested combinations that work well together for specific aesthetic goals.

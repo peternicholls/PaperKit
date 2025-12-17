@@ -11,12 +11,11 @@
 \section{Motivation}
 \label{sec:motivation}
 
-% [To be written: ~200 words]
-% Content: Problem statement - need for perceptually-coherent, deterministic palettes
-% Key points:
-%   - Color palette generation is common in UI, visualization, generative art
-%   - Ad-hoc approaches produce inconsistent perceptual spacing
-%   - Need for principled, reproducible palette generation
+Color palette generation is a ubiquitous requirement across user interface design, data visualisation, generative art, and interactive media. Yet the seemingly simple task of producing a coherent sequence of colours presents subtle challenges. Ad-hoc approaches---such as linear interpolation in RGB space or arbitrary selections from colour wheels---frequently produce palettes with inconsistent perceptual spacing: some adjacent colours appear nearly identical while others jump dramatically.
+
+The fundamental problem is that most commonly-used colour spaces (sRGB, HSL, HSV) are not \emph{perceptually uniform}. Equal numerical steps in these spaces do not correspond to equal perceived differences. A mathematically elegant gradient in RGB may appear uneven to the human eye, with certain hue regions seeming to change faster than others.
+
+This specification addresses the need for a \emph{principled, reproducible} approach to palette generation---one grounded in perceptual colour science, where mathematical operations correspond meaningfully to visual experience.
 
 % ------------------------------------------------------------------------------
 % 1.2 Scope Definition
@@ -24,13 +23,28 @@
 \section{Scope Definition}
 \label{sec:scope}
 
-% [To be written: ~250 words]
-% Content: What the engine IS vs. ISN'T
-% Key points:
-%   - IS: Deterministic palette generator using perceptual color science
-%   - IS: Discrete swatch output (array of colors)
-%   - ISN'T: Color picker, real-time renderer, color management system
-%   - ISN'T: Accessibility checker (caller responsibility)
+The Color Journey Engine produces \textbf{ordered sequences of discrete colour swatches} by constructing perceptually-aware paths through colour space. Given 1--5 anchor colours and a set of style parameters, it generates $N$ swatches such that adjacent colours are perceptually distinguishable yet smoothly related.
+
+\subsection*{What the Engine Does}
+
+\begin{itemize}
+    \item Generates deterministic colour palettes using perceptual colour science
+    \item Outputs discrete swatch arrays (not continuous functions)
+    \item Enforces perceptual constraints ensuring distinguishability
+    \item Provides diagnostic information about palette quality
+\end{itemize}
+
+\subsection*{What the Engine Does Not Do}
+
+The engine deliberately excludes capabilities that belong to callers or separate systems:
+
+\begin{itemize}
+    \item \textbf{Accessibility checking}---WCAG contrast verification is caller responsibility
+    \item \textbf{Animation control}---temporal playback logic belongs to the application
+    \item \textbf{Colour naming}---a separate knowledge domain
+    \item \textbf{Colour management}---ICC profiles and device calibration are external concerns
+    \item \textbf{Continuous curve evaluation}---the curve is an internal construction device, not an exposed API
+\end{itemize}
 
 % ------------------------------------------------------------------------------
 % 1.3 Design Principles
@@ -38,14 +52,22 @@
 \section{Design Principles}
 \label{sec:design-principles}
 
-% [To be written: ~300 words]
-% Content: Core philosophy guiding the specification
-% Key themes:
-%   - Perceptual uniformity as foundation
-%   - Discrete output, continuous thinking
-%   - The journey is constructive, not prescriptive
-%   - Presets encode expertise
-%   - Graceful edge case handling
+Five core principles guide the engine's design:
+
+\paragraph{Perceptual Uniformity as Foundation.}
+All decisions are grounded in the perceptual uniformity of OKLab colour space \cite{ottosson2020}. Mathematical distances correspond to perceived differences, enabling meaningful constraints and smooth transitions.
+
+\paragraph{Discrete Output, Continuous Thinking.}
+The engine internally constructs continuous paths through colour space, but outputs discrete swatches. The ``journey'' is a construction metaphor---users receive a finite list of colours, not an interpolation function.
+
+\paragraph{The Journey Is Constructive, Not Prescriptive.}
+Colours are generated \emph{as if} travelling a perceptual path, which provides coherence and natural ordering. However, users may apply the resulting swatches in any manner; the ordering is a construction device, not a usage constraint.
+
+\paragraph{Presets Encode Expertise.}
+Presets are not simplifications for novices---they capture expert knowledge about which parameter combinations work well for specific aesthetic goals. A ``Cinematic'' preset encodes design wisdom about dramatic colour arcs.
+
+\paragraph{Graceful Edge Case Handling.}
+Rather than failing on unusual inputs, the engine adapts. Grey anchors expand along the lightness axis. Extreme colours adapt their expansion direction. Pathological inputs produce documented fallback behaviour.
 
 % ------------------------------------------------------------------------------
 % 1.4 Positioning and Novel Contributions
@@ -53,27 +75,21 @@
 \section{Positioning and Novel Contributions}
 \label{sec:positioning}
 
-% [To be written: ~300 words]
-% Content: Brief "related work" and contribution statement
-% Key points:
-%   RELATED WORK (2-3 paragraphs):
-%   - Traditional palette approaches (harmony rules, geometric relationships)
-%   - Modern tools and their limitations (HSL interpolation, no perceptual guarantees)
-%   - Industry shift toward perceptual color spaces (OKLab adoption in CSS, Adobe, etc.)
-%
-%   OUR CONTRIBUTION (1-2 paragraphs):
-%   - Journey metaphor: continuous Bézier paths through OKLab, discrete sampling
-%   - Key innovations:
-%     • Single-anchor mood expansion using lightness direction
-%     • Guaranteed anchor appearance (not approximate)
-%     • Arc-length parameterization for uniform perceptual spacing
-%     • Production-grade performance (5.6M colors/second)
-%   - Frame as "introduces novel combination" not "first to do"
-%
-% Citations to include:
-%   - Ottosson (2020) - OKLab
-%   - W3C CSS Color 4 - industry validation
-%   - Kamermans - Bézier mathematics
+Traditional palette generation approaches rely on colour harmony rules---complementary, triadic, analogous relationships---applied in HSL or HSV spaces. While these geometric relationships have aesthetic merit, they provide no perceptual guarantees. A ``complementary'' pair in HSV may have vastly different perceived brightness.
+
+Modern tools increasingly adopt perceptually uniform colour spaces. OKLab, introduced by Ottosson in 2020 \cite{ottosson2020}, has gained significant traction, appearing in CSS Color Level 4 \cite{csscolor4} and Adobe creative tools. Yet most implementations use these spaces only for interpolation, without exploiting their properties for systematic palette construction.
+
+The Color Journey Engine introduces a \emph{novel combination} of established techniques:
+
+\begin{itemize}
+    \item \textbf{Continuous Bézier paths} through OKLab space, providing flexible curve shapes
+    \item \textbf{Arc-length parameterisation} for perceptually uniform sampling
+    \item \textbf{Perceptual constraints} ($\Delta_{\min}$, $\Delta_{\max}$) ensuring distinguishability without jarring jumps
+    \item \textbf{Single-anchor mood expansion} using lightness-direction heuristics
+    \item \textbf{Two-layer gamut management} preventing and correcting out-of-gamut colours
+\end{itemize}
+
+We do not claim to be the first to use OKLab, Bézier curves, or perceptual constraints individually. Our contribution is their integration into a coherent, production-grade system achieving 5.6 million colours per second.
 
 % ------------------------------------------------------------------------------
 % 1.5 Paper Organization
@@ -81,13 +97,16 @@
 \section{Paper Organization}
 \label{sec:organization}
 
-% [To be written: ~150 words]
-% Content: Roadmap of the paper
-% Structure:
-%   - §2: Perceptual foundations (OKLab)
-%   - §3: Journey construction (anchors, Bézier curves)
-%   - §4-6: Constraints, controls, modes
-%   - §7-9: Loop strategies, gamut, determinism
-%   - §10-11: API design, caller responsibilities
-%   - §12: Conclusion
-%   - Appendices: Presets, notation, examples, quick reference
+This specification proceeds as follows:
+
+\begin{itemize}
+    \item \textbf{\S\ref{sec:perceptual-uniformity}--\ref{sec:conversion}} establish the perceptual colour foundations in OKLab
+    \item \textbf{\S\ref{sec:journey-metaphor}--\ref{sec:arc-length}} describe journey construction: anchors, Bézier curves, and sampling
+    \item \textbf{\S\ref{sec:jnd}--\ref{sec:constraint-enforcement}} define the perceptual constraint framework
+    \item \textbf{\S\ref{sec:temperature}--\ref{sec:mode-selection}} cover style controls and modes of operation
+    \item \textbf{\S\ref{sec:loop-open}--\ref{sec:hue-preservation}} address loop strategies and gamut management
+    \item \textbf{\S\ref{sec:determinism}--\ref{sec:error-handling}} specify determinism, API design, and responsibilities
+    \item \textbf{\S\ref{sec:summary}--\ref{sec:future}} summarise contributions and future directions
+\end{itemize}
+
+Appendices provide preset reference tables, mathematical notation, implementation examples, and a quick-reference guide.
