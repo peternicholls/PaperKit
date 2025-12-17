@@ -21,9 +21,9 @@
 %   - Internal construction device, not exposed API concept
 
 % ------------------------------------------------------------------------------
-% 3.2 Anchor Colors
+% 3.2 Anchor Colors (Guaranteed Output)
 % ------------------------------------------------------------------------------
-\section{Anchor Colors}
+\section{Anchor Colors (Guaranteed Output)}
 \label{sec:anchors}
 
 % [To be written: ~300 words]
@@ -35,9 +35,9 @@
 %   - Position in output guaranteed (not just "close to")
 
 % ------------------------------------------------------------------------------
-% 3.3 Single-Anchor Expansion
+% 3.3 Single-Anchor Expansion (Mood Expansion)
 % ------------------------------------------------------------------------------
-\section{Single-Anchor Expansion}
+\section{Mood Expansion (Single-Anchor Case)}
 \label{sec:single-anchor}
 
 % [To be written: ~400 words]
@@ -49,6 +49,22 @@
 %   - Gray anchors: expand along lightness axis
 %   - Chromatic anchors: expand in complementary/analogous directions
 %   - Style controls influence expansion direction and extent
+
+% Design Decision Box
+\begin{designdecision}[Mood Expansion Direction]
+\textbf{Choice:} Single-anchor palettes expand along lightness-weighted directions in OKLab, using the anchor's inherent character (hue, chroma, lightness) to determine expansion.
+
+\textbf{Rationale:} Expanding in perceptually-coherent directions preserves the anchor's "mood" or character. Gray anchors naturally expand along lightness; chromatic anchors expand toward complementary or analogous regions.
+
+\textbf{Alternatives Considered:}
+\begin{itemize}
+  \item \textit{Naive hue spin} --- Rejected: produces arbitrary results disconnected from anchor character
+  \item \textit{Fixed expansion vectors} --- Rejected: ignores anchor properties, loses mood coherence
+  \item \textit{Random sampling in OKLab} --- Rejected: no perceptual relationship to anchor
+\end{itemize}
+
+\textbf{Reference:} \S\ref{sec:anchors}, \S\ref{sec:bezier}
+\end{designdecision}
 
 % ------------------------------------------------------------------------------
 % 3.4 Multi-Anchor Paths
@@ -65,9 +81,9 @@
 %   - Path respects anchor positions in output array
 
 % ------------------------------------------------------------------------------
-% 3.5 Bézier Curve Construction
+% 3.5 Bézier Curve Construction (Path Mathematics)
 % ------------------------------------------------------------------------------
-\section{Bézier Curve Construction}
+\section{Bézier Curve Construction (Path Mathematics)}
 \label{sec:bezier}
 
 % [To be written: ~400 words]
@@ -85,9 +101,9 @@
 % \end{equation}
 
 % ------------------------------------------------------------------------------
-% 3.6 Arc-Length Parameterization
+% 3.6 Arc-Length Parameterization (Uniform Sampling)
 % ------------------------------------------------------------------------------
-\section{Arc-Length Parameterization}
+\section{Arc-Length Parameterization (Uniform Sampling)}
 \label{sec:arc-length}
 
 % [To be written: ~300 words]

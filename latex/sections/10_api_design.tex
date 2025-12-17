@@ -84,9 +84,9 @@
 %   - Informational, not errors
 
 % ------------------------------------------------------------------------------
-% 10.5 Scope Boundaries
+% 10.5 Scope Boundaries (Core vs. Caller)
 % ------------------------------------------------------------------------------
-\section{Scope Boundaries}
+\section{Scope Boundaries (Core vs.\ Caller)}
 \label{sec:api-scope}
 
 % [To be written: ~150 words]
@@ -98,3 +98,43 @@
 %   - NOT: real-time animation
 %   - NOT: color management / ICC profiles
 %   - Caller responsible for these concerns
+
+% Design Decision Box
+\begin{designdecision}[Engine Core vs.\ Caller Responsibilities]
+\textbf{Choice:} The engine core owns palette generation only. Color naming, accessibility checking (WCAG), color blindness simulation, and ICC color management are explicitly caller responsibilities.
+
+\textbf{Rationale:} Keeping the core lean enables production-grade performance (5.6M colors/second) and avoids bloating with features that vary by use case. Language bindings and applications can add these capabilities as needed.
+
+\textbf{Alternatives Considered:}
+\begin{itemize}
+  \item \textit{Integrated accessibility checking} --- Rejected: varies by standard (WCAG 2.1, 3.0), adds dependencies
+  \item \textit{Built-in color naming} --- Rejected: naming systems are culturally/contextually specific
+  \item \textit{Color blindness simulation} --- Rejected: simulation algorithms evolve independently
+\end{itemize}
+
+\textbf{Reference:} \S\ref{sec:caller-responsibilities}, Appendix~D
+\end{designdecision}
+
+% ------------------------------------------------------------------------------
+% 10.6 Performance Characteristics
+% ------------------------------------------------------------------------------
+\section{Performance Characteristics}
+\label{sec:performance}
+
+% [To be written: ~200 words]
+% Content: Production-grade performance metrics
+% Key points:
+%   - The C-core implementation achieves production-grade performance
+%   - Per-color generation: microsecond range
+%   - Throughput: 5.6 million colors per second (single-threaded)
+%   - Memory: minimal, no caching required
+%
+% Computational Complexity:
+%   - Journey construction: O(1) per anchor (fixed degree Bézier)
+%   - Arc-length parameterization: O(n) precomputation, O(1) lookup
+%   - Sampling: O(n) for n colors with constraint checking
+%
+% Implication:
+%   - Enables real-time palette generation in interactive applications
+%   - No precomputation or caching needed
+%   - Suitable for high-throughput batch processing

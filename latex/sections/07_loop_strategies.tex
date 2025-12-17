@@ -83,9 +83,9 @@
 %   - Best for: evolving backgrounds, generative sequences
 
 % ------------------------------------------------------------------------------
-% 7.6 Output Semantics
+% 7.6 Output Semantics (Unrolled Arrays)
 % ------------------------------------------------------------------------------
-\section{Output Semantics}
+\section{Output Semantics (Unrolled Arrays)}
 \label{sec:loop-output}
 
 % [To be written: ~250 words]
@@ -96,6 +96,22 @@
 %   - No nested structure or cycle metadata in output
 %   - Caller handles cycling if needed
 %   - Non-repetition: adjacent colors never identical
+
+% Design Decision Box
+\begin{designdecision}[Unrolled Loop Output]
+\textbf{Choice:} All loop strategies output a flat array of $N$ colors. Loops are ``unrolled'' into a sequential list with no nested structure or cycle metadata.
+
+\textbf{Rationale:} Flat arrays are universally consumable across languages and use cases. Callers needing cycle information can compute it from strategy and count; most callers don't need it.
+
+\textbf{Alternatives Considered:}
+\begin{itemize}
+  \item \textit{Segmented output (array of cycles)} --- Rejected: adds complexity for minority use case
+  \item \textit{Cycle metadata in output} --- Rejected: bloats output, caller can derive if needed
+  \item \textit{Iterator/generator model} --- Rejected: not portable across language bindings
+\end{itemize}
+
+\textbf{Reference:} \S\ref{sec:api-output}, Appendix~D
+\end{designdecision}
 
 % Example table placeholder:
 % \begin{table}[h]

@@ -287,43 +287,11 @@ The Color Journey Engine introduces a novel approach to palette generation:
 
 #### Action 2.1: Add Appendix D - Team Quick Reference
 
-**New File:** `latex/appendices/D_quick_reference.tex`
+**New File:** `latex/appendices/D_quick_reference.tex` (created)
 
 **Purpose:** Enable fast lookup during team discussions
 
-**Structure:**
-```latex
-\section{Quick Reference for Team Discussions}
-
-This appendix provides rapid lookup of key concepts, design decisions, and 
-section references for use during code reviews and design discussions.
-
-\subsection{Concept Map}
-
-\begin{table}[h]
-\centering
-\begin{tabular}{lll}
-\toprule
-\textbf{Topic} & \textbf{Section} & \textbf{Key Insight} \\
-\midrule
-Why OKLab? & §2.1 & Perceptual uniformity; industry adoption \\
-Anchor guarantee & §3.2 & Anchors appear exactly, not "close to" \\
-Mood expansion & §3.3 & Single-anchor uses lightness direction \\
-$\Delta_{min}$ constraint & §4.2 & JND-based (~2 $\Delta E$), distinguishability \\
-$\Delta_{max}$ constraint & §4.3 & Ensures coherence, no jarring jumps \\
-Loop output & §7.6 & Flat array (unrolled), no nested structure \\
-Gamut correction & §8.3 & Reduce chroma, preserve hue \\
-Determinism & §9 & Same inputs = same outputs (pure function) \\
-Performance & §10.5 & Microsecond-range, 5.6M colors/second \\
-\bottomrule
-\end{tabular}
-\caption{Quick reference mapping topics to sections}
-\end{table}
-
-\subsection{Decision Rationale Summary}
-
-[Brief summary of each design decision box from main text]
-```
+**Status:** Draft inserted with concept map and decision rationale summaries. Uses booktabs; ensure `\usepackage{booktabs}` is in preamble (it already is in latex/preamble.tex).
 
 ---
 

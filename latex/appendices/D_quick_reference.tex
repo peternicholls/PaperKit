@@ -1,0 +1,36 @@
+% Appendix D: Quick Reference for Team Discussions
+\section{Quick Reference for Team Discussions}
+
+This appendix provides rapid lookup of key concepts, design decisions, and section references for use during code reviews and design discussions.
+
+\subsection{Concept Map}
+\begin{table}[h]
+\centering
+\begin{tabular}{lll}
+\toprule
+\textbf{Topic} & \textbf{Section} & \textbf{Key Insight} \\
+\midrule
+Why OKLab? & \S2.1 & Perceptual uniformity; industry adoption \\
+Anchor guarantee & \S3.2 & Anchors appear exactly, not "close to" \\
+Mood expansion & \S3.3 & Single-anchor uses lightness direction \\
+$\Delta_{min}$ constraint & \S4.2 & JND-based (\~2 $\Delta E$), distinguishability \\
+$\Delta_{max}$ constraint & \S4.3 & Ensures coherence, no jarring jumps \\
+Loop output & \S7.6 & Flat array (unrolled), no nested structure \\
+Gamut correction & \S8.3 & Reduce chroma, preserve hue \\
+Determinism & \S9 & Same inputs = same outputs (pure function) \\
+Performance & \S10.5 & Microsecond-range, 5.6M colors/second \\
+\bottomrule
+\end{tabular}
+\caption{Quick reference mapping topics to sections}
+\end{table}
+
+\subsection{Decision Rationale Summary}
+% Summaries of tcolorboxes in main text. Keep concise.
+\begin{itemize}
+    \item Mood expansion (\S3.3): Single-anchor path uses lightness direction; alternative (naive hue spin) rejected to avoid non-perceptual artifacts.
+    \item Loop output (\S7.6): Unrolled arrays prevent nested structures; alternatives (segmented outputs) rejected for caller simplicity.
+    \item Gamut handling (\S8.2--\S8.3): Two-layer approach (prevention + correction); hard clipping rejected to preserve hue; HSV fallback rejected to maintain perceptual uniformity.
+    \item API scope (\S10): Engine owns core generation; bindings/apps own naming, accessibility, and usage-specific logic.
+\end{itemize}
+
+% Note: Ensure \usepackage{booktabs} in preamble for \toprule/\midrule/\bottomrule.

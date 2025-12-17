@@ -30,9 +30,9 @@
 % \end{figure}
 
 % ------------------------------------------------------------------------------
-% 8.2 Design-Time Gamut Awareness
+% 8.2 Design-Time Gamut Awareness (Prevention Layer)
 % ------------------------------------------------------------------------------
-\section{Design-Time Gamut Awareness}
+\section{Design-Time Gamut Awareness (Prevention Layer)}
 \label{sec:gamut-design}
 
 % [To be written: ~250 words]
@@ -45,9 +45,9 @@
 %   - Preserves design intent where possible
 
 % ------------------------------------------------------------------------------
-% 8.3 Sample-Time Correction
+% 8.3 Gamut Correction (Hue-Preserving Chroma Reduction)
 % ------------------------------------------------------------------------------
-\section{Sample-Time Correction}
+\section{Gamut Correction (Hue-Preserving Chroma Reduction)}
 \label{sec:gamut-correction}
 
 % [To be written: ~250 words]
@@ -59,6 +59,23 @@
 %   - Iterative reduction until in-gamut
 %   - Diagnostics flag corrected colors
 
+% Design Decision Box
+\begin{designdecision}[Two-Layer Gamut Handling]
+\textbf{Choice:} Gamut management uses two layers: (1) design-time prevention via gamut-aware control point placement, and (2) sample-time correction via chroma reduction with hue preservation.
+
+\textbf{Rationale:} Post-correction alone can introduce perceptual discontinuities when many samples need large corrections. Prevention minimises corrections needed; correction handles residual cases gracefully.
+
+\textbf{Alternatives Considered:}
+\begin{itemize}
+  \item \textit{Hard clipping (RGB clamping)} --- Rejected: destroys hue, creates visual artifacts
+  \item \textit{HSV/HSL fallback} --- Rejected: breaks perceptual uniformity guarantee
+  \item \textit{Post-processing only} --- Rejected: large corrections cause discontinuities
+  \item \textit{Hue rotation to fit gamut} --- Rejected: changes color identity unacceptably
+\end{itemize}
+
+\textbf{Reference:} \S\ref{sec:gamut-design}, \S\ref{sec:hue-preservation}
+\end{designdecision}
+
 % Algorithm placeholder:
 % \begin{algorithm}
 %   \caption{Gamut Correction}
@@ -66,9 +83,9 @@
 % \end{algorithm}
 
 % ------------------------------------------------------------------------------
-% 8.4 Hue Preservation
+% 8.4 Hue Preservation (Correction Priority)
 % ------------------------------------------------------------------------------
-\section{Hue Preservation}
+\section{Hue Preservation (Correction Priority)}
 \label{sec:hue-preservation}
 
 % [To be written: ~200 words]

@@ -99,6 +99,17 @@
 \usepackage{longtable}
 \usepackage{enumitem}
 
+% ==============================================================================
+% Decision Rationale Boxes
+% ==============================================================================
+\usepackage[most]{tcolorbox}
+\newtcolorbox{designdecision}[1][]{%
+  colback=blue!5!white,%
+  colframe=blue!75!black,%
+  fonttitle=\bfseries,%
+  title={Design Decision: #1}%
+}
+
 \setlist[itemize]{leftmargin=*,topsep=6pt,itemsep=3pt,partopsep=3pt}
 \setlist[enumerate]{leftmargin=*,topsep=6pt,itemsep=3pt,partopsep=3pt}
 

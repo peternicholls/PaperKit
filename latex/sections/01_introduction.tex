@@ -48,7 +48,35 @@
 %   - Graceful edge case handling
 
 % ------------------------------------------------------------------------------
-% 1.4 Paper Organization
+% 1.4 Positioning and Novel Contributions
+% ------------------------------------------------------------------------------
+\section{Positioning and Novel Contributions}
+\label{sec:positioning}
+
+% [To be written: ~300 words]
+% Content: Brief "related work" and contribution statement
+% Key points:
+%   RELATED WORK (2-3 paragraphs):
+%   - Traditional palette approaches (harmony rules, geometric relationships)
+%   - Modern tools and their limitations (HSL interpolation, no perceptual guarantees)
+%   - Industry shift toward perceptual color spaces (OKLab adoption in CSS, Adobe, etc.)
+%
+%   OUR CONTRIBUTION (1-2 paragraphs):
+%   - Journey metaphor: continuous Bézier paths through OKLab, discrete sampling
+%   - Key innovations:
+%     • Single-anchor mood expansion using lightness direction
+%     • Guaranteed anchor appearance (not approximate)
+%     • Arc-length parameterization for uniform perceptual spacing
+%     • Production-grade performance (5.6M colors/second)
+%   - Frame as "introduces novel combination" not "first to do"
+%
+% Citations to include:
+%   - Ottosson (2020) - OKLab
+%   - W3C CSS Color 4 - industry validation
+%   - Kamermans - Bézier mathematics
+
+% ------------------------------------------------------------------------------
+% 1.5 Paper Organization
 % ------------------------------------------------------------------------------
 \section{Paper Organization}
 \label{sec:organization}
@@ -62,3 +90,4 @@
 %   - §7-9: Loop strategies, gamut, determinism
 %   - §10-11: API design, caller responsibilities
 %   - §12: Conclusion
+%   - Appendices: Presets, notation, examples, quick reference

@@ -131,3 +131,147 @@ drafts:
   - title: "Comprehensive LaTeX Draft"
     file: "open-agents/output-drafts/full-versions/draft_01_comprehensive_latex.tex"
     notes: "Initial LaTeX document consolidating key specifications"
+# External Citations (Harvard Style)
+# Last updated: 2024-12-17
+external_citations:
+  # Primary Sources (Foundational)
+  - title: "A perceptual color space for image processing"
+    authors: ["Björn Ottosson"]
+    year: 2020
+    citation_key: "ottosson_2020"
+    source_type: "website"
+    url: "https://bottosson.github.io/posts/oklab/"
+    topics: ["OKLab", "perceptual uniformity", "color space", "hue linearity"]
+    notes: "Primary source for OKLab. Now industry standard (Photoshop gradients, CSS Color 4/5, Unity, Godot). Explains CIELAB hue problems, provides conversion formulas."
+
+  - title: "CSS Color Module Level 4"
+    authors: ["W3C"]
+    year: 2022
+    citation_key: "w3c_css_color_4"
+    source_type: "standard"
+    url: "https://www.w3.org/TR/css-color-4/"
+    topics: ["OKLab", "OKLCH", "gamut mapping", "web standards"]
+    notes: "W3C Recommendation. §9 defines OKLab/OKLCH as standard CSS color spaces. §12 covers gamut mapping algorithm."
+
+  - title: "CSS Color Module Level 5"
+    authors: ["W3C"]
+    year: 2023
+    citation_key: "w3c_css_color_5"
+    source_type: "standard"
+    url: "https://www.w3.org/TR/css-color-5/"
+    topics: ["color-mix", "OKLab", "color manipulation"]
+    notes: "Working draft. color-mix() uses OKLab by default. Validates industry direction."
+
+  - title: "A Primer on Bézier Curves"
+    authors: ["Mike Kamermans"]
+    year: null
+    citation_key: "kamermans_bezier"
+    source_type: "website"
+    url: "https://pomax.github.io/bezierinfo/"
+    topics: ["Bézier curves", "arc-length parameterization", "mathematics"]
+    notes: "Comprehensive free online book. §14 covers arc-length parameterization."
+
+  - title: "SVG 2 Specification"
+    authors: ["W3C"]
+    year: 2024
+    citation_key: "w3c_svg2"
+    source_type: "standard"
+    url: "https://www.w3.org/TR/SVG2/paths.html"
+    topics: ["Bézier curves", "path commands", "graphics"]
+    notes: "Standard reference for cubic Bézier path mathematics."
+
+  # Secondary Sources (Comparative/Validating)
+  - title: "An interactive review of Oklab"
+    authors: ["Raph Levien"]
+    year: 2021
+    citation_key: "levien_oklab_2021"
+    source_type: "website"
+    url: "https://raphlinus.github.io/color/2021/01/18/oklab-critique.html"
+    topics: ["OKLab", "perceptual uniformity", "gradients", "critique"]
+    notes: "Independent technical review. Validates OKLab for gradients and color manipulation."
+
+  - title: "How long is that Bézier?"
+    authors: ["Raph Levien"]
+    year: 2018
+    citation_key: "levien_bezier_2018"
+    source_type: "website"
+    url: "https://raphlinus.github.io/curves/2018/12/28/bezier-arclength.html"
+    topics: ["Bézier curves", "arc-length", "algorithms"]
+    notes: "Practical algorithms for arc-length computation."
+
+  - title: "Color.js documentation: Gamut mapping"
+    authors: ["Lea Verou", "Chris Lilley"]
+    year: null
+    citation_key: "colorjs_gamut"
+    source_type: "website"
+    url: "https://colorjs.io/docs/gamut-mapping.html"
+    topics: ["gamut mapping", "OKLab", "chroma reduction", "JND"]
+    notes: "Library implementing CSS gamut mapping. Default 'css' method uses binary search in OKLCH with JND threshold."
+
+  - title: "Leonardo: an open source contrast-based color generator"
+    authors: ["Nate Baldwin"]
+    year: null
+    citation_key: "baldwin_leonardo"
+    source_type: "website"
+    url: "https://leonardocolor.io/"
+    topics: ["palette generation", "contrast", "accessibility", "perceptual"]
+    notes: "Adobe Spectrum's open-source tool. Uses perceptually uniform spaces for accessible palettes."
+
+  - title: "Introduction to the ICC profile format"
+    authors: ["ICC"]
+    year: null
+    citation_key: "icc_profile"
+    source_type: "standard"
+    url: "https://www.color.org/iccprofile.xalter"
+    topics: ["gamut mapping", "rendering intents", "color management"]
+    notes: "Defines four rendering intents (perceptual, saturation, relative/absolute colorimetric)."
+
+  - title: "Scrambled Linear Pseudorandom Number Generators"
+    authors: ["David Blackman", "Sebastiano Vigna"]
+    year: 2021
+    citation_key: "blackman_vigna_2021"
+    source_type: "journal"
+    url: null
+    topics: ["PRNG", "xoshiro", "determinism", "reproducibility"]
+    notes: "ACM TOMS. Industry-standard fast PRNG algorithms (xoshiro128**, xoshiro256++)."
+
+  # Tertiary Sources (Background)
+  - title: "Color difference"
+    authors: ["Wikipedia"]
+    year: null
+    citation_key: "wikipedia_color_difference"
+    source_type: "website"
+    url: "https://en.wikipedia.org/wiki/Color_difference"
+    topics: ["JND", "delta E", "CIELAB", "perceptual difference"]
+    notes: "Overview of ΔE metrics. JND ~1 for trained observers, ~2-3 for average."
+
+  - title: "Color Harmony"
+    authors: ["Interaction Design Foundation"]
+    year: null
+    citation_key: "ixdf_color_harmony"
+    source_type: "website"
+    url: "https://www.interaction-design.org/literature/topics/color-harmony"
+    topics: ["color harmony", "complementary", "analogous", "triadic"]
+    notes: "Overview of traditional harmony rules. Geometric relationships, not perceptual."
+
+# Tools Surveyed (Not Cited, Positioning Only)
+tools_surveyed:
+  - name: "Adobe Color"
+    url: "https://color.adobe.com/"
+    notes: "Harmony rules in HSB, not perceptually uniform. Separate accessibility checker."
+
+  - name: "Coolors"
+    url: "https://coolors.co/"
+    notes: "Random generation + locking. No explicit perceptual model."
+
+  - name: "Paletton"
+    url: "https://paletton.com/"
+    notes: "HSV-based color wheel. Geometric relationships only."
+
+  - name: "Chroma.js"
+    url: "https://gka.github.io/chroma.js/"
+    notes: "Interpolation library (OKLab since v2.4). Linear interpolation, not path construction."
+
+  - name: "Figma plugins (OK Palette, OkColor)"
+    url: "https://www.figma.com/community/"
+    notes: "Community plugins enable OKLCH workflows. No native Figma support yet."
