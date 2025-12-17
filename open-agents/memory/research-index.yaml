@@ -1,8 +1,5 @@
 # Research Index
-
-This file tracks all research sources and materials used in the paper.
-
-## Research Sources
+# This file tracks all research sources and materials used in the paper.
 
 # Format:
 # - title: "Paper or Source Title"
@@ -15,15 +12,266 @@ This file tracks all research sources and materials used in the paper.
 #   topics: ["topic1", "topic2"]
 #   notes: "Key insights or relevance to paper"
 
-sources: []
+# Research Documents
+sources:
+  - title: "Perceptual Color Foundations"
+    authors: ["Research Consolidator"]
+    year: 2024
+    citation_key: "perceptual_foundations"
+    source_type: "research_document"
+    file: "open-agents/output-refined/research/01_perceptual_color_foundations.md"
+    topics: ["OKLab", "perceptual uniformity", "color space", "mathematics"]
+    notes: "Foundation document covering OKLab color space, mathematical basis, conversion pipeline"
 
-# Example entry (commented out):
-# - title: "Example Research Paper"
-#   authors: ["Smith, John", "Jones, Jane"]
-#   year: 2020
-#   citation_key: "smith_jones_2020"
-#   source_type: "journal"
-#   file: "open-agents/source/research-notes/topic_name.md"
-#   url: "https://doi.org/10.1234/example"
-#   topics: ["background", "methodology"]
-#   notes: "Provides mathematical foundation for the approach"
+  - title: "Journey Construction and Anchor System"
+    authors: ["Research Consolidator"]
+    year: 2024
+    citation_key: "journey_construction"
+    source_type: "research_document"
+    file: "open-agents/output-refined/research/02_journey_construction.md"
+    topics: ["anchors", "Bézier curves", "path construction", "arc-length"]
+    notes: "Covers anchor system, Bézier representation, continuity, single/multi-anchor journeys"
+
+  - title: "Perceptual Distance Constraints"
+    authors: ["Research Consolidator"]
+    year: 2024
+    citation_key: "perceptual_constraints"
+    source_type: "research_document"
+    file: "open-agents/output-refined/research/03_perceptual_constraints.md"
+    topics: ["JND", "delta_min", "delta_max", "adaptive sampling"]
+    notes: "Defines perceptual distance bounds, JND thresholds, constraint enforcement"
+
+  - title: "Dynamic Controls: Perceptual Operators"
+    authors: ["Research Consolidator"]
+    year: 2024
+    citation_key: "dynamic_controls"
+    source_type: "research_document"
+    file: "open-agents/output-refined/research/04_dynamic_controls.md"
+    topics:
+      ["dynamics", "lightness", "chroma", "warmth", "vibrancy", "contrast"]
+    notes: "Specifies all dynamic control parameters and their perceptual effects"
+
+  - title: "Loop Strategies and Path Topology"
+    authors: ["Research Consolidator"]
+    year: 2024
+    citation_key: "loop_strategies"
+    source_type: "research_document"
+    file: "open-agents/output-refined/research/05_loop_strategies.md"
+    topics:
+      ["loops", "topology", "open", "closed", "pingpong", "mobius", "phased"]
+    notes: "Covers all loop strategies, boundary handling, non-repetition rules"
+
+  - title: "Variation Layer and Deterministic Behavior"
+    authors: ["Research Consolidator"]
+    year: 2024
+    citation_key: "variation_determinism"
+    source_type: "research_document"
+    file: "open-agents/output-refined/research/06_variation_determinism.md"
+    topics: ["determinism", "variation", "PRNG", "reproducibility", "seed"]
+    notes: "Core determinism requirement, variation layer, pseudo-random determinism"
+
+  - title: "API Design Philosophy and Caller Responsibilities"
+    authors: ["Research Consolidator"]
+    year: 2024
+    citation_key: "api_philosophy"
+    source_type: "research_document"
+    file: "open-agents/output-refined/research/07_api_design_philosophy.md"
+    topics:
+      ["API", "output structure", "diagnostics", "caller responsibilities"]
+    notes: "Defines engine boundaries, output format, CSS export, error handling"
+
+  - title: "Gamut Management and Boundary Handling"
+    authors: ["Research Consolidator"]
+    year: 2024
+    citation_key: "gamut_management"
+    source_type: "research_document"
+    file: "open-agents/output-refined/research/08_gamut_management.md"
+    topics:
+      ["gamut", "sRGB", "clipping", "boundary", "chroma", "perceptual mapping"]
+    notes: "Two-layer gamut strategy, soft correction, hue preservation, gamut-aware optimization"
+
+  - title: "Diagnostics, Validation, and Error Handling"
+    authors: ["Research Consolidator"]
+    year: 2024
+    citation_key: "diagnostics_validation"
+    source_type: "research_document"
+    file: "open-agents/output-refined/research/09_diagnostics_validation.md"
+    topics:
+      ["diagnostics", "validation", "error handling", "warnings", "determinism"]
+    notes: "Input validation, diagnostic output structure, caller responsibilities, graceful degradation"
+
+  - title: "Scope, Use Cases, and Presets"
+    authors: ["Research Consolidator"]
+    year: 2024
+    citation_key: "scope_presets"
+    source_type: "research_document"
+    file: "open-agents/output-refined/research/10_scope_use_cases_presets.md"
+    topics:
+      ["scope", "use cases", "presets", "design philosophy", "constraints"]
+    notes: "Explicit engine boundaries, primary use cases, preset philosophy, example presets table"
+
+  - title: "Modes of Operation and Perceptual Velocity"
+    authors: ["Research Consolidator"]
+    year: 2024
+    citation_key: "modes_velocity"
+    source_type: "research_document"
+    file: "open-agents/output-refined/research/11_modes_of_operation.md"
+    topics:
+      ["journey mode", "categorical mode", "perceptual velocity", "rhythm"]
+    notes: "Journey vs categorical mode distinction, perceptual velocity concept, mode selection guidelines"
+
+# Source Materials
+original_sources:
+  - title: "Color Journey Engine Design Conversations"
+    file: "open-agents/source/ideas/Reasoning.md"
+    notes: "Original ChatGPT transcript (~9000 lines) containing design discussions, Q&A refinements, mathematical explorations"
+
+# Draft Documents
+drafts:
+  - title: "Comprehensive LaTeX Draft"
+    file: "open-agents/output-drafts/full-versions/draft_01_comprehensive_latex.tex"
+    notes: "Initial LaTeX document consolidating key specifications"
+# External Citations (Harvard Style)
+# Last updated: 2024-12-17
+external_citations:
+  # Primary Sources (Foundational)
+  - title: "A perceptual color space for image processing"
+    authors: ["Björn Ottosson"]
+    year: 2020
+    citation_key: "ottosson_2020"
+    source_type: "website"
+    url: "https://bottosson.github.io/posts/oklab/"
+    topics: ["OKLab", "perceptual uniformity", "color space", "hue linearity"]
+    notes: "Primary source for OKLab. Now industry standard (Photoshop gradients, CSS Color 4/5, Unity, Godot). Explains CIELAB hue problems, provides conversion formulas."
+
+  - title: "CSS Color Module Level 4"
+    authors: ["W3C"]
+    year: 2022
+    citation_key: "w3c_css_color_4"
+    source_type: "standard"
+    url: "https://www.w3.org/TR/css-color-4/"
+    topics: ["OKLab", "OKLCH", "gamut mapping", "web standards"]
+    notes: "W3C Recommendation. §9 defines OKLab/OKLCH as standard CSS color spaces. §12 covers gamut mapping algorithm."
+
+  - title: "CSS Color Module Level 5"
+    authors: ["W3C"]
+    year: 2023
+    citation_key: "w3c_css_color_5"
+    source_type: "standard"
+    url: "https://www.w3.org/TR/css-color-5/"
+    topics: ["color-mix", "OKLab", "color manipulation"]
+    notes: "Working draft. color-mix() uses OKLab by default. Validates industry direction."
+
+  - title: "A Primer on Bézier Curves"
+    authors: ["Mike Kamermans"]
+    year: null
+    citation_key: "kamermans_bezier"
+    source_type: "website"
+    url: "https://pomax.github.io/bezierinfo/"
+    topics: ["Bézier curves", "arc-length parameterization", "mathematics"]
+    notes: "Comprehensive free online book. §14 covers arc-length parameterization."
+
+  - title: "SVG 2 Specification"
+    authors: ["W3C"]
+    year: 2024
+    citation_key: "w3c_svg2"
+    source_type: "standard"
+    url: "https://www.w3.org/TR/SVG2/paths.html"
+    topics: ["Bézier curves", "path commands", "graphics"]
+    notes: "Standard reference for cubic Bézier path mathematics."
+
+  # Secondary Sources (Comparative/Validating)
+  - title: "An interactive review of Oklab"
+    authors: ["Raph Levien"]
+    year: 2021
+    citation_key: "levien_oklab_2021"
+    source_type: "website"
+    url: "https://raphlinus.github.io/color/2021/01/18/oklab-critique.html"
+    topics: ["OKLab", "perceptual uniformity", "gradients", "critique"]
+    notes: "Independent technical review. Validates OKLab for gradients and color manipulation."
+
+  - title: "How long is that Bézier?"
+    authors: ["Raph Levien"]
+    year: 2018
+    citation_key: "levien_bezier_2018"
+    source_type: "website"
+    url: "https://raphlinus.github.io/curves/2018/12/28/bezier-arclength.html"
+    topics: ["Bézier curves", "arc-length", "algorithms"]
+    notes: "Practical algorithms for arc-length computation."
+
+  - title: "Color.js documentation: Gamut mapping"
+    authors: ["Lea Verou", "Chris Lilley"]
+    year: null
+    citation_key: "colorjs_gamut"
+    source_type: "website"
+    url: "https://colorjs.io/docs/gamut-mapping.html"
+    topics: ["gamut mapping", "OKLab", "chroma reduction", "JND"]
+    notes: "Library implementing CSS gamut mapping. Default 'css' method uses binary search in OKLCH with JND threshold."
+
+  - title: "Leonardo: an open source contrast-based color generator"
+    authors: ["Nate Baldwin"]
+    year: null
+    citation_key: "baldwin_leonardo"
+    source_type: "website"
+    url: "https://leonardocolor.io/"
+    topics: ["palette generation", "contrast", "accessibility", "perceptual"]
+    notes: "Adobe Spectrum's open-source tool. Uses perceptually uniform spaces for accessible palettes."
+
+  - title: "Introduction to the ICC profile format"
+    authors: ["ICC"]
+    year: null
+    citation_key: "icc_profile"
+    source_type: "standard"
+    url: "https://www.color.org/iccprofile.xalter"
+    topics: ["gamut mapping", "rendering intents", "color management"]
+    notes: "Defines four rendering intents (perceptual, saturation, relative/absolute colorimetric)."
+
+  - title: "Scrambled Linear Pseudorandom Number Generators"
+    authors: ["David Blackman", "Sebastiano Vigna"]
+    year: 2021
+    citation_key: "blackman_vigna_2021"
+    source_type: "journal"
+    url: null
+    topics: ["PRNG", "xoshiro", "determinism", "reproducibility"]
+    notes: "ACM TOMS. Industry-standard fast PRNG algorithms (xoshiro128**, xoshiro256++)."
+
+  # Tertiary Sources (Background)
+  - title: "Color difference"
+    authors: ["Wikipedia"]
+    year: null
+    citation_key: "wikipedia_color_difference"
+    source_type: "website"
+    url: "https://en.wikipedia.org/wiki/Color_difference"
+    topics: ["JND", "delta E", "CIELAB", "perceptual difference"]
+    notes: "Overview of ΔE metrics. JND ~1 for trained observers, ~2-3 for average."
+
+  - title: "Color Harmony"
+    authors: ["Interaction Design Foundation"]
+    year: null
+    citation_key: "ixdf_color_harmony"
+    source_type: "website"
+    url: "https://www.interaction-design.org/literature/topics/color-harmony"
+    topics: ["color harmony", "complementary", "analogous", "triadic"]
+    notes: "Overview of traditional harmony rules. Geometric relationships, not perceptual."
+
+# Tools Surveyed (Not Cited, Positioning Only)
+tools_surveyed:
+  - name: "Adobe Color"
+    url: "https://color.adobe.com/"
+    notes: "Harmony rules in HSB, not perceptually uniform. Separate accessibility checker."
+
+  - name: "Coolors"
+    url: "https://coolors.co/"
+    notes: "Random generation + locking. No explicit perceptual model."
+
+  - name: "Paletton"
+    url: "https://paletton.com/"
+    notes: "HSV-based color wheel. Geometric relationships only."
+
+  - name: "Chroma.js"
+    url: "https://gka.github.io/chroma.js/"
+    notes: "Interpolation library (OKLab since v2.4). Linear interpolation, not path construction."
+
+  - name: "Figma plugins (OK Palette, OkColor)"
+    url: "https://www.figma.com/community/"
+    notes: "Community plugins enable OKLCH workflows. No native Figma support yet."

@@ -1,22 +1,61 @@
 system: "PaperKit"
-title: "Specification Paper Title (Replace This)"
-scope: "Brief scope description"
-audience: "Target audience (researchers, practitioners, generalists, etc.)"
-target_length: "8000-10000"
-target_sections: 7
+title: "Color Journey Engine: A Perceptually-Uniform Palette Generation Specification"
+scope: "Technical specification for a deterministic color palette engine that generates perceptually-coherent color sequences using OKLab color space, Bézier curve interpolation, and adaptive sampling"
+audience: "Internal technical reference for the engineering team developing and maintaining the C-core Color Journey Engine implementation"
+target_length: "8000-12000"
+target_sections: 12
 deadline: null
-status: "planning"
-progress: 0
+status: "drafting-ready"
+progress: 25
+
+# Paper framing (from tutor session 2024-12-17)
+framing:
+  purpose: "Internal team working reference for 'literally on the same page' alignment"
+  not_for: "Generic specification for external implementation"
+  focus: "Design rationale and 'why' over implementation 'how'"
+  performance_context: "5.6M colors/second, microsecond-range, production-grade"
 
 # Paper goals and key research questions
 goals:
-  - "Goal 1"
-  - "Goal 2"
+  - "Specify a deterministic algorithm for generating perceptually-uniform color palettes"
+  - "Define the journey metaphor as a constructive device for palette coherence"
+  - "Document the complete API surface and caller responsibilities"
+  - "Establish formal constraints (JND, gamut, smoothness) for quality assurance"
+  - "Provide design rationale for architectural decisions"
+  - "Enable conversational section references during development"
 
 research_questions:
-  - "What is the paper trying to answer?"
-  - "What specific problems does it address?"
+  - "How can perceptual uniformity (OKLab) be leveraged for palette generation?"
+  - "What constraints ensure visually distinguishable yet harmonious colors?"
+  - "How should the engine handle gamut boundaries while preserving design intent?"
+  - "What API design enables both simplicity (presets) and power (full parameters)?"
+
+# Key themes (from research consolidation)
+key_themes:
+  - "Discrete Output, Continuous Thinking - internal curves, discrete swatches"
+  - "Perceptual Uniformity as Foundation - OKLab grounds all decisions"
+  - "The Journey Is Constructive, Not Prescriptive - coherence without prescription"
+  - "Presets Encode Expertise - knowledge capture, not dumbing-down"
+  - "Graceful Edge Case Handling - adapt rather than fail"
+
+# Novelty positioning (from prior art synthesis)
+novelty:
+  claimed:
+    - "Novel combination: continuous Bézier path + discrete sampling + perceptual constraints + mood expansion"
+    - "Journey metaphor as construction device"
+    - "Two-layer gamut management (prevention + correction)"
+    - "Single-anchor mood expansion using lightness direction"
+  not_claimed:
+    - "First use of OKLab"
+    - "First use of Bézier in color"
+    - "First palette generator"
+
+# Research status
+research_complete: true
+prior_art_synthesis: ".paper/data/output-refined/research/prior-art-synthesis.md"
+citations_identified: 13
 
 # Track overall structure
 structure_locked: false
-last_updated: null
+appendix_count: 4
+last_updated: "2024-12-17"

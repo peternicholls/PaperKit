@@ -1,0 +1,9 @@
+section 2- research is internal requirment gathering heavy, this is important and something to look in to. prior research is not only important, but guides and avoids reinvention.
+section 3- agree with your demarkation, these are developer specific goals and functions, they dont relate to the concept of the colour journey engine directly. And even, if the core of the engine is made (i does indeed already exist as my engineering project and it is made in C) - it should leave certain things to the person who wants to use the engine, for them to implement in their language of choice depending on their specific use cases, not to over burden the engine with might be useful but bloat.
+Audience: explicitly this is for the engineering team to guide them in aligning and perusing the development of the exisitng C-core engine project; with strong research backed methods, mathematical and other concepts so that they are not trying to rediscover what is known in computer science, but so they can concentrate on the implementation in the best way for the outcomes of this project. 
+
+1. were limited to what is available openly.
+2. team see the value of the perceptual colour space, especially as Adobe, CSS, and other big groups are moving to the Oklab and related color spaces
+3. The technical documention is extensive for the project so far, we dont want to get bogged down in that. On a side note, we can produce a journey of 5.6 million colors in 1 second. the performance is on the micro second range currently.
+4. We are working well without it, but this is important to really open up the differentiation between this color engine and other people's approaches that are more naive. we beleive this is the first to do this particular style of engine in this space
+5. With rich priors, deep testing must be considered, and judged as to its usefulness on a case by case basis (time vs benefit)

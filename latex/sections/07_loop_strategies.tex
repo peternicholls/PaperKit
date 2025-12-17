@@ -1,0 +1,154 @@
+% ==============================================================================
+% Section 7: Loop Strategies
+% ==============================================================================
+% Primary Source: 05_loop_strategies.md
+% Target Length: 1,000-1,500 words
+% Dependencies: §3 (path construction), §4 (spacing constraints)
+% ==============================================================================
+
+% ------------------------------------------------------------------------------
+% Chapter Introduction
+% ------------------------------------------------------------------------------
+The previous sections established \emph{what} the engine optimises for---smooth sequential flow in Journey Mode or maximum categorical distinction---and \emph{how} style controls shape the journey's character. This chapter addresses a complementary concern: \emph{what happens at the boundaries} when a palette must extend beyond its natural start-to-end path, whether through cycling, reversal, or progressive evolution.
+
+Five loop strategies provide different behaviours for sequences that need to repeat or continue beyond a single traversal.
+
+% ------------------------------------------------------------------------------
+% 7.1 Open Strategy
+% ------------------------------------------------------------------------------
+\section{Open Strategy}
+\label{sec:loop-open}
+
+The \textbf{open} strategy is the default: the journey proceeds from the first anchor to the last anchor and stops. There is no attempt to connect the end back to the beginning.
+
+\begin{equation}
+    J(t): t \in [0, 1] \quad \text{where } J(0) = A_1, \quad J(1) = A_m
+\end{equation}
+
+The output is a finite sequence with no wrap consideration. If looped externally by the caller, there will be a visible jump from $A_m$ back to $A_1$.
+
+Open paths are appropriate for one-time state transitions, linear progress indicators, and palettes not intended to cycle.
+
+% ------------------------------------------------------------------------------
+% 7.2 Closed Strategy
+% ------------------------------------------------------------------------------
+\section{Closed Strategy}
+\label{sec:loop-closed}
+
+The \textbf{closed} strategy forms a complete cycle, returning smoothly from the last anchor back to the first~\cite{farin2002}:
+\begin{equation}
+    J(0) = J(1) = A_1
+\end{equation}
+
+The engine adds a segment from $A_m$ back to $A_1$, creating a closed path with $C^1$ continuity at the wrap point. The tangent leaving $A_m$ toward $A_1$ matches the tangent arriving at $A_1$ from $A_m$, preventing a ``corner'' in colour space.
+
+In closed loop mode, the output array \emph{omits the duplicate final colour}. The last swatch is adjacent to (but not identical to) $A_1$, because $A_1$ is already the first swatch. When looped, the sequence wraps seamlessly.
+
+Closed loops are appropriate for continuous colour cycling animations, hue wheels, and looping ambient effects.
+
+% ------------------------------------------------------------------------------
+% 7.3 Ping-Pong Strategy
+% ------------------------------------------------------------------------------
+\section{Ping-Pong Strategy}
+\label{sec:loop-pingpong}
+
+The \textbf{ping-pong} strategy proceeds from start to end, then reverses back to start, creating back-and-forth oscillation.
+
+For parameter $u \in [0, 2]$:
+\begin{equation}
+    \tilde{t} = \begin{cases}
+        u & 0 \leq u < 1 \\
+        2 - u & 1 \leq u < 2
+    \end{cases}
+\end{equation}
+
+No new colours are generated in the reverse pass---the path is exactly retraced. Smooth reversal occurs at the turning point ($A_m$) and smooth loop at the return point ($A_1$).
+
+Ping-pong output includes the forward sequence; callers can traverse the array forward then backward, or the engine can output the full forward-and-back sequence explicitly.
+
+Ping-pong is appropriate for ``breathing'' or ``pulsing'' colour effects, bidirectional progress indicators, and oscillating state visualisations.
+
+% ------------------------------------------------------------------------------
+% 7.4 Möbius Strategy
+% ------------------------------------------------------------------------------
+\section{Möbius Strategy}
+\label{sec:loop-mobius}
+
+The \textbf{Möbius} strategy is a half-twist loop requiring \emph{two complete traversals} to return to the starting colour---named after the Möbius strip, a surface with a half-twist where walking one complete loop brings you to the ``other side,'' requiring a second loop to return to your starting position.
+
+In colour terms: after one cycle through the journey, you arrive at a colour \emph{related to} but distinct from the start; only after the second cycle do you return to the original. This creates animations that feel subtly different on alternating cycles.
+
+One approach inverts the chromatic components at the halfway point:
+\begin{equation}
+    J_{\text{mobius}}(1) = (L, -a, -b) \quad \text{when } J_{\text{mobius}}(0) = (L, a, b)
+\end{equation}
+
+This yields the complementary colour (180° hue rotation) at the midpoint. The viewer perceives continuous change that takes two ``laps'' to truly repeat:
+\begin{itemize}
+    \item Cycle 1: Journey from Red → \ldots → Cyan (complement)
+    \item Cycle 2: Journey from Cyan → \ldots → Red (back to original)
+\end{itemize}
+
+Möbius is an advanced option requiring careful understanding of the twist behaviour. It is appropriate for complex animations with implicit alternation, effects that should vary between loops, and artistic/generative applications.
+
+% ------------------------------------------------------------------------------
+% 7.5 Phased Strategy
+% ------------------------------------------------------------------------------
+\section{Phased Strategy}
+\label{sec:loop-phased}
+
+The \textbf{phased} strategy applies a systematic shift each repetition, so the palette evolves over time rather than repeating exactly.
+
+On cycle $k$:
+\begin{equation}
+    J_k(t) = J_0(t) + k \cdot \text{shift}
+\end{equation}
+
+where the shift is a per-cycle offset vector in OKLab space. Typical configurations specify shifts as hue rotations in degrees (e.g., $+10°$ per cycle, applied in OKLCh) or lightness adjustments in OKLab $L$ units (e.g., $+0.05$ per cycle). The shift magnitude and dimension are configuration parameters.
+
+Visual effect:
+\begin{itemize}
+    \item Cycle 1: Blue → Green
+    \item Cycle 2: Blue+10° → Green+10° (slightly shifted hues)
+    \item Cycle 3: Blue+20° → Green+20°
+    \item \ldots eventually wraps around
+\end{itemize}
+
+Phased loops are parameterised by shift amount and dimension. This is the most complex loop type, appropriate only when continuous evolution is specifically desired---slowly evolving animations, generative art with progressive change, and long-running visualisations that should not feel static.
+
+% ------------------------------------------------------------------------------
+% 7.6 Output Semantics (Unrolled Arrays)
+% ------------------------------------------------------------------------------
+\section{Output Semantics}
+\label{sec:loop-output}
+
+\begin{designdecision}[Unrolled Loop Output]
+\textbf{Choice:} All loop strategies output a flat array of $N$ colours. Loops are ``unrolled'' into a sequential list with no nested structure or cycle metadata.
+
+\textbf{Rationale:} Flat arrays are universally consumable across languages and use cases. Callers needing cycle information can compute it from strategy and count; most callers don't need it.
+
+\textbf{Alternatives Considered:}
+\begin{itemize}
+  \item \textit{Segmented output (array of cycles)} --- Rejected: adds complexity for minority use case
+  \item \textit{Cycle metadata in output} --- Rejected: bloats output, caller can derive if needed
+  \item \textit{Iterator/generator model} --- Rejected: not portable across language bindings
+\end{itemize}
+
+\textbf{Reference:} \S\ref{sec:api-output}, Appendix~D
+\end{designdecision}
+
+\subsection*{Non-Repetition Rule}
+
+Loop outputs omit duplicate colours at boundaries. If the loop returns to the starting colour, that colour is \emph{not} repeated at the end of the array:
+
+\begin{itemize}
+    \item Conceptual path: $A \to B \to C \to D \to E \to A$
+    \item Output array: $[A, B, C, D, E]$ (5 elements)
+    \item When looped: $A, B, C, D, E, A, B, C, D, E, \ldots$ ($A$ follows $E$ naturally)
+\end{itemize}
+
+This prevents doubled colours when looping externally and reduces array length.
+
+\subsection*{Caller Responsibilities}
+
+Simple repetition behaviours are caller responsibility, not engine features. The engine provides smooth loop paths and appropriate swatch sequences; the caller controls ``play N times then stop'', animation timing, and pause/resume.

@@ -2,9 +2,9 @@
 % Metadata: Title, Author, Date, Abstract
 % ==============================================================================
 
-\title{Specification Paper Title}
+\title{Color Journey Engine: A Perceptually-Uniform Palette Generation Specification}
 
-\author{Author Name}
+\author{Peter Nicholls}
 
 \date{\today}
 
@@ -13,12 +13,24 @@
 % ==============================================================================
 % Note: Replace this placeholder with your actual abstract when ready
 \newcommand{\abstracttext}{%
-  This is where your paper's abstract goes. The abstract should briefly 
-  summarize the paper's goals, methodology, key findings, and significance. 
-  It should be readable as a standalone summary and typically 150--300 words.
+  This paper specifies the Color Journey Engine, a deterministic algorithm for 
+  generating perceptually-uniform color palettes. Built on the OKLab color space, 
+  the engine uses cubic Bézier curves to construct ``journeys'' through perceptual 
+  color space, producing coherent palettes from one to five anchor colors. A novel 
+  single-anchor expansion algorithm---to our knowledge not previously formalised---generates 
+  harmonious variations from a single color by exploiting lightness-weighted directions 
+  in perceptual space. The specification defines perceptual constraints based on 
+  just-noticeable difference thresholds, user-facing style controls for temperature, 
+  intensity, and smoothness, and multiple loop strategies for extended sequences. 
+  A two-layer gamut management approach ensures valid sRGB output while preserving 
+  design intent. The engine operates as a pure function with complete determinism, 
+  achieving 5.6 million colors per second in the reference implementation. This 
+  specification serves as both a formal definition and implementation guide for 
+  reproducible palette generation in user interfaces, data visualization, and 
+  generative art applications.
 }
 
 % ==============================================================================
 % Keywords (optional)
 % ==============================================================================
-\newcommand{\keywords}{keyword1, keyword2, keyword3}
+\newcommand{\keywords}{color palette generation, OKLab, perceptual uniformity, Bézier curves, gamut mapping, deterministic algorithms}

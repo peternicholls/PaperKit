@@ -1,0 +1,116 @@
+% ==============================================================================
+% Section 9: Variation and Determinism
+% ==============================================================================
+% Primary Source: 06_variation_determinism.md
+% Target Length: 400-600 words
+% Dependencies: None (cross-cutting concern)
+% ==============================================================================
+
+% ------------------------------------------------------------------------------
+% Chapter Introduction
+% ------------------------------------------------------------------------------
+The preceding chapters define the engine's functional behaviour: how it constructs paths, applies constraints, responds to style controls, handles loops, and manages gamut boundaries. This chapter addresses a cross-cutting concern that underlies all of these capabilities: the requirement for deterministic, reproducible output---and the controlled variation layer that enables exploration without sacrificing predictability.
+
+% ------------------------------------------------------------------------------
+% 9.1 Determinism Requirement
+% ------------------------------------------------------------------------------
+\section{Determinism Requirement}
+\label{sec:determinism}
+
+The Color Journey Engine \emph{must} be programmatically deterministic. Given the same inputs, it \emph{must} produce the same outputs, up to small numerical differences ($\sim$0.2\%) arising from floating-point arithmetic and platform differences. This requirement enables the ``config as ID'' pattern central to the API philosophy (\S\ref{sec:api-philosophy}).
+
+This is a hard requirement, not a preference:
+
+\begin{itemize}
+    \item \textbf{Debugging} --- Developers must be able to reproduce bugs
+    \item \textbf{Testing} --- Automated tests need predictable outputs
+    \item \textbf{Sharing} --- Configurations can be shared as compact seeds/parameters
+    \item \textbf{Version control} --- Generated assets can be diffed meaningfully
+    \item \textbf{Caching} --- Identical inputs can be cached without recomputation
+\end{itemize}
+
+For identical output, the following must match: anchor colours (same order and representation), all configuration parameters, variation mode and seed (if used), and implementation version.
+
+No source of non-determinism may affect palette generation: system time, thread scheduling, external state, true random numbers, hash table iteration order, and uninitialised memory are all prohibited.
+
+% ------------------------------------------------------------------------------
+% 9.2 Controlled Variation
+% ------------------------------------------------------------------------------
+\section{Controlled Variation}
+\label{sec:variation}
+
+While determinism is required, users may want to generate alternatives, add organic texture, or explore nearby palettes. The \textbf{variation layer} provides this through controlled, seeded perturbations.
+
+\begin{center}
+\begin{tabular}{ll}
+\toprule
+\textbf{Mode} & \textbf{Effect} \\
+\midrule
+\texttt{off} & No variation; pure interpolation \\
+\texttt{subtle} & Small perturbations; $\Delta E < 1$ \\
+\texttt{noticeable} & Moderate perturbations; $\Delta E$ 1--2 \\
+\texttt{extreme} & Large perturbations; $\Delta E$ 2--4 \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+Variation modes are categorical rather than continuous, preventing the paralysis of infinite choice and providing meaningful distinct options.
+
+Variation adds small offsets to interpolated colours in OKLab space:
+\begin{align}
+    L' &= L + \delta_L \\
+    a' &= a + \delta_a \\
+    b' &= b + \delta_b
+\end{align}
+
+where perturbations are drawn from a Gaussian distribution with standard deviation scaled by mode.
+
+Anchors are \emph{never} perturbed---variation applies only to interpolated colours. This ensures user-specified key colours remain exact (\S\ref{sec:anchors}). Perturbations taper near anchors (scaling by $\sin(\pi t)$) for smooth transitions.
+
+% ------------------------------------------------------------------------------
+% 9.3 Seed Handling
+% ------------------------------------------------------------------------------
+\section{Seed Handling}
+\label{sec:seeds}
+
+The variation layer uses a \textbf{pseudo-random number generator (PRNG)} with these properties~\cite{knuth1997}:
+
+\begin{itemize}
+    \item \textbf{Seeded} --- Initialised from user-provided seed
+    \item \textbf{Deterministic} --- Same seed produces same sequence
+    \item \textbf{Well-distributed} --- Numbers uniformly distributed
+    \item \textbf{Specified algorithm} --- Implementation uses documented algorithm (e.g., xoshiro256**~\cite{blackman2018})
+\end{itemize}
+
+\begin{center}
+\begin{tabular}{ll}
+\toprule
+\textbf{Seed Value} & \textbf{Behaviour} \\
+\midrule
+Explicit integer & Use that seed \\
+\texttt{null} or omitted & Default seed (0) or variation disabled \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+If variation is requested but no seed provided, the engine uses a \emph{default seed (0)}, not a random seed. This preserves determinism. If you want randomness, you must generate and provide the seed.
+
+The order in which random numbers are consumed (per-colour L, a, b perturbations) is fixed and documented---changing advancement order would change outputs for existing seeds.
+
+% ------------------------------------------------------------------------------
+% 9.4 Reproducibility
+% ------------------------------------------------------------------------------
+\section{Reproducibility}
+\label{sec:reproducibility}
+
+With determinism, a configuration object serves as a unique identifier for a specific palette. This enables the ``config as ID'' pattern:
+
+\begin{itemize}
+    \item Store the configuration instead of the full palette
+    \item Transmit compactly between systems
+    \item Regenerate on any conforming implementation
+\end{itemize}
+
+Users can explore alternatives by iterating seeds: \texttt{seed=1} produces variant A, \texttt{seed=2} produces variant B, and so on. Each seed deterministically produces a unique but related palette.
+
+Full reproducibility is guaranteed within the same engine version. Version changes may affect output (documented as breaking changes in semantic versioning). Recommended practice: store full configuration with generated palettes for future reference.

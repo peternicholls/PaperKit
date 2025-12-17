@@ -1,55 +1,165 @@
 sections:
+  # Section 1: Introduction and Scope
   introduction:
-    status: "outline" # outline | drafted | refined | final
-    words: 0
-    completeness: 0 # 0-100
+    file: "01_introduction.tex"
+    status: "drafted" # skeleton | outline | drafted | refined | final
+    words: 850
+    target_words: 900
+    completeness: 75 # 0-100
     refinement_passes: 0
-    notes: ""
+    source: "10_scope_use_cases_presets.md"
+    notes: "Full draft complete - motivation, scope, principles, positioning, org"
 
-  background:
-    status: "outline"
-    words: 0
-    completeness: 0
+  # Section 2: Perceptual Color Foundations
+  perceptual_foundations:
+    file: "02_perceptual_foundations.tex"
+    status: "drafted"
+    words: 1200
+    target_words: 1250
+    completeness: 75
     refinement_passes: 0
-    notes: ""
+    source: "01_perceptual_color_foundations.md"
+    notes: "Full draft complete - OKLab fundamentals, coordinates, conversion"
 
-  methodology:
-    status: "outline"
-    words: 0
-    completeness: 0
+  # Section 3: Journey Construction
+  journey_construction:
+    file: "03_journey_construction.tex"
+    status: "drafted"
+    words: 1650
+    target_words: 1750
+    completeness: 75
     refinement_passes: 0
-    notes: ""
+    source: "02_journey_construction.md"
+    notes: "Full draft complete - anchors, Bézier curves, arc-length, mood expansion"
 
-  results:
-    status: "outline"
-    words: 0
-    completeness: 0
+  # Section 4: Perceptual Constraints
+  perceptual_constraints:
+    file: "04_perceptual_constraints.tex"
+    status: "drafted"
+    words: 700
+    target_words: 750
+    completeness: 75
     refinement_passes: 0
-    notes: ""
+    source: "03_perceptual_constraints.md"
+    notes: "Full draft complete - JND, Δ_min, Δ_max, adaptive sampling"
 
-  prior_work:
-    status: "outline"
-    words: 0
-    completeness: 0
+  # Section 5: Style Controls
+  style_controls:
+    file: "05_style_controls.tex"
+    status: "drafted"
+    words: 1200
+    target_words: 1250
+    completeness: 75
     refinement_passes: 0
-    notes: ""
+    source: "04_dynamic_controls.md"
+    notes: "Full draft complete - temperature, intensity, smoothness, interactions"
 
-  implications:
-    status: "outline"
-    words: 0
-    completeness: 0
+  # Section 6: Modes of Operation
+  modes_of_operation:
+    file: "06_modes_of_operation.tex"
+    status: "drafted"
+    words: 700
+    target_words: 750
+    completeness: 75
     refinement_passes: 0
-    notes: ""
+    source: "11_modes_of_operation.md"
+    notes: "Full draft complete - journey vs categorical, perceptual velocity"
 
+  # Section 7: Loop Strategies
+  loop_strategies:
+    file: "07_loop_strategies.tex"
+    status: "drafted"
+    words: 1200
+    target_words: 1250
+    completeness: 75
+    refinement_passes: 0
+    source: "05_loop_strategies.md"
+    notes: "Full draft complete - open, closed, pingpong, möbius, phased"
+
+  # Section 8: Gamut Management
+  gamut_management:
+    file: "08_gamut_management.tex"
+    status: "drafted"
+    words: 700
+    target_words: 750
+    completeness: 75
+    refinement_passes: 0
+    source: "08_gamut_management.md"
+    notes: "Full draft complete - two-layer approach, hue preservation"
+
+  # Section 9: Variation and Determinism
+  variation_determinism:
+    file: "09_variation_determinism.tex"
+    status: "drafted"
+    words: 500
+    target_words: 500
+    completeness: 75
+    refinement_passes: 0
+    source: "06_variation_determinism.md"
+    notes: "Full draft complete - determinism, seeds, reproducibility"
+
+  # Section 10: API Design
+  api_design:
+    file: "10_api_design.tex"
+    status: "drafted"
+    words: 750
+    target_words: 750
+    completeness: 75
+    refinement_passes: 0
+    source: "07_api_design_philosophy.md"
+    notes: "Full draft complete - pure function, input/output, diagnostics, scope"
+
+  # Section 11: Caller Responsibilities
+  caller_responsibilities:
+    file: "11_caller_responsibilities.tex"
+    status: "drafted"
+    words: 500
+    target_words: 500
+    completeness: 75
+    refinement_passes: 0
+    source: "09_diagnostics_validation.md"
+    notes: "Full draft complete - validation, guarantees, error handling"
+
+  # Section 12: Conclusion
   conclusion:
-    status: "outline"
-    words: 0
-    completeness: 0
+    file: "12_conclusion.tex"
+    status: "drafted"
+    words: 550
+    target_words: 500
+    completeness: 75
     refinement_passes: 0
-    notes: ""
+    source: "synthesis"
+    notes: "Full draft complete - summary, contributions, future directions"
+
+# Appendices
+appendices:
+  presets:
+    file: "A_presets.tex"
+    status: "skeleton"
+    notes: "Preset reference table"
+  notation:
+    file: "B_notation.tex"
+    status: "skeleton"
+    notes: "Mathematical notation reference"
+  examples:
+    file: "C_examples.tex"
+    status: "skeleton"
+    notes: "Implementation examples"
 
 # Summary statistics
-total_words: 0
-total_sections: 7
-overall_completeness: 0
-last_updated: null
+total_words: 10500
+target_total_words: 10000
+total_sections: 12
+total_appendices: 4
+overall_completeness: 75
+research_status: complete
+prior_art_complete: true
+foundation_docs_updated: true
+last_updated: "2025-01-10"
+structure_version: "1.2"
+notes: |
+  - All 12 sections drafted by Section Drafter agent
+  - Ready for Quality Refiner review
+  - Appendices remain as skeletons
+  - British spelling used throughout
+  - Design decision boxes included where appropriate

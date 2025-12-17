@@ -1,21 +1,128 @@
-\section{Introduction}
+% ==============================================================================
+% Section 1: Introduction and Scope
+% ==============================================================================
+% Primary Source: 10_scope_use_cases_presets.md
+% Target Length: 500-1,000 words
+% ==============================================================================
 
-\subsection{Problem Motivation}
+% ------------------------------------------------------------------------------
+% 1.1 Motivation
+% ------------------------------------------------------------------------------
+\section{Motivation}
+\label{sec:motivation}
 
-% Content to be written by Section Drafter
-[To be written: Establish context, explain why this problem matters, what existing solutions are inadequate. Target: 500-750 words]
+Every domain that works with colour---user interface design, data visualisation, generative art, interactive media---requires coherent colour palettes. Despite its apparent simplicity, producing such palettes presents subtle challenges. Ad-hoc approaches---linear interpolation in RGB space or arbitrary selections from colour wheels---frequently yield palettes with inconsistent perceptual spacing: some adjacent colours appear nearly identical while others jump dramatically.
 
-\subsection{Scope and Objectives}
+The fundamental problem is that commonly-used colour spaces (sRGB, HSL, HSV) are not \emph{perceptually uniform}. Equal numerical steps do not correspond to equal perceived differences. A mathematically elegant gradient in RGB may appear uneven to the human eye, with certain hue regions changing faster than others.
 
-% Content to be written
-[To be written: Define what this paper specifically addresses. What is included? What is explicitly excluded? Target: 300-500 words]
+This specification addresses the need for a \emph{principled, reproducible} approach to palette generation---one grounded in perceptual colour science, where mathematical operations correspond meaningfully to visual experience.
 
-\subsection{Thesis Statement}
+\subsection*{Audience and Purpose}
 
-% Content to be written
-[To be written: Clearly state the paper's main contribution and argument. Target: 100-200 words]
+This document serves as an internal technical reference for the engineering team developing and maintaining the C-core Color Journey Engine implementation. It documents design rationale, mathematical foundations, and architectural decisions to enable team alignment---ensuring we can say ``see \S\ref{sec:single-anchor}'' and be immediately on the same page.
 
-\subsection{Paper Organization}
+The paper prioritises the ``why'' over the ``how'': implementation details are covered in separate technical documentation, while this specification captures the reasoning behind design choices, the perceptual science foundations, and the constraints that shape the system.
 
-% Content to be written
-[To be written: Brief guide to how the paper is organized and what follows. Target: 100-150 words]
+% ------------------------------------------------------------------------------
+% 1.2 Scope Definition
+% ------------------------------------------------------------------------------
+\section{Scope Definition}
+\label{sec:scope}
+
+The Color Journey Engine produces \textbf{ordered sequences of discrete colour swatches} by constructing perceptually-aware paths through colour space. Given one to five anchor colours and a set of style parameters, the engine generates $N$ swatches such that adjacent colours are perceptually distinguishable yet smoothly related.
+
+\subsection*{What the Engine Does}
+
+\begin{itemize}
+    \item Generates deterministic colour palettes using perceptual colour science
+    \item Outputs discrete swatch arrays (not continuous functions)
+    \item Enforces perceptual constraints ensuring distinguishability
+    \item Provides diagnostic information about palette quality
+\end{itemize}
+
+\subsection*{What the Engine Does Not Do}
+
+The engine deliberately excludes capabilities that belong to callers or separate systems:
+
+\begin{itemize}
+    \item \textbf{Accessibility checking}---WCAG contrast verification is caller responsibility
+    \item \textbf{Animation control}---temporal playback logic belongs to the application
+    \item \textbf{Colour naming}---a separate knowledge domain
+    \item \textbf{Colour management}---ICC profiles and device calibration are external concerns
+    \item \textbf{Continuous curve evaluation}---the curve is an internal construction device, not an exposed API
+\end{itemize}
+
+% ------------------------------------------------------------------------------
+% 1.3 Design Principles
+% ------------------------------------------------------------------------------
+\section{Design Principles}
+\label{sec:design-principles}
+
+Five core principles guide the engine's design:
+
+\paragraph{Perceptual Uniformity as Foundation.}
+All design decisions rest on the perceptual uniformity of OKLab colour space \cite{ottosson2020}. Mathematical distances correspond to perceived differences, enabling meaningful constraints and smooth transitions.
+
+\paragraph{Discrete Output, Continuous Thinking.}
+The engine constructs continuous paths through colour space internally but outputs discrete swatches. The ``journey'' is a construction metaphor---users receive a finite list of colours, not an interpolation function.
+
+\paragraph{Constructive, Not Prescriptive.}
+Colours emerge \emph{as if} travelling a perceptual path, providing coherence and natural ordering. Users may apply the resulting swatches in any manner; the ordering is a construction device, not a usage constraint.
+
+\paragraph{Presets Encode Expertise.}
+Presets capture expert knowledge about which parameter combinations achieve specific aesthetic goals---they are not simplifications for novices. A ``Cinematic'' preset encodes design wisdom about dramatic colour arcs.
+
+\paragraph{Graceful Degradation.}
+Rather than failing on unusual inputs, the engine adapts. Grey anchors expand along the lightness axis; extreme colours adjust their expansion direction; pathological inputs produce documented fallback behaviour.
+
+% ------------------------------------------------------------------------------
+% 1.4 Positioning and Novel Contributions
+% ------------------------------------------------------------------------------
+\section{Positioning and Novel Contributions}
+\label{sec:positioning}
+
+\subsection*{Prior Art: Colour Harmony and Palette Generation}
+
+Traditional palette generation approaches fall into two categories. First, \emph{colour harmony rules}---complementary, triadic, analogous, split-complementary---define geometric relationships on the colour wheel~\cite{itten1961}. These rules have aesthetic merit and deep historical roots in art education, but they operate in perceptually non-uniform spaces (typically HSL or HSV) and provide no guarantees about perceived differences between generated colours.
+
+Second, \emph{interpolation-based approaches} generate colours by blending between endpoints. Most creative tools (CSS gradients, design software) use linear interpolation in RGB or HSL space, producing results that can appear perceptually uneven---muddy midpoints, abrupt hue shifts through grey regions, and inconsistent step sizes~\cite{stone2014}.
+
+\subsection*{The Shift to Perceptual Colour Spaces}
+
+Modern tools increasingly adopt perceptually uniform colour spaces to address these limitations. CIELAB~\cite{cie1976} was the first widely-used perceptual space but exhibits known uniformity issues, particularly in blue-violet regions~\cite{mahy1994}. CIEDE2000~\cite{luo2001} improved colour difference calculation but remains computationally complex.
+
+OKLab, introduced by Björn Ottosson in 2020~\cite{ottosson2020}, represents a significant advance: CAM16-level perceptual uniformity~\cite{safdar2017} with computational efficiency suitable for real-time applications. OKLab has achieved rapid industry adoption, appearing in CSS Color Level 4~\cite{csscolor4}, Figma, and various creative tools. The Color Journey Engine builds on this foundation.
+
+\subsection*{Our Contribution}
+
+The Color Journey Engine introduces a \emph{novel combination} of established techniques:
+
+\begin{itemize}
+    \item \textbf{Continuous Bézier paths} through OKLab space~\cite{farin2002}, providing flexible curve shapes
+    \item \textbf{Arc-length parameterisation}~\cite{piegl1997} for perceptually uniform sampling
+    \item \textbf{Perceptual constraints} ($\Delta_{\min}$, $\Delta_{\max}$) ensuring distinguishability without jarring jumps
+    \item \textbf{Single-anchor mood expansion}---to our knowledge, a novel approach---using lightness-direction heuristics to generate coherent palettes from one colour
+    \item \textbf{Two-layer gamut management}~\cite{morovic2008} preventing and correcting out-of-gamut colours while preserving hue
+\end{itemize}
+
+Our contribution lies not in the individual techniques---OKLab, Bézier curves, arc-length sampling, and gamut mapping are established---but in their integration into a coherent system with explicit perceptual constraints and a deterministic, reproducible API. The resulting implementation achieves 5.6 million colours per second, enabling real-time palette generation.
+
+% ------------------------------------------------------------------------------
+% 1.5 Paper Organization
+% ------------------------------------------------------------------------------
+\section{Paper Organization}
+\label{sec:organization}
+
+This specification proceeds as follows:
+
+\begin{itemize}
+    \item \textbf{\S\ref{sec:perceptual-uniformity}--\ref{sec:conversion}:} Perceptual colour foundations in OKLab
+    \item \textbf{\S\ref{sec:journey-metaphor}--\ref{sec:arc-length}:} Journey construction---anchors, Bézier curves, and sampling
+    \item \textbf{\S\ref{sec:jnd}--\ref{sec:constraint-enforcement}:} Perceptual constraint framework
+    \item \textbf{\S\ref{sec:temperature}--\ref{sec:mode-selection}:} Style controls and modes of operation
+    \item \textbf{\S\ref{sec:loop-open}--\ref{sec:hue-preservation}:} Loop strategies and gamut management
+    \item \textbf{\S\ref{sec:determinism}--\ref{sec:error-handling}:} Determinism, API design, and caller responsibilities
+    \item \textbf{\S\ref{sec:summary}--\ref{sec:future}:} Summary and future directions
+\end{itemize}
+
+Appendices provide preset reference tables, mathematical notation, implementation examples, and a quick-reference guide.

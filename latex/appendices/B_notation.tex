@@ -1,0 +1,286 @@
+% ==============================================================================
+% Appendix B: Mathematical Notation
+% ==============================================================================
+% Complete notation reference for the paper
+% ==============================================================================
+
+\section{Color Space Notation}
+\label{sec:notation-color}
+
+This section provides a complete reference for all mathematical notation used throughout the paper. Symbols are grouped by domain for easy lookup.
+
+\subsection{OKLab Coordinates}
+
+\begin{center}
+\begin{tabular}{lll}
+  \toprule
+  \textbf{Symbol} & \textbf{Range} & \textbf{Meaning} \\
+  \midrule
+  $L$ & $[0, 1]$ & Lightness in OKLab (0 = black, 1 = white) \\
+  $a$ & $\approx [-0.4, 0.4]$ & Green--red opponent axis (negative = green, positive = red) \\
+  $b$ & $\approx [-0.4, 0.4]$ & Blue--yellow opponent axis (negative = blue, positive = yellow) \\
+  $(L, a, b)$ & --- & A colour point in OKLab Cartesian coordinates \\
+  \bottomrule
+\end{tabular}
+\end{center}
+
+\subsection{OKLCh Coordinates (Cylindrical Form)}
+
+\begin{center}
+\begin{tabular}{lll}
+  \toprule
+  \textbf{Symbol} & \textbf{Range} & \textbf{Meaning} \\
+  \midrule
+  $L$ & $[0, 1]$ & Lightness (identical to OKLab) \\
+  $C$ & $[0, \sim 0.4]$ & Chroma: $C = \sqrt{a^2 + b^2}$ (colourfulness/saturation) \\
+  $h$ & $[0, 2\pi)$ & Hue angle: $h = \mathrm{atan2}(b, a)$ (radians) \\
+  $(L, C, h)$ & --- & A colour point in OKLCh cylindrical coordinates \\
+  \bottomrule
+\end{tabular}
+\end{center}
+
+\subsection{Conversion Matrices}
+
+\begin{center}
+\begin{tabular}{ll}
+  \toprule
+  \textbf{Symbol} & \textbf{Meaning} \\
+  \midrule
+  $M_1$ & XYZ to LMS transformation matrix (Equation~\ref{eq:oklab-m1}) \\
+  $M_2$ & LMS to OKLab transformation matrix (Equation~\ref{eq:oklab-m2}) \\
+  \bottomrule
+\end{tabular}
+\end{center}
+
+\section{Distance and Constraint Notation}
+\label{sec:notation-distance}
+
+\subsection{Perceptual Distance}
+
+\begin{center}
+\begin{tabular}{lll}
+  \toprule
+  \textbf{Symbol} & \textbf{Definition} & \textbf{Meaning} \\
+  \midrule
+  $\Delta E_{OK}$ & $\sqrt{(L_2-L_1)^2 + (a_2-a_1)^2 + (b_2-b_1)^2}$ & Perceptual distance in OKLab \\
+  $\Delta E$ & --- & Shorthand for $\Delta E_{OK}$ when context is clear \\
+  JND & $\approx 1.0$ & Just-noticeable difference threshold \\
+  $D$ & --- & Total perceptual distance along a segment \\
+  \bottomrule
+\end{tabular}
+\end{center}
+
+\subsection{Constraint Thresholds}
+
+\begin{center}
+\begin{tabular}{lll}
+  \toprule
+  \textbf{Symbol} & \textbf{Value} & \textbf{Meaning} \\
+  \midrule
+  $\Delta_{\min}$ & $\approx 2.0$ & Minimum required distance between adjacent swatches \\
+  $\Delta_{\max}$ & $\approx 5.0$ & Maximum allowed distance between adjacent swatches \\
+  $n$ & $\min(5, \lceil D/\Delta_{\max} \rceil)$ & Number of segments for adaptive sampling \\
+  \bottomrule
+\end{tabular}
+\end{center}
+
+\section{Curve and Path Notation}
+\label{sec:notation-curve}
+
+\subsection{Bézier Curve Elements}
+
+\begin{center}
+\begin{tabular}{lll}
+  \toprule
+  \textbf{Symbol} & \textbf{Range} & \textbf{Meaning} \\
+  \midrule
+  $B(t)$ & --- & Bézier curve evaluated at parameter $t$ \\
+  $\gamma(t)$ & --- & Journey path function at parameter $t$ \\
+  $t$ & $[0, 1]$ & Curve parameter (not arc-length) \\
+  $s$ & $[0, S]$ & Arc-length parameter (uniform perceptual distance) \\
+  $S$ & --- & Total arc length of the path \\
+  $P_0$ & --- & Start control point (equals start anchor) \\
+  $P_1$ & --- & First interior control point \\
+  $P_2$ & --- & Second interior control point \\
+  $P_3$ & --- & End control point (equals end anchor) \\
+  \bottomrule
+\end{tabular}
+\end{center}
+
+\subsection{Path Construction}
+
+\begin{center}
+\begin{tabular}{ll}
+  \toprule
+  \textbf{Symbol} & \textbf{Meaning} \\
+  \midrule
+  $\gamma_i$ & The $i$-th segment of the journey path \\
+  $\gamma'(t)$ & Tangent vector (derivative) of the path at $t$ \\
+  $|\gamma'(t)|$ & Magnitude of tangent (instantaneous speed) \\
+  $C^0$ & Position continuity at junction points \\
+  $C^1$ & Tangent (direction) continuity at junction points \\
+  \bottomrule
+\end{tabular}
+\end{center}
+
+\subsection{Bézier Curve Formula}
+
+The cubic Bézier curve (Equation~\ref{eq:bezier}):
+\begin{equation*}
+    \gamma(t) = (1-t)^3 P_0 + 3(1-t)^2 t P_1 + 3(1-t) t^2 P_2 + t^3 P_3
+\end{equation*}
+
+Tangent vectors at endpoints:
+\begin{align*}
+    \gamma'(0) &= 3(P_1 - P_0) \\
+    \gamma'(1) &= 3(P_3 - P_2)
+\end{align*}
+
+\section{Anchor Notation}
+\label{sec:notation-anchors}
+
+\begin{center}
+\begin{tabular}{lll}
+  \toprule
+  \textbf{Symbol} & \textbf{Range} & \textbf{Meaning} \\
+  \midrule
+  $A_i$ & --- & The $i$-th anchor colour \\
+  $A_1$ & --- & First anchor (journey start) \\
+  $A_m$ & --- & Last anchor (journey end); $m \leq 5$ \\
+  $m$ & $[1, 5]$ & Number of anchors provided \\
+  \bottomrule
+\end{tabular}
+\end{center}
+
+\section{Parameter Notation}
+\label{sec:notation-params}
+
+\subsection{Primary Style Parameters}
+
+\begin{center}
+\begin{tabular}{llll}
+  \toprule
+  \textbf{Symbol} & \textbf{Range} & \textbf{Default} & \textbf{Meaning} \\
+  \midrule
+  $T$ & $[-1, +1]$ & $0$ & Temperature (cool to warm hue bias) \\
+  $\iota$ & $[0, 1]$ & $0.5$ & Intensity (control point offset scale) \\
+  $\sigma$ & $[0, 1]$ & $0.7$ & Smoothness ($C^1$ continuity strength) \\
+  $N$ & $\mathbb{Z}^+$ & --- & Requested palette size (count) \\
+  \bottomrule
+\end{tabular}
+\end{center}
+
+\subsection{Secondary Style Parameters}
+
+\begin{center}
+\begin{tabular}{llll}
+  \toprule
+  \textbf{Symbol} & \textbf{Range} & \textbf{Default} & \textbf{Meaning} \\
+  \midrule
+  $\lambda$ & $[-1, +1]$ & $0$ & Lightness bias (darker to lighter) \\
+  $\chi$ & $[0, 2]$ & $1$ & Chroma multiplier (desaturate to saturate) \\
+  $\kappa$ & $[0, 2]$ & $1$ & Contrast (compress to expand $L$ range) \\
+  $v$ & $[0, 2]$ & $1$ & Vibrancy (selective chroma boost) \\
+  \bottomrule
+\end{tabular}
+\end{center}
+
+\subsection{Derived Values}
+
+\begin{center}
+\begin{tabular}{ll}
+  \toprule
+  \textbf{Expression} & \textbf{Meaning} \\
+  \midrule
+  $\vec{s}_1, \vec{s}_2$ & Style-determined offset vectors for control points \\
+  $\hat{v}_{\text{base}}$ & Unit vector in shortest hue direction \\
+  $\hat{v}_{\text{warm/cool}}$ & Unit vector toward warm or cool hues \\
+  $\alpha$ & Blending coefficient for temperature mixing \\
+  $C_{\max}$ & Maximum chroma at a given $(L, h)$ within gamut \\
+  \bottomrule
+\end{tabular}
+\end{center}
+
+\section{Variation and Determinism Notation}
+\label{sec:notation-variation}
+
+\begin{center}
+\begin{tabular}{lll}
+  \toprule
+  \textbf{Symbol} & \textbf{Range} & \textbf{Meaning} \\
+  \midrule
+  $\delta_L, \delta_a, \delta_b$ & varies & Perturbation offsets in OKLab dimensions \\
+  seed & $\mathbb{Z}$ & PRNG seed for deterministic variation \\
+  $k$ & $\mathbb{Z}^+$ & Cycle index for phased loops \\
+  \bottomrule
+\end{tabular}
+\end{center}
+
+\section{Loop Strategy Notation}
+\label{sec:notation-loops}
+
+\begin{center}
+\begin{tabular}{lll}
+  \toprule
+  \textbf{Symbol} & \textbf{Range} & \textbf{Meaning} \\
+  \midrule
+  $J(t)$ & --- & Journey function at parameter $t$ \\
+  $J_k(t)$ & --- & Journey on cycle $k$ (phased loops) \\
+  $u$ & $[0, 2]$ & Extended parameter for ping-pong \\
+  $\tilde{t}$ & $[0, 1]$ & Remapped parameter after ping-pong transform \\
+  \bottomrule
+\end{tabular}
+\end{center}
+
+\subsection{Loop Parameter Transforms}
+
+\paragraph{Ping-pong transform:}
+\begin{equation*}
+    \tilde{t} = \begin{cases}
+        u & 0 \leq u < 1 \\
+        2 - u & 1 \leq u < 2
+    \end{cases}
+\end{equation*}
+
+\paragraph{Möbius twist (chromatic inversion at midpoint):}
+\begin{equation*}
+    J_{\text{mobius}}(1) = (L, -a, -b) \quad \text{when } J_{\text{mobius}}(0) = (L, a, b)
+\end{equation*}
+
+\paragraph{Phased shift:}
+\begin{equation*}
+    J_k(t) = J_0(t) + k \cdot \text{shift}
+\end{equation*}
+
+\section{Gamut Notation}
+\label{sec:notation-gamut}
+
+\begin{center}
+\begin{tabular}{ll}
+  \toprule
+  \textbf{Symbol} & \textbf{Meaning} \\
+  \midrule
+  $G_{\text{sRGB}}$ & The sRGB gamut volume mapped into OKLab space \\
+  $\gamma(t) \in G_{\text{sRGB}}$ & Constraint that all path points are displayable \\
+  $C'$ & Corrected (reduced) chroma after gamut mapping \\
+  $L'$ & Adjusted lightness (if gamut mapping required) \\
+  \bottomrule
+\end{tabular}
+\end{center}
+
+\section{Perceptual Velocity Notation}
+\label{sec:notation-velocity}
+
+\begin{center}
+\begin{tabular}{lll}
+  \toprule
+  \textbf{Symbol} & \textbf{Typical Value} & \textbf{Meaning} \\
+  \midrule
+  $v$ & --- & Perceptual velocity (weighted rate of change) \\
+  $w_L$ & 1.0 & Weight for lightness change rate \\
+  $w_C$ & $\sim$1.2 & Weight for chroma change rate \\
+  $w_h$ & $\sim$1.5--2.0 & Weight for hue change rate \\
+  $\frac{dL}{dt}, \frac{dC}{dt}, \frac{dh}{dt}$ & --- & Rates of change in each dimension \\
+  \bottomrule
+\end{tabular}
+\end{center}

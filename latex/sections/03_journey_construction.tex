@@ -1,0 +1,195 @@
+% ==============================================================================
+% Section 3: Journey Construction
+% ==============================================================================
+% Primary Source: 02_journey_construction.md
+% Target Length: 1,500-2,000 words
+% Dependencies: §2 (OKLab coordinates for path construction)
+% ==============================================================================
+
+% ------------------------------------------------------------------------------
+% 3.1 The Journey Metaphor
+% ------------------------------------------------------------------------------
+\section{The Journey Metaphor}
+\label{sec:journey-metaphor}
+
+The term ``journey'' was deliberately chosen over ``gradient'' or ``palette'' because it emphasises the \emph{constructive process}---a path through colour space---rather than the static result. The journey metaphor captures several key ideas:
+
+\begin{description}
+    \item[Directionality] There is a start and end (or a cycle)
+    \item[Waypoints] Anchors are places the journey must pass through
+    \item[Path flexibility] The route between waypoints can vary
+    \item[Ordering] Colours are sequenced with a sense of ``before'' and ``after''
+\end{description}
+
+Critically, the journey is \emph{not} a continuous function that callers sample arbitrarily. The engine outputs discrete swatches only. The continuous curve is an internal construction mechanism; callers receive $N$ specific colours, not an interpolation function.
+
+This distinction matters: callers should not expect to query ``colour at $t=0.347$''. The engine can optimise internal representation freely, and behaviours like ping-pong playback become caller responsibility using the discrete output array.
+
+% ------------------------------------------------------------------------------
+% 3.2 Anchor Colors (Guaranteed Output)
+% ------------------------------------------------------------------------------
+\section{Anchor Colours}
+\label{sec:anchors}
+
+\textbf{Anchors} are user-specified key colours that define the skeleton of the journey. They are guaranteed to appear in the output and serve as fixed boundary conditions for path construction.
+
+\begin{center}
+\begin{tabular}{ll}
+\toprule
+\textbf{Property} & \textbf{Specification} \\
+\midrule
+Minimum anchors & 1 \\
+Maximum anchors & 5 \\
+Input format & Hex, RGB, or OKLab \\
+Internal representation & OKLab coordinates \\
+Output guarantee & Each anchor appears exactly in output \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+The 5-anchor maximum is a deliberate design constraint informed by cognitive limitations and practical experience. Research on working memory suggests humans can reliably track 4±1 items simultaneously~\cite{cowan2001}; beyond this, the perceptual ``story'' of a colour journey fragments into disconnected segments. Additionally, cubic Bézier curves between consecutive anchors provide $C^1$ continuity guarantees~\cite{farin2002}, but as anchor count increases, maintaining smooth visual flow becomes increasingly difficult. This is a \emph{design choice} balancing expressiveness against cognitive and computational complexity, not a technical limitation.
+
+Anchors are processed in the order provided: $A_1 \rightarrow A_2 \rightarrow \ldots \rightarrow A_m$. The journey visits each anchor in sequence; for closed loops, it then returns to $A_1$.
+
+% ------------------------------------------------------------------------------
+% 3.3 Single-Anchor Expansion (Mood Expansion)
+% ------------------------------------------------------------------------------
+\section{Mood Expansion (Single-Anchor Case)}
+\label{sec:single-anchor}
+
+When only one anchor is provided, the engine cannot construct a traditional transition between colours. Instead, it performs \textbf{mood expansion}---creating a set of harmonious colours centred on the single anchor.
+
+\textit{To our knowledge, this single-anchor expansion approach represents a novel contribution.} Traditional palette generators require at least two colours for interpolation; colour harmony systems (complementary, triadic, analogous) generate geometrically-related hues but not perceptually-graded variations. Mood expansion bridges this gap by using the anchor's inherent character to determine expansion direction.
+
+\begin{designdecision}[Mood Expansion Direction]
+\textbf{Choice:} Single-anchor palettes expand along lightness-weighted directions in OKLab, using the anchor's inherent character (hue, chroma, lightness) to determine expansion.
+
+\textbf{Rationale:} Expanding in perceptually-coherent directions preserves the anchor's ``mood'' or character. Grey anchors naturally expand along lightness (the only meaningful axis available); chromatic anchors expand toward complementary or analogous regions based on their position in colour space.
+
+\textbf{Alternatives Considered:}
+\begin{itemize}
+  \item \textit{Naive hue spin} --- Rejected: produces arbitrary results disconnected from anchor character
+  \item \textit{Fixed expansion vectors} --- Rejected: ignores anchor properties, loses mood coherence
+  \item \textit{Random sampling in OKLab} --- Rejected: no perceptual relationship to anchor
+\end{itemize}
+
+\textbf{Reference:} \S\ref{sec:anchors}, \S\ref{sec:bezier}
+
+\textbf{Example:} A dark navy anchor ($L=0.25$, $h \approx 250°$) expands primarily along the lightness axis toward lighter blues and teals, preserving the anchor's cool character. A bright orange anchor ($L=0.75$, $C=0.15$) expands toward darker oranges and adjacent warm hues. The expansion direction emerges from the anchor's inherent perceptual properties, not arbitrary geometric rules.
+\end{designdecision}
+
+With one anchor $A_1$, the engine:
+
+\begin{enumerate}
+    \item Uses the anchor as the palette's conceptual centre
+    \item Generates variations along multiple axes:
+    \begin{itemize}
+        \item Lighter and darker variants (along $L$ axis)
+        \item Slight hue rotations (around $h$ in OKLCh)
+        \item Chroma variations (along $C$ in OKLCh)
+    \end{itemize}
+    \item Forms a closed loop returning to the anchor
+\end{enumerate}
+
+Single-anchor journeys are useful for generating monochromatic palettes with depth, creating UI state variations (hover, active, disabled) from a brand colour, and animating ``breathing'' or ``pulsing'' colour effects.
+
+% ------------------------------------------------------------------------------
+% 3.4 Multi-Anchor Paths
+% ------------------------------------------------------------------------------
+\section{Multi-Anchor Paths}
+\label{sec:multi-anchor}
+
+For $m$ anchors ($m \geq 2$), the journey is composed of $m-1$ segments:
+
+\begin{align}
+    \gamma_0 &: A_1 \rightarrow A_2 \\
+    \gamma_1 &: A_2 \rightarrow A_3 \\
+    &\vdots \\
+    \gamma_{m-2} &: A_{m-1} \rightarrow A_m
+\end{align}
+
+Each segment is constructed independently but with continuity constraints at junction points.
+
+\paragraph{$C^0$ Continuity (Position).} The end of segment $\gamma_i$ equals the start of segment $\gamma_{i+1}$. This is automatically satisfied since both meet at anchor $A_{i+1}$.
+
+\paragraph{$C^1$ Continuity (Tangent).} For smooth transitions, the engine matches the direction of approach and departure at each anchor. This prevents ``corners'' in the colour path.
+
+By default, the engine applies smoothing at anchor junctions to achieve $C^1$ continuity, making the journey feel fluid rather than segmented. If sharp transitions are desired, this can be adjusted via the smoothness parameter (\S\ref{sec:smoothness}).
+
+% ------------------------------------------------------------------------------
+% 3.5 Bézier Curve Construction (Path Mathematics)
+% ------------------------------------------------------------------------------
+\section{Bézier Curve Construction}
+\label{sec:bezier}
+
+Each segment is represented as a \textbf{cubic Bézier curve} in OKLab space \cite{farin2002}, providing flexibility, mathematical elegance, continuity control, and computational efficiency.
+
+A cubic Bézier curve with endpoints $P_0$, $P_3$ and control points $P_1$, $P_2$:
+
+\begin{equation}
+    \gamma(t) = (1-t)^3 P_0 + 3(1-t)^2 t P_1 + 3(1-t) t^2 P_2 + t^3 P_3
+    \label{eq:bezier}
+\end{equation}
+
+For $0 \leq t \leq 1$: $\gamma(0) = P_0$ (start anchor) and $\gamma(1) = P_3$ (end anchor).
+
+The tangent vectors at endpoints are:
+\begin{align}
+    \gamma'(0) &= 3(P_1 - P_0) \quad \text{(direction leaving start)} \\
+    \gamma'(1) &= 3(P_3 - P_2) \quad \text{(direction arriving at end)}
+\end{align}
+
+\subsection*{Control Point Placement}
+
+By default, control points are placed on the line between anchors, making the Bézier equivalent to linear interpolation. Style parameters then ``nudge'' these control points to shape the curve:
+
+\begin{itemize}
+    \item \textbf{Intensity} scales control point distance from the anchor line, adding curve drama
+    \item \textbf{Temperature} biases the offset direction toward warm or cool hues
+    \item \textbf{Smoothness} affects how aggressively tangents are matched at junctions
+\end{itemize}
+
+With default parameters, the engine produces simple linear interpolation---the most predictable baseline.
+
+\subsection*{Ensuring $C^1$ Continuity}
+
+To match tangents at anchor $A_{i+1}$, the control point $Q_1$ of the next segment is placed such that:
+
+\begin{equation}
+    Q_1 = A_{i+1} + (A_{i+1} - P_2)
+\end{equation}
+
+This mirrors $P_2$ across the anchor, ensuring the outgoing direction matches the incoming direction.
+
+% ------------------------------------------------------------------------------
+% 3.6 Arc-Length Parameterization (Uniform Sampling)
+% ------------------------------------------------------------------------------
+\section{Arc-Length Parameterisation}
+\label{sec:arc-length}
+
+The Bézier parameter $t$ does not correspond to distance along the curve \cite{piegl1997}. Equal increments in $t$ produce unequal distances in OKLab space, leading to uneven perceptual steps---swatches cluster in curved regions.
+
+\subsection*{The Arc-Length Solution}
+
+The engine estimates total arc length and samples at equal arc-length intervals:
+
+\begin{enumerate}
+    \item \textbf{Estimate total arc length} --- Numerically integrate $|\gamma'(t)|$ over $[0,1]$
+    \item \textbf{Distribute sample points} --- Place $N$ samples at equal arc-length intervals
+    \item \textbf{Map back to $t$} --- Find the $t$ value corresponding to each arc-length position
+\end{enumerate}
+
+Arc-length parameterisation ensures that output swatches are perceptually equidistant (in terms of path distance in OKLab), not just parametrically equidistant.
+
+\subsection*{Practical Implementation}
+
+For efficiency, the engine uses numerical approximation:
+\begin{itemize}
+    \item Subdivide curve into many small segments
+    \item Sum Euclidean distances of segments
+    \item Use binary search or Newton iteration to find $t$ for target arc lengths
+\end{itemize}
+
+\subsection*{Anchor Preservation}
+
+Anchors always appear exactly in the output sequence---they are not approximated or averaged. If the user provides anchors A, B, C and requests 7 swatches, the output includes A at position 0, C at position 6, and B at approximately the middle, with interpolated colours filling the gaps.

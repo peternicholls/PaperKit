@@ -1,0 +1,76 @@
+% ==============================================================================
+% Section 11: Caller Responsibilities
+% ==============================================================================
+% Primary Sources: 09_diagnostics_validation.md, 10_scope_use_cases_presets.md
+% Target Length: 400-600 words
+% Dependencies: §10 (API contract)
+% ==============================================================================
+
+% ------------------------------------------------------------------------------
+% 11.1 Input Validation
+% ------------------------------------------------------------------------------
+\section{Input Validation}
+\label{sec:input-validation}
+
+The engine performs basic input validation, but callers should validate inputs before submission:
+
+\begin{itemize}
+    \item \textbf{Anchor colours} --- Should be valid colour specifications. Out-of-gamut anchors are accepted but may require correction during palette generation.
+    \item \textbf{Count} --- Must be a positive integer. Requests for zero or negative counts return an error.
+    \item \textbf{Parameters} --- Should respect documented ranges. The engine clamps out-of-range values but callers should validate to avoid surprises.
+    \item \textbf{Presets} --- Unknown preset names return an error.
+\end{itemize}
+
+% ------------------------------------------------------------------------------
+% 11.2 Engine Guarantees
+% ------------------------------------------------------------------------------
+\section{Engine Guarantees}
+\label{sec:guarantees}
+
+The engine provides the following guarantees:
+
+\begin{enumerate}
+    \item \textbf{Output count matches request.} The palette contains exactly the requested number of colours.
+    \item \textbf{All outputs are valid sRGB.} Every colour in the palette is displayable on standard monitors.
+    \item \textbf{Anchors appear in output.} When anchors are specified, they appear at their designated positions in the palette.
+    \item \textbf{Perceptual constraints are honoured.} Adjacent colours differ by at least $\Delta_{\min}$ (where achievable).
+    \item \textbf{Determinism is maintained.} Identical inputs produce identical outputs across calls and platforms.
+\end{enumerate}
+
+% ------------------------------------------------------------------------------
+% 11.3 Caller Responsibilities
+% ------------------------------------------------------------------------------
+\section{Caller Responsibilities}
+\label{sec:caller-duties}
+
+The engine generates palettes; callers are responsible for context-specific concerns:
+
+\paragraph{Accessibility Testing.} The engine does not check WCAG contrast ratios. Callers must verify that text-background pairings meet accessibility requirements for their target compliance level (AA, AAA).
+
+\paragraph{Colour Blindness.} The engine does not simulate or optimise for colour vision deficiencies. Callers concerned with colour-blind accessibility should test generated palettes with appropriate simulation tools.
+
+\paragraph{Context Suitability.} Print and screen have different requirements~\cite{poynton2012}. Callers must verify that generated palettes are suitable for their target medium, including:
+\begin{itemize}
+    \item Colour gamut (sRGB output may not match CMYK print)
+    \item Viewing conditions (ambient light, screen calibration)
+    \item Substrate (paper type, coating)
+\end{itemize}
+
+\paragraph{Application Constraints.} Brand colours, corporate guidelines, and domain-specific requirements are caller concerns. The engine provides building blocks; callers assemble them appropriately.
+
+\paragraph{Reproducibility.} Callers should store the config echo returned by the engine if they need to regenerate palettes later. The engine does not maintain history.
+
+% ------------------------------------------------------------------------------
+% 11.4 Error Handling
+% ------------------------------------------------------------------------------
+\section{Error Handling}
+\label{sec:error-handling}
+
+The engine handles errors gracefully:
+
+\begin{itemize}
+    \item \textbf{Invalid inputs} --- Return an error with diagnostic message. No partial output is produced.
+    \item \textbf{Constraint conflicts} --- Resolved using the priority hierarchy (\S\ref{sec:constraint-conflicts}). Adaptations are documented in diagnostics.
+    \item \textbf{Impossible requests} --- The closest valid alternative is returned. For example, requesting 100 visually distinct colours from a narrow hue range will produce fewer distinct steps.
+    \item \textbf{No silent failures} --- All constraint violations, gamut corrections, and adaptations appear in the diagnostics output.
+\end{itemize}
