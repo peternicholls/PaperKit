@@ -74,9 +74,9 @@ Ping-pong is appropriate for ``breathing'' or ``pulsing'' colour effects, bidire
 \section{Möbius Strategy}
 \label{sec:loop-mobius}
 
-The \textbf{Möbius} strategy is a half-twist loop requiring \emph{two complete traversals} to return to the starting colour---named after the Möbius strip with its 180° twist.
+The \textbf{Möbius} strategy is a half-twist loop requiring \emph{two complete traversals} to return to the starting colour---named after the Möbius strip, a surface with a half-twist where walking one complete loop brings you to the ``other side,'' requiring a second loop to return to your starting position.
 
-After one traversal ($t = 0 \to 1$), you arrive at a colour related to the start but with some attribute inverted. After the second traversal ($t = 1 \to 2$), you return to the original colour.
+In colour terms: after one cycle through the journey, you arrive at a colour \emph{related to} but distinct from the start; only after the second cycle do you return to the original. This creates animations that feel subtly different on alternating cycles.
 
 One approach inverts the chromatic components at the halfway point:
 \begin{equation}
@@ -104,7 +104,7 @@ On cycle $k$:
     J_k(t) = J_0(t) + k \cdot \text{shift}
 \end{equation}
 
-where the shift is a per-cycle offset in hue, lightness, or other dimensions.
+where the shift is a per-cycle offset vector in OKLab space. Typical configurations specify shifts as hue rotations in degrees (e.g., $+10°$ per cycle, applied in OKLCh) or lightness adjustments in OKLab $L$ units (e.g., $+0.05$ per cycle). The shift magnitude and dimension are configuration parameters.
 
 Visual effect:
 \begin{itemize}

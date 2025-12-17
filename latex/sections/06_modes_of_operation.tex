@@ -119,6 +119,19 @@ Velocity is relevant for temporal applications:
     \item \textbf{Rhythmic effects} alternate high/low velocity regions
 \end{itemize}
 
+\subsection*{Influencing Velocity}
+
+Users do not directly set velocity weights---they are internal heuristics. Instead, perceptual velocity emerges from the interaction of style parameters with anchor placement:
+
+\begin{itemize}
+    \item \textbf{High temperature} increases hue travel between anchors, raising perceived velocity
+    \item \textbf{High intensity} creates more curved paths with greater chromatic excursion
+    \item \textbf{Anchors with similar hues} produce low-velocity journeys dominated by lightness changes
+    \item \textbf{Anchors spanning the colour wheel} produce high-velocity journeys with rapid hue shifts
+\end{itemize}
+
+Presets encode velocity profiles implicitly: ``calm'' presets (\texttt{smooth}, \texttt{muted}) prefer parameters that minimise hue change, while ``energetic'' presets (\texttt{vivid}, \texttt{neon}) encourage chromatic drama.
+
 % ------------------------------------------------------------------------------
 % 6.4 Mode Selection Guidelines
 % ------------------------------------------------------------------------------
