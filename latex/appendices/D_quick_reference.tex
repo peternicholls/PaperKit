@@ -59,8 +59,8 @@ This section summarises the key design decisions documented throughout the paper
 \toprule
 \textbf{Parameter} & \textbf{Range} & \textbf{Default} & \textbf{Effect} \\
 \midrule
-\texttt{count} & $\mathbb{Z}^+$ & (required) & Number of output colours \\
-\texttt{anchors} & 1--5 colours & (required) & Key colours to pass through \\
+\texttt{count} & $\mathbb{Z}^+$ & (required) & Number of output colors \\
+\texttt{anchors} & 1--5 colors & (required) & Key colors to pass through \\
 \texttt{temperature} & $[-1, +1]$ & 0 & Warm/cool hue bias \\
 \texttt{intensity} & $[0, 1]$ & 0.5 & Curve drama (control point offset) \\
 \texttt{smoothness} & $[0, 1]$ & 0.7 & $C^1$ continuity at anchors \\
@@ -92,7 +92,7 @@ This section summarises the key design decisions documented throughout the paper
 \texttt{diagnostics.minDeltaE} & Smallest adjacent distance \\
 \texttt{diagnostics.maxDeltaE} & Largest adjacent distance \\
 \texttt{diagnostics.meanDeltaE} & Average distance \\
-\texttt{diagnostics.gamutCorrections} & Count of gamut-mapped colours \\
+\texttt{diagnostics.gamutCorrections} & Count of gamut-mapped colors \\
 \texttt{diagnostics.constraintViolations} & Count of constraint issues \\
 \bottomrule
 \end{tabular}
@@ -110,14 +110,14 @@ This section summarises the key design decisions documented throughout the paper
 Smooth gradient background & journey & \texttt{smooth} \\
 Warm sunset atmosphere & journey & \texttt{sunset} \\
 Cool professional theme & journey & \texttt{ocean} or \texttt{arctic} \\
-Chart legend colours & categorical & \texttt{categorical} \\
+Chart legend colors & categorical & \texttt{categorical} \\
 Heatmap scale & journey & \texttt{sequential} \\
 Positive/negative diverging & journey & \texttt{diverging} \\
 UI state variations & journey & \texttt{monochrome} \\
 Continuous animation loop & journey (closed) & \texttt{cycling} \\
 Pulsing/breathing effect & journey (pingpong) & \texttt{breathing} \\
 High-energy vibrant palette & journey & \texttt{neon} or \texttt{vivid} \\
-Soft, approachable colours & journey & \texttt{pastel} \\
+Soft, approachable colors & journey & \texttt{pastel} \\
 \bottomrule
 \end{tabular}
 \caption{Use case to preset mapping}
@@ -149,7 +149,7 @@ $> 5.0$ & Pronounced difference, may feel like a ``step'' \\
 \toprule
 \textbf{Symptom} & \textbf{Likely Cause / Solution} \\
 \midrule
-Colours look washed out & High chroma caused gamut mapping; reduce \texttt{chroma} \\
+Colors look washed out & High chroma caused gamut mapping; reduce \texttt{chroma} \\
 Unexpected color in middle & Temperature bias routing through different hues; check \texttt{temperature} \\
 Visible ``jump'' between colors & Step size exceeds $\Delta_{\max}$; add anchors or increase \texttt{count} \\
 Colors too similar & Anchors too close; use different anchors or Categorical Mode \\

@@ -9,9 +9,9 @@
 % ------------------------------------------------------------------------------
 % Chapter Introduction
 % ------------------------------------------------------------------------------
-The previous sections established \emph{what} the engine optimises for---smooth sequential flow in Journey Mode or maximum categorical distinction---and \emph{how} style controls shape the journey's character. This chapter addresses a complementary concern: \emph{what happens at the boundaries} when a palette must extend beyond its natural start-to-end path, whether through cycling, reversal, or progressive evolution.
+The previous sections established \emph{what} the engine optimizes for---smooth sequential flow in Journey Mode or maximum categorical distinction---and \emph{how} style controls shape the journey's character. This chapter addresses a complementary concern: \emph{what happens at the boundaries} when a palette must extend beyond its natural start-to-end path, whether through cycling, reversal, or progressive evolution.
 
-Five loop strategies provide different behaviours for sequences that need to repeat or continue beyond a single traversal.
+Five loop strategies provide different behaviors for sequences that need to repeat or continue beyond a single traversal.
 
 % ------------------------------------------------------------------------------
 % 7.1 Open Strategy
@@ -62,7 +62,7 @@ For parameter $u \in [0, 2]$:
     \end{cases}
 \end{equation}
 
-No new colours are generated in the reverse pass---the path is exactly retraced. Smooth reversal occurs at the turning point ($A_m$) and smooth loop at the return point ($A_1$).
+No new colors are generated in the reverse pass---the path is exactly retraced. Smooth reversal occurs at the turning point ($A_m$) and smooth loop at the return point ($A_1$).
 
 Ping-pong output includes the forward sequence; callers can traverse the array forward then backward, or the engine can output the full forward-and-back sequence explicitly.
 
@@ -89,7 +89,7 @@ At $t=0$, the color is $(L, a, b)$; at $t=1$, it smoothly arrives at $(L, -a, -b
     \item Cycle 2: Journey from Cyan → \ldots → Red (back to original)
 \end{itemize}
 
-Möbius is an advanced option requiring careful understanding of the twist behaviour. It is appropriate for complex animations with implicit alternation, effects that should vary between loops, and artistic/generative applications.
+Möbius is an advanced option requiring careful understanding of the twist behavior. It is appropriate for complex animations with implicit alternation, effects that should vary between loops, and artistic/generative applications.
 
 % ------------------------------------------------------------------------------
 % 7.5 Phased Strategy
@@ -114,7 +114,7 @@ Visual effect:
     \item \ldots eventually wraps around
 \end{itemize}
 
-Phased loops are parameterised by shift amount and dimension. This is the most complex loop type, appropriate only when continuous evolution is specifically desired---slowly evolving animations, generative art with progressive change, and long-running visualisations that should not feel static.
+Phased loops are parameterised by shift amount and dimension. This is the most complex loop type, appropriate only when continuous evolution is specifically desired---slowly evolving animations, generative art with progressive change, and long-running visualizations that should not feel static.
 
 % ------------------------------------------------------------------------------
 % 7.6 Output Semantics (Unrolled Arrays)
@@ -123,7 +123,7 @@ Phased loops are parameterised by shift amount and dimension. This is the most c
 \label{sec:loop-output}
 
 \begin{designdecision}[Unrolled Loop Output]
-\textbf{Choice:} All loop strategies output a flat array of $N$ colours. Loops are ``unrolled'' into a sequential list with no nested structure or cycle metadata.
+\textbf{Choice:} All loop strategies output a flat array of $N$ colors. Loops are ``unrolled'' into a sequential list with no nested structure or cycle metadata.
 
 \textbf{Rationale:} Flat arrays are universally consumable across languages and use cases. Callers needing cycle information can compute it from strategy and count; most callers don't need it.
 
@@ -147,8 +147,8 @@ Loop outputs omit duplicate colors at boundaries. If the loop returns to the sta
     \item When looped: $A, B, C, D, E, A, B, C, D, E, \ldots$ ($A$ follows $E$ naturally)
 \end{itemize}
 
-This prevents doubled colours when looping externally and reduces array length.
+This prevents doubled colors when looping externally and reduces array length.
 
 \subsection*{Caller Responsibilities}
 
-Simple repetition behaviours are caller responsibility, not engine features. The engine provides smooth loop paths and appropriate swatch sequences; the caller controls ``play N times then stop'', animation timing, and pause/resume.
+Simple repetition behaviors are caller responsibility, not engine features. The engine provides smooth loop paths and appropriate swatch sequences; the caller controls ``play N times then stop'', animation timing, and pause/resume.

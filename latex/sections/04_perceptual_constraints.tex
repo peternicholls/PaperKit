@@ -60,7 +60,7 @@ If two anchors are closer than $\Delta_{\min}$:
     \item \textbf{Skip intermediates:} No interpolation is performed; the journey jumps directly from one to the other
 \end{itemize}
 
-When anchors are extremely close ($\Delta < \Delta_{\min}$), the engine does not attempt to create meaningless intermediate colours.
+When anchors are extremely close ($\Delta < \Delta_{\min}$), the engine does not attempt to create meaningless intermediate colors.
 
 % ------------------------------------------------------------------------------
 % 4.3 Δ_max Constraint (Coherence)
@@ -131,14 +131,14 @@ When $D$ is very large and capped at $n=5$, step sizes may exceed $\Delta_{\max}
 \label{sec:constraint-enforcement}
 \label{sec:constraint-conflicts}
 
-Some anchor configurations make constraints impossible to satisfy fully---two anchors very close together cannot yield many distinguishable steps; requesting 100 swatches between nearby colours is unsatisfiable.
+Some anchor configurations make constraints impossible to satisfy fully---two anchors very close together cannot yield many distinguishable steps; requesting 100 swatches between nearby colors is unsatisfiable.
 
 The engine prioritises producing output over strict enforcement:
 
 \begin{enumerate}
     \item \textbf{Best effort:} The engine produces the closest valid palette
     \item \textbf{Diagnostics:} Constraint violations are reported (not thrown as errors)
-    \item \textbf{$\Delta_{\min}$ priority:} Distinguishability takes precedence---colours below JND are never output
+    \item \textbf{$\Delta_{\min}$ priority:} Distinguishability takes precedence---colors below JND are never output
 \end{enumerate}
 
 Distance constraints are evaluated on the actual path (after dynamics and gamut mapping are applied), not the straight-line distance between anchors. If dynamics increase path length, more intermediate swatches may be needed; if gamut clipping shortens effective distances, fewer may suffice.

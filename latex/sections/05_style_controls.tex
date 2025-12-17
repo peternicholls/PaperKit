@@ -12,7 +12,7 @@
 \section{Temperature Control}
 \label{sec:temperature}
 
-Temperature biases the journey's hue path toward warm or cool colours~\cite{hunt2004}. This control operates in the hue dimension of OKLCh (\S\ref{sec:oklch}), biasing the path selection when multiple hue routes are possible.
+Temperature biases the journey's hue path toward warm or cool colors~\cite{hunt2004}. This control operates in the hue dimension of OKLCh (\S\ref{sec:oklch}), biasing the path selection when multiple hue routes are possible.
 
 \begin{center}
 \begin{tabular}{ll}
@@ -71,7 +71,7 @@ Mathematically, intensity scales the control point offset:
 
 where $\iota$ is the intensity parameter and $\vec{s}_1$, $\vec{s}_2$ are style-determined offset vectors (typically into higher-chroma regions).
 
-Intensity affects path geometry, not endpoint colours. The anchors remain unchanged (\S\ref{sec:anchors}); only the route between them becomes more or less dramatic. This is achieved by scaling the Bézier control point offset (\S\ref{sec:bezier}).
+Intensity affects path geometry, not endpoint colors. The anchors remain unchanged (\S\ref{sec:anchors}); only the route between them becomes more or less dramatic. This is achieved by scaling the Bézier control point offset (\S\ref{sec:bezier}).
 
 % ------------------------------------------------------------------------------
 % 5.3 Smoothness Control
@@ -109,7 +109,7 @@ Smoothness also affects perceived velocity consistency---higher values produce m
 Beyond the primary triad (temperature, intensity, smoothness), several secondary parameters provide finer control:
 
 \paragraph{Lightness Bias.}
-Range $-1.0$ to $+1.0$, default $0$. Shifts all colours lighter (positive) or darker (negative). Applied proportionally to avoid clipping:
+Range $-1.0$ to $+1.0$, default $0$. Shifts all colors lighter (positive) or darker (negative). Applied proportionally to avoid clipping:
 \begin{equation}
     L' = \begin{cases}
         L + \lambda(1 - L) & \text{if } \lambda > 0 \\
@@ -118,10 +118,10 @@ Range $-1.0$ to $+1.0$, default $0$. Shifts all colours lighter (positive) or da
 \end{equation}
 
 \paragraph{Chroma.}
-Range $0.0$ to $2.0$, default $1.0$. Multiplies the chroma (saturation) of all colours. Values $>1$ increase saturation; values $<1$ desaturate toward greyscale.
+Range $0.0$ to $2.0$, default $1.0$. Multiplies the chroma (saturation) of all colors. Values $>1$ increase saturation; values $<1$ desaturate toward grayscale.
 
 \paragraph{Contrast.}
-Range $0.0$ to $2.0$, default $1.0$. Expands or compresses the lightness range. High contrast darkens darks and lightens lights; low contrast pushes toward mid-grey. Implemented via S-curve:
+Range $0.0$ to $2.0$, default $1.0$. Expands or compresses the lightness range. High contrast darkens darks and lightens lights; low contrast pushes toward mid-gray. Implemented via S-curve:
 \begin{equation}
     f_L(\alpha) = \frac{\alpha^p}{\alpha^p + (1-\alpha)^p}
 \end{equation}
@@ -159,7 +159,7 @@ However, some combinations can conflict:
 \midrule
 High chroma + low lightness & May exceed gamut \\
 High contrast + extreme anchors & May clip at black/white \\
-High temperature + cool anchors & Long hue path, more colours needed \\
+High temperature + cool anchors & Long hue path, more colors needed \\
 \bottomrule
 \end{tabular}
 \end{center}

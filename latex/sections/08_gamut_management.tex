@@ -20,14 +20,14 @@ With path construction, perceptual constraints, style controls, and loop strateg
 OKLab is a perceptually uniform color space, but it encompasses colors that lie outside any real display's capabilities~\cite{morovic2008}:
 
 \begin{itemize}
-    \item \textbf{High-chroma colours} at certain hue angles exceed sRGB
-    \item \textbf{Very dark or very light saturated colours} clip
+    \item \textbf{High-chroma colors} at certain hue angles exceed sRGB
+    \item \textbf{Very dark or very light saturated colors} clip
     \item \textbf{Certain hue regions} (cyan-blue, yellow-green) are particularly constrained
 \end{itemize}
 
-When constructing journeys, naive Bézier curves may traverse impossible colours. Hard clipping (clamping RGB values) creates visible discontinuities and hue shifts. Perceptual uniformity breaks down at gamut boundaries.
+When constructing journeys, naive Bézier curves may traverse impossible colors. Hard clipping (clamping RGB values) creates visible discontinuities and hue shifts. Perceptual uniformity breaks down at gamut boundaries.
 
-The fundamental constraint: all journey colours must satisfy
+The fundamental constraint: all journey colors must satisfy
 \begin{equation}
     \gamma(t) \in G_{\text{sRGB}} \subset \text{OKLab} \quad \forall t
 \end{equation}
@@ -61,7 +61,7 @@ This proactive approach reduces the likelihood of out-of-gamut samples, preservi
 \section{Gamut Correction}
 \label{sec:gamut-correction}
 
-The second layer handles residual out-of-gamut colours through \textbf{soft correction} at sampling time.
+The second layer handles residual out-of-gamut colors through \textbf{soft correction} at sampling time.
 
 For a candidate color in OKLCh $(L, C, h)$:
 
@@ -109,7 +109,7 @@ This preserves the journey's ``character'' (its hue story) even when display lim
 
 \subsection*{Interaction with Style Controls}
 
-Dynamic controls affect gamut behaviour:
+Dynamic controls affect gamut behavior:
 
 \begin{center}
 \begin{tabular}{ll}
@@ -125,13 +125,13 @@ Temperature shift & Changes which hue regions are under pressure \\
 \end{tabular}
 \end{center}
 
-If dynamics push colours out of gamut, chroma is the first to be moderated. Diagnostics report when dynamic settings caused gamut corrections.
+If dynamics push colors out of gamut, chroma is the first to be moderated. Diagnostics report when dynamic settings caused gamut corrections.
 
 \subsection*{Diagnostics}
 
 The engine reports gamut-related information:
 \begin{itemize}
-    \item Number of colours requiring correction
+    \item Number of colors requiring correction
     \item Maximum chroma reduction applied
     \item Which anchors were at gamut boundaries
 \end{itemize}

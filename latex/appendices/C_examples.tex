@@ -11,7 +11,7 @@ This appendix provides practical code examples demonstrating common usage patter
 
 \subsection{Simple Two-Anchor Gradient}
 
-The most basic usage: interpolate between two colours to create a smooth gradient.
+The most basic usage: interpolate between two colors to create a smooth gradient.
 
 \begin{lstlisting}[language=JavaScript,caption={Basic Two-Anchor Gradient}]
 const palette = generatePalette({
@@ -19,7 +19,7 @@ const palette = generatePalette({
   anchors: ['#FF6B6B', '#4ECDC4']
 });
 
-// Result: 5 colours from coral to teal
+// Result: 5 colors from coral to teal
 // [
 //   { hex: '#FF6B6B', ok: { L: 0.70, a: 0.14, b: 0.05 } },
 //   { hex: '#E08B7A', ok: { L: 0.68, a: 0.08, b: 0.03 } },
@@ -42,7 +42,7 @@ const palette = generatePalette({
 
 // Result: dark blue -> vibrant red -> deep blue
 // Anchors appear at positions 0, 4, and 8 (approximately)
-// Intermediate colours flow smoothly between them
+// Intermediate colors flow smoothly between them
 \end{lstlisting}
 
 \section{Single-Anchor Expansion}
@@ -58,7 +58,7 @@ const palette = generatePalette({
 });
 
 // Engine expands along lightness and subtle hue directions
-// Result: tonal variations centred on the anchor
+// Result: tonal variations centered on the anchor
 // Includes lighter, darker, and slightly hue-shifted variants
 \end{lstlisting}
 
@@ -85,7 +85,7 @@ const states = generatePalette({
 \section{Categorical Mode}
 \label{sec:example-categorical}
 
-Categorical Mode (\S\ref{sec:categorical-mode}) maximises perceptual distance between all colours, essential for data visualisation.
+Categorical Mode (\S\ref{sec:categorical-mode}) maximizes perceptual distance between all colors, essential for data visualization.
 
 \begin{lstlisting}[language=JavaScript,caption={Categorical Palette for Chart}]
 const chartColors = generatePalette({
@@ -94,14 +94,14 @@ const chartColors = generatePalette({
   mode: 'categorical'
 });
 
-// Result: 6 maximally distinct colours
+// Result: 6 maximally distinct colors
 // Each pair has maximum perceptual separation
 // Suitable for pie charts, bar charts, legends
 \end{lstlisting}
 
 \subsection{Categorical with Fixed Anchors}
 
-Pin specific semantic colours while filling remaining slots.
+Pin specific semantic colors while filling remaining slots.
 
 \begin{lstlisting}[language=JavaScript,caption={Semantic Categorical Palette}]
 const statusColors = generatePalette({
@@ -115,7 +115,7 @@ const statusColors = generatePalette({
 });
 
 // Anchors preserved exactly
-// Two additional colours generated with maximum distinction
+// Two additional colors generated with maximum distinction
 \end{lstlisting}
 
 \section{Temperature Control}
@@ -158,7 +158,7 @@ const cyclingPalette = generatePalette({
 });
 
 // Last color transitions smoothly to first
-// Output: 12 colours, no duplicate at end
+// Output: 12 colors, no duplicate at end
 // Loop externally: [...cyclingPalette, cyclingPalette[0], ...]
 // Seamless continuous animation
 \end{lstlisting}
@@ -174,7 +174,7 @@ const breathingPalette = generatePalette({
 });
 
 // Smooth oscillation: dark -> light -> dark
-// 16 colours cover full forward-backward cycle
+// 16 colors cover full forward-backward cycle
 // No discontinuity at reversal point
 \end{lstlisting}
 
@@ -215,7 +215,7 @@ const result = generatePalette({
   contrast: 1.1,         // Slightly increase contrast
   vibrancy: 1.0,         // Default vibrancy
   
-  // Behaviour
+  // Behavior
   mode: 'journey',       // Smooth sequential path
   loop: 'open',          // Start to finish, no wrap
   
@@ -266,7 +266,7 @@ console.log(`Mean Delta E: ${diag.meanDeltaE}`);
 console.log(`Gamut corrections: ${diag.gamutCorrections}`);
 
 if (diag.gamutCorrections > 0) {
-  console.log('Some colours were desaturated to fit sRGB gamut');
+  console.log('Some colors were desaturated to fit sRGB gamut');
 }
 
 if (diag.constraintViolations > 0) {
@@ -301,9 +301,9 @@ const heatmapScale = generatePalette({
   preset: 'sequential'
 });
 
-// Low values: light warm colours
+// Low values: light warm colors
 // High values: intense red
-// Ideal for heatmaps, intensity visualisations
+// Ideal for heatmaps, intensity visualizations
 \end{lstlisting}
 
 \subsection{Reproducing a Palette}

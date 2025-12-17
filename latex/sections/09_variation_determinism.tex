@@ -9,7 +9,7 @@
 % ------------------------------------------------------------------------------
 % Chapter Introduction
 % ------------------------------------------------------------------------------
-The preceding chapters define the engine's functional behaviour: how it constructs paths, applies constraints, responds to style controls, handles loops, and manages gamut boundaries. This chapter addresses a cross-cutting concern that underlies all of these capabilities: the requirement for deterministic, reproducible output---and the controlled variation layer that enables exploration without sacrificing predictability.
+The preceding chapters define the engine's functional behavior: how it constructs paths, applies constraints, responds to style controls, handles loops, and manages gamut boundaries. This chapter addresses a cross-cutting concern that underlies all of these capabilities: the requirement for deterministic, reproducible output---and the controlled variation layer that enables exploration without sacrificing predictability.
 
 % ------------------------------------------------------------------------------
 % 9.1 Determinism Requirement
@@ -29,7 +29,7 @@ This is a hard requirement, not a preference:
     \item \textbf{Caching} --- Identical inputs can be cached without recomputation
 \end{itemize}
 
-For identical output, the following must match: anchor colours (same order and representation), all configuration parameters, variation mode and seed (if used), and implementation version.
+For identical output, the following must match: anchor colors (same order and representation), all configuration parameters, variation mode and seed (if used), and implementation version.
 
 No source of non-determinism may affect palette generation: system time, thread scheduling, external state, true random numbers, hash table iteration order, and uninitialised memory are all prohibited.
 
@@ -56,7 +56,7 @@ While determinism is required, users may want to generate alternatives, add orga
 
 Variation modes are categorical rather than continuous, preventing the paralysis of infinite choice and providing meaningful distinct options.
 
-Variation adds small offsets to interpolated colours in OKLab space:
+Variation adds small offsets to interpolated colors in OKLab space:
 \begin{align}
     L' &= L + \delta_L \\
     a' &= a + \delta_a \\
@@ -65,7 +65,7 @@ Variation adds small offsets to interpolated colours in OKLab space:
 
 where perturbations are drawn from a Gaussian distribution with standard deviation scaled by mode.
 
-Anchors are \emph{never} perturbed---variation applies only to interpolated colours. This ensures user-specified key colours remain exact (\S\ref{sec:anchors}). Perturbations taper near anchors (scaling by $\sin(\pi t)$) for smooth transitions.
+Anchors are \emph{never} perturbed---variation applies only to interpolated colors. This ensures user-specified key colors remain exact (\S\ref{sec:anchors}). Perturbations taper near anchors (scaling by $\sin(\pi t)$) for smooth transitions.
 
 % ------------------------------------------------------------------------------
 % 9.3 Seed Handling
@@ -85,7 +85,7 @@ The variation layer uses a \textbf{pseudo-random number generator (PRNG)} with t
 \begin{center}
 \begin{tabular}{ll}
 \toprule
-\textbf{Seed Value} & \textbf{Behaviour} \\
+\textbf{Seed Value} & \textbf{Behavior} \\
 \midrule
 Explicit integer & Use that seed; variation is implicitly enabled \\
 \texttt{null} or omitted & Variation disabled; pure interpolation \\

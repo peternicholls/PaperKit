@@ -17,7 +17,7 @@ Journey Mode is the default mode of operation, optimising for \textbf{smooth, or
 \begin{center}
 \begin{tabular}{ll}
 \toprule
-\textbf{Aspect} & \textbf{Behaviour} \\
+\textbf{Aspect} & \textbf{Behavior} \\
 \midrule
 Adjacency constraint & Enforces $\Delta_{\min} \leq \Delta(C_i, C_{i+1}) \leq \Delta_{\max}$ \\
 Path construction & Smooth Bézier curves through anchors \\
@@ -29,7 +29,7 @@ Sampling & Arc-length parameterised for perceptual uniformity \\
 
 Journey Mode is appropriate for:
 \begin{itemize}
-    \item Timeline visualisations (progress indicators, history)
+    \item Timeline visualizations (progress indicators, history)
     \item State transitions (hover, active, disabled)
     \item Mood-based palettes (warm sunset, cool ocean)
     \item Animation color cycling
@@ -49,9 +49,9 @@ Categorical Mode optimizes for \textbf{maximum distinguishability} between swatc
 \begin{center}
 \begin{tabular}{ll}
 \toprule
-\textbf{Aspect} & \textbf{Behaviour} \\
+\textbf{Aspect} & \textbf{Behavior} \\
 \midrule
-Distance goal & Maximise perceptual distance between all pairs \\
+Distance goal & Maximize perceptual distance between all pairs \\
 Path construction & May use hue maximisation, not smooth curves \\
 Continuity & Not prioritised \\
 Output order & Less meaningful than in Journey Mode \\
@@ -59,7 +59,7 @@ Output order & Less meaningful than in Journey Mode \\
 \end{tabular}
 \end{center}
 
-Instead of constraining adjacent distances, Categorical Mode maximises minimum pairwise distance:
+Instead of constraining adjacent distances, Categorical Mode maximizes minimum pairwise distance:
 \begin{equation}
     \max \min_{i \neq j} \|C_i - C_j\|_{\text{OKLab}}
 \end{equation}
@@ -73,13 +73,13 @@ subject to staying within displayable gamut and respecting any semantic constrai
 \midrule
 Curve type & Smooth Bézier & May use angular paths \\
 Sampling & Sequential along path & Optimized spacing in color space \\
-Anchor role & Waypoints on path & Fixed category colours \\
+Anchor role & Waypoints on path & Fixed category colors \\
 Output order & Meaningful sequence & Order less important \\
 \bottomrule
 \end{tabular}
 \end{center}
 
-Categorical Mode is appropriate for pie charts, bar charts with distinct categories, legend colours, and status indicators (error, warning, success, info).
+Categorical Mode is appropriate for pie charts, bar charts with distinct categories, legend colors, and status indicators (error, warning, success, info).
 
 % ------------------------------------------------------------------------------
 % 6.3 Perceptual Velocity
@@ -112,7 +112,7 @@ Hue ($h$) & $\sim$1.5--2.0 & High impact, ``fast'' feel \\
 \end{tabular}
 \end{center}
 
-\textit{Note: These weights reflect observed behaviour in prototype testing. Formal psychophysical validation remains future work.}
+\textit{Note: These weights reflect observed behavior in prototype testing. Formal psychophysical validation remains future work.}
 
 Velocity is relevant for temporal applications:
 \begin{itemize}
@@ -147,7 +147,7 @@ Presets encode velocity profiles implicitly: ``calm'' presets (\texttt{smooth}, 
 \midrule
 Output for discrete categories? & Categorical \\
 Need smooth animation? & Journey + closed/pingpong loop \\
-Need timeline colours? & Journey + open path \\
+Need timeline colors? & Journey + open path \\
 Need mood palette from single color? & Journey + single anchor \\
 Need maximum contrast? & Categorical with high separation \\
 \bottomrule

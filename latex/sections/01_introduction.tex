@@ -67,13 +67,13 @@ All design decisions rest on the perceptual uniformity of OKLab color space \cit
 The engine constructs continuous paths through color space internally but outputs discrete swatches. The ``journey'' is a construction metaphor---users receive a finite list of colors, not an interpolation function.
 
 \paragraph{Constructive, Not Prescriptive.}
-Colours emerge \emph{as if} travelling a perceptual path, providing coherence and natural ordering. Users may apply the resulting swatches in any manner; the ordering is a construction device, not a usage constraint.
+Colors emerge \emph{as if} travelling a perceptual path, providing coherence and natural ordering. Users may apply the resulting swatches in any manner; the ordering is a construction device, not a usage constraint.
 
 \paragraph{Presets Encode Expertise.}
 Presets capture expert knowledge about which parameter combinations achieve specific aesthetic goals---they are not simplifications for novices. A ``Cinematic'' preset encodes design wisdom about dramatic color arcs.
 
 \paragraph{Graceful Degradation.}
-Rather than failing on unusual inputs, the engine adapts. Grey anchors expand along the lightness axis; extreme colours adjust their expansion direction; pathological inputs produce documented fallback behaviour.
+Rather than failing on unusual inputs, the engine adapts. Gray anchors expand along the lightness axis; extreme colors adjust their expansion direction; pathological inputs produce documented fallback behavior.
 
 % ------------------------------------------------------------------------------
 % 1.4 Positioning and Novel Contributions
@@ -85,7 +85,7 @@ Rather than failing on unusual inputs, the engine adapts. Grey anchors expand al
 
 Traditional palette generation approaches fall into two categories. First, \emph{color harmony rules}---complementary, triadic, analogous, split-complementary---define geometric relationships on the color wheel~\cite{itten1961}. These rules have aesthetic merit and deep historical roots in art education, but they operate in perceptually non-uniform spaces (typically HSL or HSV) and provide no guarantees about perceived differences between generated colors.
 
-Second, \emph{interpolation-based approaches} generate colours by blending between endpoints. Most creative tools (CSS gradients, design software) use linear interpolation in RGB or HSL space, producing results that can appear perceptually uneven---muddy midpoints, abrupt hue shifts through grey regions, and inconsistent step sizes~\cite{stone2014}.
+Second, \emph{interpolation-based approaches} generate colors by blending between endpoints. Most creative tools (CSS gradients, design software) use linear interpolation in RGB or HSL space, producing results that can appear perceptually uneven---muddy midpoints, abrupt hue shifts through gray regions, and inconsistent step sizes~\cite{stone2014}.
 
 \subsection*{The Shift to Perceptual Color Spaces}
 
@@ -102,10 +102,10 @@ The Color Journey Engine introduces a \emph{novel combination} of established te
     \item \textbf{Arc-length parameterisation}~\cite{piegl1997} for perceptually uniform sampling
     \item \textbf{Perceptual constraints} ($\Delta_{\min}$, $\Delta_{\max}$) ensuring distinguishability without jarring jumps
     \item \textbf{Single-anchor mood expansion}---to our knowledge, a novel method---using lightness-weighted directionality in perceptual space to generate coherent palettes from one color, rather than relying on geometric harmony rules
-    \item \textbf{Two-layer gamut management}~\cite{morovic2008} preventing and correcting out-of-gamut colours while preserving hue
+    \item \textbf{Two-layer gamut management}~\cite{morovic2008} preventing and correcting out-of-gamut colors while preserving hue
 \end{itemize}
 
-Our contribution lies not in the individual techniques---OKLab, Bézier curves, arc-length sampling, and gamut mapping are established---but in their integration into a coherent system with explicit perceptual constraints and a deterministic, reproducible API. The resulting implementation achieves 5.6 million colours per second, enabling real-time palette generation.
+Our contribution lies not in the individual techniques---OKLab, Bézier curves, arc-length sampling, and gamut mapping are established---but in their integration into a coherent system with explicit perceptual constraints and a deterministic, reproducible API. The resulting implementation achieves 5.6 million colors per second, enabling real-time palette generation.
 
 % ------------------------------------------------------------------------------
 % 1.5 Paper Organization

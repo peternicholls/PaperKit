@@ -30,10 +30,10 @@ The engine performs basic input validation, but callers should validate inputs b
 The engine provides the following guarantees:
 
 \begin{enumerate}
-    \item \textbf{Output count matches request.} The palette contains exactly the requested number of colours.
+    \item \textbf{Output count matches request.} The palette contains exactly the requested number of colors.
     \item \textbf{All outputs are valid sRGB.} Every color in the palette is displayable on standard monitors.
     \item \textbf{Anchors appear in output.} When anchors are specified, they appear at their designated positions in the palette.
-    \item \textbf{Perceptual constraints are honoured.} Adjacent colours differ by at least $\Delta_{\min}$ (where achievable).
+    \item \textbf{Perceptual constraints are honored.} Adjacent colors differ by at least $\Delta_{\min}$ (where achievable).
     \item \textbf{Determinism is maintained.} Identical inputs produce identical outputs across calls and platforms.
 \end{enumerate}
 
@@ -56,7 +56,7 @@ The engine generates palettes; callers are responsible for context-specific conc
     \item Substrate (paper type, coating)
 \end{itemize}
 
-\paragraph{Application Constraints.} Brand colours, corporate guidelines, and domain-specific requirements are caller concerns. The engine provides building blocks; callers assemble them appropriately.
+\paragraph{Application Constraints.} Brand colors, corporate guidelines, and domain-specific requirements are caller concerns. The engine provides building blocks; callers assemble them appropriately.
 
 \paragraph{Reproducibility.} Callers should store the config echo returned by the engine if they need to regenerate palettes later. The engine does not maintain history.
 
@@ -71,6 +71,6 @@ The engine handles errors gracefully:
 \begin{itemize}
     \item \textbf{Invalid inputs} --- Return an error with diagnostic message. No partial output is produced.
     \item \textbf{Constraint conflicts} --- Resolved using the priority hierarchy (\S\ref{sec:constraint-conflicts}). Adaptations are documented in diagnostics.
-    \item \textbf{Impossible requests} --- The closest valid alternative is returned. For example, requesting 100 visually distinct colours from a narrow hue range will produce fewer distinct steps.
+    \item \textbf{Impossible requests} --- The closest valid alternative is returned. For example, requesting 100 visually distinct colors from a narrow hue range will produce fewer distinct steps.
     \item \textbf{No silent failures} --- All constraint violations, gamut corrections, and adaptations appear in the diagnostics output.
 \end{itemize}
