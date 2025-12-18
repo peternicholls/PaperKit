@@ -1,7 +1,7 @@
 # Specification: Consent and Sandboxing for Tool Execution
 
 **Spec ID:** 003-consent-sandboxing  
-**Date:** 2024-12-13  
+**Date:** 2025-12-13  
 **Status:** Draft  
 **Priority:** High  
 **Category:** Security & Safety
@@ -234,7 +234,7 @@ sandboxConfig:
 # Audit log entry schema
 auditEntry:
   id: "audit-{uuid}"
-  timestamp: "2024-12-13T10:30:00Z"
+  timestamp: "2025-12-13T10:30:00Z"
   
   tool:
     name: "build-latex"
@@ -243,12 +243,12 @@ auditEntry:
   user:
     id: "user-id"
     consentGiven: true
-    consentTimestamp: "2024-12-13T10:29:55Z"
+    consentTimestamp: "2025-12-13T10:29:55Z"
     consentMethod: "explicit_approval"
   
   execution:
-    startTime: "2024-12-13T10:30:00Z"
-    endTime: "2024-12-13T10:30:45Z"
+    startTime: "2025-12-13T10:30:00Z"
+    endTime: "2025-12-13T10:30:45Z"
     status: "success"
     exitCode: 0
   

@@ -1,7 +1,7 @@
 # Specification: Onboarding, Examples, and Developer Docs
 
 **Spec ID:** 008-onboarding-docs  
-**Date:** 2024-12-13  
+**Date:** 2025-12-13  
 **Status:** Draft  
 **Priority:** Medium  
 **Category:** Developer Experience

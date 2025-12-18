@@ -1,7 +1,7 @@
 # Specification: State Management and Mode Persistence Risks
 
 **Spec ID:** 009-state-management  
-**Date:** 2024-12-13  
+**Date:** 2025-12-13  
 **Status:** Draft  
 **Priority:** Medium  
 **Category:** Core Architecture
@@ -46,9 +46,9 @@ Implement explicit state management with visibility, checkpoints, versioning, an
 # Schema for session state
 sessionState:
   sessionId: "session-{uuid}"
-  createdAt: "2024-12-13T10:00:00Z"
-  lastActivityAt: "2024-12-13T11:30:00Z"
-  expiresAt: "2024-12-13T14:00:00Z"  # Auto-expire after inactivity
+  createdAt: "2025-12-13T10:00:00Z"
+  lastActivityAt: "2025-12-13T11:30:00Z"
+  expiresAt: "2025-12-13T14:00:00Z"  # Auto-expire after inactivity
   
   user:
     id: "user"
@@ -58,12 +58,12 @@ sessionState:
       
   activeAgent:
     id: "section-drafter"
-    activatedAt: "2024-12-13T11:00:00Z"
+    activatedAt: "2025-12-13T11:00:00Z"
     
   context:
     version: 3
-    createdAt: "2024-12-13T10:30:00Z"
-    updatedAt: "2024-12-13T11:25:00Z"
+    createdAt: "2025-12-13T10:30:00Z"
+    updatedAt: "2025-12-13T11:25:00Z"
     
     paper:
       title: "Color Perception Modeling"
@@ -73,20 +73,20 @@ sessionState:
     loadedDocuments:
       - id: "doc-1"
         path: "output-drafts/outlines/paper-outline.md"
-        loadedAt: "2024-12-13T10:30:00Z"
+        loadedAt: "2025-12-13T10:30:00Z"
         hash: "sha256:abc123"
         stale: false
         
       - id: "doc-2"
         path: "output-refined/research/consolidated.md"
-        loadedAt: "2024-12-13T10:35:00Z"
+        loadedAt: "2025-12-13T10:35:00Z"
         hash: "sha256:def456"
         stale: true  # File changed since load
         
     currentTask:
       type: "draft_section"
       section: "introduction"
-      startedAt: "2024-12-13T11:00:00Z"
+      startedAt: "2025-12-13T11:00:00Z"
       
     conversationSummary:
       turns: 15
@@ -97,12 +97,12 @@ sessionState:
         
   checkpoints:
     - id: "cp-1"
-      createdAt: "2024-12-13T10:45:00Z"
+      createdAt: "2025-12-13T10:45:00Z"
       description: "After outline completion"
       contextVersion: 1
       
     - id: "cp-2"
-      createdAt: "2024-12-13T11:15:00Z"
+      createdAt: "2025-12-13T11:15:00Z"
       description: "Mid-introduction draft"
       contextVersion: 2
 ```

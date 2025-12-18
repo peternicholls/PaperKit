@@ -1,12 +1,12 @@
 # CSV to YAML Migration Complete
 
-**Date:** 2024-12-14  
+**Date:** 2025-12-14  
 **Status:** ✅ COMPLETE  
 **Related:** Developer Improvements 001 (Agent Metadata Migration)
 
 ## Overview
 
-Following the successful agent metadata migration from CSV to YAML (completed 2024-12-14), all remaining CSV manifest files have been migrated to YAML format with JSON Schema validation. This completes the comprehensive migration of all PaperKit metadata to structured, validated YAML.
+Following the successful agent metadata migration from CSV to YAML (completed 2025-12-14), all remaining CSV manifest files have been migrated to YAML format with JSON Schema validation. This completes the comprehensive migration of all PaperKit metadata to structured, validated YAML.
 
 ## Summary
 
@@ -370,17 +370,17 @@ manifests:
     yaml: .paper/_cfg/agent-manifest.yaml
     csv: .paper/_cfg/agent-manifest.csv  # Deprecated
     csvDeprecated: true
-    csvDeprecationDate: "2024-12-14"
+    csvDeprecationDate: "2025-12-14"
   tools:
     yaml: .paper/_cfg/tool-manifest.yaml
     csv: .paper/_cfg/tool-manifest.csv  # Deprecated
     csvDeprecated: true
-    csvDeprecationDate: "2024-12-14"
+    csvDeprecationDate: "2025-12-14"
   workflows:
     yaml: .paper/_cfg/workflow-manifest.yaml
     csv: .paper/_cfg/workflow-manifest.csv  # Deprecated
     csvDeprecated: true
-    csvDeprecationDate: "2024-12-14"
+    csvDeprecationDate: "2025-12-14"
 ```
 
 ## Related Specifications

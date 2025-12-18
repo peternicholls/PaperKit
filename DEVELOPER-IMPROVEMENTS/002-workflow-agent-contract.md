@@ -1,7 +1,7 @@
 # Specification: Workflow and Agent Linking Formal Contract
 
 **Spec ID:** 002-workflow-agent-contract  
-**Date:** 2024-12-13  
+**Date:** 2025-12-13  
 **Status:** Draft  
 **Priority:** High  
 **Category:** Core Architecture
@@ -129,7 +129,7 @@ Define a formal "agent contract" specification for each workflow step, with expl
    workflowState:
      id: "wf-{uuid}"
      name: "write-paper"
-     startedAt: "2024-12-13T10:00:00Z"
+     startedAt: "2025-12-13T10:00:00Z"
      currentStep: "draft-introduction"
      status: in_progress
      
@@ -141,7 +141,7 @@ Define a formal "agent contract" specification for each workflow step, with expl
        completedSteps:
          - stepId: outline
            agentId: paper-architect
-           completedAt: "2024-12-13T10:05:00Z"
+           completedAt: "2025-12-13T10:05:00Z"
            outputs:
              outline: { $ref: "memory/outline.yaml" }
        

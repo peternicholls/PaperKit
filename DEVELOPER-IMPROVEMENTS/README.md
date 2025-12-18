@@ -167,4 +167,4 @@ For questions about these specifications:
 
 ---
 
-*Last Updated: 2024-12-13*
+*Last Updated: 2025-12-13*

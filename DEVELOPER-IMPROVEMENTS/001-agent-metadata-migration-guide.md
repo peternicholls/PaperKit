@@ -1,6 +1,6 @@
 # Agent Metadata Migration Guide
 
-**Date:** 2024-12-14  
+**Date:** 2025-12-14  
 **Spec:** DEVELOPER-IMPROVEMENTS/001-agent-metadata.md  
 **Status:** Complete
 

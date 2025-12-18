@@ -1,7 +1,7 @@
 # Open Questions
 
 **Document ID:** 012-open-questions  
-**Date:** 2024-12-13  
+**Date:** 2025-12-13  
 **Status:** Tracking  
 **Category:** Planning
 

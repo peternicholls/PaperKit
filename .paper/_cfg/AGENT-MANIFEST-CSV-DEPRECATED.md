@@ -1,6 +1,6 @@
 # Agent Manifest CSV Format - DEPRECATED
 
-**Date:** 2024-12-14  
+**Date:** 2025-12-14  
 **Status:** Deprecated  
 **Replacement:** YAML format with JSON Schema validation
 
@@ -107,7 +107,7 @@ with open('.paper/_cfg/agent-manifest.yaml') as f:
 
 ## Timeline
 
-- **2024-12-14**: YAML format introduced, CSV marked deprecated
+- **2025-12-14**: YAML format introduced, CSV marked deprecated
 - **Future**: CSV file will be removed after all tools migrate to YAML
 
 ## Questions?

@@ -1,6 +1,6 @@
 # Tool Manifest CSV Format Deprecated
 
-**Date:** 2024-12-14  
+**Date:** 2025-12-14  
 **Status:** Deprecated  
 **Migration Complete:** Yes
 
@@ -132,7 +132,7 @@ See documentation:
 ## Related Changes
 
 This deprecation follows the same pattern as:
-- Agent metadata migration (completed 2024-12-14)
-- Workflow metadata migration (completed 2024-12-14)
+- Agent metadata migration (completed 2025-12-14)
+- Workflow metadata migration (completed 2025-12-14)
 
 All manifest files in PaperKit now use YAML format with JSON Schema validation.

@@ -1,7 +1,7 @@
 # Specification: Security, Prompt-Safety, and Data Governance
 
 **Spec ID:** 004-security-governance  
-**Date:** 2024-12-13  
+**Date:** 2025-12-13  
 **Status:** Draft  
 **Priority:** High  
 **Category:** Security & Safety
@@ -114,15 +114,15 @@ provenanceRecord:
     crossref:
       title: "Example Paper Title"
       authors: ["Author One", "Author Two"]
-      publicationDate: "2024-01-15"
+      publicationDate: "2025-01-15"
       journal: "Example Journal"
       validated: true
-      validationTimestamp: "2024-12-13T10:00:00Z"
+      validationTimestamp: "2025-12-13T10:00:00Z"
     
     # For URL sources
     url: "https://example.com/paper.pdf"
     urlMetadata:
-      fetchTimestamp: "2024-12-13T10:00:00Z"
+      fetchTimestamp: "2025-12-13T10:00:00Z"
       httpStatus: 200
       contentType: "application/pdf"
       contentHash: "sha256:abc123..."
@@ -132,20 +132,20 @@ provenanceRecord:
     file:
       path: "source/reference-materials/paper.pdf"
       hash: "sha256:def456..."
-      uploadTimestamp: "2024-12-12T09:00:00Z"
+      uploadTimestamp: "2025-12-12T09:00:00Z"
       uploadedBy: "user"
   
   # Chain of custody
   custody:
     - action: "uploaded"
-      timestamp: "2024-12-12T09:00:00Z"
+      timestamp: "2025-12-12T09:00:00Z"
       agent: "user"
     - action: "processed"
-      timestamp: "2024-12-13T10:00:00Z"
+      timestamp: "2025-12-13T10:00:00Z"
       agent: "research-consolidator"
       outputArtifact: "output-refined/research/consolidated.md"
     - action: "cited"
-      timestamp: "2024-12-13T11:00:00Z"
+      timestamp: "2025-12-13T11:00:00Z"
       agent: "section-drafter"
       location: "latex/sections/02_background.tex:45"
   
@@ -153,7 +153,7 @@ provenanceRecord:
   trust:
     level: "verified"  # unverified | self_reported | verified | trusted
     verificationMethod: "crossref_lookup"
-    verificationTimestamp: "2024-12-13T10:00:00Z"
+    verificationTimestamp: "2025-12-13T10:00:00Z"
     flags: []
 ```
 

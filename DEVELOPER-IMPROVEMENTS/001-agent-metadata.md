@@ -1,7 +1,7 @@
 # Specification: Incomplete/Fragmented Agent Metadata
 
 **Spec ID:** 001-agent-metadata  
-**Date:** 2024-12-13  
+**Date:** 2025-12-13  
 **Status:** Draft  
 **Priority:** High  
 **Category:** Core Architecture

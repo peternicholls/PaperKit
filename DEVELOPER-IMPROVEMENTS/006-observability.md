@@ -1,7 +1,7 @@
 # Specification: Observability, Telemetry, and UX Telemetry
 
 **Spec ID:** 006-observability  
-**Date:** 2024-12-13  
+**Date:** 2025-12-13  
 **Status:** Draft  
 **Priority:** Medium  
 **Category:** Operations & Monitoring
@@ -117,12 +117,12 @@ loggingConfig:
 # Schema for run correlation
 runContext:
   runId: "run-{uuid}"
-  startedAt: "2024-12-13T10:00:00Z"
+  startedAt: "2025-12-13T10:00:00Z"
   
   session:
     sessionId: "session-{uuid}"
     userId: "user"
-    startedAt: "2024-12-13T09:30:00Z"
+    startedAt: "2025-12-13T09:30:00Z"
     
   workflow:
     workflowId: "wf-{uuid}"
@@ -140,7 +140,7 @@ runContext:
     previousSteps:
       - stepId: "outline"
         runId: "run-{prev-uuid}"
-        completedAt: "2024-12-13T09:45:00Z"
+        completedAt: "2025-12-13T09:45:00Z"
 ```
 
 #### 3. Agent Run Log Entry
@@ -149,7 +149,7 @@ runContext:
 # Log entry for agent execution
 agentRun:
   runId: "run-abc123"
-  timestamp: "2024-12-13T10:00:00Z"
+  timestamp: "2025-12-13T10:00:00Z"
   
   agent:
     id: "section-drafter"
@@ -195,7 +195,7 @@ agentRun:
 # Schema for artifact diff tracking
 artifactDiff:
   id: "diff-{uuid}"
-  timestamp: "2024-12-13T10:00:00Z"
+  timestamp: "2025-12-13T10:00:00Z"
   
   runId: "run-abc123"
   agentId: "section-drafter"
@@ -320,7 +320,7 @@ class ObservabilityDashboard:
 ```yaml
 # Dashboard output example
 dailySummary:
-  date: "2024-12-13"
+  date: "2025-12-13"
   
   overview:
     totalRuns: 45

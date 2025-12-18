@@ -1,7 +1,7 @@
 # Specification: Citation, Reference, and Data Validation
 
 **Spec ID:** 007-citation-validation  
-**Date:** 2024-12-13  
+**Date:** 2025-12-13  
 **Status:** Draft  
 **Priority:** Medium  
 **Category:** Academic Quality

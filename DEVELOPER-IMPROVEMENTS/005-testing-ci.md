@@ -1,7 +1,7 @@
 # Specification: Testing, CI, and Reproducibility
 
 **Spec ID:** 005-testing-ci  
-**Date:** 2024-12-13  
+**Date:** 2025-12-13  
 **Status:** Draft  
 **Priority:** High  
 **Category:** Quality Assurance
@@ -448,11 +448,11 @@ def sample_latex_dir(tmp_path):
 def sample_bib_content():
     """Sample BibTeX content."""
     return """
-    @article{smith2024example,
+    @article{smith2025example,
         author = {Smith, John and Doe, Jane},
         title = {An Example Paper},
         journal = {Example Journal},
-        year = {2024},
+        year = {2025},
         volume = {1},
         pages = {1--10}
     }

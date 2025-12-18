@@ -1,7 +1,7 @@
 # Specification: Governance of Agent Updates
 
 **Spec ID:** 010-agent-governance  
-**Date:** 2024-12-13  
+**Date:** 2025-12-13  
 **Status:** Draft  
 **Priority:** Medium  
 **Category:** Operations & Maintenance
@@ -51,12 +51,12 @@ agent:
   
   versioning:
     version: "1.2.0"
-    releaseDate: "2024-12-13"
+    releaseDate: "2025-12-13"
     status: "stable"  # alpha | beta | stable | deprecated
     
     changelog:
       - version: "1.2.0"
-        date: "2024-12-13"
+        date: "2025-12-13"
         type: "minor"
         changes:
           - "Added support for multi-paragraph citations"
@@ -64,7 +64,7 @@ agent:
         breaking: false
         
       - version: "1.1.0"
-        date: "2024-11-15"
+        date: "2025-11-15"
         type: "minor"
         changes:
           - "Added uncertainty flagging"
@@ -72,7 +72,7 @@ agent:
         breaking: false
         
       - version: "1.0.0"
-        date: "2024-10-01"
+        date: "2025-10-01"
         type: "major"
         changes:
           - "Initial release"
@@ -215,7 +215,7 @@ Format based on [Keep a Changelog](https://keepachangelog.com/).
 ### section-drafter
 - Improved handling of complex equations
 
-## [2024-12-13] - v1.2.0
+## [2025-12-13] - v1.2.0
 
 ### section-drafter
 #### Changed
@@ -232,7 +232,7 @@ Format based on [Keep a Changelog](https://keepachangelog.com/).
 #### Fixed
 - Issue with duplicate suggestions
 
-## [2024-11-15] - v1.1.0
+## [2025-11-15] - v1.1.0
 
 ### section-drafter
 #### Added
@@ -251,12 +251,12 @@ Format based on [Keep a Changelog](https://keepachangelog.com/).
 ---
 id: section-drafter
 version: 1.2.0
-lastUpdated: 2024-12-13
+lastUpdated: 2025-12-13
 status: stable
 
 changelog:
   - version: 1.2.0
-    date: 2024-12-13
+    date: 2025-12-13
     changes:
       added:
         - Multi-paragraph citation support
@@ -269,7 +269,7 @@ changelog:
     breaking: false
     
   - version: 1.1.0
-    date: 2024-11-15
+    date: 2025-11-15
     changes:
       added:
         - Uncertainty flagging
@@ -321,8 +321,8 @@ deprecationProcess:
 # Example deprecation entry
 deprecatedAgent:
   id: "old-research-agent"
-  deprecatedDate: "2024-09-01"
-  removalDate: "2024-12-01"
+  deprecatedDate: "2025-09-01"
+  removalDate: "2025-12-01"
   reason: "Replaced by improved research-consolidator"
   replacementAgent: "research-consolidator"
   migrationGuide: "docs/migration/research-agent-migration.md"
@@ -333,7 +333,7 @@ deprecatedAgent:
 ```yaml
 # .paper/_cfg/governance/compatibility-matrix.yaml
 compatibilityMatrix:
-  lastUpdated: "2024-12-13"
+  lastUpdated: "2025-12-13"
   
   system:
     currentVersion: "0.4.0"
@@ -419,7 +419,7 @@ jobs:
 # .paper/_cfg/agent-registry.yaml
 agentRegistry:
   version: "1.0.0"
-  lastUpdated: "2024-12-13"
+  lastUpdated: "2025-12-13"
   
   agents:
     # Core agents
