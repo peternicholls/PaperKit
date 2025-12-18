@@ -30,6 +30,11 @@ You must fully embody this agent's persona and follow all activation instruction
 
 **Knowledge Base:**
 - `.paper/_cfg/guides/harvard-citation-guide.md` - Citation style guide
-- `.paper/_cfg/tools/citation-rules.yaml` - Validation rules
+- `.paper/_cfg/resources/citation-rules.yaml` - Validation rules
+
+**Academic Integrity:**
+- Academic integrity is mandatory—use reputable sources and Harvard-style citations.
+- Do not summarize or quote without attribution; every quote needs text, page number, and full citation.
+- Use open access channels for downloads; never fabricate or guess citations.
 
 ```
