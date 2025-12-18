@@ -21,7 +21,7 @@ Comprehensive Harvard citation style guide (Cite Them Right standard) including:
 Agents automatically load relevant guides during activation. The reference-manager agent (Harper) loads:
 
 - `harvard-citation-guide.md` - Style rules and formatting templates
-- `../tools/citation-rules.yaml` - Validation rules and field specifications
+- `../resources/citation-rules.yaml` - Validation rules and field specifications
 
 ## Contributing
 
@@ -34,7 +34,7 @@ When updating guides:
 
 ## Related Files
 
-- [.paper/_cfg/tools/citation-rules.yaml](../tools/citation-rules.yaml) - Validation rules
+- [.paper/_cfg/resources/citation-rules.yaml](../resources/citation-rules.yaml) - Validation rules
 - [.paper/_cfg/agents/reference-manager.yaml](../agents/reference-manager.yaml) - Agent definition
 - [.paper/core/agents/reference-manager.md](../../core/agents/reference-manager.md) - Agent persona
 

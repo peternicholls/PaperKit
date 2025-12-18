@@ -14,9 +14,10 @@ Each file defines a tool used in the PaperKit system with complete metadata, cap
 ├── build-latex.yaml            ← LaTeX compilation tool
 ├── lint-latex.yaml             ← LaTeX syntax checker
 ├── validate-structure.yaml     ← Paper structure validator
-├── format-references.yaml      ← Reference formatter
-└── citation-rules.yaml         ← Citation validation rules (Harvard style)
+└── format-references.yaml      ← Reference formatter
 ```
+
+> **Note:** Citation validation rules now live in `.paper/_cfg/resources/citation-rules.yaml`.
 
 ## Tool Definition Format
 

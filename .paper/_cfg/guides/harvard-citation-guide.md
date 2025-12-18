@@ -17,6 +17,22 @@ The Harvard referencing style (Cite Them Right version) is an author-date citati
 
 ---
 
+## Academic Integrity Statement
+
+**CRITICAL:** Academic integrity is paramount in all citation and referencing practices:
+
+- **Always prioritize reputable sources and proper citation practices**
+- **An academic paper cannot be summarized or quoted without proper attribution and accurate referencing to the original work in Harvard style**
+- **Every quote requires three elements:**
+  1. The quote text itself
+  2. The page number(s)
+  3. The full citation for both in-text use and the bibliography
+- **If a paper needs downloading, only use open access channels**
+- **Never fabricate or guess at citations - flag uncertainties for verification**
+- **All sources must be properly cited for both the text and the bibliography**
+
+---
+
 ## Core Principles
 
 ### 1. Author-Date Format
