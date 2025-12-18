@@ -1,6 +1,6 @@
 # Paper Kit: Agentic Academic Style Paper Writing System
 
-An **Open Agent System** for writing high-quality academic specification papers in LaTeX format. Six specialized agents handle research consolidation, paper structuring, section drafting, quality refinement, reference management, and document assembly using a progressive, iterative methodology.
+An **Open Agent System** for writing high-quality academic specification papers in LaTeX format. Ten specialized agents handle research consolidation, paper structuring, section drafting, quality refinement, reference management, and document assembly using a progressive, iterative methodology.
 
 **Quick Start:** Jump to [Installation](#installation) or [Getting Started](#getting-started)
 
@@ -44,7 +44,7 @@ Paper Kit provides a structured workflow for academic paper writing through spec
 - **Paper Architect** — Create logical outlines and section hierarchies  
 - **Section Drafter** — Write individual sections with academic rigor
 - **Quality Refiner** — Improve clarity, coherence, and polish iteratively
-- **Reference Manager** — Maintain citations (Harvard style) and bibliography
+- **Reference Manager** — Maintain citations (Harvard style, Cite Them Right), validate bibliography
 - **LaTeX Assembler** — Integrate sections into final document
 
 ### Design Principles
@@ -270,9 +270,10 @@ latex/
 
 ### 5. Reference Manager (`agents/reference_manager.md`)
 
-**Purpose:** Manage bibliographic data, format references in Harvard style, maintain bibliography consistency.
+**Purpose:** Manage bibliographic data, format references in Harvard style (Cite Them Right), validate citations, and maintain bibliography consistency.
 
 **When to use:**
+- User wants to validate citations
 - User wants to format references
 - User asks to "create bibliography"
 - User provides new sources to add
@@ -286,16 +287,25 @@ latex/
 **Output:**
 - Updated `references.bib` in BibTeX format
 - Harvard-formatted bibliography in `output-refined/references/`
-- Citation formatting guide
-- Validation report (missing authors, inconsistent formatting)
+- Citation validation report (missing entries, incomplete fields)
+- Formatting guide
+
+**Citation Workflows:**
+
+| Workflow | Description |
+|----------|-------------|
+| `extract-citations` | Extract all citations from LaTeX files |
+| `validate-citations` | Validate citations against BibTeX database |
+| `citation-completeness` | Check all required BibTeX fields per entry type |
+| `format-bibliography` | Format bibliography in Harvard style |
 
 **Maintains:**
-- BibTeX entries for all sources
-- Harvard citation style consistency
+- BibTeX entries for all sources with required fields
+- Harvard citation style consistency (Cite Them Right, 11th Ed.)
 - Footnote formatting where needed
 - Cross-references between sections
 
-**Example:** User provides research document with citations → Agent extracts sources, converts to BibTeX, validates formatting, generates Harvard-style bibliography.
+**Example:** User provides research document with citations → Agent extracts sources, converts to BibTeX, validates all fields, generates Harvard-style bibliography.
 
 ---
 
@@ -756,13 +766,14 @@ These are updated automatically by agents and help maintain context without mass
 
 ### Key Features
 
-✓ **Six specialized agents** — Research, structure, draft, refine, reference, assemble  
+✓ **Ten specialized agents** — Research, structure, draft, refine, reference, assemble + support agents  
 ✓ **Modular LaTeX** — Small files, clean diffs, parallel work  
 ✓ **Progressive loading** — Agents load on demand for efficiency  
 ✓ **Iterative quality** — Multiple refinement passes  
 ✓ **Memory system** — Track state without bloat  
 ✓ **Build automation** — Compile, lint, validate tools included  
-✓ **Harvard citations** — Proper academic referencing  
+✓ **Harvard citations** — Cite Them Right style with validation workflows  
+✓ **Citation validation** — Extract, validate, check completeness, format  
 
 ### Next Steps
 

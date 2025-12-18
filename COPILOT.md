@@ -1,37 +1,90 @@
 ## Paper Kit: Agentic Academic Style Paper Writing System — GitHub Copilot Integration
 
-This repo includes Copilot agent and slash-command scaffolding that routes into the existing Open Agent System.
+This repo includes Copilot agent and slash-command scaffolding that routes into the Open Agent System with 10 specialized agents.
 
 ### Entry Points
-- Agent role: see [.copilot/agents/paper-system.md](.copilot/agents/paper-system.md) (loads [open-agents/INSTRUCTIONS.md](open-agents/INSTRUCTIONS.md) then the specific agent spec on demand).
-- Slash commands: located in [.copilot/commands/paper](.copilot/commands/paper) and map to the six paper agents.
 
-### Commands
-- /paper.init → init/intake and working reference update ([.copilot/commands/paper/init.md](.copilot/commands/paper/init.md))
-- /paper.plan → Paper Architect ([.copilot/commands/paper/plan.md](.copilot/commands/paper/plan.md))
-- /paper.research → Research Consolidator ([.copilot/commands/paper/research.md](.copilot/commands/paper/research.md))
-- /paper.draft → Section Drafter ([.copilot/commands/paper/draft.md](.copilot/commands/paper/draft.md))
-- /paper.refine → Quality Refiner ([.copilot/commands/paper/refine.md](.copilot/commands/paper/refine.md))
-- /paper.refs → Reference Manager ([.copilot/commands/paper/refs.md](.copilot/commands/paper/refs.md))
-- /paper.assemble → LaTeX Assembler ([.copilot/commands/paper/assemble.md](.copilot/commands/paper/assemble.md))
+- **Chat Modes**: Select agent from Copilot Chat dropdown (e.g., `paper-architect`)
+- **Agent definitions**: Located in [.github/agents/](.github/agents/) with one file per agent
+- **Full system config**: [.copilot/agents.yaml](.copilot/agents.yaml) defines all agents and their capabilities
 
-### Consent Gate (tools)
-- Before first tool run, prompt for scope: Allow once / Allow for this session / Allow for this workspace / Always allow on this machine / Run all requested tools for this session.
-- Remember scope in VS Code workspaceState/globalState; keep “once” in-memory. Prefer per-tool scopes to avoid over-granting.
-- Optional local log (gitignored): [.vscode/agent-consent.log](.vscode/agent-consent.log). Do not write consent decisions into tracked memory files.
+### Ten Specialized Agents
 
-Implementation notes (extensions):
-- Use `workspaceState.update` for session/workspace scopes; `globalState.update` for machine-wide.
-- Run-all-this-session: store a session flag that expires at session end.
-- Provide a palette action to clear stored approvals and optionally truncate the local log.
+#### Core Paper Writing Agents
+| Command | Agent | Purpose |
+|---------|-------|---------|
+| `paper-research-consolidator` | Research Consolidator (Alex) | Synthesize research into coherent documents |
+| `paper-architect` | Paper Architect (Morgan) | Design paper structure and outline |
+| `paper-section-drafter` | Section Drafter (Jordan) | Write individual sections with rigor |
+| `paper-quality-refiner` | Quality Refiner (Riley) | Improve clarity, flow, and polish |
+| `paper-reference-manager` | Reference Manager (Harper) | Harvard citations & bibliography validation |
+| `paper-latex-assembler` | LaTeX Assembler (Taylor) | Integrate sections and compile PDF |
 
-### Tools to Expose
-- Build: [open-agents/tools/build-latex.sh](open-agents/tools/build-latex.sh)
-- Lint: [open-agents/tools/lint-latex.sh](open-agents/tools/lint-latex.sh)
-- Validate: [open-agents/tools/validate-structure.py](open-agents/tools/validate-structure.py)
-- References: [open-agents/tools/format-references.py](open-agents/tools/format-references.py)
+#### Specialist Support Agents
+| Command | Agent | Purpose |
+|---------|-------|---------|
+| `paper-brainstorm` | Brainstorm Coach (Carson) | Creative ideation and exploration |
+| `paper-problem-solver` | Problem Solver (Quinn) | Analyze blockers and find solutions |
+| `paper-tutor` | Review Tutor (Sage) | Constructive feedback on drafts |
+| `paper-librarian` | Research Librarian (Ellis) | Find and organize sources |
+
+### Slash Commands
+- `/paper.init` → Initialize and update working reference
+- `/paper.plan` → Paper Architect - outline and structure
+- `/paper.research` → Research Consolidator - synthesize sources
+- `/paper.draft` → Section Drafter - write sections
+- `/paper.refine` → Quality Refiner - improve drafts
+- `/paper.refs` → Reference Manager - manage citations
+- `/paper.assemble` → LaTeX Assembler - compile PDF
+
+### Reference Manager Workflows
+
+The Reference Manager (Harper) supports comprehensive Harvard-style citation management:
+
+| Workflow | Description |
+|----------|-------------|
+| `extract-citations` | Extract all citations from LaTeX files |
+| `validate-citations` | Validate citations against BibTeX database |
+| `citation-completeness` | Check all required BibTeX fields |
+| `format-bibliography` | Format bibliography in Harvard style |
+
+### Tools Available
+
+| Tool | Path | Purpose |
+|------|------|---------|
+| Build LaTeX | `open-agents/tools/build-latex.sh` | Compile document to PDF |
+| Lint LaTeX | `open-agents/tools/lint-latex.sh` | Check LaTeX syntax |
+| Validate Structure | `open-agents/tools/validate-structure.py` | Validate paper structure |
+| Format References | `open-agents/tools/format-references.py` | Format Harvard citations |
+
+### Configuration Files
+
+| File | Purpose |
+|------|---------|
+| `.paper/_cfg/agent-manifest.yaml` | All agents catalog |
+| `.paper/_cfg/workflow-manifest.yaml` | All workflows catalog |
+| `.paper/_cfg/tool-manifest.yaml` | All tools catalog |
+| `.paper/_cfg/guides/harvard-citation-guide.md` | Harvard citation style guide |
+| `.paper/_cfg/tools/citation-rules.yaml` | Citation validation rules |
+
+### Consent Gate (Tools)
+
+Before running tools that modify files:
+1. Prompt for scope: Allow once / Allow for session / Allow for workspace / Always allow
+2. Store scope in VS Code `workspaceState` or `globalState`
+3. Optional local log (gitignored): `.vscode/agent-consent.log`
+
+### Output Directories
+
+| Output Type | Location |
+|-------------|----------|
+| Draft sections | `.paper/data/output-drafts/sections/` |
+| Refined sections | `.paper/data/output-refined/sections/` |
+| Final PDF | `.paper/data/output-final/pdf/` |
+| BibTeX database | `latex/references/references.bib` |
 
 ### Notes
-- Respect progressive disclosure: load only the needed agent spec after [open-agents/INSTRUCTIONS.md](open-agents/INSTRUCTIONS.md).
-- Keep outputs in existing folders (output-drafts, output-refined, output-final, latex).
-- Maintain the handoff log at [open-agents/memory/working-reference.md](open-agents/memory/working-reference.md) so any agent can resume after interruptions.
+
+- **Progressive disclosure**: Agents load only their specific configuration on demand
+- **Menu-driven**: Each agent presents an interactive menu of options
+- **Handoff support**: Working reference at `open-agents/memory/working-reference.md` maintains context

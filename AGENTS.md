@@ -28,7 +28,7 @@ This project uses a complete **Open Agent System** for planning, researching, st
 | 🏗️ **Paper Architect** | Morgan | Design paper structure and outline | `paper-architect` |
 | ✍️ **Section Drafter** | Jordan | Write individual sections with rigor | `paper-section-drafter` |
 | 💎 **Quality Refiner** | Riley | Improve clarity, flow, and polish | `paper-quality-refiner` |
-| 📚 **Reference Manager** | Harper | Manage citations and bibliography | `paper-reference-manager` |
+| 📚 **Reference Manager** | Harper | Academic bibliographer - Harvard citations & validation | `paper-reference-manager` |
 | 🔧 **LaTeX Assembler** | Taylor | Integrate sections and compile PDF | `paper-latex-assembler` |
 
 #### Specialist Support Agents
@@ -48,7 +48,8 @@ This project uses a complete **Open Agent System** for planning, researching, st
 | "Outline the paper" | Paper Architect | `.paper/data/output-drafts/outlines/` |
 | "Draft section Y" | Section Drafter | `.paper/data/output-drafts/sections/` |
 | "Refine this" | Quality Refiner | `.paper/data/output-refined/sections/` |
-| "Manage citations" | Reference Manager | `latex/references/references.bib` |
+| "Validate citations" | Reference Manager | `latex/references/references.bib` |
+| "Format bibliography" | Reference Manager | `.paper/data/output-refined/references/` |
 | "Build the document" | LaTeX Assembler | `.paper/data/output-final/pdf/` |
 | "Brainstorm ideas" | Brainstorm Coach | `planning/YYYYMMDD-[name]/` |
 | "I'm stuck on..." | Problem Solver | `planning/YYYYMMDD-[name]/` |
@@ -67,6 +68,7 @@ This project uses a complete **Open Agent System** for planning, researching, st
 │   ├── agents/                  ← Individual agent definitions (YAML)
 │   ├── workflows/               ← Individual workflow definitions (YAML)
 │   ├── tools/                   ← Individual tool definitions (YAML)
+│   ├── guides/                  ← Style guides (Harvard citation guide)
 │   ├── schemas/                 ← JSON Schemas for validation
 │   └── ides/                    ← IDE-specific configs
 │
@@ -109,7 +111,7 @@ open-agents/                      ← Legacy system (preserved)
 4. **Draft** → Section Drafter writes one section at a time
 5. **Get Feedback** → Review Tutor provides critique
 6. **Refine** → Quality Refiner improves each section
-7. **Manage Refs** → Reference Manager validates citations
+7. **Validate Refs** → Reference Manager validates citations (Harvard style)
 8. **Assemble** → LaTeX Assembler compiles final PDF
 
 ### 🛠️ Tools Available
@@ -125,6 +127,17 @@ open-agents/                      ← Legacy system (preserved)
 python3 ./open-agents/tools/validate-structure.py
 ```
 
+### 📚 Citation Workflows
+
+The Reference Manager (Harper) supports comprehensive citation management:
+
+| Workflow | Description |
+|----------|-------------|
+| `extract-citations` | Extract all citations from LaTeX files |
+| `validate-citations` | Validate citations against BibTeX database |
+| `citation-completeness` | Check all required BibTeX fields |
+| `format-bibliography` | Format bibliography in Harvard style |
+
 ### 📖 Documentation
 
 | Document | Purpose |
@@ -134,6 +147,7 @@ python3 ./open-agents/tools/validate-structure.py
 | `.paper/_cfg/agent-manifest.yaml` | Complete agent catalog |
 | `.paper/_cfg/workflow-manifest.yaml` | Complete workflow catalog |
 | `.paper/_cfg/tool-manifest.yaml` | Complete tool catalog |
+| `.paper/_cfg/guides/harvard-citation-guide.md` | Harvard citation style guide |
 | `SYSTEM-PLANNING/SYSTEM_GUIDE.md` | System overview |
 | `open-agents/INSTRUCTIONS.md` | Legacy full documentation |
 
@@ -144,7 +158,8 @@ python3 ./open-agents/tools/validate-structure.py
 ✓ **Progressive disclosure** - agents load on demand  
 ✓ **Menu-driven interaction** - each agent presents options  
 ✓ **Modular LaTeX architecture** - atomic sections  
-✓ **Harvard citation style** and bibliography management  
+✓ **Harvard citation style** (Cite Them Right) with validation  
+✓ **Citation workflows** - extract, validate, format, check completeness  
 ✓ **Configuration per module** - customize behavior  
 ✓ **Agent manifest** - discover all available agents  
 
