@@ -6,6 +6,21 @@
 **Dependencies:** None  
 **Output Location:** All `latex/sections/*.tex` files
 
+---
+
+#### 🎯 Philosophy & Context
+
+**Remember:** This paper is about **perceptual-first design**. Precision in terminology reflects commitment to rigorous perceptual science.
+
+**Key Principles:**
+- **Perception before engineering:** Consistent notation aids clear communication of perceptual concepts
+- **Research-grounded:** Academic precision signals serious research
+- **Beyond current implementation:** Notation supports perceptual theory, not just code
+
+**For this task:** Consistent, precise notation elevates academic credibility and ensures perceptual concepts are communicated clearly.
+
+---
+
 #### Task Brief
 
 Standardize spelling and mathematical notation throughout all LaTeX section files to achieve internal consistency.

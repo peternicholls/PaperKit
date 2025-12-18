@@ -5,7 +5,19 @@
 **Estimated Time:** 20 minutes  
 **Dependencies:** None  
 **Output Location:** `latex/sections/09_variation_determinism.tex` (§9.3), API table if applicable
+---
 
+#### 🎯 Philosophy & Context
+
+**Remember:** This paper is about **perceptual-first design**, not API documentation. Variation semantics should be grounded in perceptual research on organic vs predictable color patterns.
+
+**Key Principles:**
+- **Perception before engineering:** Why do users need variation? Perceptual monotony, natural vs mechanical feel
+- **Research-grounded:** Variation design should reference perceptual studies on pattern detection, naturalness, organic aesthetics
+- **Beyond current implementation:** Current API shows one approach; paper should explore perceptual design space of "organic variation"
+- **Determinism philosophy:** Why is reproducibility valuable? Traceability to perception research, not just engineering convenience
+
+**For this task:** Frame variation as perceptual design choice (avoiding mechanical feel) with explicit enablement as principled API design, not just implementation detail.
 #### Task Brief
 
 Clarify whether providing a `seed` value automatically enables variation mode.

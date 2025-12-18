@@ -6,6 +6,18 @@
 **Dependencies:** None (can start parallel to Phase 2)  
 **Output Location:** `open-agents/planning/20251218-group-tutor-reviews/literature-review-color-harmony.md`
 
+#### 🎯 Philosophy & Context
+
+**Remember:** This paper is about **perceptual-first design**, not engineering documentation.
+
+**Key Principles:**
+- **Perception before engineering:** Prior art should focus on perceptual approaches to color relationships (harmony, contrast, aesthetics), not just algorithms
+- **Research-grounded:** This literature review is the foundation for positioning Color Journey's perceptual contribution
+- **Beyond current implementation:** We're not comparing Sprint 004 to other implementations—we're establishing the state of perceptual color science and identifying gaps
+- **No backward compatibility:** We design for perceptual truth
+
+**For this task:** You're not looking for "similar palette generators." Search for: (1) perceptual foundations of color harmony (Munsell, Itten, color theory), (2) temporal color perception research, (3) algorithmic approaches to color generation (HSL interpolation, complementary rules), and (4) human studies on color preference/aesthetics. The goal: show Color Journey fills a gap between static color theory and temporally-aware perceptual design.
+
 #### Task Brief
 
 Conduct comprehensive literature review on color harmony generation methods to ground the paper's novelty claims in prior art.

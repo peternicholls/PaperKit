@@ -6,6 +6,18 @@
 **Dependencies:** None  
 **Output Location:** `latex/sections/08_gamut_management.tex` (expand §8.4)
 
+#### 🎯 Philosophy & Context
+
+**Remember:** This paper is about **perceptual-first design**, not engineering documentation.
+
+**Key Principles:**
+- **Perception before engineering:** Gamut mapping priorities must be justified by perceptual goals (memory colors, emotional intent, cross-cultural preferences)
+- **Research-grounded:** Different contexts have different perceptual priorities—cite studies on color preferences in different domains
+- **Beyond current implementation:** Sprint 004 has one gamut strategy; the paper should explore the full design space of perceptually-motivated approaches
+- **No backward compatibility:** We design for perceptual truth
+
+**For this task:** "Hue is sacred" is a perceptual heuristic that works for certain contexts (e.g., product identity, photography). Other contexts prioritize different attributes (e.g., healthcare prioritizes luminance contrast, art may prioritize chroma intensity). Ground each priority hierarchy in perceptual research showing why it matters in that domain. This isn't about implementation flexibility—it's about understanding perception varies with context.
+
 #### Task Brief
 
 Add nuanced discussion of context-dependent gamut mapping to §8.4, addressing Tutor B's concern that "hue is sacred" hierarchy isn't universal.

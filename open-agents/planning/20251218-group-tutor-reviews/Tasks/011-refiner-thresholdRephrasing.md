@@ -6,6 +6,18 @@
 **Dependencies:** 008-drafter-limitationsSection  
 **Output Location:** All relevant `latex/sections/*.tex` files
 
+#### 🎯 Philosophy & Context
+
+**Remember:** This paper is about **perceptual-first design**, not engineering documentation.
+
+**Key Principles:**
+- **Perception before engineering:** Thresholds should trace to perceptual studies (JND research, MacAdam ellipses, CIECAM02) or be explicitly labeled as design choices
+- **Research-grounded:** Every perceptual claim needs citation or "(design choice)" qualifier
+- **Beyond current implementation:** Sprint 004's thresholds are starting points; the paper defines the research needed to optimize them
+- **No backward compatibility:** We design for perceptual truth
+
+**For this task:** This is CRITICAL for academic integrity. Every numeric threshold (ΔE=0.02, curvature=0.3, etc.) must either: (1) cite perceptual research justifying it, or (2) include "(design choice)" qualifier and explain the perceptual reasoning. Don't apologize for design choices—justify them perceptually. Example: "ΔE=0.02 threshold (design choice, conservative relative to 0.05 JND to ensure imperceptibility under varied viewing conditions)."
+
 #### Task Brief
 
 Systematically rephrase all perceptual threshold presentations to include "(design choice)" qualifier, making explicit that these are engineering heuristics rather than empirically-derived constants.

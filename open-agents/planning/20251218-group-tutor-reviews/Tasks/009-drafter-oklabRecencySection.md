@@ -6,6 +6,18 @@
 **Dependencies:** 007-references-citationAudit  
 **Output Location:** `latex/sections/02_perceptual_foundations.tex` (new §2.2.1)
 
+#### 🎯 Philosophy & Context
+
+**Remember:** This paper is about **perceptual-first design**, not engineering documentation.
+
+**Key Principles:**
+- **Perception before engineering:** OKLab is chosen because it models human perception better than alternatives
+- **Research-grounded:** We cite peer-reviewed perceptual studies, not just technical specs
+- **Beyond current implementation:** Sprint 004 shows we CAN use OKLab effectively; the paper shows WHY it's perceptually necessary
+- **No backward compatibility:** We design for perceptual truth
+
+**For this task:** When discussing OKLab adoption, frame it as "perceptual requirements drove this choice" rather than "we happened to use this." Address recency risks by anchoring in established perceptual science (Munsell, MacAdam, CIE studies) that OKLab builds upon. The paper isn't defending Sprint 004 decisions—it's defining perceptual requirements that OKLab happens to meet.
+
 #### Task Brief
 
 Draft a new subsection addressing OKLab adoption rationale and recency risks, to be inserted after the OKLab introduction in §2.2.

@@ -6,6 +6,21 @@
 **Dependencies:** 001-librarian-foundationalReferences, 003-solver-mobiusVerification, 004-solver-velocityParameterization  
 **Output Location:** `latex/sections/01_introduction.tex` (new §1.6)
 
+---
+
+#### 🎯 Philosophy & Context
+
+**Remember:** This paper is about **perceptual-first design**. Honest limitations signal scientific integrity and point to perceptual research opportunities.
+
+**Key Principles:**
+- **Perception before engineering:** Focus on perceptual validation gaps, not implementation constraints
+- **Research-grounded:** Frame as "what perceptual research is needed," not "what we couldn't implement"
+- **Beyond current implementation:** Current limits are prototype boundaries; paper's limits are perceptual knowledge gaps
+
+**For this task:** Transform limitations from apologies to "here's the perceptual research agenda this opens up."
+
+---
+
 #### Task Brief
 
 Draft a new "Limitations & Future Validation" section to be inserted after §1.5 (Design Principles). This addresses Tutor B's core concern about making heuristics vs. empirical facts explicit.

@@ -6,6 +6,21 @@
 **Dependencies:** 001-librarian-foundationalReferences  
 **Output Location:** `latex/references/references.bib`, `open-agents/output-refined/references/citation_audit.md`
 
+---
+
+#### 🎯 Philosophy & Context
+
+**Remember:** This paper is about **perceptual-first design**. Every perceptual claim must be grounded in literature or explicitly marked as design choice.
+
+**Key Principles:**
+- **Perception before engineering:** Citations prove we build on established perceptual science
+- **Research-grounded:** Difference between "heuristic" and "validated parameter" is citations
+- **Beyond current implementation:** Literature defines perceptual design space
+
+**For this task:** Transform from "here's what we built" to "here's how perceptual research informed our design."
+
+---
+
 #### Upstream Artifacts
 
 - `open-agents/planning/20251218-group-tutor-reviews/tasks-artifacts/foundational-references.md`

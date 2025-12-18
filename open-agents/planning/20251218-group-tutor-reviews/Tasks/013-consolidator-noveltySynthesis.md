@@ -6,6 +6,18 @@
 **Dependencies:** 012-librarian-literatureReview  
 **Output Location:** `open-agents/output-refined/research/novelty-positioning.md`
 
+#### 🎯 Philosophy & Context
+
+**Remember:** This paper is about **perceptual-first design**, not engineering documentation.
+
+**Key Principles:**
+- **Perception before engineering:** Novelty is in perceptual approach (temporal awareness, JND-based transitions, context-dependent constraints), not technical implementation
+- **Research-grounded:** Positioning must show how Color Journey bridges gaps in perceptual color science
+- **Beyond current implementation:** Sprint 004 demonstrates feasibility; the paper defines the perceptual design space and future research directions
+- **No backward compatibility:** We design for perceptual truth
+
+**For this task:** Synthesize the literature to identify Color Journey's perceptual contribution. Likely gaps: (1) static color theory doesn't address temporal perception, (2) algorithmic generators ignore JND thresholds, (3) no prior work on perceptually-guided color paths through time. Frame novelty as "first temporally-aware, perceptually-grounded approach to color relationship design." Not "better palette generator"—"new perceptual paradigm."
+
 #### Task Brief
 
 Synthesize the literature review findings into a clear novelty positioning statement and recommended revisions for the paper.

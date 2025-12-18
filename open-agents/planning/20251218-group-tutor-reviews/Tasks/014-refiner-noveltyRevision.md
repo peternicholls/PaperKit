@@ -6,6 +6,18 @@
 **Dependencies:** 013-consolidator-noveltySynthesis  
 **Output Location:** `latex/sections/01_introduction.tex`, `latex/sections/03_journey_construction.tex`
 
+#### 🎯 Philosophy & Context
+
+**Remember:** This paper is about **perceptual-first design**, not engineering documentation.
+
+**Key Principles:**
+- **Perception before engineering:** Novelty statements must emphasize perceptual contribution over technical features
+- **Research-grounded:** Claims must be supported by contrast with prior perceptual research
+- **Beyond current implementation:** Don't claim novelty for Sprint 004's specific choices—claim it for the perceptual design framework
+- **No backward compatibility:** We design for perceptual truth
+
+**For this task:** Revise introduction and journey construction sections to reflect the synthesized novelty positioning. Replace any "we built X" statements with "we define a perceptual framework requiring X." Example: "Color Journey introduces a temporally-aware perceptual framework for color relationship design, ensuring smooth transitions that respect human visual system constraints." Focus on the SCIENCE contribution, not the code.
+
 #### Task Brief
 
 Implement the novelty repositioning from Research Consolidator synthesis.

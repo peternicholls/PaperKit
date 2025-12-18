@@ -6,6 +6,20 @@
 **Dependencies:** None  
 **Output Location:** `open-agents/planning/20251218-group-tutor-reviews/foundational-references.md`
 
+---
+
+#### 🎯 Philosophy & Context
+
+**Remember:** This paper is about **perceptual-first design**, not engineering documentation. Color Journey's USP is grounding in human perception research, not technical implementation details.
+
+**Key Principles:**
+- **Perception before engineering:** Design decisions flow from perceptual science
+- **Research-grounded:** Every parameter should trace to literature or be marked as design choice
+- **Beyond current implementation:** Existing code shows accomplishments SO FAR; paper specifies the perceptual design space BEYOND current prototype
+- **No backward compatibility constraints:** We design for perceptual truth, not legacy behavior
+
+**For this task:** These foundational references ground our perceptual threshold claims in established color science, elevating the paper from "engineering spec" to "perceptually-principled design system."
+
 #### Artifacts
 
 - `open-agents/planning/20251218-group-tutor-reviews/tasks-artifacts/foundational-references.md`

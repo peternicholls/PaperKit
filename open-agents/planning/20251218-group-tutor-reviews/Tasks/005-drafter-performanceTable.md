@@ -6,6 +6,20 @@
 **Dependencies:** None  
 **Output Location:** `latex/sections/10_api_design.tex` (§10.6)
 
+---
+
+#### 🎯 Philosophy & Context
+
+**Remember:** This paper is about **perceptual-first design**, not engineering performance benchmarking. Performance metrics demonstrate **feasibility** of perceptual goals, not the primary contribution.
+
+**Key Principles:**
+- **Perception before engineering:** Performance matters only insofar as it enables perceptual fidelity
+- **Implementation as validation:** Sprint 004 metrics prove perceptual design is **implementable**
+- **Beyond current implementation:** These are baseline metrics from first prototype; paper focuses on perceptual design space, not optimization
+- **Context is critical:** Hardware, compiler, and configuration matter—this isn't a performance competition
+
+**For this task:** Frame performance as "perceptually-principled design is computationally tractable," not "look how fast we are." The contribution is the perceptual model, not the speed.
+
 #### Task Brief
 
 Replace the informal performance claim with a professional metrics table including hardware context.

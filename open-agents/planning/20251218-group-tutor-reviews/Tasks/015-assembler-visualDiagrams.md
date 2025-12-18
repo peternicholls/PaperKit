@@ -6,6 +6,18 @@
 **Dependencies:** 002-refiner-spellingNotation (ensures consistent terminology)  
 **Output Location:** `latex/figures/`, relevant section files
 
+#### 🎯 Philosophy & Context
+
+**Remember:** This paper is about **perceptual-first design**, not engineering documentation.
+
+**Key Principles:**
+- **Perception before engineering:** Diagrams should illustrate perceptual concepts (JND regions, temporal transitions, color space topology) not system architecture
+- **Research-grounded:** Visual representations should clarify perceptual principles from research literature
+- **Beyond current implementation:** Show the design space, not just Sprint 004's implementation
+- **No backward compatibility:** We design for perceptual truth
+
+**For this task:** Create diagrams that help readers understand perceptual concepts: (1) OKLab perceptual uniformity vs RGB, (2) temporal color transition showing ΔE thresholds, (3) journey construction in 3D color space, (4) gamut mapping preserving perceptual intent. Avoid flowcharts/UML—use perceptual visualizations (color gradients with ΔE markers, 3D color space plots, time-series showing smooth transitions). Think "Nature/Science figures" not "software documentation."
+
 #### Task Brief
 
 Create visual diagrams to enhance comprehension of key concepts. Both tutors noted the absence of figures.

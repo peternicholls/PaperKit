@@ -5,7 +5,17 @@
 **Estimated Time:** 1 hour  
 **Dependencies:** 015-assembler-visualDiagrams (for consistent style)  
 **Output Location:** `latex/appendices/D_quick_reference.tex`
+#### 🎯 Philosophy & Context
 
+**Remember:** This paper is about **perceptual-first design**, not engineering documentation.
+
+**Key Principles:**
+- **Perception before engineering:** Concept map should show relationships between perceptual principles, not code components
+- **Research-grounded:** Connect Color Journey concepts to established perceptual research domains
+- **Beyond current implementation:** Map the conceptual design space, not Sprint 004's class hierarchy
+- **No backward compatibility:** We design for perceptual truth
+
+**For this task:** Create a concept map showing how perceptual principles flow through the design: Human Visual System → Perceptual Uniformity (OKLab) → JND Thresholds → Smooth Transitions → Temporal Awareness → Perceptual Constraints → Journey Construction. Include connections to research domains (psychophysics, color science, temporal perception). This should help readers see Color Journey as a perceptual framework, not a software system.
 #### Task Brief
 
 Complete the missing Concept Map (D.1.1) that is listed in Appendix D but not present.

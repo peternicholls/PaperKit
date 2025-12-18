@@ -6,6 +6,18 @@
 **Dependencies:** All previous tasks  
 **Output Location:** `open-agents/output-final/pdf/main.pdf`, build report
 
+#### 🎯 Philosophy & Context
+
+**Remember:** This paper is about **perceptual-first design**, not engineering documentation.
+
+**Key Principles:**
+- **Perception before engineering:** Final document should read as perceptual science contribution, not technical report
+- **Research-grounded:** Every section should connect to established research or clearly identify design explorations
+- **Beyond current implementation:** Paper defines a research agenda, with Sprint 004 as proof-of-concept
+- **No backward compatibility:** We design for perceptual truth
+
+**For this task:** Final validation checklist should include: (1) Every perceptual claim cited or labeled "(design choice)", (2) No "we implemented" language without "to validate the perceptual framework", (3) Introduction/conclusion emphasize perceptual contribution over technical novelty, (4) Figures illustrate perceptual concepts, (5) Limitations frame future research, not apologies. The final PDF should be submittable to a perceptual science journal, not a software engineering conference.
+
 #### Task Brief
 
 Perform final assembly and validation after all improvements are complete.
