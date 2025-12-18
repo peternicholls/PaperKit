@@ -12,7 +12,7 @@
 \section{API Philosophy}
 \label{sec:api-philosophy}
 
-The engine is a \textbf{pure function} that transforms configuration into palette~\cite{bloch2008}:
+The engine is a \textbf{pure function} that transforms configuration into palette \citep{bloch2008}:
 
 \begin{equation*}
     (\text{anchors}, \text{config}) \rightarrow \text{palette}
@@ -26,7 +26,7 @@ Key characteristics:
     \item \textbf{No side effects} --- No global state, no external dependencies
 \end{itemize}
 
-The guiding principle: the engine should do only what the caller cannot do themselves. Complexity belongs in construction, not in the public interface~\cite{gamma1994}.
+The guiding principle: the engine should do only what the caller cannot do themselves. Complexity belongs in construction, not in the public interface \citep{gamma1994}.
 
 % ------------------------------------------------------------------------------
 % 10.2 Input Parameters

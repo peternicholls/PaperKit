@@ -1,0 +1,61 @@
+{
+  "": {
+    "swift-dependencies": "/Users/peternicholls/code/ColourJourney/specs/005-c-algo-parity/tools/swift-parity-runner/.build/arm64-apple-macosx/debug/ColorJourney.build/master.swiftdeps"
+  },
+  "/Users/peternicholls/code/ColourJourney/Sources/ColorJourney/ColorJourney.swift": {
+    "dependencies": "/Users/peternicholls/code/ColourJourney/specs/005-c-algo-parity/tools/swift-parity-runner/.build/arm64-apple-macosx/debug/ColorJourney.build/ColorJourney.d",
+    "object": "/Users/peternicholls/code/ColourJourney/specs/005-c-algo-parity/tools/swift-parity-runner/.build/arm64-apple-macosx/debug/ColorJourney.build/ColorJourney.swift.o",
+    "swiftmodule": "/Users/peternicholls/code/ColourJourney/specs/005-c-algo-parity/tools/swift-parity-runner/.build/arm64-apple-macosx/debug/ColorJourney.build/ColorJourney~partial.swiftmodule",
+    "swift-dependencies": "/Users/peternicholls/code/ColourJourney/specs/005-c-algo-parity/tools/swift-parity-runner/.build/arm64-apple-macosx/debug/ColorJourney.build/ColorJourney.swiftdeps",
+    "diagnostics": "/Users/peternicholls/code/ColourJourney/specs/005-c-algo-parity/tools/swift-parity-runner/.build/arm64-apple-macosx/debug/ColorJourney.build/ColorJourney.dia"
+  },
+  "/Users/peternicholls/code/ColourJourney/Sources/ColorJourney/Configuration/ColorJourneyConfig.swift": {
+    "dependencies": "/Users/peternicholls/code/ColourJourney/specs/005-c-algo-parity/tools/swift-parity-runner/.build/arm64-apple-macosx/debug/ColorJourney.build/ColorJourneyConfig.d",
+    "object": "/Users/peternicholls/code/ColourJourney/specs/005-c-algo-parity/tools/swift-parity-runner/.build/arm64-apple-macosx/debug/ColorJourney.build/ColorJourneyConfig.swift.o",
+    "swiftmodule": "/Users/peternicholls/code/ColourJourney/specs/005-c-algo-parity/tools/swift-parity-runner/.build/arm64-apple-macosx/debug/ColorJourney.build/ColorJourneyConfig~partial.swiftmodule",
+    "swift-dependencies": "/Users/peternicholls/code/ColourJourney/specs/005-c-algo-parity/tools/swift-parity-runner/.build/arm64-apple-macosx/debug/ColorJourney.build/ColorJourneyConfig.swiftdeps",
+    "diagnostics": "/Users/peternicholls/code/ColourJourney/specs/005-c-algo-parity/tools/swift-parity-runner/.build/arm64-apple-macosx/debug/ColorJourney.build/ColorJourneyConfig.dia"
+  },
+  "/Users/peternicholls/code/ColourJourney/Sources/ColorJourney/Configuration/ConfigurationMapper.swift": {
+    "dependencies": "/Users/peternicholls/code/ColourJourney/specs/005-c-algo-parity/tools/swift-parity-runner/.build/arm64-apple-macosx/debug/ColorJourney.build/ConfigurationMapper.d",
+    "object": "/Users/peternicholls/code/ColourJourney/specs/005-c-algo-parity/tools/swift-parity-runner/.build/arm64-apple-macosx/debug/ColorJourney.build/ConfigurationMapper.swift.o",
+    "swiftmodule": "/Users/peternicholls/code/ColourJourney/specs/005-c-algo-parity/tools/swift-parity-runner/.build/arm64-apple-macosx/debug/ColorJourney.build/ConfigurationMapper~partial.swiftmodule",
+    "swift-dependencies": "/Users/peternicholls/code/ColourJourney/specs/005-c-algo-parity/tools/swift-parity-runner/.build/arm64-apple-macosx/debug/ColorJourney.build/ConfigurationMapper.swiftdeps",
+    "diagnostics": "/Users/peternicholls/code/ColourJourney/specs/005-c-algo-parity/tools/swift-parity-runner/.build/arm64-apple-macosx/debug/ColorJourney.build/ConfigurationMapper.dia"
+  },
+  "/Users/peternicholls/code/ColourJourney/Sources/ColorJourney/Configuration/ConfigurationTypes.swift": {
+    "dependencies": "/Users/peternicholls/code/ColourJourney/specs/005-c-algo-parity/tools/swift-parity-runner/.build/arm64-apple-macosx/debug/ColorJourney.build/ConfigurationTypes.d",
+    "object": "/Users/peternicholls/code/ColourJourney/specs/005-c-algo-parity/tools/swift-parity-runner/.build/arm64-apple-macosx/debug/ColorJourney.build/ConfigurationTypes.swift.o",
+    "swiftmodule": "/Users/peternicholls/code/ColourJourney/specs/005-c-algo-parity/tools/swift-parity-runner/.build/arm64-apple-macosx/debug/ColorJourney.build/ConfigurationTypes~partial.swiftmodule",
+    "swift-dependencies": "/Users/peternicholls/code/ColourJourney/specs/005-c-algo-parity/tools/swift-parity-runner/.build/arm64-apple-macosx/debug/ColorJourney.build/ConfigurationTypes.swiftdeps",
+    "diagnostics": "/Users/peternicholls/code/ColourJourney/specs/005-c-algo-parity/tools/swift-parity-runner/.build/arm64-apple-macosx/debug/ColorJourney.build/ConfigurationTypes.dia"
+  },
+  "/Users/peternicholls/code/ColourJourney/Sources/ColorJourney/Configuration/JourneyStyle.swift": {
+    "dependencies": "/Users/peternicholls/code/ColourJourney/specs/005-c-algo-parity/tools/swift-parity-runner/.build/arm64-apple-macosx/debug/ColorJourney.build/JourneyStyle.d",
+    "object": "/Users/peternicholls/code/ColourJourney/specs/005-c-algo-parity/tools/swift-parity-runner/.build/arm64-apple-macosx/debug/ColorJourney.build/JourneyStyle.swift.o",
+    "swiftmodule": "/Users/peternicholls/code/ColourJourney/specs/005-c-algo-parity/tools/swift-parity-runner/.build/arm64-apple-macosx/debug/ColorJourney.build/JourneyStyle~partial.swiftmodule",
+    "swift-dependencies": "/Users/peternicholls/code/ColourJourney/specs/005-c-algo-parity/tools/swift-parity-runner/.build/arm64-apple-macosx/debug/ColorJourney.build/JourneyStyle.swiftdeps",
+    "diagnostics": "/Users/peternicholls/code/ColourJourney/specs/005-c-algo-parity/tools/swift-parity-runner/.build/arm64-apple-macosx/debug/ColorJourney.build/JourneyStyle.dia"
+  },
+  "/Users/peternicholls/code/ColourJourney/Sources/ColorJourney/Extensions/SwiftUIExtensions.swift": {
+    "dependencies": "/Users/peternicholls/code/ColourJourney/specs/005-c-algo-parity/tools/swift-parity-runner/.build/arm64-apple-macosx/debug/ColorJourney.build/SwiftUIExtensions.d",
+    "object": "/Users/peternicholls/code/ColourJourney/specs/005-c-algo-parity/tools/swift-parity-runner/.build/arm64-apple-macosx/debug/ColorJourney.build/SwiftUIExtensions.swift.o",
+    "swiftmodule": "/Users/peternicholls/code/ColourJourney/specs/005-c-algo-parity/tools/swift-parity-runner/.build/arm64-apple-macosx/debug/ColorJourney.build/SwiftUIExtensions~partial.swiftmodule",
+    "swift-dependencies": "/Users/peternicholls/code/ColourJourney/specs/005-c-algo-parity/tools/swift-parity-runner/.build/arm64-apple-macosx/debug/ColorJourney.build/SwiftUIExtensions.swiftdeps",
+    "diagnostics": "/Users/peternicholls/code/ColourJourney/specs/005-c-algo-parity/tools/swift-parity-runner/.build/arm64-apple-macosx/debug/ColorJourney.build/SwiftUIExtensions.dia"
+  },
+  "/Users/peternicholls/code/ColourJourney/Sources/ColorJourney/Journey/ColorJourneyClass.swift": {
+    "dependencies": "/Users/peternicholls/code/ColourJourney/specs/005-c-algo-parity/tools/swift-parity-runner/.build/arm64-apple-macosx/debug/ColorJourney.build/ColorJourneyClass.d",
+    "object": "/Users/peternicholls/code/ColourJourney/specs/005-c-algo-parity/tools/swift-parity-runner/.build/arm64-apple-macosx/debug/ColorJourney.build/ColorJourneyClass.swift.o",
+    "swiftmodule": "/Users/peternicholls/code/ColourJourney/specs/005-c-algo-parity/tools/swift-parity-runner/.build/arm64-apple-macosx/debug/ColorJourney.build/ColorJourneyClass~partial.swiftmodule",
+    "swift-dependencies": "/Users/peternicholls/code/ColourJourney/specs/005-c-algo-parity/tools/swift-parity-runner/.build/arm64-apple-macosx/debug/ColorJourney.build/ColorJourneyClass.swiftdeps",
+    "diagnostics": "/Users/peternicholls/code/ColourJourney/specs/005-c-algo-parity/tools/swift-parity-runner/.build/arm64-apple-macosx/debug/ColorJourney.build/ColorJourneyClass.dia"
+  },
+  "/Users/peternicholls/code/ColourJourney/Sources/ColorJourney/Types/ColorJourneyRGB.swift": {
+    "dependencies": "/Users/peternicholls/code/ColourJourney/specs/005-c-algo-parity/tools/swift-parity-runner/.build/arm64-apple-macosx/debug/ColorJourney.build/ColorJourneyRGB.d",
+    "object": "/Users/peternicholls/code/ColourJourney/specs/005-c-algo-parity/tools/swift-parity-runner/.build/arm64-apple-macosx/debug/ColorJourney.build/ColorJourneyRGB.swift.o",
+    "swiftmodule": "/Users/peternicholls/code/ColourJourney/specs/005-c-algo-parity/tools/swift-parity-runner/.build/arm64-apple-macosx/debug/ColorJourney.build/ColorJourneyRGB~partial.swiftmodule",
+    "swift-dependencies": "/Users/peternicholls/code/ColourJourney/specs/005-c-algo-parity/tools/swift-parity-runner/.build/arm64-apple-macosx/debug/ColorJourney.build/ColorJourneyRGB.swiftdeps",
+    "diagnostics": "/Users/peternicholls/code/ColourJourney/specs/005-c-algo-parity/tools/swift-parity-runner/.build/arm64-apple-macosx/debug/ColorJourney.build/ColorJourneyRGB.dia"
+  }
+}

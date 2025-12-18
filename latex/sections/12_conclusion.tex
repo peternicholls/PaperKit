@@ -31,9 +31,9 @@ This specification makes several contributions to the practice of algorithmic co
     
     \item \textbf{Mood Expansion Algorithm.} A novel approach for generating coherent multi-colour journeys from a single anchor, using style parameters to expand in perceptually meaningful directions. To our knowledge, this single-anchor expansion approach has not been formally documented elsewhere.
     
-    \item \textbf{Perceptual Constraint Framework.} A system for ensuring minimum distinguishability while allowing stylistic variation. The specific threshold values ($\Delta_{\min} \approx 2.0$, $\Delta_{\max} \approx 5.0$) are design heuristics informed by colour science literature~\cite{fairchild2013} and practical experimentation, not empirically-validated constants.
+    \item \textbf{Perceptual Constraint Framework.} A system for ensuring minimum distinguishability while allowing stylistic variation. The specific threshold values ($\Delta_{\min} \approx 2.0$, $\Delta_{\max} \approx 5.0$) are design heuristics informed by colour science literature \citep{fairchild2013} and practical experimentation, not empirically-validated constants.
     
-    \item \textbf{Two-Layer Gamut Management.} A prevention-then-correction strategy following established gamut mapping principles~\cite{morovic2008}, maintaining journey character while guaranteeing displayable output.
+    \item \textbf{Two-Layer Gamut Management.} A prevention-then-correction strategy following established gamut mapping principles \citep{morovic2008}, maintaining journey character while guaranteeing displayable output.
     
     \item \textbf{Clear Responsibility Boundaries.} Explicit delineation between engine core and caller responsibilities, enabling a lean, high-performance core while supporting extension.
 \end{enumerate}
@@ -44,7 +44,7 @@ Several aspects of this specification warrant further investigation:
 
 \begin{itemize}
     \item The perceptual weights for velocity calculation (\S\ref{sec:perceptual-velocity}) are design heuristics, not empirically-validated values.
-    \item OKLab's JND correspondence ($\Delta E \approx 1.0$) is a design target~\cite{ottosson2020}; formal perceptual validation specific to OKLab remains limited.
+    \item OKLab's JND correspondence ($\Delta E \approx 1.0$) is a design target \citep{ottosson2020}; formal perceptual validation specific to OKLab remains limited.
     \item The constraint thresholds ($\Delta_{\min}$, $\Delta_{\max}$) and subdivision caps represent engineering judgment; alternative values may be appropriate for different use cases.
 \end{itemize}
 
@@ -61,6 +61,8 @@ Several directions merit future investigation:
 \paragraph{Accessibility Integration.} Though accessibility checking remains a caller responsibility, future work could explore optional WCAG-aware generation modes that constrain palettes to meet contrast requirements.
 
 \paragraph{Multi-Palette Harmonisation.} Design systems often require multiple coordinated palettes (primary, secondary, semantic). Algorithms for generating harmonised palette families present an interesting extension.
+
+\paragraph{Symmetry-Constrained Optimisation.} The current engine constructs journeys through direct path specification. Future work could explore optimisation-based approaches that search for ``optimal'' journeys maximising perceptual distance while satisfying constraints. Recent work on symmetry-constrained search in combinatorial domains \citep{moosbauer2025} suggests that constraining search to symmetric or well-behaved curve families could dramatically reduce optimisation complexity---a principle that could apply to journey curve optimisation.
 
 \paragraph{Preset Discovery.} The current preset system encodes expert knowledge manually. Machine learning approaches could discover effective presets from successful palette examples.
 

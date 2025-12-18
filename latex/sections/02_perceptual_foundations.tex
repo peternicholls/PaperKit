@@ -21,14 +21,14 @@ To address this fundamental mismatch, scientists have developed \emph{perceptual
 The engine \emph{must} work in a perceptually uniform space so that equal steps along the journey correspond to equal perceived differences. This is non-negotiable for achieving smooth, natural colour transitions.
 
 % ------------------------------------------------------------------------------
-% 2.2 OKLab Color Space
+% 2.2 OKLab Colour Space
 % ------------------------------------------------------------------------------
 \section{OKLab Colour Space}
 \label{sec:oklab}
 
-OKLab, introduced by Björn Ottosson in 2020 \cite{ottosson2020}, is a modern perceptual colour space designed to predict human colour perception accurately while remaining computationally efficient. It has gained rapid adoption, appearing in CSS Color Level 4 \cite{csscolor4} and various creative tools.
+OKLab, introduced by Björn Ottosson in 2020 \cite{ottosson2020}, is a modern perceptual colour space designed to predict human colour perception accurately while remaining computationally efficient. It has gained rapid industry adoption, appearing in CSS Color Level 4 \cite{csscolor4} and various creative tools. Independent analysis has validated its perceptual uniformity claims, particularly for gradient interpolation and colour manipulation tasks \citep{levien2021oklab}.
 
-Compared to alternatives \cite{mahy1994,safdar2017}, OKLab offers an excellent balance. The following comparison synthesises Ottosson's original analysis~\cite{ottosson2020} with established colour science literature~\cite{fairchild2013}:
+Compared to alternatives \citep{mahy1994,safdar2017}, OKLab offers an excellent balance. The following comparison synthesises Ottosson's original analysis \citep{ottosson2020} with established colour science literature \citep{fairchild2013}:
 
 \begin{center}
 \begin{tabular}{lcccc}
@@ -44,7 +44,7 @@ CAM16-UCS & Excellent & High & Good & No \\
 \end{tabular}
 \end{center}
 
-\textit{Uniformity} refers to how closely Euclidean distances match perceived differences; \textit{Cost} measures computational complexity (matrix operations vs.\ iterative solving); \textit{Stability} indicates behaviour at gamut boundaries and extreme lightness values. OKLab achieves CAM16-level uniformity~\cite{safdar2017} with CIELAB-level computational cost---a key factor for real-time applications.
+\textit{Uniformity} refers to how closely Euclidean distances match perceived differences; \textit{Cost} measures computational complexity (matrix operations vs.\ iterative solving); \textit{Stability} indicates behaviour at gamut boundaries and extreme lightness values. OKLab achieves CAM16-level uniformity \citep{safdar2017} with CIELAB-level computational cost---a key factor for real-time applications.
 
 A colour in OKLab is represented by three coordinates $(L, a, b)$:
 
@@ -65,7 +65,7 @@ The perceptual distance between two colours is computed as Euclidean distance:
     \label{eq:oklab-distance}
 \end{equation}
 
-Ottosson designed OKLab such that a $\Delta E$ of approximately 1.0 corresponds to a just-noticeable difference (JND) for an average observer under standard viewing conditions~\cite{ottosson2020}. This design goal aligns with the broader colour science literature on JND thresholds~\cite{luo2001,fairchild2013}, though direct perceptual validation studies specific to OKLab remain limited. The 1.0 threshold is a design target rather than an empirically-validated constant across all viewing conditions.
+Ottosson designed OKLab such that a $\Delta E$ of approximately 1.0 corresponds to a just-noticeable difference (JND) for an average observer under standard viewing conditions \citep{ottosson2020}. This design goal aligns with the broader colour science literature on JND thresholds \citep{luo2001,fairchild2013}, though direct perceptual validation studies specific to OKLab remain limited. The 1.0 threshold is a design target rather than an empirically-validated constant across all viewing conditions.
 
 % ------------------------------------------------------------------------------
 % 2.3 Cartesian vs. Cylindrical Coordinates

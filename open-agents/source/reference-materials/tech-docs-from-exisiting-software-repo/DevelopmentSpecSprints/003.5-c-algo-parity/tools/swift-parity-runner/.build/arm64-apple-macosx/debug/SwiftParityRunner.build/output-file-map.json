@@ -1,0 +1,40 @@
+{
+  "": {
+    "swift-dependencies": "/Users/peternicholls/code/ColourJourney/specs/005-c-algo-parity/tools/swift-parity-runner/.build/arm64-apple-macosx/debug/SwiftParityRunner.build/master.swiftdeps"
+  },
+  "/Users/peternicholls/code/ColourJourney/specs/005-c-algo-parity/tools/swift-parity-runner/Sources/SwiftParityRunner/ComparisonBridge.swift": {
+    "dependencies": "/Users/peternicholls/code/ColourJourney/specs/005-c-algo-parity/tools/swift-parity-runner/.build/arm64-apple-macosx/debug/SwiftParityRunner.build/ComparisonBridge.d",
+    "object": "/Users/peternicholls/code/ColourJourney/specs/005-c-algo-parity/tools/swift-parity-runner/.build/arm64-apple-macosx/debug/SwiftParityRunner.build/ComparisonBridge.swift.o",
+    "swiftmodule": "/Users/peternicholls/code/ColourJourney/specs/005-c-algo-parity/tools/swift-parity-runner/.build/arm64-apple-macosx/debug/SwiftParityRunner.build/ComparisonBridge~partial.swiftmodule",
+    "swift-dependencies": "/Users/peternicholls/code/ColourJourney/specs/005-c-algo-parity/tools/swift-parity-runner/.build/arm64-apple-macosx/debug/SwiftParityRunner.build/ComparisonBridge.swiftdeps",
+    "diagnostics": "/Users/peternicholls/code/ColourJourney/specs/005-c-algo-parity/tools/swift-parity-runner/.build/arm64-apple-macosx/debug/SwiftParityRunner.build/ComparisonBridge.dia"
+  },
+  "/Users/peternicholls/code/ColourJourney/specs/005-c-algo-parity/tools/swift-parity-runner/Sources/SwiftParityRunner/Models.swift": {
+    "dependencies": "/Users/peternicholls/code/ColourJourney/specs/005-c-algo-parity/tools/swift-parity-runner/.build/arm64-apple-macosx/debug/SwiftParityRunner.build/Models.d",
+    "object": "/Users/peternicholls/code/ColourJourney/specs/005-c-algo-parity/tools/swift-parity-runner/.build/arm64-apple-macosx/debug/SwiftParityRunner.build/Models.swift.o",
+    "swiftmodule": "/Users/peternicholls/code/ColourJourney/specs/005-c-algo-parity/tools/swift-parity-runner/.build/arm64-apple-macosx/debug/SwiftParityRunner.build/Models~partial.swiftmodule",
+    "swift-dependencies": "/Users/peternicholls/code/ColourJourney/specs/005-c-algo-parity/tools/swift-parity-runner/.build/arm64-apple-macosx/debug/SwiftParityRunner.build/Models.swiftdeps",
+    "diagnostics": "/Users/peternicholls/code/ColourJourney/specs/005-c-algo-parity/tools/swift-parity-runner/.build/arm64-apple-macosx/debug/SwiftParityRunner.build/Models.dia"
+  },
+  "/Users/peternicholls/code/ColourJourney/specs/005-c-algo-parity/tools/swift-parity-runner/Sources/SwiftParityRunner/ReferenceLoader.swift": {
+    "dependencies": "/Users/peternicholls/code/ColourJourney/specs/005-c-algo-parity/tools/swift-parity-runner/.build/arm64-apple-macosx/debug/SwiftParityRunner.build/ReferenceLoader.d",
+    "object": "/Users/peternicholls/code/ColourJourney/specs/005-c-algo-parity/tools/swift-parity-runner/.build/arm64-apple-macosx/debug/SwiftParityRunner.build/ReferenceLoader.swift.o",
+    "swiftmodule": "/Users/peternicholls/code/ColourJourney/specs/005-c-algo-parity/tools/swift-parity-runner/.build/arm64-apple-macosx/debug/SwiftParityRunner.build/ReferenceLoader~partial.swiftmodule",
+    "swift-dependencies": "/Users/peternicholls/code/ColourJourney/specs/005-c-algo-parity/tools/swift-parity-runner/.build/arm64-apple-macosx/debug/SwiftParityRunner.build/ReferenceLoader.swiftdeps",
+    "diagnostics": "/Users/peternicholls/code/ColourJourney/specs/005-c-algo-parity/tools/swift-parity-runner/.build/arm64-apple-macosx/debug/SwiftParityRunner.build/ReferenceLoader.dia"
+  },
+  "/Users/peternicholls/code/ColourJourney/specs/005-c-algo-parity/tools/swift-parity-runner/Sources/SwiftParityRunner/ReportGenerator.swift": {
+    "dependencies": "/Users/peternicholls/code/ColourJourney/specs/005-c-algo-parity/tools/swift-parity-runner/.build/arm64-apple-macosx/debug/SwiftParityRunner.build/ReportGenerator.d",
+    "object": "/Users/peternicholls/code/ColourJourney/specs/005-c-algo-parity/tools/swift-parity-runner/.build/arm64-apple-macosx/debug/SwiftParityRunner.build/ReportGenerator.swift.o",
+    "swiftmodule": "/Users/peternicholls/code/ColourJourney/specs/005-c-algo-parity/tools/swift-parity-runner/.build/arm64-apple-macosx/debug/SwiftParityRunner.build/ReportGenerator~partial.swiftmodule",
+    "swift-dependencies": "/Users/peternicholls/code/ColourJourney/specs/005-c-algo-parity/tools/swift-parity-runner/.build/arm64-apple-macosx/debug/SwiftParityRunner.build/ReportGenerator.swiftdeps",
+    "diagnostics": "/Users/peternicholls/code/ColourJourney/specs/005-c-algo-parity/tools/swift-parity-runner/.build/arm64-apple-macosx/debug/SwiftParityRunner.build/ReportGenerator.dia"
+  },
+  "/Users/peternicholls/code/ColourJourney/specs/005-c-algo-parity/tools/swift-parity-runner/Sources/SwiftParityRunner/main.swift": {
+    "dependencies": "/Users/peternicholls/code/ColourJourney/specs/005-c-algo-parity/tools/swift-parity-runner/.build/arm64-apple-macosx/debug/SwiftParityRunner.build/main.d",
+    "object": "/Users/peternicholls/code/ColourJourney/specs/005-c-algo-parity/tools/swift-parity-runner/.build/arm64-apple-macosx/debug/SwiftParityRunner.build/main.swift.o",
+    "swiftmodule": "/Users/peternicholls/code/ColourJourney/specs/005-c-algo-parity/tools/swift-parity-runner/.build/arm64-apple-macosx/debug/SwiftParityRunner.build/main~partial.swiftmodule",
+    "swift-dependencies": "/Users/peternicholls/code/ColourJourney/specs/005-c-algo-parity/tools/swift-parity-runner/.build/arm64-apple-macosx/debug/SwiftParityRunner.build/main.swiftdeps",
+    "diagnostics": "/Users/peternicholls/code/ColourJourney/specs/005-c-algo-parity/tools/swift-parity-runner/.build/arm64-apple-macosx/debug/SwiftParityRunner.build/main.dia"
+  }
+}

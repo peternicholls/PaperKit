@@ -17,7 +17,7 @@ With path construction, perceptual constraints, style controls, and loop strateg
 \section{The Gamut Boundary Problem}
 \label{sec:gamut-problem}
 
-OKLab is a perceptually uniform colour space, but it encompasses colours that lie outside any real display's capabilities~\cite{morovic2008}:
+OKLab is a perceptually uniform colour space, but it encompasses colours that lie outside any real display's capabilities \citep{morovic2008}:
 
 \begin{itemize}
     \item \textbf{High-chroma colours} at certain hue angles exceed sRGB
@@ -61,7 +61,7 @@ This proactive approach reduces the likelihood of out-of-gamut samples, preservi
 \section{Gamut Correction}
 \label{sec:gamut-correction}
 
-The second layer handles residual out-of-gamut colours through \textbf{soft correction} at sampling time.
+The second layer handles residual out-of-gamut colours through \textbf{soft correction} at sampling time. Our approach aligns with the CSS Color Level 4 gamut mapping algorithm \citep{csscolor4}, which has been implemented in reference libraries such as Color.js \citep{colorjs2025}.
 
 For a candidate colour in OKLCh $(L, C, h)$:
 
@@ -71,10 +71,12 @@ For a candidate colour in OKLCh $(L, C, h)$:
     \item Return the corrected colour with reduced $C$, preserved $L$ and $h$
 \end{enumerate}
 
+The binary search converges rapidly (typically 10--15 iterations) because chroma is monotonically related to gamut membership at fixed lightness and hue. The CSS standard specifies terminating the search when $\Delta E < 0.02$ (on OKLab's 0--1 scale), indicating the corrected colour is perceptually indistinguishable from the gamut boundary \citep{csscolor4}.
+
 \begin{designdecision}[Two-Layer Gamut Handling]
 \textbf{Choice:} Gamut management uses two layers: (1) design-time prevention via gamut-aware control point placement, and (2) sample-time correction via chroma reduction with hue preservation.
 
-\textbf{Rationale:} Post-correction alone can introduce perceptual discontinuities when many samples need large corrections. Prevention minimises corrections needed; correction handles residual cases gracefully.
+\textbf{Rationale:} Post-correction alone can introduce perceptual discontinuities when many samples need large corrections. Prevention minimises corrections needed; correction handles residual cases gracefully. This approach follows established best practices in colour management \citep{morovic2008}.
 
 \textbf{Alternatives Considered:}
 \begin{itemize}
@@ -93,7 +95,7 @@ For a candidate colour in OKLCh $(L, C, h)$:
 \section{Hue Preservation}
 \label{sec:hue-preservation}
 
-When gamut mapping is required, the engine follows a strict priority hierarchy rooted in established gamut mapping practice~\cite{morovic2008}:
+When gamut mapping is required, the engine follows a strict priority hierarchy rooted in established gamut mapping practice \citep{morovic2008}:
 
 \begin{enumerate}
     \item \textbf{Hue is sacred} --- Never shift hue to fit gamut
@@ -101,9 +103,9 @@ When gamut mapping is required, the engine follows a strict priority hierarchy r
     \item \textbf{Chroma absorbs the compromise} --- Reduce saturation to fit
 \end{enumerate}
 
-This hierarchy is not arbitrary: research on gamut mapping algorithms shows that hue shifts are perceptually more objectionable than chroma reductions~\cite{morovic2008,fairchild2013}. Humans are particularly sensitive to hue changes in familiar objects (skin tones, sky, foliage), and even small hue shifts can appear ``wrong'' while equivalent chroma reductions appear merely ``less vivid.''
+This hierarchy is not arbitrary: research on gamut mapping algorithms shows that hue shifts are perceptually more objectionable than chroma reductions \citep{morovic2008,fairchild2013}. Humans are particularly sensitive to hue changes in familiar objects (skin tones, sky, foliage), and even small hue shifts can appear ``wrong'' while equivalent chroma reductions appear merely ``less vivid.''
 
-This preserves the journey's ``character'' (its hue story) even when display limitations require desaturation~\cite{hunt2004}. A ``sunset palette'' remains warm-hued even if some oranges must be less saturated.
+This preserves the journey's ``character'' (its hue story) even when display limitations require desaturation \citep{hunt2004}. A ``sunset palette'' remains warm-hued even if some oranges must be less saturated.
 
 \subsection*{Interaction with Style Controls}
 
