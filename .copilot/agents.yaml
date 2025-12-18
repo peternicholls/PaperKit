@@ -123,7 +123,7 @@ agents:
         - "format-bibliography"
       knowledgeBase:
         - ".paper/_cfg/guides/harvard-citation-guide.md"
-        - ".paper/_cfg/tools/citation-rules.yaml"
+        - ".paper/_cfg/resources/citation-rules.yaml"
       spec-file: "agents/core/reference-manager.yaml"
       doc-file: "open-agents/agents/reference_manager.md"
       requires-tools:
