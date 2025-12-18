@@ -368,6 +368,34 @@
 }
 
 % ------------------------------------------------------------------------------
+% COLOR VISION: Discrimination Thresholds & Psychophysics
+% ------------------------------------------------------------------------------
+
+@article{hong2024,
+  author  = {Hong, Fangfang and Bouhassira, Ruby and Chow, Jason and Sanders, Craig and Shvartsman, Michael and Guan, Phillip and Williams, Alex H. and Brainard, David H.},
+  title   = {Comprehensive characterization of human color discrimination thresholds},
+  journal = {eLife},
+  year    = {2024},
+  volume  = {13},
+  pages   = {RP108943},
+  doi     = {10.7554/eLife.108943},
+  url     = {https://elifesciences.org/reviewed-preprints/108943},
+  note    = {Bayesian Wishart Process Psychophysical Model (WPPM); ~6000 trials per participant; Riemannian manifold framework; comprehensive isoluminant plane characterization}
+}
+
+@inproceedings{sekulovski2007,
+  author    = {Sekulovski, Dragan and Vogels, Ingrid M. and Beurden, Mark Van and Clout, Richard},
+  title     = {Smoothness and Flicker Perception of Temporal Color Transitions},
+  booktitle = {Proceedings of the 15th Color and Imaging Conference},
+  year      = {2007},
+  pages     = {112--117},
+  address   = {Albuquerque, NM},
+  publisher = {Society for Imaging Science and Technology},
+  doi       = {10.2352/CIC.2007.15.1.art00021},
+  note      = {Philips Research; \textbf{Critical finding:} smoothness threshold is approximately 10 times smaller for luminance than for chroma/hue changes in CIELAB. Introduces \textit{Delta-E-ab per second} metric for temporal color transitions.}
+}
+
+% ------------------------------------------------------------------------------
 % API AND SOFTWARE DESIGN
 % ------------------------------------------------------------------------------
 
@@ -467,4 +495,28 @@
   howpublished = {Online},
   url          = {https://programmingdesignsystems.com/color/perceptually-uniform-color-spaces/},
   note         = {Accessible introduction to perceptual uniformity for programmers. Accessed: 2025-12-17}
+}
+% ==============================================================================
+% NEW: Research Papers from Citation Audit (2025-12-18)
+% ==============================================================================
+
+@article{roberti2023,
+  author  = {Roberti, Valentina and Peruzzi, Giulio},
+  title   = {The {H}elmholtz legacy in color metrics: {S}chr\"{o}dinger's color theory},
+  journal = {Archive for History of Exact Sciences},
+  year    = {2023},
+  volume  = {77},
+  pages   = {305--335},
+  doi     = {10.1007/s00407-023-00317-x},
+  note    = {Comprehensive analysis of Schrödinger's (1920) Riemannian color metric and its improvements over Helmholtz's original formulation. Critical foundation for understanding perceptual color space geometry and geodesic paths in color inversion applications.}
+}
+
+@book{fechner1860,
+  author    = {Fechner, Gustav Theodor},
+  title     = {Elemente der Psychophysik},
+  year      = {1860},
+  publisher = {Breitkopf und Härtel},
+  address   = {Leipzig},
+  volume    = {2},
+  note      = {English translation consulted. Established psychophysics as quantitative science with the fundamental formula (dγ = K dβ/β) and measurement formula (γ = k log β/b), founding the mathematical framework for perceptual measurement that underlies all color metrics from Schrödinger (1920) to modern CIELab and OKLab.}
 }

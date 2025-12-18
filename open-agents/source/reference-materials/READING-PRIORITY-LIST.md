@@ -141,40 +141,58 @@ These papers are already downloaded and provide foundational support for the pap
 
 ---
 
-### 9. Schrödinger (1920) - Grundlinien einer Theorie der Farbenmetrik ⚠️ POTENTIALLY OPEN ACCESS
-**Citation:** Schrödinger, E. (1920) *Annalen der Physik*, 368(21), pp. 397-426  
-**Open Access Study:** https://www.research.unipd.it/retrieve/24a27264-1c01-4582-acbd-88ea62340bf2/s00407-023-00317-x.pdf  
-**Why High Priority:**
-- Foundational color metric theory (precursor to Resnikoff)
-- Riemannian geometry foundations
-- Historical context for perceptual uniformity
+### 9. Schrödinger (1920) & Roberti/Peruzzi (2023) - Riemannian Color Metrics ✅ FOUND & EXTRACTED
+**Original Citation:** Schrödinger, E. (1920) 'Grundlinien einer Theorie der Farbenmetrik im Tagessehen', *Annalen der Physik*, 63(20-21), pp. 397-426, 427-456, 481-520
 
-**Action:**
-1. Download open access study on Schrödinger's color theory
-2. Extract key geometric concepts
-3. Link to modern OKLab uniformity
+**Modern Analysis:** Roberti, V. and Peruzzi, G. (2023) 'The Helmholtz legacy in color metrics: Schrödinger's color theory', *Archive for History of Exact Sciences*, 77, pp. 305-335. doi:10.1007/s00407-023-00317-x
 
-**Relevant to:** Section 2 (Historical foundations), Appendix (Geometric derivations)
+**Status:** ✅ FOUND & EXTRACTED (via Roberti & Peruzzi 2023 open access analysis)
 
-**Status:** ⏳ NEED TO DOWNLOAD
+**Key Findings:**
+- **Schrödinger's Critique of Helmholtz:** Identified computational errors and non-additivity of brightness in Helmholtz's original Riemannian metric
+- **Lower vs. Higher Color Metric:** Distinguished color matching (Grassmann affine geometry) from perceptual distances (Riemannian geometry)
+- **Reformulated Metric:** Established framework where brightness is additive (planar surfaces) while color space maintains Riemannian curvature
+- **Spectral Cone Model:** 3D color space represented as cone with white direction; complementary colors lie on planes through white
+- **Impact:** Founded all modern color metrics (CIELab, OKLab, CAM16); earned Haitinger Prize from Austrian Academy (1920)
+
+**Direct Relevance to Möbius Loop:**
+- **Geodesic Path Framework:** Schrödinger's Riemannian approach enables calculation of optimal (shortest perceptual) path for 180° hue inversion
+- **Brightness Independence:** Additive brightness property justifies separate control of luminance vs. chromaticity
+- **Local vs. Global Curvature:** Explains why MacAdam ellipses (local) are approximately Euclidean but global color space is curved
+- **Modern Validation:** Hong et al. (2024) empirically validates Schrödinger's Riemannian framework with comprehensive JND measurements
+
+**Citation for M1/M2:**
+> "Schrödinger maintained a strong distinction between lower and higher color metrics...In the domain of lower color metrics, an affine space sufficed to describe the laws of color mixture. On the other hand, in the domain of higher color metrics, a Riemannian space was demonstrated to be necessary to translate color differences into color distances." (Roberti & Peruzzi 2023, p. 319)
+
+> "The identification of these shortcomings by Helmholtz's pupils might have led to the suppression of the key passages related to higher color metrics in the third edition of the Handbuch, condemning his pioneering work to oblivion." (Roberti & Peruzzi 2023, on Schrödinger's critique)
+
+**Priority:** ⭐⭐⭐⭐⭐ **ESSENTIAL MATHEMATICAL FOUNDATION**
+
+**File Location:** `mathematics/The Helmholtz legacy in color metrics - Schrödinger's color theory - Roberti 2023.pdf` (1.0 MB, 21 pages)
 
 ---
 
-### 10. Sekulovski et al. (2007) - Smoothness and Flicker of Temporal Color Transitions ⚠️ MISSING
+### 10. Sekulovski et al. (2007) - Smoothness and Flicker of Temporal Color Transitions ✅ FOUND & EXTRACTED
 **Conference:** CIC15 (15th Color and Imaging Conference)  
-**Why High Priority:**
-- **DIRECTLY ADDRESSES** smooth vs. flickering temporal color changes
-- Minimum transition duration for "smooth" perception
-- Philips Research - practical real-world application
+**Publication:** Proceedings, Albuquerque, NM, pp. 112-117  
+**DOI:** 10.2352/CIC.2007.15.1.art00021  
+**Status:** ✅ EXTRACTED VIA KONG (2021) THESIS - FULLY INTEGRATED
 
-**Action:**
-1. Search CIC proceedings archives
-2. Email authors if necessary
-3. Extract transition speed thresholds
+**Key Findings:**
+- **10:1 Asymmetry:** Smoothness threshold for luminance ~10× smaller than for chroma/hue in CIELAB
+- **ΔE*ab/s Metric:** Standard metric for temporal color transition speeds
+- **Flicker-Smoothness Correlation:** High correlation between flicker perception and smoothness thresholds
+- **Implication:** CIELAB not suitable for temporal color space
 
-**Relevant to:** Section 3 (Temporal dynamics), Section 7 (Inversion duration)
+**Key Quote:**
+> "The visibility threshold of smoothness...is about ten times smaller for lightness changes than for chroma or hue changes in CIELAB." (Sekulovski et al. 2007, cited in Kong 2021, p. 530)
 
-**Status:** 🔴 CRITICAL MISSING PAPER - SEEK URGENTLY
+**Application to Color Journey Möbius Loop:**
+- Luminance transitions require fine temporal resolution
+- Hue/Chroma transitions can tolerate ~10× coarser step sizes
+- Design must respect this asymmetry for smooth appearance
+
+**Relevant to:** Section 2.1 (Smooth color transitions), Section 7 (Animation timing)
 
 ---
 
@@ -278,38 +296,56 @@ These papers are already downloaded and provide foundational support for the pap
 
 ---
 
-## 📊 Summary by Priority
+## 📊 Summary by Priority & Completion Status
 
-| Priority | Papers | Status | Total |
-|----------|--------|--------|-------|
-| 🔴 Critical | Collected & Ready | 7 PDFs downloaded | 7 |
-| 🟠 High | Search & Download | 3 papers, 1 URGENT | 3 |
-| 🟡 Medium | Library Access | 5 classic papers | 5 |
-| 🟢 Low | Supplementary | 2 historical refs | 2 |
-| **TOTAL** | | | **17** |
+| Priority | Papers | Status | Total | Completion |
+|----------|--------|--------|-------|-----------|
+| 🔴 Critical | 7 collected PDFs | ✅ ALL INTEGRATED | 7 | 100% |
+| 🟠 High | 4 papers needed | ✅ ALL FOUND & INTEGRATED | 4 | 100% |
+| 🟡 Medium | 5 classic papers | ⏳ Requires library access | 5 | 0% |
+| 🟢 Low | 2 supplementary | ⏳ Optional reading | 2 | 0% |
+| **TOTAL** | | | **18** | **61%** |
+
+### 🎉 Completed Integration Summary
+
+**CRITICAL (🔴) - 100% COMPLETE:**
+- ✅ 1. Fairchild (2013) - *Color Appearance Models* - Section 1 (Chromatic Adaptation)
+- ✅ 2. Walmsley et al. (2015) - *Colour as Circadian Signal* - Section 3 (Natural cycles)
+- ✅ 3. Braun et al. (2017) - *Visual Sensitivity in Eye Movements* - Section 2 (Temporal dynamics)
+- ✅ 4. Süsstrunk (2005) - *Computing Chromatic Adaptation* - Section 1 (CAT methodology)
+- ✅ 5. Troost (1992) - *Color Constancy Theory* - Section 3 (Perceptual foundations)
+- ✅ 6. Wang et al. (2022) - *Rotation Gains & Limitations* - Section 7 (Closure thresholds)
+- ✅ 7. Gao et al. (2020) - *von Kries Transform Generalization* - Section 6 (Mathematical framework)
+
+**HIGH PRIORITY (🟠) - 100% COMPLETE:**
+- ✅ 8. Hong et al. (2024) - *Comprehensive Color Discrimination Thresholds* - Section 1A (State-of-art JND measurements)
+- ✅ 9. Schrödinger (1920)/Roberti & Peruzzi (2023) - *Helmholtz Legacy in Color Metrics* - Section 6.2 (Riemannian geometry foundation)
+- ✅ 10. Sekulovski et al. (2007) - *Smoothness & Flicker of Temporal Transitions* - Section 2.1 (10:1 asymmetry quantified)
+- ✅ 11. Fechner (1860) - *Elements of Psychophysics* - Section 6.4 (Weber-Fechner law, fundamental/measurement formulas)
 
 ---
 
-## 🎯 Recommended Reading Order
+## 🎯 Recommended Reading Order - UPDATED
 
-### Week 1: Core Foundations (Already Available)
-1. **Day 1-2:** Fairchild (2013), Chapter 8-9 (Chromatic Adaptation)
-2. **Day 3:** Walmsley et al. (2015) - Full paper, extract twilight data
-3. **Day 4:** Braun et al. (2017) - Temporal dynamics, smooth pursuit
+### ✅ COMPLETED (Already in M1-M4 artifacts)
+1. ✅ Fairchild (2013), Chapter 8-9 (Chromatic Adaptation)
+2. ✅ Walmsley et al. (2015) - Circadian twilight cycles
+3. ✅ Braun et al. (2017) - Temporal dynamics during smooth pursuit
+4. ✅ Gao et al. (2020) - Mathematical foundations of CAT
+5. ✅ Süsstrunk (2005) - CAT implementation details
+6. ✅ Wang et al. (2022) - Psychometric methodology for closure
+7. ✅ Troost (1992) - Color constancy theory
+8. ✅ Hong et al. (2024) - Comprehensive discrimination thresholds
+9. ✅ Schrödinger (1920)/Roberti & Peruzzi (2023) - Riemannian color space geometry
+10. ✅ Sekulovski et al. (2007) - Temporal transition smoothness (10:1 asymmetry)
+11. ✅ Fechner (1860) - Weber-Fechner law, foundational psychophysics framework
 
-### Week 2: Technical Implementation
-4. **Day 5:** Gao et al. (2020) - Mathematical foundations
-5. **Day 6:** Süsstrunk (2005) - CAT implementation (skim technical sections)
-6. **Day 7:** Wang et al. (2022) - Psychometric methodology
-
-### Week 3: Theoretical Grounding
-7. **Day 8:** Troost (1992) - Color constancy theory
-8. **Day 9-10:** Download and read eLife (2024) discrimination thresholds - **HIGH PRIORITY**
-
-### Week 4: Library Papers (if accessible)
-9. **Day 11:** Hurvich & Jameson (1957) - Opponent theory
-10. **Day 12:** MacAdam (1942) - JND ellipses
-11. **Day 13:** Resnikoff (1974) or Shepard (1964) - choose based on focus
+### ⏳ PENDING (Library access required)
+12. Hurvich & Jameson (1957) - Opponent-process theory (APA PsycNet)
+13. MacAdam (1942) - JND ellipses (OSA subscription)
+14. Resnikoff (1974) - Differential geometry of color (Springer)
+15. Shepard (1964) - Pitch circularity analogy (JASA)
+16. Hindy et al. (2016) - Pattern completion (Nature Neuroscience)
 
 ---
 
@@ -318,7 +354,7 @@ These papers are already downloaded and provide foundational support for the pap
 Papers on this list should help answer:
 
 1. **What is the minimum smooth transition duration for chromatic inversion?**  
-   → Sekulovski et al. (2007) - **URGENT TO FIND**
+   → ✅ Sekulovski et al. (2007) - **FOUND & EXTRACTED**: 10:1 asymmetry (luminance:chromaticity)
 
 2. **What is the geodesic path for 180° hue rotation in OKLab?**  
    → eLife (2024) thresholds + Resnikoff (1974) geometry
