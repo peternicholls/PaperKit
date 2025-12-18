@@ -14,6 +14,14 @@ Tutor A raised a concern about the Möbius loop implementation in §7.4:
 
 Your task is to analyze whether the Möbius implementation creates smooth transitions or discontinuous jumps at the wrap point.
 
+**⚠️ CRITICAL FINDING:** Research consolidation reveals Möbius loop is **NOT IMPLEMENTED** in Sprint 004.
+
+**Evidence:** See `.paper/data/output-refined/research/technical-documentation-consolidated.md` §1.1:
+- PRD.md §6 documents only: Open, Closed Loop, Ping-Pong modes
+- Möbius is NOT mentioned in any implementation documentation
+- Sprint 004 uses "Closed loop topology only" (spec.md)
+- Paper §7.4 appears to be theoretical extension
+
 #### Analysis Required
 
 1. **Understand the current specification:**
@@ -39,13 +47,22 @@ Your task is to analyze whether the Möbius implementation creates smooth transi
    - ∆E at wrap point: [calculation]
    
    ### Recommendation
-   [One of:]
-   - "Current specification is correct; transition is smooth because..."
-   - "Specification needs clarification: Add sentence explaining..."
-   - "Implementation concern: The transition creates discontinuity because..."
+   **REQUIRED:** Choose one option:
    
-   ### Proposed Text Addition (if needed)
-   > "[Sentence to add to §7.4]"
+   **Option A - Mark as Theoretical:**
+   - Add note to §7.4: "Note: Möbius loop is a theoretical extension not yet implemented in the reference implementation (Sprint 004). The closed loop strategy is currently the only validated approach."
+   
+   **Option B - Remove from Paper:**
+   - Remove §7.4 entirely if not core to specification
+   - Keep Open, Closed, Ping-Pong (all documented in PRD.md §6)
+   
+   **Option C - Verify Hidden Implementation:**
+   - Search codebase for any Möbius-related code
+   - If found, update research document
+   - If not found, proceed with Option A or B
+   
+   ### Proposed Text Addition
+   > "**Note on Implementation Status:** The Möbius loop strategy described here represents a theoretical extension to the core loop modes (open, closed, ping-pong) currently implemented in the reference system. Future implementations validating smooth chromatic inversion over the second cycle would require empirical testing to confirm perceptual continuity."
    ```
 
 #### Success Criteria

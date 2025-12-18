@@ -12,21 +12,34 @@ Clarify whether providing a `seed` value automatically enables variation mode.
 
 Tutor A noted: "In Appendix C, Listing C.11 uses `seed: 42`. Does passing seed automatically imply `variation: true`?"
 
-#### Decision to Make
+#### Decision Already Made - Implementation Evidence
 
-**Choose one approach:**
+**✅ APPROACH B IS THE ACTUAL IMPLEMENTATION**
 
-**Approach A (Implicit — cleaner API):**
+**Evidence:** See `.paper/data/output-refined/research/technical-documentation-consolidated.md` §1.4
+
+From PRD.md §7.2:
+> "Deterministic or undetermined variation:
+>   - Provide a seed → variation is repeatable.
+>   - Omit seed → implementation may pick a default fixed seed, or use entropy for 'shuffle session' semantics."
+
+From README.md API:
 ```
-If seed is provided → variation is automatically enabled
-If seed is null/omitted → deterministic mode (no variation)
+variation: VariationConfig
+  - enabled: Bool (default: false)
+  - dimensions: VariationDimensions
+  - strength: VariationStrength
+  - seed: UInt64 (deterministic seed)
 ```
 
-**Approach B (Explicit — clearer):**
+**Implementation Behavior:**
 ```
-variation: true/false controls mode
-seed is only used when variation: true
+variation.enabled = true + seed → deterministic variation
+variation.enabled = true + no seed → implementation-defined (default or entropy)
+variation.enabled = false → deterministic base journey (seed ignored)
 ```
+
+**Critical:** Seed alone does NOT enable variation. Explicit flag required.
 
 #### Content to Add
 
@@ -34,13 +47,24 @@ seed is only used when variation: true
 
 ```latex
 \begin{designdecision}
-If a \texttt{seed} value is provided, variation mode is automatically 
-enabled. If \texttt{seed} is omitted or null, the engine generates 
-deterministic palettes based solely on anchor configuration. This 
-implicit behavior reduces API surface while maintaining explicit 
-control for callers who need reproducible variation.
+Variation mode requires \emph{explicit enablement} via the 
+\texttt{variation.enabled} flag. The \texttt{seed} parameter is only 
+consulted when \texttt{variation.enabled = true}. This three-state 
+behavior clarifies intent:
+
+\begin{itemize}
+\item \texttt{variation: false} — Deterministic base journey (seed ignored)
+\item \texttt{variation: true, seed: 42} — Deterministic variation (reproducible)
+\item \texttt{variation: true, seed: null} — Implementation-defined (may use default seed or entropy)
+\end{itemize}
+
+This explicit design prevents accidental variation when only 
+reproducibility is intended, while supporting both deterministic 
+and non-deterministic variation modes.
 \end{designdecision}
 ```
+
+**Rationale:** Implementation uses Approach B (explicit flag). Paper must document actual behavior.
 
 **Update API table (if exists in §10.2):**
 - Add note about seed → variation behavior

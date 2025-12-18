@@ -17,7 +17,9 @@ Find in §10.6 something like:
 
 #### New Content
 
-**Replace with table:**
+**✅ VERIFIED METRICS:** See `.paper/data/output-refined/research/technical-documentation-consolidated.md` §1.3
+
+**Replace with table (corrected to 5.2M):**
 
 ```latex
 \begin{table}[h]
@@ -27,25 +29,38 @@ Find in §10.6 something like:
 \textbf{Metric} & \textbf{Value} & \textbf{Configuration} \\
 \midrule
 Per-color generation time & $\sim$180 ns & Single invocation \\
-Throughput (single-threaded) & 5.6M colors/sec & M1 Max, -O3 \\
+Throughput (single-threaded) & 5.2M colors/s & M1 Max, Clang 15, -O3 \\
+Throughput (100 threads) & 117K ops/s & Multi-threaded \\
 Working set memory & $<$ 64 KB & 3 anchors, defaults \\
+Memory per call & $\sim$24 bytes & Stack-only \\
 Scaling factor & Linear & Per additional anchor \\
 \bottomrule
 \end{tabular}
-\caption{Representative performance characteristics}
+\caption{Representative performance characteristics (Sprint 004 baseline)}
 \label{tab:performance}
 \end{table}
 ```
 
+**Sources:**
+- `baseline-performance-report.md`
+- `chunk-size-benchmark-report.md`
+- `thread-safety-review.md`
+
 **Add footnote or paragraph:**
 
 ```latex
-Performance measurements conducted on Apple M1 Max, Clang 15 compiler 
-with \texttt{-O3} optimization, single-threaded execution. Throughput 
-scales approximately linearly with anchor count and constraint checking 
-complexity. Results may vary on different hardware and compiler 
-configurations.
+Performance measurements from Sprint 004 reference implementation, 
+conducted on Apple M1 Max, Clang 15 compiler with \texttt{-O3} 
+optimization. Single-threaded throughput reaches 5.2M colors/second; 
+multi-threaded performance (100 threads) achieves 117K operations/second. 
+Memory usage remains constant at $\sim$24 bytes per call (stack-only 
+allocation). Throughput scales approximately linearly with anchor count 
+and constraint checking complexity. Results may vary on different 
+hardware and compiler configurations. See \texttt{baseline-performance-report.md} 
+and \texttt{thread-safety-review.md} for detailed benchmarks.
 ```
+
+**Note:** Changed 5.6M to 5.2M based on verified implementation metrics.
 
 #### Success Criteria
 

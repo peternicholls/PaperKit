@@ -14,6 +14,21 @@ Tutor A identified ambiguity in the perceptual velocity formula (§6.3):
 
 Your task is to determine the correct parameterization and propose clarifying text.
 
+**✅ IMPLEMENTATION EVIDENCE FOUND:** Research consolidation provides concrete answer.
+
+**Evidence:** See `.paper/data/output-refined/research/technical-documentation-consolidated.md` §1.2:
+
+From PRD.md §3.3:
+> "The route can be expressed as: A continuous function t ∈ [0, 1] → OKLab"
+
+From Architecture.md:
+> "Journey sampling: Waypoint interpolation in LCh space. Smoothstep easing (cubic polynomial, not transcendental)"
+
+**Conclusion:** Parameter is **curve parameter t**, not arc-length s.
+- The implementation uses smoothstep easing for pacing
+- Derivatives are with respect to curve parameter t
+- Perceptual velocity varies with Bézier control point placement
+
 #### Analysis Required
 
 1. **Read §6.3** (Perceptual Velocity) and understand current specification
@@ -44,11 +59,19 @@ Your task is to determine the correct parameterization and propose clarifying te
    
    ### Recommended Clarification
    
-   **Add to §6.3:**
-   > "[Clarifying sentence]"
+   **Add to §6.3 (before or after formula):**
+   > "Note: Derivatives are taken with respect to the curve parameter $t \in [0,1]$, not arc-length $s$. As a consequence, perceptual velocity varies with the placement of Bézier control points—regions with tighter curvature exhibit higher perceptual acceleration. This allows mood dynamics to emphasize certain hue ranges through geometric path design."
    
    **Add to Appendix B (Notation):**
-   > "[Notation definition]"
+   ```latex
+   $t$ & Curve parameter, $t \in [0,1]$ & Parameterizes the journey path \\
+   $s$ & Arc-length parameter & Not used in this specification \\
+   $\frac{dL}{dt}$, $\frac{da}{dt}$, $\frac{db}{dt}$ & Perceptual derivatives & With respect to curve parameter $t$ \\
+   ```
+   
+   **Reference Implementation:**
+   - See Sprint 004 spec.md for position calculation: `t = fmodf((float)index * 0.05f, 1.0f)`
+   - Smoothstep easing documented in Architecture.md
    ```
 
 #### Success Criteria
