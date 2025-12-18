@@ -6,6 +6,11 @@
 **Dependencies:** 001-librarian-foundationalReferences  
 **Output Location:** `latex/references/references.bib`, `open-agents/output-refined/references/citation_audit.md`
 
+#### Upstream Artifacts
+
+- `open-agents/planning/20251218-group-tutor-reviews/tasks-artifacts/foundational-references.md`
+- `open-agents/planning/20251218-group-tutor-reviews/tasks-artifacts/handover-reference-manager.md`
+
 #### Task Brief
 
 Audit and fix citation issues identified by tutors:

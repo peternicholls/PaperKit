@@ -31,6 +31,9 @@
 - **Phase 2 (Core Improvements):** 007–011
 - **Phase 3 (Strategic Enhancements):** 012–017
 
+## Task Details
+Use /tasks-artifacts/ for saving intermediate outputs and handoff files.
+
 ## Execution Timeline (from tutors)
 
 - **Day 1:** 001–004

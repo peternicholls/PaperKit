@@ -6,6 +6,11 @@
 **Dependencies:** None  
 **Output Location:** `open-agents/planning/20251218-group-tutor-reviews/foundational-references.md`
 
+#### Artifacts
+
+- `open-agents/planning/20251218-group-tutor-reviews/tasks-artifacts/foundational-references.md`
+- `open-agents/planning/20251218-group-tutor-reviews/tasks-artifacts/handover-reference-manager.md`
+
 #### Task Brief
 
 Find and document two foundational color science references that tutors identified as missing:
@@ -49,8 +54,8 @@ These are seminal works in color difference perception that will strengthen the 
 
 #### Success Criteria
 
-- [ ] Both references found with complete bibliographic data
-- [ ] Harvard-formatted citations prepared
-- [ ] BibTeX entries drafted
-- [ ] Relevance to paper sections documented
-- [ ] Ready for Reference Manager integration
+- [x] Both references found with complete bibliographic data
+- [x] Harvard-formatted citations prepared
+- [x] BibTeX entries drafted
+- [x] Relevance to paper sections documented
+- [x] Ready for Reference Manager integration
