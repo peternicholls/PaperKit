@@ -35,6 +35,8 @@ The goal was not selective extraction but **exhaustive documentation** of every 
 3. **Tool-assisted extraction** — Use `pdftotext` + `grep` for targeted searches
 4. **Context preservation** — Include surrounding sentences for proper interpretation
 5. **Section mapping** — Every finding must map to a specific paper section (§02–§12)
+6. **BibTeX entries** — Create or update BibTeX for every new source cited
+7. **Documentation of gaps** — Note explicitly when evidence is missing for a claim
 
 ### 2.3 Quality Thresholds
 
@@ -62,11 +64,29 @@ The goal was not selective extraction but **exhaustive documentation** of every 
 
 **Total sources processed:** 10 PDFs
 
+## 4. Practical Recommendations for Future Librarian Sessions
+
+### 4.1 Document Search Protocol
+
+1. **Implement timeout mechanisms** — Set maximum search iteration limits to prevent infinite loops when searching for documents online
+2. **Define search boundaries** — Establish a predefined maximum number of search attempts before escalating to manual retrieval
+3. **Use terminal-based downloads** — Employ `wget` or `curl` commands for file retrieval instead of agentic model searches
+4. **Prioritize download control** — Terminal tools provide superior control over HTTP requests, retry logic, and file integrity verification
+5. **Verify downloaded content** — Confirm file integrity and format before adding to source inventory
+
+### 4.2 Search Efficiency Guidelines
+
+6. **Pre-filter search targets** — Identify known academic databases (ResearchGate, arXiv, institutional repositories) before initiating searches
+7. **Document search queries** — Log all search terms used, including failed searches, to prevent duplicate effort
+8. **Cache successful searches** — Maintain a record of source locations for rapid re-access in future sessions
+9. **Escalate blocked sources** — If a document cannot be located after three search attempts, flag for manual researcher intervention
+10. **Verify source accessibility** — Confirm open-access status or institutional access before committing extraction time
+
 ---
 
-## 4. Extraction Process Example
+## 5. Extraction Process Example
 
-### 4.1 Terminal Commands Used
+### 5.1 Terminal Commands Used
 
 ```bash
 # Convert PDF to searchable text
@@ -79,7 +99,7 @@ pdftotext "source.pdf" - | grep -E "term1|term2|term3" -A 5 -B 3
 pdftotext "source.pdf" - | grep -n "key phrase"
 ```
 
-### 4.2 Citation Format Applied
+### 5.2 Citation Format Applied
 
 **In-text:**
 > "The threshold for L* was found to be approximately 10 times smaller than for the chromaticity indices a* and b*" (Kong, 2021, p. 78).
@@ -90,7 +110,7 @@ Kong, Y.W. (2021) Temporal Color Perception: Assessing the Visibility of
 Dynamic Color Changes. PhD thesis. Eindhoven University of Technology.
 ```
 
-### 4.3 Section Mapping Format
+### 5.3 Section Mapping Format
 
 | Finding | Source | Section | Relevance |
 |---------|--------|---------|-----------|
@@ -98,9 +118,9 @@ Dynamic Color Changes. PhD thesis. Eindhoven University of Technology.
 
 ---
 
-## 5. Artifacts Produced
+## 6. Artifacts Produced
 
-### 5.1 Primary Deliverable
+### 6.1 Primary Deliverable
 
 **[COMPREHENSIVE_EVIDENCE_EXTRACTION.md](../research-artifacts/COMPREHENSIVE_EVIDENCE_EXTRACTION.md)**
 - ~400 lines of exhaustive extraction
@@ -108,7 +128,7 @@ Dynamic Color Changes. PhD thesis. Eindhoven University of Technology.
 - BibTeX entries ready for copy-paste
 - Section-mapped summary table
 
-### 5.2 Updated Artifacts
+### 6.2 Updated Artifacts
 
 | Artifact | Updates Made |
 |----------|--------------|
@@ -120,9 +140,9 @@ Dynamic Color Changes. PhD thesis. Eindhoven University of Technology.
 
 ---
 
-## 6. Critical Discoveries
+## 7. Critical Discoveries
 
-### 6.1 Most Important Finding
+### 7.1 Most Important Finding
 
 **Kong (2021) PhD Thesis** — This entire dissertation is about temporal color perception. Key quote:
 
@@ -130,7 +150,7 @@ Dynamic Color Changes. PhD thesis. Eindhoven University of Technology.
 
 **Implication:** This explicitly validates the paper's novel contribution. We are pioneering temporal uniformity for color journeys.
 
-### 6.2 Quantitative Anchors
+### 7.2 Quantitative Anchors
 
 | Finding | Value | Validation |
 |---------|-------|------------|
@@ -139,7 +159,7 @@ Dynamic Color Changes. PhD thesis. Eindhoven University of Technology.
 | Hue circle circumference | **≈4π (12.65)** | Nölle (2012), mathematical proof |
 | Melanopsin peak sensitivity | **480nm** | Spitschan (2017) |
 
-### 6.3 Previously Missing Citations Now Found
+### 7.3 Previously Missing Citations Now Found
 
 | Concept | Was | Now |
 |---------|-----|-----|
@@ -149,23 +169,23 @@ Dynamic Color Changes. PhD thesis. Eindhoven University of Technology.
 
 ---
 
-## 7. Lessons for Next Agent
+## 8. Lessons for Next Agent
 
-### 7.1 What Worked Well
+### 8.1 What Worked Well
 
 1. **Terminal extraction** — `pdftotext` + `grep` is faster than manual reading
 2. **Parallel searches** — Search multiple terms at once with regex alternation
 3. **Context flags** — `-A 10 -B 3` captures surrounding sentences for proper interpretation
 4. **Systematic inventory** — Listing all sources first prevents missed materials
 
-### 7.2 What to Watch For
+### 8.2 What to Watch For
 
 1. **Page numbers are approximate** — PDFs don't always have visible page numbers
 2. **Some PDFs are scanned** — OCR quality varies; may need manual verification
 3. **Preprints vs. published** — Note publication status (some sources are ResearchGate preprints)
 4. **Citation style consistency** — Always use Harvard (Cite Them Right) format
 
-### 7.3 Gaps That Remain
+### 8.3 Gaps That Remain
 
 | Gap | Status | Recommendation |
 |-----|--------|----------------|
@@ -175,9 +195,9 @@ Dynamic Color Changes. PhD thesis. Eindhoven University of Technology.
 
 ---
 
-## 8. Handoff to Next Agent
+## 9. Handoff to Next Agent
 
-### 8.1 For Research Consolidator (Task 013)
+### 9.1 For Research Consolidator (Task 013)
 
 **Your inputs are ready:**
 - [COMPREHENSIVE_EVIDENCE_EXTRACTION.md](../research-artifacts/COMPREHENSIVE_EVIDENCE_EXTRACTION.md) — All quotes, all sources
@@ -189,14 +209,14 @@ Dynamic Color Changes. PhD thesis. Eindhoven University of Technology.
 - Position paper's novelty against existing literature
 - Identify strongest evidence chains for each section
 
-### 8.2 For Section Drafter (Tasks 008–010)
+### 9.2 For Section Drafter (Tasks 008–010)
 
 **Key quotes ready for each section:**
 - §04 Constraints: Kong (2021) 10:1 finding + "no temporally uniform space"
 - §08 Gamut: Hong (2024) radial ellipse orientation
 - §1.6 Limitations: Must acknowledge lack of empirical validation
 
-### 8.3 For Reference Manager (Task 007)
+### 9.3 For Reference Manager (Task 007)
 
 **BibTeX entries added:**
 - `kong2021`, `gao2020`, `susstrunk2005`, `webster2012categ`
@@ -207,7 +227,7 @@ Dynamic Color Changes. PhD thesis. Eindhoven University of Technology.
 
 ---
 
-## 9. Quality Checklist for Future Sessions
+## 10. Quality Checklist for Future Sessions
 
 Use this checklist when conducting similar extraction work:
 
@@ -224,7 +244,7 @@ Use this checklist when conducting similar extraction work:
 
 ---
 
-## 10. Session Statistics
+## 11. Session Statistics
 
 | Metric | Value |
 |--------|-------|
