@@ -9,7 +9,10 @@
 \contentsline {paragraph}{Presets Encode Expertise.}{10}{section.1.3}%
 \contentsline {paragraph}{Graceful Degradation.}{10}{section.1.3}%
 \contentsline {section}{\numberline {1.4}Positioning and Novel Contributions}{10}{section.1.4}%
-\contentsline {section}{\numberline {1.5}Paper Organization}{11}{section.1.5}%
+\contentsline {paragraph}{Geometric Harmony Rules.}{10}{section.1.4}%
+\contentsline {paragraph}{Interpolation-Based Methods.}{10}{section.1.4}%
+\contentsline {paragraph}{Data-Driven Methods.}{10}{section.1.4}%
+\contentsline {section}{\numberline {1.5}Paper Organization}{12}{section.1.5}%
 \contentsline {chapter}{\numberline {2}Perceptual Color Foundations}{13}{chapter.2}%
 \contentsline {section}{\numberline {2.1}The Perceptual Uniformity Requirement}{13}{section.2.1}%
 \contentsline {section}{\numberline {2.2}OKLab Colour Space}{13}{section.2.2}%
@@ -27,7 +30,7 @@
 \contentsline {chapter}{\numberline {4}Perceptual Constraints}{24}{chapter.4}%
 \contentsline {section}{\numberline {4.1}Just-Noticeable Difference}{24}{section.4.1}%
 \contentsline {section}{\numberline {4.2}$\Delta _{\min }$ Constraint (Distinguishability)}{25}{section.4.2}%
-\contentsline {section}{\numberline {4.3}$\Delta _{\max }$ Constraint (Coherence)}{25}{section.4.3}%
+\contentsline {section}{\numberline {4.3}$\Delta _{\max }$ Constraint (Coherence)}{26}{section.4.3}%
 \contentsline {section}{\numberline {4.4}Adaptive Sampling}{26}{section.4.4}%
 \contentsline {section}{\numberline {4.5}Constraint Enforcement}{27}{section.4.5}%
 \contentsline {chapter}{\numberline {5}User-Facing Style Controls}{28}{chapter.5}%
@@ -89,6 +92,7 @@
 \contentsline {paragraph}{Extended Colour Spaces.}{55}{section.12.3}%
 \contentsline {paragraph}{Accessibility Integration.}{56}{section.12.3}%
 \contentsline {paragraph}{Multi-Palette Harmonisation.}{56}{section.12.3}%
+\contentsline {paragraph}{Symmetry-Constrained Optimisation.}{56}{section.12.3}%
 \contentsline {paragraph}{Preset Discovery.}{56}{section.12.3}%
 \contentsline {paragraph}{Real-Time Animation.}{56}{section.12.3}%
 \contentsline {chapter}{\numberline {A}Preset Reference}{57}{appendix.A}%

@@ -28,7 +28,7 @@ Engineering team (internal). Not a generic specification for external implemente
 
 ---
 
-## Latest Decisions (2024-12-17)
+## Latest Decisions (2025-12-17)
 
 1. **Tutor session reframed paper** as internal working reference
 2. **Prior art scan completed** — all 7 research areas documented
@@ -71,8 +71,8 @@ No prior art found for single-anchor mood expansion using lightness direction.
 | `open-agents/planning/0000-Project-Overview/prior-art-scan.md` | Detailed source checklist |
 | `open-agents/memory/research-index.yaml` | All citations (Harvard format) |
 | `.paper/data/output-refined/research/prior-art-synthesis.md` | Consolidated positioning guide |
-| `open-agents/planning/20241217-tutor-session/tutor-handoff-foundation-updates.md` | Tutor recommendations |
+| `open-agents/planning/20251217-tutor-session/tutor-handoff-foundation-updates.md` | Tutor recommendations |
 
 ---
 
-*Last updated: 2024-12-17*
+*Last updated: 2025-12-17*

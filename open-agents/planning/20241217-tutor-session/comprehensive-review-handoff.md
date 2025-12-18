@@ -2,7 +2,7 @@
 
 **Paper:** Color Journey Engine: A Perceptually-Uniform Palette Generation Specification  
 **Author:** Peter Nicholls  
-**Review Date:** 17 December 2024  
+**Review Date:** 17 December 2025  
 **Reviewer:** Sage (Review Tutor Agent)  
 **Document Version:** 1.0
 
@@ -692,5 +692,5 @@ Use `\S\ref{sec:name}` for section references (produces "§3.2" style).
 
 ---
 
-*Document prepared by Sage (Review Tutor Agent) on 17 December 2024*  
+*Document prepared by Sage (Review Tutor Agent) on 17 December 2025*  
 *Ready for implementation upon approval*

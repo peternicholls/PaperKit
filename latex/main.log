@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.12.13)  17 DEC 2025 10:55
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.12.13)  18 DEC 2025 01:56
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1530,9 +1530,21 @@ File: ts1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 
 [9{/usr/local/texlive/2025/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc}{/usr/lo
 cal/texlive/2025/texmf-dist/fonts/enc/dvips/lm/lm-ts1.enc}]
+Overfull \hbox (1.13408pt too wide) in paragraph at lines 86--87
+\T1/lmr/m/n/12 Palette gen-er-a-tion ap-proaches fall into three broad paradigm
+s, each with dis-tinct strengths
+ []
+
+
+Overfull \hbox (10.95764pt too wide) in paragraph at lines 89--90
+\T1/lmr/m/n/12 adic, anal-o-gous, split-complementary---define ge-o-met-ric re-
+la-tion-ships on the colour wheel []It-
+ []
+
+
 
 [10]
-Overfull \hbox (15.52242pt too wide) in paragraph at lines 104--105
+Overfull \hbox (15.52242pt too wide) in paragraph at lines 111--112
 []\T1/lmr/bx/n/12 Single-anchor mood ex-pan-sion\T1/lmr/m/n/12 ---to our knowl-
 edge, a novel approach---using lightness-
  []
@@ -1582,72 +1594,78 @@ Underfull \vbox (badness 2591) has occurred while \output is active []
 [20]
 
 [21]
-Overfull \hbox (1.33101pt too wide) in paragraph at lines 182--183
+
+[22]
+Overfull \hbox (1.33101pt too wide) in paragraph at lines 184--185
 []\T1/lmr/m/n/12 Arc-length pa-ram-e-ter-i-sa-tion en-sures that out-put swatch
 es are per-cep-tu-ally equidis-
  []
 
 
+Overfull \hbox (27.89569pt too wide) in paragraph at lines 188--190
+\T1/lmr/m/n/12 For ef-fi-ciency, the en-gine uses nu-mer-i-cal ap-prox-i-ma-tio
+n fol-low-ing es-tab-lished tech-niques []Kamer-
+ []
 
-[22])
+)
 
 [23]
 Chapter 4.
 (./sections/04_perceptual_constraints.tex
+Underfull \vbox (badness 2790) has occurred while \output is active []
+
+
 
 [24
 
 ]
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 44.
+(hyperref)                removing `math shift' on input line 46.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\Delta' on input line 44.
+(hyperref)                removing `\Delta' on input line 46.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `subscript' on input line 44.
+(hyperref)                removing `subscript' on input line 46.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\min' on input line 44.
+(hyperref)                removing `\min' on input line 46.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 44.
+(hyperref)                removing `math shift' on input line 46.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 68.
+(hyperref)                removing `math shift' on input line 70.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\Delta' on input line 68.
+(hyperref)                removing `\Delta' on input line 70.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `subscript' on input line 68.
+(hyperref)                removing `subscript' on input line 70.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\max' on input line 68.
+(hyperref)                removing `\max' on input line 70.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 68.
-
-
-Overfull \hbox (23.64966pt too wide) in paragraph at lines 77--78
-[]\T1/lmr/bx/n/12 Why 5.0? \T1/lmr/m/n/12 This value rep-re-sents the up-per bo
-und of ``com-fort-able'' colour transitions---
- []
+(hyperref)                removing `math shift' on input line 70.
 
 
 
 [25]
-Underfull \vbox (badness 1184) has occurred while \output is active []
+Overfull \hbox (23.64966pt too wide) in paragraph at lines 79--80
+[]\T1/lmr/bx/n/12 Why 5.0? \T1/lmr/m/n/12 This value rep-re-sents the up-per bo
+und of ``com-fort-able'' colour transitions---
+ []
 
 
 
@@ -1727,11 +1745,11 @@ Underfull \vbox (badness 1845) has occurred while \output is active []
 [40
 
 ]
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
-
 
 [41]
+Underfull \vbox (badness 1728) has occurred while \output is active []
+
+
 
 [42])
 
@@ -1797,7 +1815,13 @@ Overfull \hbox (18.67929pt too wide) in paragraph at lines 46--47
 
 
 
-[55])
+[55]
+Overfull \hbox (18.32649pt too wide) in paragraph at lines 65--66
+[] []\T1/lmr/bx/n/12 Sym-me-try--Con-strained Op-ti-mi-sa-tion.[] \T1/lmr/m/n/1
+2 The cur-rent en-gine con-structs jour-neys through
+ []
+
+)
 
 [56]
 Appendix A.
@@ -2552,7 +2576,9 @@ LaTeX Warning: `h' float specifier changed to `ht'.
 
 ]
 
-[82] (./main.aux)
+[82]
+
+[83] (./main.aux)
  ***********
 LaTeX2e <2024-11-01> patch level 2
 L3 programming layer <2025-01-18>
@@ -2568,10 +2594,10 @@ Package logreq Info: Writing requests to 'main.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 45392 strings out of 473190
- 926782 string characters out of 5715799
- 1912757 words of memory out of 5000000
- 67276 multiletter control sequences out of 15000+600000
+ 45451 strings out of 473190
+ 928579 string characters out of 5715799
+ 1917190 words of memory out of 5000000
+ 67327 multiletter control sequences out of 15000+600000
  635563 words of font info for 93 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  89i,14n,99p,1909b,2298s stack positions out of 10000i,1000n,20000p,200000b,200000s
@@ -2594,10 +2620,10 @@ fonts/type1/public/lm/lmsy10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type
 /lmtk10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/lm/lmtt10.pf
 b></usr/local/texlive/2025/texmf-dist/fonts/type1/public/lm/lmtt12.pfb></usr/lo
 cal/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on main.pdf (83 pages, 548784 bytes).
+Output written on main.pdf (84 pages, 557392 bytes).
 PDF statistics:
- 1775 PDF objects out of 2073 (max. 8388607)
- 1610 compressed objects within 17 object streams
- 550 named destinations out of 1000 (max. 500000)
+ 1813 PDF objects out of 2073 (max. 8388607)
+ 1647 compressed objects within 17 object streams
+ 558 named destinations out of 1000 (max. 500000)
  1205 words of extra memory for PDF output out of 10000 (max. 10000000)
 

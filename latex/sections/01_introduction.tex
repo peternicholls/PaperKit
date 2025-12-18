@@ -81,31 +81,40 @@ Rather than failing on unusual inputs, the engine adapts. Grey anchors expand al
 \section{Positioning and Novel Contributions}
 \label{sec:positioning}
 
-\subsection*{Prior Art: Colour Harmony and Palette Generation}
+\subsection*{Prior Art: Three Paradigms of Palette Generation}
 
-Traditional palette generation approaches fall into two categories. First, \emph{colour harmony rules}---complementary, triadic, analogous, split-complementary---define geometric relationships on the colour wheel~\cite{itten1961}. These rules have aesthetic merit and deep historical roots in art education, but they operate in perceptually non-uniform spaces (typically HSL or HSV) and provide no guarantees about perceived differences between generated colours.
+Palette generation approaches fall into three broad paradigms, each with distinct strengths and limitations.
 
-Second, \emph{interpolation-based approaches} generate colours by blending between endpoints. Most creative tools (CSS gradients, design software) use linear interpolation in RGB or HSL space, producing results that can appear perceptually uneven---muddy midpoints, abrupt hue shifts through grey regions, and inconsistent step sizes~\cite{stone2014}.
+\paragraph{Geometric Harmony Rules.}
+Traditional \emph{colour harmony rules}---complementary, triadic, analogous, split-complementary---define geometric relationships on the colour wheel \citep{itten1961}. These rules have aesthetic merit and deep historical roots in art education, but they operate in perceptually non-uniform spaces (typically HSL or HSV) and provide no guarantees about perceived differences between generated colours. Two colours deemed ``complementary'' by wheel position may or may not be perceptually distinguishable depending on their lightness and chroma values.
+
+\paragraph{Interpolation-Based Methods.}
+\emph{Interpolation-based approaches} generate colours by blending between endpoints. Most creative tools (CSS gradients, design software) use linear interpolation in RGB or HSL space, producing results that can appear perceptually uneven---muddy midpoints, abrupt hue shifts through grey regions, and inconsistent step sizes \citep{stone2014}. Even when tools support perceptual spaces, they typically output continuous gradients rather than discrete palettes with distinguishability guarantees \citep{programmingdesignsystems2017}.
+
+\paragraph{Data-Driven Methods.}
+More recent academic work has explored \emph{data-driven approaches} that learn palette patterns from images or existing designs. Liu et al.\ \citep{liu2013palette} demonstrate image-driven harmonious colour extraction using saliency-hue clustering with harmony optimisation. Such methods excel at capturing aesthetic patterns from existing content but require training data, produce less predictable outputs, and are difficult to parameterise for specific design goals. The Color Journey Engine takes a deliberately different path: deterministic construction with explicit, interpretable parameters.
 
 \subsection*{The Shift to Perceptual Colour Spaces}
 
-Modern tools increasingly adopt perceptually uniform colour spaces to address these limitations. CIELAB~\cite{cie1976} was the first widely-used perceptual space but exhibits known uniformity issues, particularly in blue-violet regions~\cite{mahy1994}. CIEDE2000~\cite{luo2001} improved colour difference calculation but remains computationally complex.
+Modern tools increasingly adopt perceptually uniform colour spaces to address the limitations of geometric and RGB-based methods. CIELAB~\cite{cie1976} was the first widely-used perceptual space but exhibits known uniformity issues, particularly in blue-violet regions~\cite{mahy1994}. CIEDE2000~\cite{luo2001} improved colour difference calculation but remains computationally complex.
 
-OKLab, introduced by Björn Ottosson in 2020~\cite{ottosson2020}, represents a significant advance: CAM16-level perceptual uniformity~\cite{safdar2017} with computational efficiency suitable for real-time applications. OKLab has achieved rapid industry adoption, appearing in CSS Color Level 4~\cite{csscolor4}, Figma, and various creative tools. The Color Journey Engine builds on this foundation.
+OKLab, introduced by Björn Ottosson in 2020~\cite{ottosson2020}, represents a significant advance: CAM16-level perceptual uniformity~\cite{safdar2017} with computational efficiency suitable for real-time applications. Independent analysis has validated OKLab's perceptual uniformity claims for gradient and colour manipulation applications~\cite{levien2021oklab}. OKLab has achieved rapid industry adoption, appearing in CSS Color Level 4~\cite{csscolor4}, Adobe Photoshop (as the default gradient interpolation space), Unity, and Godot. The Color Journey Engine builds on this established foundation.
 
 \subsection*{Our Contribution}
 
 The Color Journey Engine introduces a \emph{novel combination} of established techniques:
 
 \begin{itemize}
-    \item \textbf{Continuous Bézier paths} through OKLab space~\cite{farin2002}, providing flexible curve shapes
-    \item \textbf{Arc-length parameterisation}~\cite{piegl1997} for perceptually uniform sampling
-    \item \textbf{Perceptual constraints} ($\Delta_{\min}$, $\Delta_{\max}$) ensuring distinguishability without jarring jumps
+    \item \textbf{Continuous Bézier paths} through OKLab space~\cite{farin2002}, providing flexible curve shapes with well-understood mathematical properties
+    \item \textbf{Arc-length parameterisation}~\cite{piegl1997,kamermans2023} for perceptually uniform sampling along the constructed path
+    \item \textbf{Perceptual constraints} ($\Delta_{\min}$, $\Delta_{\max}$) ensuring distinguishability without jarring jumps, grounded in just-noticeable difference research
     \item \textbf{Single-anchor mood expansion}---to our knowledge, a novel approach---using lightness-direction heuristics to generate coherent palettes from one colour
-    \item \textbf{Two-layer gamut management}~\cite{morovic2008} preventing and correcting out-of-gamut colours while preserving hue
+    \item \textbf{Two-layer gamut management}~\cite{morovic2008} preventing and correcting out-of-gamut colours while preserving hue, aligned with CSS Color Level 4 practices~\cite{colorjs2025}
 \end{itemize}
 
-Our contribution lies not in the individual techniques---OKLab, Bézier curves, arc-length sampling, and gamut mapping are established---but in their integration into a coherent system with explicit perceptual constraints and a deterministic, reproducible API. The resulting implementation achieves 5.6 million colours per second, enabling real-time palette generation.
+Our contribution lies not in the individual techniques---OKLab, Bézier curves, arc-length sampling, and gamut mapping are established---but in their integration into a coherent system with explicit perceptual constraints and a deterministic, reproducible API. Unlike data-driven methods that require training corpora, the Color Journey Engine produces predictable, parameterisable results. Unlike simple interpolation, it guarantees perceptual distinguishability. Unlike geometric harmony rules, it operates in perceptually uniform space with explicit distance constraints.
+
+The resulting implementation achieves 5.6 million colours per second, enabling real-time palette generation for interactive applications.
 
 % ------------------------------------------------------------------------------
 % 1.5 Paper Organization

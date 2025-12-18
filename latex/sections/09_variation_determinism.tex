@@ -73,13 +73,13 @@ Anchors are \emph{never} perturbed---variation applies only to interpolated colo
 \section{Seed Handling}
 \label{sec:seeds}
 
-The variation layer uses a \textbf{pseudo-random number generator (PRNG)} with these properties~\cite{knuth1997}:
+The variation layer uses a \textbf{pseudo-random number generator (PRNG)} with these properties \citep{knuth1997}:
 
 \begin{itemize}
     \item \textbf{Seeded} --- Initialised from user-provided seed
     \item \textbf{Deterministic} --- Same seed produces same sequence
     \item \textbf{Well-distributed} --- Numbers uniformly distributed
-    \item \textbf{Specified algorithm} --- Implementation uses documented algorithm (e.g., xoshiro256**~\cite{blackman2018})
+    \item \textbf{Specified algorithm} --- Implementation uses documented algorithm (e.g., xoshiro256** \citep{blackman2018})
 \end{itemize}
 
 \begin{center}

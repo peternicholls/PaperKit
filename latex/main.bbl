@@ -281,6 +281,33 @@
     \field{year}{1961}
   \endentry
 
+  \entry{kamermans2023}{misc}{}{}
+    \name{author}{1}{}{%
+      {{hash=KM}{%
+         family={Kamermans},
+         familyi={K\bibinitperiod},
+         given={Mike},
+         giveni={M\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{KM1}
+    \strng{fullhash}{KM1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelyear}{2023}
+    \field{labeldatesource}{}
+    \field{sortinit}{K}
+    \field{sortinithash}{K}
+    \field{howpublished}{Online}
+    \field{note}{Comprehensive treatment of arc-length parameterisation in
+  \S14. Accessed: 2025-12-17}
+    \field{title}{A Primer on {B}{\'e}zier Curves}
+    \verb{url}
+    \verb https://pomax.github.io/bezierinfo/
+    \endverb
+    \field{year}{2023}
+  \endentry
+
   \entry{knuth1997}{book}{}{}
     \name{author}{1}{}{%
       {{hash=KDE}{%
@@ -306,6 +333,108 @@
     \field{title}{The Art of Computer Programming, Volume 2: Seminumerical
   Algorithms}
     \field{year}{1997}
+  \endentry
+
+  \entry{levien2018arclength}{misc}{}{}
+    \name{author}{1}{}{%
+      {{hash=LR}{%
+         family={Levien},
+         familyi={L\bibinitperiod},
+         given={Raph},
+         giveni={R\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{LR1}
+    \strng{fullhash}{LR1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelyear}{2018}
+    \field{labeldatesource}{}
+    \field{sortinit}{L}
+    \field{sortinithash}{L}
+    \field{howpublished}{Online}
+    \field{note}{Practical algorithms for Bézier arc-length computation.
+  Accessed: 2025-12-17}
+    \field{title}{How long is that {B}{\'e}zier?}
+    \verb{url}
+    \verb https://raphlinus.github.io/curves/2018/12/28/bezier-arclength.html
+    \endverb
+    \field{year}{2018}
+  \endentry
+
+  \entry{levien2021oklab}{misc}{}{}
+    \name{author}{1}{}{%
+      {{hash=LR}{%
+         family={Levien},
+         familyi={L\bibinitperiod},
+         given={Raph},
+         giveni={R\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{LR1}
+    \strng{fullhash}{LR1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelyear}{2021}
+    \field{labeldatesource}{}
+    \field{sortinit}{L}
+    \field{sortinithash}{L}
+    \field{howpublished}{Online}
+    \field{note}{Independent validation of OKLab perceptual uniformity claims.
+  Accessed: 2025-12-17}
+    \field{title}{An interactive review of {O}klab}
+    \verb{url}
+    \verb https://raphlinus.github.io/color/2021/01/18/oklab-critique.html
+    \endverb
+    \field{year}{2021}
+  \endentry
+
+  \entry{liu2013palette}{inproceedings}{}{}
+    \name{author}{4}{}{%
+      {{hash=LY}{%
+         family={Liu},
+         familyi={L\bibinitperiod},
+         given={Yuzhen},
+         giveni={Y\bibinitperiod},
+      }}%
+      {{hash=COD}{%
+         family={Cohen-Or},
+         familyi={C\bibinithyphendelim O\bibinitperiod},
+         given={Daniel},
+         giveni={D\bibinitperiod},
+      }}%
+      {{hash=SO}{%
+         family={Sorkine},
+         familyi={S\bibinitperiod},
+         given={Olga},
+         giveni={O\bibinitperiod},
+      }}%
+      {{hash=GY}{%
+         family={Gingold},
+         familyi={G\bibinitperiod},
+         given={Yaron},
+         giveni={Y\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{LY+1}
+    \strng{fullhash}{LYCODSOGY1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelyear}{2013}
+    \field{labeldatesource}{}
+    \field{sortinit}{L}
+    \field{sortinithash}{L}
+    \field{booktitle}{IEEE Transactions on Visualization and Computer Graphics}
+    \verb{doi}
+    \verb 10.1109/TVCG.2012.155
+    \endverb
+    \field{note}{Data-driven approach; contrast with our deterministic path
+  method}
+    \field{number}{6}
+    \field{pages}{978\bibrangedash 989}
+    \field{title}{Image-driven harmonious color palette generation}
+    \field{volume}{19}
+    \field{year}{2013}
   \endentry
 
   \entry{luo2001}{article}{}{}
@@ -349,6 +478,35 @@
     \field{year}{2001}
   \endentry
 
+  \entry{programmingdesignsystems2017}{misc}{}{}
+    \name{author}{1}{}{%
+      {{hash=MR}{%
+         family={Madsen},
+         familyi={M\bibinitperiod},
+         given={Rune},
+         giveni={R\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{MR1}
+    \strng{fullhash}{MR1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelyear}{2017}
+    \field{labeldatesource}{}
+    \field{sortinit}{M}
+    \field{sortinithash}{M}
+    \field{howpublished}{Online}
+    \field{note}{Accessible introduction to perceptual uniformity for
+  programmers. Accessed: 2025-12-17}
+    \field{title}{Programming Design Systems: Perceptually Uniform Color
+  Spaces}
+    \verb{url}
+    \verb https://programmingdesignsystems.com/color/perceptually-uniform-color
+    \verb -spaces/
+    \endverb
+    \field{year}{2017}
+  \endentry
+
   \entry{mahy1994}{article}{}{}
     \name{author}{3}{}{%
       {{hash=MM}{%
@@ -388,6 +546,37 @@
     \field{volume}{19}
     \field{journaltitle}{Color Research \& Application}
     \field{year}{1994}
+  \endentry
+
+  \entry{moosbauer2025}{article}{}{}
+    \name{author}{2}{}{%
+      {{hash=MJ}{%
+         family={Moosbauer},
+         familyi={M\bibinitperiod},
+         given={Jakob},
+         giveni={J\bibinitperiod},
+      }}%
+      {{hash=PMJ}{%
+         family={Poole},
+         familyi={P\bibinitperiod},
+         given={Michael\bibnamedelima J.},
+         giveni={M\bibinitperiod\bibinitdelim J\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{MJPMJ1}
+    \strng{fullhash}{MJPMJ1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelyear}{2025}
+    \field{labeldatesource}{}
+    \field{sortinit}{M}
+    \field{sortinithash}{M}
+    \field{note}{Methodological influence: symmetry-constrained search reduces
+  optimisation complexity}
+    \field{title}{Flip Graphs with Symmetry and New Matrix Multiplication
+  Schemes}
+    \field{journaltitle}{arXiv preprint arXiv:2502.04514}
+    \field{year}{2025}
   \endentry
 
   \entry{morovic2008}{book}{}{}
@@ -433,7 +622,7 @@
     \field{sortinit}{O}
     \field{sortinithash}{O}
     \field{howpublished}{Online}
-    \field{note}{Accessed: 2024-12-17}
+    \field{note}{Accessed: 2025-12-17}
     \field{title}{A perceptual color space for image processing}
     \verb{url}
     \verb https://bottosson.github.io/posts/oklab/
@@ -585,6 +774,39 @@
     \field{year}{2014}
   \endentry
 
+  \entry{colorjs2025}{misc}{}{}
+    \name{author}{2}{}{%
+      {{hash=VL}{%
+         family={Verou},
+         familyi={V\bibinitperiod},
+         given={Lea},
+         giveni={L\bibinitperiod},
+      }}%
+      {{hash=LC}{%
+         family={Lilley},
+         familyi={L\bibinitperiod},
+         given={Chris},
+         giveni={C\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{VLLC1}
+    \strng{fullhash}{VLLC1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelyear}{2024}
+    \field{labeldatesource}{}
+    \field{sortinit}{V}
+    \field{sortinithash}{V}
+    \field{howpublished}{Online}
+    \field{note}{Reference implementation of CSS gamut mapping algorithm.
+  Accessed: 2025-12-17}
+    \field{title}{Color.js: Gamut Mapping Documentation}
+    \verb{url}
+    \verb https://colorjs.io/docs/gamut-mapping.html
+    \endverb
+    \field{year}{2024}
+  \endentry
+
   \entry{csscolor4}{report}{}{}
     \name{author}{1}{}{%
       {{hash=W}{%
@@ -600,7 +822,7 @@
     \field{labeldatesource}{}
     \field{sortinit}{W}
     \field{sortinithash}{W}
-    \field{note}{Accessed: 2024-12-17}
+    \field{note}{Accessed: 2025-12-17}
     \field{title}{{CSS Color Module Level 4}}
     \verb{url}
     \verb https://www.w3.org/TR/css-color-4/

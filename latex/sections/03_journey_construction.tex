@@ -47,7 +47,7 @@ Output guarantee & Each anchor appears exactly in output \\
 \end{tabular}
 \end{center}
 
-The 5-anchor maximum is a deliberate design constraint informed by cognitive limitations and practical experience. Research on working memory suggests humans can reliably track 4±1 items simultaneously~\cite{cowan2001}; beyond this, the perceptual ``story'' of a colour journey fragments into disconnected segments. Additionally, cubic Bézier curves between consecutive anchors provide $C^1$ continuity guarantees~\cite{farin2002}, but as anchor count increases, maintaining smooth visual flow becomes increasingly difficult. This is a \emph{design choice} balancing expressiveness against cognitive and computational complexity, not a technical limitation.
+The 5-anchor maximum is a deliberate design constraint informed by cognitive limitations and practical experience. Research on working memory suggests humans can reliably track 4±1 items simultaneously \citep{cowan2001}; beyond this, the perceptual ``story'' of a colour journey fragments into disconnected segments. Additionally, cubic Bézier curves between consecutive anchors provide $C^1$ continuity guarantees \citep{farin2002}, but as anchor count increases, maintaining smooth visual flow becomes increasingly difficult. This is a \emph{design choice} balancing expressiveness against cognitive and computational complexity, not a technical limitation.
 
 Anchors are processed in the order provided: $A_1 \rightarrow A_2 \rightarrow \ldots \rightarrow A_m$. The journey visits each anchor in sequence; for closed loops, it then returns to $A_1$.
 
@@ -162,16 +162,18 @@ To match tangents at anchor $A_{i+1}$, the control point $Q_1$ of the next segme
 This mirrors $P_2$ across the anchor, ensuring the outgoing direction matches the incoming direction.
 
 % ------------------------------------------------------------------------------
-% 3.6 Arc-Length Parameterization (Uniform Sampling)
+% 3.6 Arc-Length Parameterisation (Uniform Sampling)
 % ------------------------------------------------------------------------------
 \section{Arc-Length Parameterisation}
 \label{sec:arc-length}
 
-The Bézier parameter $t$ does not correspond to distance along the curve \cite{piegl1997}. Equal increments in $t$ produce unequal distances in OKLab space, leading to uneven perceptual steps---swatches cluster in curved regions.
+The Bézier parameter $t$ does not correspond to distance along the curve \citep{piegl1997,kamermans2023}. Equal increments in $t$ produce unequal distances in OKLab space, leading to uneven perceptual steps---swatches cluster in curved regions where the curve bends sharply and spread apart in straighter sections.
+
+This is a well-known property of parametric curves: the parameter $t$ describes progress along the curve's mathematical definition, not progress along its physical length. For perceptually uniform palette generation, we require \emph{arc-length parameterisation}---sampling at equal distances along the actual path through colour space.
 
 \subsection*{The Arc-Length Solution}
 
-The engine estimates total arc length and samples at equal arc-length intervals:
+The engine estimates total arc length and samples at equal arc-length intervals \citep{levien2018arclength}:
 
 \begin{enumerate}
     \item \textbf{Estimate total arc length} --- Numerically integrate $|\gamma'(t)|$ over $[0,1]$
@@ -179,16 +181,19 @@ The engine estimates total arc length and samples at equal arc-length intervals:
     \item \textbf{Map back to $t$} --- Find the $t$ value corresponding to each arc-length position
 \end{enumerate}
 
-Arc-length parameterisation ensures that output swatches are perceptually equidistant (in terms of path distance in OKLab), not just parametrically equidistant.
+Arc-length parameterisation ensures that output swatches are perceptually equidistant (in terms of path distance in OKLab), not just parametrically equidistant. Combined with OKLab's perceptual uniformity, this produces swatches with consistent perceived differences between adjacent colours.
 
 \subsection*{Practical Implementation}
 
-For efficiency, the engine uses numerical approximation:
+For efficiency, the engine uses numerical approximation following established techniques \citep{kamermans2023}:
 \begin{itemize}
-    \item Subdivide curve into many small segments
-    \item Sum Euclidean distances of segments
+    \item Subdivide curve into many small segments (adaptive subdivision based on curvature)
+    \item Sum Euclidean distances of segments to approximate total arc length
     \item Use binary search or Newton iteration to find $t$ for target arc lengths
+    \item Cache arc-length tables for repeated sampling of the same curve
 \end{itemize}
+
+The approximation error is bounded by the subdivision granularity. In practice, 100--200 subdivisions per segment provide sufficient accuracy for palette generation while maintaining computational efficiency.
 
 \subsection*{Anchor Preservation}
 

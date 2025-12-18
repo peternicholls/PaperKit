@@ -1,7 +1,7 @@
 # Requirements & Technical Specifications
 
 **Status:** Active  
-**Last updated:** 2024-12-17  
+**Last updated:** 2025-12-17  
 **Author:** Peter Nicholls
 
 ## Document Style & Formatting

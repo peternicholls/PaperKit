@@ -12,7 +12,7 @@
 \section{Temperature Control}
 \label{sec:temperature}
 
-Temperature biases the journey's hue path toward warm or cool colours~\cite{hunt2004}. This control operates in the hue dimension of OKLCh (\S\ref{sec:oklch}), biasing the path selection when multiple hue routes are possible.
+Temperature biases the journey's hue path toward warm or cool colours \citep{hunt2004}. This control operates in the hue dimension of OKLCh (\S\ref{sec:oklch}), biasing the path selection when multiple hue routes are possible.
 
 \begin{center}
 \begin{tabular}{ll}
@@ -128,7 +128,7 @@ Range $0.0$ to $2.0$, default $1.0$. Expands or compresses the lightness range. 
 where $p$ is derived from the contrast parameter.
 
 \paragraph{Vibrancy.}
-Range $0.0$ to $2.0$, default $1.0$. Selectively boosts chroma of less-saturated colours while leaving already-vibrant colours unchanged~\cite{poynton2012}. Useful for counteracting desaturation in complementary-colour interpolation.
+Range $0.0$ to $2.0$, default $1.0$. Selectively boosts chroma of less-saturated colours while leaving already-vibrant colours unchanged \citep{poynton2012}. Useful for counteracting desaturation in complementary-colour interpolation.
 \begin{equation}
     C' = C \cdot \left(1 + v \cdot \left(1 - \frac{C}{C_{\max}}\right)\right)
 \end{equation}
