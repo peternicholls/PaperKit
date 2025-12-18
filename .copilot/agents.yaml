@@ -100,7 +100,7 @@ agents:
 
     reference-manager:
       name: "Reference Manager"
-      description: "Manages bibliographic data, formats citations, maintains bibliography"
+      description: "Academic bibliographer - validates citations, formats Harvard style (Cite Them Right), checks bibliography completeness"
       category: "references"
       role: "Bibliographer"
       triggers:
@@ -108,12 +108,22 @@ agents:
         - "references"
         - "bibliography"
         - "citations"
+        - "validate citations"
+        - "format bibliography"
       inputs:
         - "New sources or citation keys"
-        - "Desired operations"
+        - "Desired operations (extract, validate, format, completeness)"
       outputs:
         - "latex/references/references.bib"
         - "output-refined/references/"
+      workflows:
+        - "extract-citations"
+        - "validate-citations"
+        - "citation-completeness"
+        - "format-bibliography"
+      knowledgeBase:
+        - ".paper/_cfg/guides/harvard-citation-guide.md"
+        - ".paper/_cfg/tools/citation-rules.yaml"
       spec-file: "agents/core/reference-manager.yaml"
       doc-file: "open-agents/agents/reference_manager.md"
       requires-tools:
