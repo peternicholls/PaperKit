@@ -10,6 +10,14 @@ version: 2.0.0
 schemaVersion: 1.0.0
 lastUpdated: 2025-12-18
 
+# Academic Integrity Notice
+# ALL workflows in this system incorporate these critical principles:
+# - Academic integrity is paramount - prioritize reputable sources and proper citation practices
+# - Academic papers cannot be summarized or quoted without proper attribution and accurate referencing in Harvard style
+# - Every quote requires: quote text, page number, and full citation for both text and bibliography
+# - If a paper needs downloading, only use open access channels
+# - Never fabricate citations or guess at attribution; flag uncertainties for verification
+
 workflows:
   # Core Research Workflows
   - name: consolidate
@@ -59,7 +67,7 @@ workflows:
   - name: extract-citations
     module: core
     category: references
-    path: .paper/_cfg/workflows/extract-citations.yaml
+    path: .paper/core/workflows/references/extract-citations.yaml
     displayName: Extract Citations
     description: Extract all citation commands from LaTeX files and catalog them
     status: active
@@ -67,7 +75,7 @@ workflows:
   - name: validate-citations
     module: core
     category: references
-    path: .paper/_cfg/workflows/validate-citations.yaml
+    path: .paper/core/workflows/references/validate-citations.yaml
     displayName: Validate Citations
     description: Comprehensive citation validation against BibTeX database with Harvard style checking
     status: active
@@ -75,7 +83,7 @@ workflows:
   - name: citation-completeness
     module: core
     category: references
-    path: .paper/_cfg/workflows/citation-completeness.yaml
+    path: .paper/core/workflows/references/citation-completeness.yaml
     displayName: Check Citation Completeness
     description: Verify all BibTeX entries have complete information for their type
     status: active
@@ -83,7 +91,7 @@ workflows:
   - name: format-bibliography
     module: core
     category: references
-    path: .paper/_cfg/workflows/format-bibliography.yaml
+    path: .paper/core/workflows/references/format-bibliography.yaml
     displayName: Format Bibliography
     description: Generate properly formatted bibliography in Harvard style
     status: active

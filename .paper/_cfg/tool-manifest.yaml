@@ -45,19 +45,7 @@ tools:
     requiresConsent: true
     status: active
 
-  - name: citation-rules
-    path: .paper/_cfg/tools/citation-rules.yaml
-    displayName: Citation Validation Rules
-    description: Harvard citation validation rules and format specifications
-    requiresConsent: false
-    status: active
-    type: configuration
-    usedBy:
-      - reference-manager
-      - validate-citations workflow
-      - citation-completeness workflow
-
 statistics:
-  totalTools: 5
-  activeTools: 5
+  totalTools: 4
+  activeTools: 4
   deprecatedTools: 0
