@@ -1,0 +1,963 @@
+{
+  "builtTestProducts" : [
+
+  ],
+  "copyCommands" : {
+
+  },
+  "explicitTargetDependencyImportCheckingMode" : {
+    "none" : {
+
+    }
+  },
+  "generatedSourceTargetSet" : [
+
+  ],
+  "pluginDescriptions" : [
+
+  ],
+  "swiftCommands" : {
+    "C.ColorJourney-arm64-apple-macosx26.0-debug.module" : {
+      "executable" : "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc",
+      "fileList" : "/Users/peternicholls/code/ColourJourney/specs/005-c-algo-parity/tools/swift-parity-runner/.build/arm64-apple-macosx/debug/ColorJourney.build/sources",
+      "importPath" : "/Users/peternicholls/code/ColourJourney/specs/005-c-algo-parity/tools/swift-parity-runner/.build/arm64-apple-macosx/debug/Modules",
+      "inputs" : [
+        {
+          "kind" : "file",
+          "name" : "/Users/peternicholls/code/ColourJourney/Sources/ColorJourney/ColorJourney.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/peternicholls/code/ColourJourney/Sources/ColorJourney/Configuration/ColorJourneyConfig.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/peternicholls/code/ColourJourney/Sources/ColorJourney/Configuration/ConfigurationMapper.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/peternicholls/code/ColourJourney/Sources/ColorJourney/Configuration/ConfigurationTypes.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/peternicholls/code/ColourJourney/Sources/ColorJourney/Configuration/JourneyStyle.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/peternicholls/code/ColourJourney/Sources/ColorJourney/Extensions/SwiftUIExtensions.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/peternicholls/code/ColourJourney/Sources/ColorJourney/Journey/ColorJourneyClass.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/peternicholls/code/ColourJourney/Sources/ColorJourney/Types/ColorJourneyRGB.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/peternicholls/code/ColourJourney/specs/005-c-algo-parity/tools/swift-parity-runner/.build/arm64-apple-macosx/debug/swift-version--58304C5D6DBC2206.txt"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/peternicholls/code/ColourJourney/specs/005-c-algo-parity/tools/swift-parity-runner/.build/arm64-apple-macosx/debug/CColorJourney.build/ColorJourney.c.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/peternicholls/code/ColourJourney/specs/005-c-algo-parity/tools/swift-parity-runner/.build/arm64-apple-macosx/debug/ColorJourney.build/sources"
+        }
+      ],
+      "isLibrary" : true,
+      "moduleName" : "ColorJourney",
+      "moduleOutputPath" : "/Users/peternicholls/code/ColourJourney/specs/005-c-algo-parity/tools/swift-parity-runner/.build/arm64-apple-macosx/debug/Modules/ColorJourney.swiftmodule",
+      "objects" : [
+        "/Users/peternicholls/code/ColourJourney/specs/005-c-algo-parity/tools/swift-parity-runner/.build/arm64-apple-macosx/debug/ColorJourney.build/ColorJourney.swift.o",
+        "/Users/peternicholls/code/ColourJourney/specs/005-c-algo-parity/tools/swift-parity-runner/.build/arm64-apple-macosx/debug/ColorJourney.build/ColorJourneyConfig.swift.o",
+        "/Users/peternicholls/code/ColourJourney/specs/005-c-algo-parity/tools/swift-parity-runner/.build/arm64-apple-macosx/debug/ColorJourney.build/ConfigurationMapper.swift.o",
+        "/Users/peternicholls/code/ColourJourney/specs/005-c-algo-parity/tools/swift-parity-runner/.build/arm64-apple-macosx/debug/ColorJourney.build/ConfigurationTypes.swift.o",
+        "/Users/peternicholls/code/ColourJourney/specs/005-c-algo-parity/tools/swift-parity-runner/.build/arm64-apple-macosx/debug/ColorJourney.build/JourneyStyle.swift.o",
+        "/Users/peternicholls/code/ColourJourney/specs/005-c-algo-parity/tools/swift-parity-runner/.build/arm64-apple-macosx/debug/ColorJourney.build/SwiftUIExtensions.swift.o",
+        "/Users/peternicholls/code/ColourJourney/specs/005-c-algo-parity/tools/swift-parity-runner/.build/arm64-apple-macosx/debug/ColorJourney.build/ColorJourneyClass.swift.o",
+        "/Users/peternicholls/code/ColourJourney/specs/005-c-algo-parity/tools/swift-parity-runner/.build/arm64-apple-macosx/debug/ColorJourney.build/ColorJourneyRGB.swift.o"
+      ],
+      "otherArguments" : [
+        "-target",
+        "arm64-apple-macosx10.15",
+        "-incremental",
+        "-enable-batch-mode",
+        "-serialize-diagnostics",
+        "-index-store-path",
+        "/Users/peternicholls/code/ColourJourney/specs/005-c-algo-parity/tools/swift-parity-runner/.build/arm64-apple-macosx/debug/index/store",
+        "-Onone",
+        "-enable-testing",
+        "-j24",
+        "-DSWIFT_PACKAGE",
+        "-DDEBUG",
+        "-DSWIFT_MODULE_RESOURCE_BUNDLE_UNAVAILABLE",
+        "-Xcc",
+        "-fmodule-map-file=/Users/peternicholls/code/ColourJourney/Sources/CColorJourney/include/module.modulemap",
+        "-Xcc",
+        "-I",
+        "-Xcc",
+        "/Users/peternicholls/code/ColourJourney/Sources/CColorJourney/include",
+        "-module-cache-path",
+        "/Users/peternicholls/code/ColourJourney/specs/005-c-algo-parity/tools/swift-parity-runner/.build/arm64-apple-macosx/debug/ModuleCache",
+        "-parseable-output",
+        "-parse-as-library",
+        "-emit-objc-header",
+        "-emit-objc-header-path",
+        "/Users/peternicholls/code/ColourJourney/specs/005-c-algo-parity/tools/swift-parity-runner/.build/arm64-apple-macosx/debug/ColorJourney.build/include/ColorJourney-Swift.h",
+        "-color-diagnostics",
+        "-swift-version",
+        "5",
+        "-plugin-path",
+        "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/host/plugins/testing",
+        "-sdk",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.1.sdk",
+        "-F",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+        "-F",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks",
+        "-I",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+        "-L",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+        "-g",
+        "-Xcc",
+        "-isysroot",
+        "-Xcc",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.1.sdk",
+        "-Xcc",
+        "-F",
+        "-Xcc",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+        "-Xcc",
+        "-F",
+        "-Xcc",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks",
+        "-Xcc",
+        "-fPIC",
+        "-Xcc",
+        "-g",
+        "-package-name",
+        "colourjourney"
+      ],
+      "outputFileMapPath" : "/Users/peternicholls/code/ColourJourney/specs/005-c-algo-parity/tools/swift-parity-runner/.build/arm64-apple-macosx/debug/ColorJourney.build/output-file-map.json",
+      "outputs" : [
+        {
+          "kind" : "file",
+          "name" : "/Users/peternicholls/code/ColourJourney/specs/005-c-algo-parity/tools/swift-parity-runner/.build/arm64-apple-macosx/debug/ColorJourney.build/ColorJourney.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/peternicholls/code/ColourJourney/specs/005-c-algo-parity/tools/swift-parity-runner/.build/arm64-apple-macosx/debug/ColorJourney.build/ColorJourneyConfig.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/peternicholls/code/ColourJourney/specs/005-c-algo-parity/tools/swift-parity-runner/.build/arm64-apple-macosx/debug/ColorJourney.build/ConfigurationMapper.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/peternicholls/code/ColourJourney/specs/005-c-algo-parity/tools/swift-parity-runner/.build/arm64-apple-macosx/debug/ColorJourney.build/ConfigurationTypes.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/peternicholls/code/ColourJourney/specs/005-c-algo-parity/tools/swift-parity-runner/.build/arm64-apple-macosx/debug/ColorJourney.build/JourneyStyle.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/peternicholls/code/ColourJourney/specs/005-c-algo-parity/tools/swift-parity-runner/.build/arm64-apple-macosx/debug/ColorJourney.build/SwiftUIExtensions.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/peternicholls/code/ColourJourney/specs/005-c-algo-parity/tools/swift-parity-runner/.build/arm64-apple-macosx/debug/ColorJourney.build/ColorJourneyClass.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/peternicholls/code/ColourJourney/specs/005-c-algo-parity/tools/swift-parity-runner/.build/arm64-apple-macosx/debug/ColorJourney.build/ColorJourneyRGB.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/peternicholls/code/ColourJourney/specs/005-c-algo-parity/tools/swift-parity-runner/.build/arm64-apple-macosx/debug/Modules/ColorJourney.swiftmodule"
+        }
+      ],
+      "prepareForIndexing" : false,
+      "sources" : [
+        "/Users/peternicholls/code/ColourJourney/Sources/ColorJourney/ColorJourney.swift",
+        "/Users/peternicholls/code/ColourJourney/Sources/ColorJourney/Configuration/ColorJourneyConfig.swift",
+        "/Users/peternicholls/code/ColourJourney/Sources/ColorJourney/Configuration/ConfigurationMapper.swift",
+        "/Users/peternicholls/code/ColourJourney/Sources/ColorJourney/Configuration/ConfigurationTypes.swift",
+        "/Users/peternicholls/code/ColourJourney/Sources/ColorJourney/Configuration/JourneyStyle.swift",
+        "/Users/peternicholls/code/ColourJourney/Sources/ColorJourney/Extensions/SwiftUIExtensions.swift",
+        "/Users/peternicholls/code/ColourJourney/Sources/ColorJourney/Journey/ColorJourneyClass.swift",
+        "/Users/peternicholls/code/ColourJourney/Sources/ColorJourney/Types/ColorJourneyRGB.swift"
+      ],
+      "tempsPath" : "/Users/peternicholls/code/ColourJourney/specs/005-c-algo-parity/tools/swift-parity-runner/.build/arm64-apple-macosx/debug/ColorJourney.build",
+      "wholeModuleOptimization" : false
+    },
+    "C.SwatchDemo-arm64-apple-macosx26.0-debug.module" : {
+      "executable" : "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc",
+      "fileList" : "/Users/peternicholls/code/ColourJourney/specs/005-c-algo-parity/tools/swift-parity-runner/.build/arm64-apple-macosx/debug/SwatchDemo.build/sources",
+      "importPath" : "/Users/peternicholls/code/ColourJourney/specs/005-c-algo-parity/tools/swift-parity-runner/.build/arm64-apple-macosx/debug/Modules",
+      "inputs" : [
+        {
+          "kind" : "file",
+          "name" : "/Users/peternicholls/code/ColourJourney/Examples/SwatchDemo/main.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/peternicholls/code/ColourJourney/specs/005-c-algo-parity/tools/swift-parity-runner/.build/arm64-apple-macosx/debug/swift-version--58304C5D6DBC2206.txt"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/peternicholls/code/ColourJourney/specs/005-c-algo-parity/tools/swift-parity-runner/.build/arm64-apple-macosx/debug/Modules/ColorJourney.swiftmodule"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/peternicholls/code/ColourJourney/specs/005-c-algo-parity/tools/swift-parity-runner/.build/arm64-apple-macosx/debug/SwatchDemo.build/sources"
+        }
+      ],
+      "isLibrary" : false,
+      "moduleName" : "SwatchDemo",
+      "moduleOutputPath" : "/Users/peternicholls/code/ColourJourney/specs/005-c-algo-parity/tools/swift-parity-runner/.build/arm64-apple-macosx/debug/Modules/SwatchDemo.swiftmodule",
+      "objects" : [
+        "/Users/peternicholls/code/ColourJourney/specs/005-c-algo-parity/tools/swift-parity-runner/.build/arm64-apple-macosx/debug/SwatchDemo.build/main.swift.o"
+      ],
+      "otherArguments" : [
+        "-target",
+        "arm64-apple-macosx10.15",
+        "-incremental",
+        "-enable-batch-mode",
+        "-serialize-diagnostics",
+        "-index-store-path",
+        "/Users/peternicholls/code/ColourJourney/specs/005-c-algo-parity/tools/swift-parity-runner/.build/arm64-apple-macosx/debug/index/store",
+        "-Onone",
+        "-enable-testing",
+        "-j24",
+        "-DSWIFT_PACKAGE",
+        "-DDEBUG",
+        "-DSWIFT_MODULE_RESOURCE_BUNDLE_UNAVAILABLE",
+        "-Xcc",
+        "-fmodule-map-file=/Users/peternicholls/code/ColourJourney/Sources/CColorJourney/include/module.modulemap",
+        "-Xcc",
+        "-I",
+        "-Xcc",
+        "/Users/peternicholls/code/ColourJourney/Sources/CColorJourney/include",
+        "-module-cache-path",
+        "/Users/peternicholls/code/ColourJourney/specs/005-c-algo-parity/tools/swift-parity-runner/.build/arm64-apple-macosx/debug/ModuleCache",
+        "-parseable-output",
+        "-Xfrontend",
+        "-entry-point-function-name",
+        "-Xfrontend",
+        "SwatchDemo_main",
+        "-color-diagnostics",
+        "-swift-version",
+        "5",
+        "-plugin-path",
+        "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/host/plugins/testing",
+        "-sdk",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.1.sdk",
+        "-F",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+        "-F",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks",
+        "-I",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+        "-L",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+        "-g",
+        "-Xcc",
+        "-isysroot",
+        "-Xcc",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.1.sdk",
+        "-Xcc",
+        "-F",
+        "-Xcc",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+        "-Xcc",
+        "-F",
+        "-Xcc",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks",
+        "-Xcc",
+        "-fPIC",
+        "-Xcc",
+        "-g",
+        "-package-name",
+        "colourjourney"
+      ],
+      "outputFileMapPath" : "/Users/peternicholls/code/ColourJourney/specs/005-c-algo-parity/tools/swift-parity-runner/.build/arm64-apple-macosx/debug/SwatchDemo.build/output-file-map.json",
+      "outputs" : [
+        {
+          "kind" : "file",
+          "name" : "/Users/peternicholls/code/ColourJourney/specs/005-c-algo-parity/tools/swift-parity-runner/.build/arm64-apple-macosx/debug/SwatchDemo.build/main.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/peternicholls/code/ColourJourney/specs/005-c-algo-parity/tools/swift-parity-runner/.build/arm64-apple-macosx/debug/Modules/SwatchDemo.swiftmodule"
+        }
+      ],
+      "prepareForIndexing" : false,
+      "sources" : [
+        "/Users/peternicholls/code/ColourJourney/Examples/SwatchDemo/main.swift"
+      ],
+      "tempsPath" : "/Users/peternicholls/code/ColourJourney/specs/005-c-algo-parity/tools/swift-parity-runner/.build/arm64-apple-macosx/debug/SwatchDemo.build",
+      "wholeModuleOptimization" : false
+    },
+    "C.SwiftParityRunner-arm64-apple-macosx26.0-debug.module" : {
+      "executable" : "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc",
+      "fileList" : "/Users/peternicholls/code/ColourJourney/specs/005-c-algo-parity/tools/swift-parity-runner/.build/arm64-apple-macosx/debug/SwiftParityRunner.build/sources",
+      "importPath" : "/Users/peternicholls/code/ColourJourney/specs/005-c-algo-parity/tools/swift-parity-runner/.build/arm64-apple-macosx/debug/Modules",
+      "inputs" : [
+        {
+          "kind" : "file",
+          "name" : "/Users/peternicholls/code/ColourJourney/specs/005-c-algo-parity/tools/swift-parity-runner/Sources/SwiftParityRunner/ComparisonBridge.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/peternicholls/code/ColourJourney/specs/005-c-algo-parity/tools/swift-parity-runner/Sources/SwiftParityRunner/Models.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/peternicholls/code/ColourJourney/specs/005-c-algo-parity/tools/swift-parity-runner/Sources/SwiftParityRunner/ReferenceLoader.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/peternicholls/code/ColourJourney/specs/005-c-algo-parity/tools/swift-parity-runner/Sources/SwiftParityRunner/ReportGenerator.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/peternicholls/code/ColourJourney/specs/005-c-algo-parity/tools/swift-parity-runner/Sources/SwiftParityRunner/main.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/peternicholls/code/ColourJourney/specs/005-c-algo-parity/tools/swift-parity-runner/.build/arm64-apple-macosx/debug/swift-version--58304C5D6DBC2206.txt"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/peternicholls/code/ColourJourney/specs/005-c-algo-parity/tools/swift-parity-runner/.build/arm64-apple-macosx/debug/Modules/ColorJourney.swiftmodule"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/peternicholls/code/ColourJourney/specs/005-c-algo-parity/tools/swift-parity-runner/.build/arm64-apple-macosx/debug/SwiftParityRunner.build/sources"
+        }
+      ],
+      "isLibrary" : false,
+      "moduleName" : "SwiftParityRunner",
+      "moduleOutputPath" : "/Users/peternicholls/code/ColourJourney/specs/005-c-algo-parity/tools/swift-parity-runner/.build/arm64-apple-macosx/debug/Modules/SwiftParityRunner.swiftmodule",
+      "objects" : [
+        "/Users/peternicholls/code/ColourJourney/specs/005-c-algo-parity/tools/swift-parity-runner/.build/arm64-apple-macosx/debug/SwiftParityRunner.build/ComparisonBridge.swift.o",
+        "/Users/peternicholls/code/ColourJourney/specs/005-c-algo-parity/tools/swift-parity-runner/.build/arm64-apple-macosx/debug/SwiftParityRunner.build/Models.swift.o",
+        "/Users/peternicholls/code/ColourJourney/specs/005-c-algo-parity/tools/swift-parity-runner/.build/arm64-apple-macosx/debug/SwiftParityRunner.build/ReferenceLoader.swift.o",
+        "/Users/peternicholls/code/ColourJourney/specs/005-c-algo-parity/tools/swift-parity-runner/.build/arm64-apple-macosx/debug/SwiftParityRunner.build/ReportGenerator.swift.o",
+        "/Users/peternicholls/code/ColourJourney/specs/005-c-algo-parity/tools/swift-parity-runner/.build/arm64-apple-macosx/debug/SwiftParityRunner.build/main.swift.o"
+      ],
+      "otherArguments" : [
+        "-target",
+        "arm64-apple-macosx10.15",
+        "-incremental",
+        "-enable-batch-mode",
+        "-serialize-diagnostics",
+        "-index-store-path",
+        "/Users/peternicholls/code/ColourJourney/specs/005-c-algo-parity/tools/swift-parity-runner/.build/arm64-apple-macosx/debug/index/store",
+        "-Onone",
+        "-enable-testing",
+        "-j24",
+        "-DSWIFT_PACKAGE",
+        "-DDEBUG",
+        "-DSWIFT_MODULE_RESOURCE_BUNDLE_UNAVAILABLE",
+        "-Xcc",
+        "-fmodule-map-file=/Users/peternicholls/code/ColourJourney/Sources/CColorJourney/include/module.modulemap",
+        "-Xcc",
+        "-I",
+        "-Xcc",
+        "/Users/peternicholls/code/ColourJourney/Sources/CColorJourney/include",
+        "-module-cache-path",
+        "/Users/peternicholls/code/ColourJourney/specs/005-c-algo-parity/tools/swift-parity-runner/.build/arm64-apple-macosx/debug/ModuleCache",
+        "-parseable-output",
+        "-Xfrontend",
+        "-entry-point-function-name",
+        "-Xfrontend",
+        "SwiftParityRunner_main",
+        "-color-diagnostics",
+        "-swift-version",
+        "5",
+        "-plugin-path",
+        "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/host/plugins/testing",
+        "-sdk",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.1.sdk",
+        "-F",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+        "-F",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks",
+        "-I",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+        "-L",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+        "-g",
+        "-Xcc",
+        "-isysroot",
+        "-Xcc",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.1.sdk",
+        "-Xcc",
+        "-F",
+        "-Xcc",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+        "-Xcc",
+        "-F",
+        "-Xcc",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks",
+        "-Xcc",
+        "-fPIC",
+        "-Xcc",
+        "-g",
+        "-package-name",
+        "swift_parity_runner"
+      ],
+      "outputFileMapPath" : "/Users/peternicholls/code/ColourJourney/specs/005-c-algo-parity/tools/swift-parity-runner/.build/arm64-apple-macosx/debug/SwiftParityRunner.build/output-file-map.json",
+      "outputs" : [
+        {
+          "kind" : "file",
+          "name" : "/Users/peternicholls/code/ColourJourney/specs/005-c-algo-parity/tools/swift-parity-runner/.build/arm64-apple-macosx/debug/SwiftParityRunner.build/ComparisonBridge.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/peternicholls/code/ColourJourney/specs/005-c-algo-parity/tools/swift-parity-runner/.build/arm64-apple-macosx/debug/SwiftParityRunner.build/Models.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/peternicholls/code/ColourJourney/specs/005-c-algo-parity/tools/swift-parity-runner/.build/arm64-apple-macosx/debug/SwiftParityRunner.build/ReferenceLoader.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/peternicholls/code/ColourJourney/specs/005-c-algo-parity/tools/swift-parity-runner/.build/arm64-apple-macosx/debug/SwiftParityRunner.build/ReportGenerator.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/peternicholls/code/ColourJourney/specs/005-c-algo-parity/tools/swift-parity-runner/.build/arm64-apple-macosx/debug/SwiftParityRunner.build/main.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/peternicholls/code/ColourJourney/specs/005-c-algo-parity/tools/swift-parity-runner/.build/arm64-apple-macosx/debug/Modules/SwiftParityRunner.swiftmodule"
+        }
+      ],
+      "prepareForIndexing" : false,
+      "sources" : [
+        "/Users/peternicholls/code/ColourJourney/specs/005-c-algo-parity/tools/swift-parity-runner/Sources/SwiftParityRunner/ComparisonBridge.swift",
+        "/Users/peternicholls/code/ColourJourney/specs/005-c-algo-parity/tools/swift-parity-runner/Sources/SwiftParityRunner/Models.swift",
+        "/Users/peternicholls/code/ColourJourney/specs/005-c-algo-parity/tools/swift-parity-runner/Sources/SwiftParityRunner/ReferenceLoader.swift",
+        "/Users/peternicholls/code/ColourJourney/specs/005-c-algo-parity/tools/swift-parity-runner/Sources/SwiftParityRunner/ReportGenerator.swift",
+        "/Users/peternicholls/code/ColourJourney/specs/005-c-algo-parity/tools/swift-parity-runner/Sources/SwiftParityRunner/main.swift"
+      ],
+      "tempsPath" : "/Users/peternicholls/code/ColourJourney/specs/005-c-algo-parity/tools/swift-parity-runner/.build/arm64-apple-macosx/debug/SwiftParityRunner.build",
+      "wholeModuleOptimization" : false
+    }
+  },
+  "swiftFrontendCommands" : {
+
+  },
+  "swiftTargetScanArgs" : {
+    "ColorJourney" : [
+      "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc",
+      "-module-name",
+      "ColorJourney",
+      "-package-name",
+      "colourjourney",
+      "-c",
+      "/Users/peternicholls/code/ColourJourney/Sources/ColorJourney/ColorJourney.swift",
+      "/Users/peternicholls/code/ColourJourney/Sources/ColorJourney/Configuration/ColorJourneyConfig.swift",
+      "/Users/peternicholls/code/ColourJourney/Sources/ColorJourney/Configuration/ConfigurationMapper.swift",
+      "/Users/peternicholls/code/ColourJourney/Sources/ColorJourney/Configuration/ConfigurationTypes.swift",
+      "/Users/peternicholls/code/ColourJourney/Sources/ColorJourney/Configuration/JourneyStyle.swift",
+      "/Users/peternicholls/code/ColourJourney/Sources/ColorJourney/Extensions/SwiftUIExtensions.swift",
+      "/Users/peternicholls/code/ColourJourney/Sources/ColorJourney/Journey/ColorJourneyClass.swift",
+      "/Users/peternicholls/code/ColourJourney/Sources/ColorJourney/Types/ColorJourneyRGB.swift",
+      "-I",
+      "/Users/peternicholls/code/ColourJourney/specs/005-c-algo-parity/tools/swift-parity-runner/.build/arm64-apple-macosx/debug/Modules",
+      "-target",
+      "arm64-apple-macosx10.15",
+      "-incremental",
+      "-enable-batch-mode",
+      "-serialize-diagnostics",
+      "-index-store-path",
+      "/Users/peternicholls/code/ColourJourney/specs/005-c-algo-parity/tools/swift-parity-runner/.build/arm64-apple-macosx/debug/index/store",
+      "-Onone",
+      "-enable-testing",
+      "-j24",
+      "-DSWIFT_PACKAGE",
+      "-DDEBUG",
+      "-DSWIFT_MODULE_RESOURCE_BUNDLE_UNAVAILABLE",
+      "-Xcc",
+      "-fmodule-map-file=/Users/peternicholls/code/ColourJourney/Sources/CColorJourney/include/module.modulemap",
+      "-Xcc",
+      "-I",
+      "-Xcc",
+      "/Users/peternicholls/code/ColourJourney/Sources/CColorJourney/include",
+      "-module-cache-path",
+      "/Users/peternicholls/code/ColourJourney/specs/005-c-algo-parity/tools/swift-parity-runner/.build/arm64-apple-macosx/debug/ModuleCache",
+      "-parseable-output",
+      "-parse-as-library",
+      "-emit-objc-header",
+      "-emit-objc-header-path",
+      "/Users/peternicholls/code/ColourJourney/specs/005-c-algo-parity/tools/swift-parity-runner/.build/arm64-apple-macosx/debug/ColorJourney.build/include/ColorJourney-Swift.h",
+      "-color-diagnostics",
+      "-swift-version",
+      "5",
+      "-plugin-path",
+      "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/host/plugins/testing",
+      "-sdk",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.1.sdk",
+      "-F",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+      "-F",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks",
+      "-I",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+      "-L",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+      "-g",
+      "-Xcc",
+      "-isysroot",
+      "-Xcc",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.1.sdk",
+      "-Xcc",
+      "-F",
+      "-Xcc",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+      "-Xcc",
+      "-F",
+      "-Xcc",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks",
+      "-Xcc",
+      "-fPIC",
+      "-Xcc",
+      "-g",
+      "-package-name",
+      "colourjourney",
+      "-driver-use-frontend-path",
+      "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc"
+    ],
+    "SwatchDemo" : [
+      "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc",
+      "-module-name",
+      "SwatchDemo",
+      "-package-name",
+      "colourjourney",
+      "-c",
+      "/Users/peternicholls/code/ColourJourney/Examples/SwatchDemo/main.swift",
+      "-I",
+      "/Users/peternicholls/code/ColourJourney/specs/005-c-algo-parity/tools/swift-parity-runner/.build/arm64-apple-macosx/debug/Modules",
+      "-target",
+      "arm64-apple-macosx10.15",
+      "-incremental",
+      "-enable-batch-mode",
+      "-serialize-diagnostics",
+      "-index-store-path",
+      "/Users/peternicholls/code/ColourJourney/specs/005-c-algo-parity/tools/swift-parity-runner/.build/arm64-apple-macosx/debug/index/store",
+      "-Onone",
+      "-enable-testing",
+      "-j24",
+      "-DSWIFT_PACKAGE",
+      "-DDEBUG",
+      "-DSWIFT_MODULE_RESOURCE_BUNDLE_UNAVAILABLE",
+      "-Xcc",
+      "-fmodule-map-file=/Users/peternicholls/code/ColourJourney/Sources/CColorJourney/include/module.modulemap",
+      "-Xcc",
+      "-I",
+      "-Xcc",
+      "/Users/peternicholls/code/ColourJourney/Sources/CColorJourney/include",
+      "-module-cache-path",
+      "/Users/peternicholls/code/ColourJourney/specs/005-c-algo-parity/tools/swift-parity-runner/.build/arm64-apple-macosx/debug/ModuleCache",
+      "-parseable-output",
+      "-Xfrontend",
+      "-entry-point-function-name",
+      "-Xfrontend",
+      "SwatchDemo_main",
+      "-color-diagnostics",
+      "-swift-version",
+      "5",
+      "-plugin-path",
+      "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/host/plugins/testing",
+      "-sdk",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.1.sdk",
+      "-F",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+      "-F",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks",
+      "-I",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+      "-L",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+      "-g",
+      "-Xcc",
+      "-isysroot",
+      "-Xcc",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.1.sdk",
+      "-Xcc",
+      "-F",
+      "-Xcc",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+      "-Xcc",
+      "-F",
+      "-Xcc",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks",
+      "-Xcc",
+      "-fPIC",
+      "-Xcc",
+      "-g",
+      "-package-name",
+      "colourjourney",
+      "-driver-use-frontend-path",
+      "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc"
+    ],
+    "SwiftParityRunner" : [
+      "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc",
+      "-module-name",
+      "SwiftParityRunner",
+      "-package-name",
+      "swift_parity_runner",
+      "-c",
+      "/Users/peternicholls/code/ColourJourney/specs/005-c-algo-parity/tools/swift-parity-runner/Sources/SwiftParityRunner/ComparisonBridge.swift",
+      "/Users/peternicholls/code/ColourJourney/specs/005-c-algo-parity/tools/swift-parity-runner/Sources/SwiftParityRunner/Models.swift",
+      "/Users/peternicholls/code/ColourJourney/specs/005-c-algo-parity/tools/swift-parity-runner/Sources/SwiftParityRunner/ReferenceLoader.swift",
+      "/Users/peternicholls/code/ColourJourney/specs/005-c-algo-parity/tools/swift-parity-runner/Sources/SwiftParityRunner/ReportGenerator.swift",
+      "/Users/peternicholls/code/ColourJourney/specs/005-c-algo-parity/tools/swift-parity-runner/Sources/SwiftParityRunner/main.swift",
+      "-I",
+      "/Users/peternicholls/code/ColourJourney/specs/005-c-algo-parity/tools/swift-parity-runner/.build/arm64-apple-macosx/debug/Modules",
+      "-target",
+      "arm64-apple-macosx10.15",
+      "-incremental",
+      "-enable-batch-mode",
+      "-serialize-diagnostics",
+      "-index-store-path",
+      "/Users/peternicholls/code/ColourJourney/specs/005-c-algo-parity/tools/swift-parity-runner/.build/arm64-apple-macosx/debug/index/store",
+      "-Onone",
+      "-enable-testing",
+      "-j24",
+      "-DSWIFT_PACKAGE",
+      "-DDEBUG",
+      "-DSWIFT_MODULE_RESOURCE_BUNDLE_UNAVAILABLE",
+      "-Xcc",
+      "-fmodule-map-file=/Users/peternicholls/code/ColourJourney/Sources/CColorJourney/include/module.modulemap",
+      "-Xcc",
+      "-I",
+      "-Xcc",
+      "/Users/peternicholls/code/ColourJourney/Sources/CColorJourney/include",
+      "-module-cache-path",
+      "/Users/peternicholls/code/ColourJourney/specs/005-c-algo-parity/tools/swift-parity-runner/.build/arm64-apple-macosx/debug/ModuleCache",
+      "-parseable-output",
+      "-Xfrontend",
+      "-entry-point-function-name",
+      "-Xfrontend",
+      "SwiftParityRunner_main",
+      "-color-diagnostics",
+      "-swift-version",
+      "5",
+      "-plugin-path",
+      "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/host/plugins/testing",
+      "-sdk",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.1.sdk",
+      "-F",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+      "-F",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks",
+      "-I",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+      "-L",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+      "-g",
+      "-Xcc",
+      "-isysroot",
+      "-Xcc",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.1.sdk",
+      "-Xcc",
+      "-F",
+      "-Xcc",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+      "-Xcc",
+      "-F",
+      "-Xcc",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks",
+      "-Xcc",
+      "-fPIC",
+      "-Xcc",
+      "-g",
+      "-package-name",
+      "swift_parity_runner",
+      "-driver-use-frontend-path",
+      "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc"
+    ]
+  },
+  "targetDependencyMap" : {
+    "CColorJourney" : [
+
+    ],
+    "ColorJourney" : [
+      "CColorJourney"
+    ],
+    "SwatchDemo" : [
+      "ColorJourney",
+      "CColorJourney"
+    ],
+    "SwiftParityRunner" : [
+      "ColorJourney",
+      "CColorJourney"
+    ]
+  },
+  "testDiscoveryCommands" : {
+
+  },
+  "testEntryPointCommands" : {
+
+  },
+  "traitConfiguration" : {
+    "default" : {
+
+    }
+  },
+  "writeCommands" : {
+    "/Users/peternicholls/code/ColourJourney/specs/005-c-algo-parity/tools/swift-parity-runner/.build/arm64-apple-macosx/debug/ColorJourney.build/sources" : {
+      "alwaysOutOfDate" : false,
+      "inputs" : [
+        {
+          "kind" : "virtual",
+          "name" : "<sources-file-list>"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/peternicholls/code/ColourJourney/Sources/ColorJourney/ColorJourney.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/peternicholls/code/ColourJourney/Sources/ColorJourney/Configuration/ColorJourneyConfig.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/peternicholls/code/ColourJourney/Sources/ColorJourney/Configuration/ConfigurationMapper.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/peternicholls/code/ColourJourney/Sources/ColorJourney/Configuration/ConfigurationTypes.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/peternicholls/code/ColourJourney/Sources/ColorJourney/Configuration/JourneyStyle.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/peternicholls/code/ColourJourney/Sources/ColorJourney/Extensions/SwiftUIExtensions.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/peternicholls/code/ColourJourney/Sources/ColorJourney/Journey/ColorJourneyClass.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/peternicholls/code/ColourJourney/Sources/ColorJourney/Types/ColorJourneyRGB.swift"
+        }
+      ],
+      "outputFilePath" : "/Users/peternicholls/code/ColourJourney/specs/005-c-algo-parity/tools/swift-parity-runner/.build/arm64-apple-macosx/debug/ColorJourney.build/sources"
+    },
+    "/Users/peternicholls/code/ColourJourney/specs/005-c-algo-parity/tools/swift-parity-runner/.build/arm64-apple-macosx/debug/SwatchDemo.build/sources" : {
+      "alwaysOutOfDate" : false,
+      "inputs" : [
+        {
+          "kind" : "virtual",
+          "name" : "<sources-file-list>"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/peternicholls/code/ColourJourney/Examples/SwatchDemo/main.swift"
+        }
+      ],
+      "outputFilePath" : "/Users/peternicholls/code/ColourJourney/specs/005-c-algo-parity/tools/swift-parity-runner/.build/arm64-apple-macosx/debug/SwatchDemo.build/sources"
+    },
+    "/Users/peternicholls/code/ColourJourney/specs/005-c-algo-parity/tools/swift-parity-runner/.build/arm64-apple-macosx/debug/SwiftParityRunner.build/sources" : {
+      "alwaysOutOfDate" : false,
+      "inputs" : [
+        {
+          "kind" : "virtual",
+          "name" : "<sources-file-list>"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/peternicholls/code/ColourJourney/specs/005-c-algo-parity/tools/swift-parity-runner/Sources/SwiftParityRunner/ComparisonBridge.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/peternicholls/code/ColourJourney/specs/005-c-algo-parity/tools/swift-parity-runner/Sources/SwiftParityRunner/Models.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/peternicholls/code/ColourJourney/specs/005-c-algo-parity/tools/swift-parity-runner/Sources/SwiftParityRunner/ReferenceLoader.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/peternicholls/code/ColourJourney/specs/005-c-algo-parity/tools/swift-parity-runner/Sources/SwiftParityRunner/ReportGenerator.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/peternicholls/code/ColourJourney/specs/005-c-algo-parity/tools/swift-parity-runner/Sources/SwiftParityRunner/main.swift"
+        }
+      ],
+      "outputFilePath" : "/Users/peternicholls/code/ColourJourney/specs/005-c-algo-parity/tools/swift-parity-runner/.build/arm64-apple-macosx/debug/SwiftParityRunner.build/sources"
+    },
+    "/Users/peternicholls/code/ColourJourney/specs/005-c-algo-parity/tools/swift-parity-runner/.build/arm64-apple-macosx/debug/swatch-demo-entitlement.plist" : {
+      "alwaysOutOfDate" : false,
+      "inputs" : [
+        {
+          "kind" : "virtual",
+          "name" : "<entitlement-plist>"
+        },
+        {
+          "kind" : "virtual",
+          "name" : "<com.apple.security.get-task-allow>"
+        }
+      ],
+      "outputFilePath" : "/Users/peternicholls/code/ColourJourney/specs/005-c-algo-parity/tools/swift-parity-runner/.build/arm64-apple-macosx/debug/swatch-demo-entitlement.plist"
+    },
+    "/Users/peternicholls/code/ColourJourney/specs/005-c-algo-parity/tools/swift-parity-runner/.build/arm64-apple-macosx/debug/swatch-demo.product/Objects.LinkFileList" : {
+      "alwaysOutOfDate" : false,
+      "inputs" : [
+        {
+          "kind" : "virtual",
+          "name" : "<link-file-list>"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/peternicholls/code/ColourJourney/specs/005-c-algo-parity/tools/swift-parity-runner/.build/arm64-apple-macosx/debug/CColorJourney.build/ColorJourney.c.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/peternicholls/code/ColourJourney/specs/005-c-algo-parity/tools/swift-parity-runner/.build/arm64-apple-macosx/debug/ColorJourney.build/ColorJourney.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/peternicholls/code/ColourJourney/specs/005-c-algo-parity/tools/swift-parity-runner/.build/arm64-apple-macosx/debug/ColorJourney.build/ColorJourneyClass.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/peternicholls/code/ColourJourney/specs/005-c-algo-parity/tools/swift-parity-runner/.build/arm64-apple-macosx/debug/ColorJourney.build/ColorJourneyConfig.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/peternicholls/code/ColourJourney/specs/005-c-algo-parity/tools/swift-parity-runner/.build/arm64-apple-macosx/debug/ColorJourney.build/ColorJourneyRGB.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/peternicholls/code/ColourJourney/specs/005-c-algo-parity/tools/swift-parity-runner/.build/arm64-apple-macosx/debug/ColorJourney.build/ConfigurationMapper.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/peternicholls/code/ColourJourney/specs/005-c-algo-parity/tools/swift-parity-runner/.build/arm64-apple-macosx/debug/ColorJourney.build/ConfigurationTypes.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/peternicholls/code/ColourJourney/specs/005-c-algo-parity/tools/swift-parity-runner/.build/arm64-apple-macosx/debug/ColorJourney.build/JourneyStyle.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/peternicholls/code/ColourJourney/specs/005-c-algo-parity/tools/swift-parity-runner/.build/arm64-apple-macosx/debug/ColorJourney.build/SwiftUIExtensions.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/peternicholls/code/ColourJourney/specs/005-c-algo-parity/tools/swift-parity-runner/.build/arm64-apple-macosx/debug/SwatchDemo.build/main.swift.o"
+        }
+      ],
+      "outputFilePath" : "/Users/peternicholls/code/ColourJourney/specs/005-c-algo-parity/tools/swift-parity-runner/.build/arm64-apple-macosx/debug/swatch-demo.product/Objects.LinkFileList"
+    },
+    "/Users/peternicholls/code/ColourJourney/specs/005-c-algo-parity/tools/swift-parity-runner/.build/arm64-apple-macosx/debug/swift-parity-runner-entitlement.plist" : {
+      "alwaysOutOfDate" : false,
+      "inputs" : [
+        {
+          "kind" : "virtual",
+          "name" : "<entitlement-plist>"
+        },
+        {
+          "kind" : "virtual",
+          "name" : "<com.apple.security.get-task-allow>"
+        }
+      ],
+      "outputFilePath" : "/Users/peternicholls/code/ColourJourney/specs/005-c-algo-parity/tools/swift-parity-runner/.build/arm64-apple-macosx/debug/swift-parity-runner-entitlement.plist"
+    },
+    "/Users/peternicholls/code/ColourJourney/specs/005-c-algo-parity/tools/swift-parity-runner/.build/arm64-apple-macosx/debug/swift-parity-runner.product/Objects.LinkFileList" : {
+      "alwaysOutOfDate" : false,
+      "inputs" : [
+        {
+          "kind" : "virtual",
+          "name" : "<link-file-list>"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/peternicholls/code/ColourJourney/specs/005-c-algo-parity/tools/swift-parity-runner/.build/arm64-apple-macosx/debug/CColorJourney.build/ColorJourney.c.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/peternicholls/code/ColourJourney/specs/005-c-algo-parity/tools/swift-parity-runner/.build/arm64-apple-macosx/debug/ColorJourney.build/ColorJourney.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/peternicholls/code/ColourJourney/specs/005-c-algo-parity/tools/swift-parity-runner/.build/arm64-apple-macosx/debug/ColorJourney.build/ColorJourneyClass.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/peternicholls/code/ColourJourney/specs/005-c-algo-parity/tools/swift-parity-runner/.build/arm64-apple-macosx/debug/ColorJourney.build/ColorJourneyConfig.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/peternicholls/code/ColourJourney/specs/005-c-algo-parity/tools/swift-parity-runner/.build/arm64-apple-macosx/debug/ColorJourney.build/ColorJourneyRGB.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/peternicholls/code/ColourJourney/specs/005-c-algo-parity/tools/swift-parity-runner/.build/arm64-apple-macosx/debug/ColorJourney.build/ConfigurationMapper.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/peternicholls/code/ColourJourney/specs/005-c-algo-parity/tools/swift-parity-runner/.build/arm64-apple-macosx/debug/ColorJourney.build/ConfigurationTypes.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/peternicholls/code/ColourJourney/specs/005-c-algo-parity/tools/swift-parity-runner/.build/arm64-apple-macosx/debug/ColorJourney.build/JourneyStyle.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/peternicholls/code/ColourJourney/specs/005-c-algo-parity/tools/swift-parity-runner/.build/arm64-apple-macosx/debug/ColorJourney.build/SwiftUIExtensions.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/peternicholls/code/ColourJourney/specs/005-c-algo-parity/tools/swift-parity-runner/.build/arm64-apple-macosx/debug/SwiftParityRunner.build/ComparisonBridge.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/peternicholls/code/ColourJourney/specs/005-c-algo-parity/tools/swift-parity-runner/.build/arm64-apple-macosx/debug/SwiftParityRunner.build/Models.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/peternicholls/code/ColourJourney/specs/005-c-algo-parity/tools/swift-parity-runner/.build/arm64-apple-macosx/debug/SwiftParityRunner.build/ReferenceLoader.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/peternicholls/code/ColourJourney/specs/005-c-algo-parity/tools/swift-parity-runner/.build/arm64-apple-macosx/debug/SwiftParityRunner.build/ReportGenerator.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/peternicholls/code/ColourJourney/specs/005-c-algo-parity/tools/swift-parity-runner/.build/arm64-apple-macosx/debug/SwiftParityRunner.build/main.swift.o"
+        }
+      ],
+      "outputFilePath" : "/Users/peternicholls/code/ColourJourney/specs/005-c-algo-parity/tools/swift-parity-runner/.build/arm64-apple-macosx/debug/swift-parity-runner.product/Objects.LinkFileList"
+    },
+    "/Users/peternicholls/code/ColourJourney/specs/005-c-algo-parity/tools/swift-parity-runner/.build/arm64-apple-macosx/debug/swift-version--58304C5D6DBC2206.txt" : {
+      "alwaysOutOfDate" : true,
+      "inputs" : [
+        {
+          "kind" : "virtual",
+          "name" : "<swift-get-version>"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc"
+        }
+      ],
+      "outputFilePath" : "/Users/peternicholls/code/ColourJourney/specs/005-c-algo-parity/tools/swift-parity-runner/.build/arm64-apple-macosx/debug/swift-version--58304C5D6DBC2206.txt"
+    }
+  }
+}

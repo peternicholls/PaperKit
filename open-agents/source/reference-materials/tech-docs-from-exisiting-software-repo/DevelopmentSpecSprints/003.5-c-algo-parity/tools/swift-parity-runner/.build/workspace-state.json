@@ -1,0 +1,27 @@
+{
+  "object" : {
+    "artifacts" : [
+
+    ],
+    "dependencies" : [
+      {
+        "basedOn" : null,
+        "packageRef" : {
+          "identity" : "colourjourney",
+          "kind" : "fileSystem",
+          "location" : "/Users/peternicholls/code/ColourJourney",
+          "name" : "ColorJourney"
+        },
+        "state" : {
+          "name" : "fileSystem",
+          "path" : "/Users/peternicholls/code/ColourJourney"
+        },
+        "subpath" : "colourjourney"
+      }
+    ],
+    "prebuilts" : [
+
+    ]
+  },
+  "version" : 7
+}

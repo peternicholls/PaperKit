@@ -1,0 +1,12 @@
+{
+  "": {
+    "swift-dependencies": "/Users/peternicholls/code/ColourJourney/specs/005-c-algo-parity/tools/swift-parity-runner/.build/arm64-apple-macosx/debug/SwatchDemo.build/master.swiftdeps"
+  },
+  "/Users/peternicholls/code/ColourJourney/Examples/SwatchDemo/main.swift": {
+    "dependencies": "/Users/peternicholls/code/ColourJourney/specs/005-c-algo-parity/tools/swift-parity-runner/.build/arm64-apple-macosx/debug/SwatchDemo.build/main.d",
+    "object": "/Users/peternicholls/code/ColourJourney/specs/005-c-algo-parity/tools/swift-parity-runner/.build/arm64-apple-macosx/debug/SwatchDemo.build/main.swift.o",
+    "swiftmodule": "/Users/peternicholls/code/ColourJourney/specs/005-c-algo-parity/tools/swift-parity-runner/.build/arm64-apple-macosx/debug/SwatchDemo.build/main~partial.swiftmodule",
+    "swift-dependencies": "/Users/peternicholls/code/ColourJourney/specs/005-c-algo-parity/tools/swift-parity-runner/.build/arm64-apple-macosx/debug/SwatchDemo.build/main.swiftdeps",
+    "diagnostics": "/Users/peternicholls/code/ColourJourney/specs/005-c-algo-parity/tools/swift-parity-runner/.build/arm64-apple-macosx/debug/SwatchDemo.build/main.dia"
+  }
+}
