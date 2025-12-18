@@ -31,7 +31,7 @@ Gamut correction & \S\ref{sec:gamut-correction} & Reduce chroma, preserve hue (n
 Determinism & \S\ref{sec:determinism} & Same inputs = same outputs (pure function) \\
 Variation layer & \S\ref{sec:variation} & Seeded PRNG; anchors never perturbed \\
 API philosophy & \S\ref{sec:api-philosophy} & Stateless, focused, no side effects \\
-Performance & \S\ref{sec:performance} & Microsecond-range; 5.6M colours/second \\
+Performance & \S\ref{sec:performance} & Microsecond-range; 5.6M colors/second \\
 \bottomrule
 \end{tabular}
 \caption{Quick reference mapping topics to sections}
@@ -48,7 +48,7 @@ This section summarises the key design decisions documented throughout the paper
     
     \item \textbf{Gamut handling} (\S\ref{sec:gamut-design}--\S\ref{sec:gamut-correction}): Two-layer approach (prevention + correction); hard clipping rejected to preserve hue; HSV fallback rejected to maintain perceptual uniformity.
     
-    \item \textbf{API scope} (\S\ref{sec:api-scope}): Engine owns core generation; naming, accessibility, and colour blindness simulation are caller responsibilities.
+    \item \textbf{API scope} (\S\ref{sec:api-scope}): Engine owns core generation; naming, accessibility, and color blindness simulation are caller responsibilities.
 \end{itemize}
 
 \subsection{Parameter Quick Reference}
@@ -59,8 +59,8 @@ This section summarises the key design decisions documented throughout the paper
 \toprule
 \textbf{Parameter} & \textbf{Range} & \textbf{Default} & \textbf{Effect} \\
 \midrule
-\texttt{count} & $\mathbb{Z}^+$ & (required) & Number of output colours \\
-\texttt{anchors} & 1--5 colours & (required) & Key colours to pass through \\
+\texttt{count} & $\mathbb{Z}^+$ & (required) & Number of output colors \\
+\texttt{anchors} & 1--5 colors & (required) & Key colors to pass through \\
 \texttt{temperature} & $[-1, +1]$ & 0 & Warm/cool hue bias \\
 \texttt{intensity} & $[0, 1]$ & 0.5 & Curve drama (control point offset) \\
 \texttt{smoothness} & $[0, 1]$ & 0.7 & $C^1$ continuity at anchors \\
@@ -92,7 +92,7 @@ This section summarises the key design decisions documented throughout the paper
 \texttt{diagnostics.minDeltaE} & Smallest adjacent distance \\
 \texttt{diagnostics.maxDeltaE} & Largest adjacent distance \\
 \texttt{diagnostics.meanDeltaE} & Average distance \\
-\texttt{diagnostics.gamutCorrections} & Count of gamut-mapped colours \\
+\texttt{diagnostics.gamutCorrections} & Count of gamut-mapped colors \\
 \texttt{diagnostics.constraintViolations} & Count of constraint issues \\
 \bottomrule
 \end{tabular}
@@ -110,14 +110,14 @@ This section summarises the key design decisions documented throughout the paper
 Smooth gradient background & journey & \texttt{smooth} \\
 Warm sunset atmosphere & journey & \texttt{sunset} \\
 Cool professional theme & journey & \texttt{ocean} or \texttt{arctic} \\
-Chart legend colours & categorical & \texttt{categorical} \\
+Chart legend colors & categorical & \texttt{categorical} \\
 Heatmap scale & journey & \texttt{sequential} \\
 Positive/negative diverging & journey & \texttt{diverging} \\
 UI state variations & journey & \texttt{monochrome} \\
 Continuous animation loop & journey (closed) & \texttt{cycling} \\
 Pulsing/breathing effect & journey (pingpong) & \texttt{breathing} \\
 High-energy vibrant palette & journey & \texttt{neon} or \texttt{vivid} \\
-Soft, approachable colours & journey & \texttt{pastel} \\
+Soft, approachable colors & journey & \texttt{pastel} \\
 \bottomrule
 \end{tabular}
 \caption{Use case to preset mapping}
@@ -149,10 +149,10 @@ $> 5.0$ & Pronounced difference, may feel like a ``step'' \\
 \toprule
 \textbf{Symptom} & \textbf{Likely Cause / Solution} \\
 \midrule
-Colours look washed out & High chroma caused gamut mapping; reduce \texttt{chroma} \\
-Unexpected colour in middle & Temperature bias routing through different hues; check \texttt{temperature} \\
-Visible ``jump'' between colours & Step size exceeds $\Delta_{\max}$; add anchors or increase \texttt{count} \\
-Colours too similar & Anchors too close; use different anchors or Categorical Mode \\
+Colors look washed out & High chroma caused gamut mapping; reduce \texttt{chroma} \\
+Unexpected color in middle & Temperature bias routing through different hues; check \texttt{temperature} \\
+Visible ``jump'' between colors & Step size exceeds $\Delta_{\max}$; add anchors or increase \texttt{count} \\
+Colors too similar & Anchors too close; use different anchors or Categorical Mode \\
 Animation has visible seam & Using \texttt{open} loop; switch to \texttt{closed} \\
 Different output each run & Missing \texttt{seed} with variation; provide explicit seed \\
 Palette doesn't match saved & Engine version changed; store full config for reproducibility \\

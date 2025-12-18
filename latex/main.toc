@@ -15,12 +15,12 @@
 \contentsline {section}{\numberline {1.5}Paper Organization}{12}{section.1.5}%
 \contentsline {chapter}{\numberline {2}Perceptual Color Foundations}{13}{chapter.2}%
 \contentsline {section}{\numberline {2.1}The Perceptual Uniformity Requirement}{13}{section.2.1}%
-\contentsline {section}{\numberline {2.2}OKLab Colour Space}{13}{section.2.2}%
+\contentsline {section}{\numberline {2.2}OKLab Color Space}{13}{section.2.2}%
 \contentsline {section}{\numberline {2.3}Cartesian vs.\ Cylindrical Coordinates}{15}{section.2.3}%
-\contentsline {section}{\numberline {2.4}Colour Space Conversion}{15}{section.2.4}%
+\contentsline {section}{\numberline {2.4}Color Space Conversion}{15}{section.2.4}%
 \contentsline {chapter}{\numberline {3}Journey Construction}{18}{chapter.3}%
 \contentsline {section}{\numberline {3.1}The Journey Metaphor}{18}{section.3.1}%
-\contentsline {section}{\numberline {3.2}Anchor Colours}{18}{section.3.2}%
+\contentsline {section}{\numberline {3.2}Anchor Colors}{18}{section.3.2}%
 \contentsline {section}{\numberline {3.3}Mood Expansion (Single-Anchor Case)}{19}{section.3.3}%
 \contentsline {section}{\numberline {3.4}Multi-Anchor Paths}{21}{section.3.4}%
 \contentsline {paragraph}{$C^0$ Continuity (Position).}{21}{equation.3.4}%
@@ -80,7 +80,7 @@
 \contentsline {section}{\numberline {11.2}Engine Guarantees}{51}{section.11.2}%
 \contentsline {section}{\numberline {11.3}Caller Responsibilities}{52}{section.11.3}%
 \contentsline {paragraph}{Accessibility Testing.}{52}{section.11.3}%
-\contentsline {paragraph}{Colour Blindness.}{52}{section.11.3}%
+\contentsline {paragraph}{Color Blindness.}{52}{section.11.3}%
 \contentsline {paragraph}{Context Suitability.}{52}{section.11.3}%
 \contentsline {paragraph}{Application Constraints.}{52}{section.11.3}%
 \contentsline {paragraph}{Reproducibility.}{52}{section.11.3}%
@@ -89,7 +89,7 @@
 \contentsline {section}{\numberline {12.1}Summary}{54}{section.12.1}%
 \contentsline {section}{\numberline {12.2}Key Contributions}{54}{section.12.2}%
 \contentsline {section}{\numberline {12.3}Future Directions}{55}{section.12.3}%
-\contentsline {paragraph}{Extended Colour Spaces.}{55}{section.12.3}%
+\contentsline {paragraph}{Extended Color Spaces.}{55}{section.12.3}%
 \contentsline {paragraph}{Accessibility Integration.}{56}{section.12.3}%
 \contentsline {paragraph}{Multi-Palette Harmonisation.}{56}{section.12.3}%
 \contentsline {paragraph}{Symmetry-Constrained Optimisation.}{56}{section.12.3}%
@@ -156,7 +156,7 @@
 \contentsline {subsection}{\numberline {C.1.1}Simple Two-Anchor Gradient}{68}{subsection.C.1.1}%
 \contentsline {subsection}{\numberline {C.1.2}Multi-Anchor Journey}{68}{subsection.C.1.2}%
 \contentsline {section}{\numberline {C.2}Single-Anchor Expansion}{69}{section.C.2}%
-\contentsline {subsection}{\numberline {C.2.1}Brand Colour State Variants}{69}{subsection.C.2.1}%
+\contentsline {subsection}{\numberline {C.2.1}Brand Color State Variants}{69}{subsection.C.2.1}%
 \contentsline {section}{\numberline {C.3}Categorical Mode}{70}{section.C.3}%
 \contentsline {subsection}{\numberline {C.3.1}Categorical with Fixed Anchors}{70}{subsection.C.3.1}%
 \contentsline {section}{\numberline {C.4}Temperature Control}{71}{section.C.4}%
@@ -166,10 +166,10 @@
 \contentsline {subsection}{\numberline {C.5.3}Phased Loop for Evolution}{72}{subsection.C.5.3}%
 \contentsline {section}{\numberline {C.6}Full Configuration}{72}{section.C.6}%
 \contentsline {section}{\numberline {C.7}Working with Output}{73}{section.C.7}%
-\contentsline {subsection}{\numberline {C.7.1}Accessing Colour Formats}{73}{subsection.C.7.1}%
+\contentsline {subsection}{\numberline {C.7.1}Accessing Color Formats}{73}{subsection.C.7.1}%
 \contentsline {subsection}{\numberline {C.7.2}Using Diagnostics}{74}{subsection.C.7.2}%
 \contentsline {section}{\numberline {C.8}Common Patterns}{74}{section.C.8}%
-\contentsline {subsection}{\numberline {C.8.1}Diverging Colour Scale}{74}{subsection.C.8.1}%
+\contentsline {subsection}{\numberline {C.8.1}Diverging Color Scale}{74}{subsection.C.8.1}%
 \contentsline {subsection}{\numberline {C.8.2}Sequential Scale with Preset}{75}{subsection.C.8.2}%
 \contentsline {subsection}{\numberline {C.8.3}Reproducing a Palette}{75}{subsection.C.8.3}%
 \contentsline {chapter}{\numberline {D}Quick Reference}{77}{appendix.D}%

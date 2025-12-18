@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.12.13)  18 DEC 2025 01:56
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.12.13)  18 DEC 2025 03:27
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1491,6 +1491,12 @@ Overfull \hbox (4.12323pt too wide) in paragraph at lines 24--25
  []
 
 
+Overfull \hbox (2.81429pt too wide) in paragraph at lines 28--29
+\T1/lmr/bx/n/12 Note on Spelling: \T1/lmr/m/n/12 This spec-i-fi-ca-tion uses Am
+er-i-can En-glish spelling con-ven-tions (``color''
+ []
+
+
 
 [2] (./main.toc
 LaTeX Font Info:    External font `lmex10' loaded for size
@@ -1536,12 +1542,6 @@ s, each with dis-tinct strengths
  []
 
 
-Overfull \hbox (10.95764pt too wide) in paragraph at lines 89--90
-\T1/lmr/m/n/12 adic, anal-o-gous, split-complementary---define ge-o-met-ric re-
-la-tion-ships on the colour wheel []It-
- []
-
-
 
 [10]
 Overfull \hbox (15.52242pt too wide) in paragraph at lines 111--112
@@ -1560,6 +1560,9 @@ Chapter 2.
 [13
 
 ]
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <5> on input line 68.
+
 
 [14{/usr/local/texlive/2025/texmf-dist/fonts/enc/dvips/lm/lm-mathex.enc}{/usr/l
 ocal/texlive/2025/texmf-dist/fonts/enc/dvips/lm/lm-mathsy.enc}]
@@ -1575,6 +1578,11 @@ Chapter 3.
 [18
 
 ]
+Overfull \hbox (0.25555pt too wide) in paragraph at lines 62--63
+\T1/lmr/m/n/12 har-mony sys-tems (com-ple-men-tary, tri-adic, anal-o-gous) gen-
+er-ate geometrically-related hues
+ []
+
 
 LaTeX Warning: Command \textdegree invalid in math mode on input line 78.
 
@@ -1599,12 +1607,6 @@ Underfull \vbox (badness 2591) has occurred while \output is active []
 Overfull \hbox (1.33101pt too wide) in paragraph at lines 184--185
 []\T1/lmr/m/n/12 Arc-length pa-ram-e-ter-i-sa-tion en-sures that out-put swatch
 es are per-cep-tu-ally equidis-
- []
-
-
-Overfull \hbox (27.89569pt too wide) in paragraph at lines 188--190
-\T1/lmr/m/n/12 For ef-fi-ciency, the en-gine uses nu-mer-i-cal ap-prox-i-ma-tio
-n fol-low-ing es-tab-lished tech-niques []Kamer-
  []
 
 )
@@ -1662,9 +1664,9 @@ Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 
 
 [25]
-Overfull \hbox (23.64966pt too wide) in paragraph at lines 79--80
+Overfull \hbox (17.12167pt too wide) in paragraph at lines 79--80
 []\T1/lmr/bx/n/12 Why 5.0? \T1/lmr/m/n/12 This value rep-re-sents the up-per bo
-und of ``com-fort-able'' colour transitions---
+und of ``com-fort-able'' color transitions---
  []
 
 
@@ -1682,7 +1684,7 @@ Chapter 5.
 [29]
 
 [30])
-Overfull \hbox (21.6993pt too wide) in paragraph at lines 169--53
+Overfull \hbox (21.6993pt too wide) in paragraph at lines 169--57
 []\T1/lmr/m/n/12 With all pa-ram-e-ters at de-fault val-ues, the en-gine pro-du
 ces sim-ple lin-ear interpolation---
  []
@@ -1760,9 +1762,9 @@ Chapter 9.
 [44
 
 ]
-Overfull \hbox (45.34718pt too wide) in paragraph at lines 82--83
+Overfull \hbox (10.26237pt too wide) in paragraph at lines 82--83
 []\T1/lmr/bx/n/12 Specified al-go-rithm \T1/lmr/m/n/12 --- Im-ple-men-ta-tion u
-ses doc-u-mented al-go-rithm (e.g., xoshiro256** []Black-
+ses doc-u-mented al-go-rithm (e.g., xoshiro256**
  []
 
 
@@ -1785,8 +1787,6 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 LaTeX Warning: Reference `sec:caller-responsibilities' on page 49 undefined on 
 input line 120.
 
-LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <5> on input line 139.
 
 
 [49])
@@ -2331,7 +2331,7 @@ See the Listings package documentation for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.237 ...pt,caption={Using Output Colour Formats}]
+l.237 ...ipt,caption={Using Output Color Formats}]
                                                   
 The following languages weren't loadable:
     ,javascript$
@@ -2344,7 +2344,7 @@ See the Listings package documentation for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.237 ...pt,caption={Using Output Colour Formats}]
+l.237 ...ipt,caption={Using Output Color Formats}]
                                                   
 The language is not loadable. Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
@@ -2529,11 +2529,6 @@ Underfull \vbox (badness 3503) has occurred while \output is active []
 LaTeX Warning: `h' float specifier changed to `ht'.
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 153--153
-[]|\T1/lmr/m/n/12 Unexpected colour in
- []
-
-
 Underfull \hbox (badness 10000) in paragraph at lines 153--154
 []|\T1/lmr/m/n/12 Temperature bias rout-ing
  []
@@ -2588,42 +2583,44 @@ L3 programming layer <2025-01-18>
 LaTeX Warning: There were undefined references.
 
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: 19D95C83392BF7CB3DD9A09E38E64F59;24942.
+(rerunfilecheck)             Checksum: E1E5D551250AF6C6A767A36D1C80A641;24912.
 Package logreq Info: Writing requests to 'main.run.xml'.
 \openout1 = `main.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 45451 strings out of 473190
- 928579 string characters out of 5715799
- 1917190 words of memory out of 5000000
+ 45452 strings out of 473190
+ 928590 string characters out of 5715799
+ 1917188 words of memory out of 5000000
  67327 multiletter control sequences out of 15000+600000
  635563 words of font info for 93 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  89i,14n,99p,1909b,2298s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
-pdfTeX warning (dest): name{Hfootnote.1} has been referenced but does not exist
+pdfTeX warning (dest): name{Hfootnote.2} has been referenced but does not exist
 , replaced by a fixed one
 
 </usr/local/texlive/2025/texmf-dist/fonts/type1/public/lm/lmbx10.pfb></usr/loca
 l/texlive/2025/texmf-dist/fonts/type1/public/lm/lmbx12.pfb></usr/local/texlive/
 2025/texmf-dist/fonts/type1/public/lm/lmcsc10.pfb></usr/local/texlive/2025/texm
 f-dist/fonts/type1/public/lm/lmex10.pfb></usr/local/texlive/2025/texmf-dist/fon
-ts/type1/public/lm/lmmi12.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/p
-ublic/lm/lmmi8.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/lm/lm
-r10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/lm/lmr12.pfb></u
-sr/local/texlive/2025/texmf-dist/fonts/type1/public/lm/lmr17.pfb></usr/local/te
-xlive/2025/texmf-dist/fonts/type1/public/lm/lmr8.pfb></usr/local/texlive/2025/t
-exmf-dist/fonts/type1/public/lm/lmri12.pfb></usr/local/texlive/2025/texmf-dist/
-fonts/type1/public/lm/lmsy10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type
-1/public/lm/lmsy8.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/lm
-/lmtk10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/lm/lmtt10.pf
-b></usr/local/texlive/2025/texmf-dist/fonts/type1/public/lm/lmtt12.pfb></usr/lo
-cal/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on main.pdf (84 pages, 557392 bytes).
+ts/type1/public/lm/lmmi10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/p
+ublic/lm/lmmi12.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/lm/l
+mmi8.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/lm/lmr10.pfb></
+usr/local/texlive/2025/texmf-dist/fonts/type1/public/lm/lmr12.pfb></usr/local/t
+exlive/2025/texmf-dist/fonts/type1/public/lm/lmr17.pfb></usr/local/texlive/2025
+/texmf-dist/fonts/type1/public/lm/lmr7.pfb></usr/local/texlive/2025/texmf-dist/
+fonts/type1/public/lm/lmr8.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/
+public/lm/lmri12.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/lm/
+lmsy10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/lm/lmsy8.pfb>
+</usr/local/texlive/2025/texmf-dist/fonts/type1/public/lm/lmtk10.pfb></usr/loca
+l/texlive/2025/texmf-dist/fonts/type1/public/lm/lmtt10.pfb></usr/local/texlive/
+2025/texmf-dist/fonts/type1/public/lm/lmtt12.pfb></usr/local/texlive/2025/texmf
+-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
+Output written on main.pdf (84 pages, 582176 bytes).
 PDF statistics:
- 1813 PDF objects out of 2073 (max. 8388607)
- 1647 compressed objects within 17 object streams
- 558 named destinations out of 1000 (max. 500000)
+ 1826 PDF objects out of 2073 (max. 8388607)
+ 1656 compressed objects within 17 object streams
+ 559 named destinations out of 1000 (max. 500000)
  1205 words of extra memory for PDF output out of 10000 (max. 10000000)
 

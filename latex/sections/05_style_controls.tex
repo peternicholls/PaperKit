@@ -12,7 +12,7 @@
 \section{Temperature Control}
 \label{sec:temperature}
 
-Temperature biases the journey's hue path toward warm or cool colours \citep{hunt2004}. This control operates in the hue dimension of OKLCh (\S\ref{sec:oklch}), biasing the path selection when multiple hue routes are possible.
+Temperature biases the journey's hue path toward warm or cool colors \citep{hunt2004}. This control operates in the hue dimension of OKLCh (\S\ref{sec:oklch}), biasing the path selection when multiple hue routes are possible.
 
 \begin{center}
 \begin{tabular}{ll}
@@ -23,7 +23,7 @@ Temperature biases the journey's hue path toward warm or cool colours \citep{hun
 \end{tabular}
 \end{center}
 
-When interpolating hue in OKLCh, there are always two possible paths around the colour wheel. By default, the engine takes the shortest path. The temperature parameter overrides this:
+When interpolating hue in OKLCh, there are always two possible paths around the color wheel. By default, the engine takes the shortest path. The temperature parameter overrides this:
 
 \begin{itemize}
     \item \textbf{Positive values} ($+0.1$ to $+1.0$): Bias toward warm hues (reds, oranges, yellows)
@@ -60,7 +60,7 @@ Intensity controls the chromatic drama of the journey---how far control points d
 \begin{itemize}
     \item \textbf{Low intensity} ($0.0$--$0.3$): Subtle, nearly linear paths; control points close to the anchor line
     \item \textbf{Medium intensity} ($0.4$--$0.6$): Moderate curves with balanced chromatic excursions
-    \item \textbf{High intensity} ($0.7$--$1.0$): Dramatic arcs; pronounced curves through colour space
+    \item \textbf{High intensity} ($0.7$--$1.0$): Dramatic arcs; pronounced curves through color space
 \end{itemize}
 
 Mathematically, intensity scales the control point offset:
@@ -71,7 +71,7 @@ Mathematically, intensity scales the control point offset:
 
 where $\iota$ is the intensity parameter and $\vec{s}_1$, $\vec{s}_2$ are style-determined offset vectors (typically into higher-chroma regions).
 
-Intensity affects path geometry, not endpoint colours. The anchors remain unchanged (\S\ref{sec:anchors}); only the route between them becomes more or less dramatic. This is achieved by scaling the Bézier control point offset (\S\ref{sec:bezier}).
+Intensity affects path geometry, not endpoint colors. The anchors remain unchanged (\S\ref{sec:anchors}); only the route between them becomes more or less dramatic. This is achieved by scaling the Bézier control point offset (\S\ref{sec:bezier}).
 
 % ------------------------------------------------------------------------------
 % 5.3 Smoothness Control
@@ -109,7 +109,7 @@ Smoothness also affects perceived velocity consistency---higher values produce m
 Beyond the primary triad (temperature, intensity, smoothness), several secondary parameters provide finer control:
 
 \paragraph{Lightness Bias.}
-Range $-1.0$ to $+1.0$, default $0$. Shifts all colours lighter (positive) or darker (negative). Applied proportionally to avoid clipping:
+Range $-1.0$ to $+1.0$, default $0$. Shifts all colors lighter (positive) or darker (negative). Applied proportionally to avoid clipping:
 \begin{equation}
     L' = \begin{cases}
         L + \lambda(1 - L) & \text{if } \lambda > 0 \\
@@ -118,7 +118,7 @@ Range $-1.0$ to $+1.0$, default $0$. Shifts all colours lighter (positive) or da
 \end{equation}
 
 \paragraph{Chroma.}
-Range $0.0$ to $2.0$, default $1.0$. Multiplies the chroma (saturation) of all colours. Values $>1$ increase saturation; values $<1$ desaturate toward greyscale.
+Range $0.0$ to $2.0$, default $1.0$. Multiplies the chroma (saturation) of all colors. Values $>1$ increase saturation; values $<1$ desaturate toward greyscale.
 
 \paragraph{Contrast.}
 Range $0.0$ to $2.0$, default $1.0$. Expands or compresses the lightness range. High contrast darkens darks and lightens lights; low contrast pushes toward mid-grey. Implemented via S-curve:
@@ -128,12 +128,12 @@ Range $0.0$ to $2.0$, default $1.0$. Expands or compresses the lightness range. 
 where $p$ is derived from the contrast parameter.
 
 \paragraph{Vibrancy.}
-Range $0.0$ to $2.0$, default $1.0$. Selectively boosts chroma of less-saturated colours while leaving already-vibrant colours unchanged \citep{poynton2012}. Useful for counteracting desaturation in complementary-colour interpolation.
+Range $0.0$ to $2.0$, default $1.0$. Selectively boosts chroma of less-saturated colors while leaving already-vibrant colors unchanged \citep{poynton2012}. Useful for counteracting desaturation in complementary-color interpolation.
 \begin{equation}
     C' = C \cdot \left(1 + v \cdot \left(1 - \frac{C}{C_{\max}}\right)\right)
 \end{equation}
 
-where $C_{\max}$ is the maximum achievable chroma at the colour's current lightness $L$ and hue $h$ within the sRGB gamut boundary (see \S\ref{sec:gamut-problem} for gamut constraints).
+where $C_{\max}$ is the maximum achievable chroma at the color's current lightness $L$ and hue $h$ within the sRGB gamut boundary (see \S\ref{sec:gamut-problem} for gamut constraints).
 
 % ------------------------------------------------------------------------------
 % 5.5 Parameter Interactions
@@ -159,7 +159,7 @@ However, some combinations can conflict:
 \midrule
 High chroma + low lightness & May exceed gamut \\
 High contrast + extreme anchors & May clip at black/white \\
-High temperature + cool anchors & Long hue path, more colours needed \\
+High temperature + cool anchors & Long hue path, more colors needed \\
 \bottomrule
 \end{tabular}
 \end{center}

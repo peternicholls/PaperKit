@@ -12,7 +12,7 @@
 \section{Just-Noticeable Difference}
 \label{sec:jnd}
 
-The \textbf{Just Noticeable Difference (JND)} is the smallest colour change that an average human observer can detect under standard viewing conditions. This concept originates from Weber's and Fechner's foundational psychophysics work and has been extensively studied in colour science \citep{fairchild2013}.
+The \textbf{Just Noticeable Difference (JND)} is the smallest color change that an average human observer can detect under standard viewing conditions. This concept originates from Weber's and Fechner's foundational psychophysics work and has been extensively studied in color science \citep{fairchild2013}.
 
 In OKLab:
 \begin{itemize}
@@ -20,9 +20,9 @@ In OKLab:
     \item Practical threshold: $\Delta E \approx 2.0$ units (accounting for real-world variability)
 \end{itemize}
 
-The practical threshold of 2.0 units is derived from applying a safety margin to the theoretical JND. Colour science literature consistently shows that laboratory JND values (measured under controlled illumination, neutral adaptation, and foveal viewing) underestimate the threshold needed for reliable discrimination in real applications \citep{fairchild2013,luo2001}. Factors including ambient lighting variation, observer differences, display calibration, and peripheral viewing all increase the effective threshold. The 2$\times$ multiplier is a conservative engineering choice, not an empirically-validated constant.
+The practical threshold of 2.0 units is derived from applying a safety margin to the theoretical JND. Color science literature consistently shows that laboratory JND values (measured under controlled illumination, neutral adaptation, and foveal viewing) underestimate the threshold needed for reliable discrimination in real applications \citep{fairchild2013,luo2001}. Factors including ambient lighting variation, observer differences, display calibration, and peripheral viewing all increase the effective threshold. The 2$\times$ multiplier is a conservative engineering choice, not an empirically-validated constant.
 
-Notably, the CSS Color Level 4 gamut mapping algorithm uses a similar threshold concept: colours are considered ``close enough'' to clip when $\Delta E < 0.02$ on OKLab's 0--1 scale \citep{csscolor4}, which corresponds to approximately 2 units on the 0--100 scale commonly used in colour difference literature. Our threshold choice aligns with this industry practice.
+Notably, the CSS Color Level 4 gamut mapping algorithm uses a similar threshold concept: colors are considered ``close enough'' to clip when $\Delta E < 0.02$ on OKLab's 0--1 scale \citep{csscolor4}, which corresponds to approximately 2 units on the 0--100 scale commonly used in color difference literature. Our threshold choice aligns with this industry practice.
 
 \begin{center}
 \begin{tabular}{ll}
@@ -52,7 +52,7 @@ $> 5.0$ & Pronounced difference, may feel like a ``step'' \\
 
 This is the \textbf{minimum allowed perceptual distance} between any two adjacent swatches.
 
-\textbf{Why 2.0?} This value is set at the practical JND threshold (\S\ref{sec:jnd}) to ensure that every colour step is reliably perceptible across typical viewing conditions. Setting $\Delta_{\min}$ at 1.0 (the theoretical JND) would produce steps that are only \emph{sometimes} distinguishable; the 2.0 threshold provides margin for the variability inherent in real-world colour perception \citep{fairchild2013}. There is no value in generating colours that viewers cannot reliably distinguish---it wastes palette capacity and creates the impression of redundancy.
+\textbf{Why 2.0?} This value is set at the practical JND threshold (\S\ref{sec:jnd}) to ensure that every color step is reliably perceptible across typical viewing conditions. Setting $\Delta_{\min}$ at 1.0 (the theoretical JND) would produce steps that are only \emph{sometimes} distinguishable; the 2.0 threshold provides margin for the variability inherent in real-world color perception \citep{fairchild2013}. There is no value in generating colors that viewers cannot reliably distinguish---it wastes palette capacity and creates the impression of redundancy.
 
 \subsection*{Enforcement}
 
@@ -62,7 +62,7 @@ If two anchors are closer than $\Delta_{\min}$:
     \item \textbf{Skip intermediates:} No interpolation is performed; the journey jumps directly from one to the other
 \end{itemize}
 
-When anchors are extremely close ($\Delta < \Delta_{\min}$), the engine does not attempt to create meaningless intermediate colours.
+When anchors are extremely close ($\Delta < \Delta_{\min}$), the engine does not attempt to create meaningless intermediate colors.
 
 % ------------------------------------------------------------------------------
 % 4.3 Δ_max Constraint (Coherence)
@@ -76,7 +76,7 @@ When anchors are extremely close ($\Delta < \Delta_{\min}$), the engine does not
 
 This is the \textbf{maximum allowed perceptual distance} between any two adjacent swatches.
 
-\textbf{Why 5.0?} This value represents the upper bound of ``comfortable'' colour transitions---steps large enough to be clearly distinct but not so large as to feel discontinuous. The 5.0 threshold emerges from the JND interpretation table (\S\ref{sec:jnd}): differences above $\sim$5 units cross from ``obvious but smooth'' into ``pronounced step'' territory. This is a design heuristic informed by practical experimentation with generated palettes, not a value derived from formal perceptual studies. Alternative implementations may choose different thresholds based on their aesthetic goals.
+\textbf{Why 5.0?} This value represents the upper bound of ``comfortable'' color transitions---steps large enough to be clearly distinct but not so large as to feel discontinuous. The 5.0 threshold emerges from the JND interpretation table (\S\ref{sec:jnd}): differences above $\sim$5 units cross from ``obvious but smooth'' into ``pronounced step'' territory. This is a design heuristic informed by practical experimentation with generated palettes, not a value derived from formal perceptual studies. Alternative implementations may choose different thresholds based on their aesthetic goals.
 
 \subsection*{Enforcement}
 
@@ -88,7 +88,7 @@ If a segment between anchors has total distance $D > \Delta_{\max}$:
     \item \textbf{Cap subdivisions:} $n \leq 5$ to prevent excessive palette length
 \end{enumerate}
 
-\textbf{Why cap at 5?} This limit prevents runaway palette growth when anchors are extremely far apart in colour space. The value 5 is chosen to align with the anchor count limit (\S\ref{sec:anchors})---maintaining cognitive tractability. With at most 5 intermediates between any two anchors, users can reason about the palette structure. If anchors are extremely far apart ($D > 25$ units), each step will exceed $\Delta_{\max}$, which is acceptable: the user has explicitly requested a large colour jump by their anchor selection.
+\textbf{Why cap at 5?} This limit prevents runaway palette growth when anchors are extremely far apart in color space. The value 5 is chosen to align with the anchor count limit (\S\ref{sec:anchors})---maintaining cognitive tractability. With at most 5 intermediates between any two anchors, users can reason about the palette structure. If anchors are extremely far apart ($D > 25$ units), each step will exceed $\Delta_{\max}$, which is acceptable: the user has explicitly requested a large color jump by their anchor selection.
 
 % ------------------------------------------------------------------------------
 % 4.4 Adaptive Sampling
@@ -133,14 +133,14 @@ When $D$ is very large and capped at $n=5$, step sizes may exceed $\Delta_{\max}
 \label{sec:constraint-enforcement}
 \label{sec:constraint-conflicts}
 
-Some anchor configurations make constraints impossible to satisfy fully---two anchors very close together cannot yield many distinguishable steps; requesting 100 swatches between nearby colours is unsatisfiable.
+Some anchor configurations make constraints impossible to satisfy fully---two anchors very close together cannot yield many distinguishable steps; requesting 100 swatches between nearby colors is unsatisfiable.
 
 The engine prioritises producing output over strict enforcement:
 
 \begin{enumerate}
     \item \textbf{Best effort:} The engine produces the closest valid palette
     \item \textbf{Diagnostics:} Constraint violations are reported (not thrown as errors)
-    \item \textbf{$\Delta_{\min}$ priority:} Distinguishability takes precedence---colours below JND are never output
+    \item \textbf{$\Delta_{\min}$ priority:} Distinguishability takes precedence---colors below JND are never output
 \end{enumerate}
 
 Distance constraints are evaluated on the actual path (after dynamics and gamut mapping are applied), not the straight-line distance between anchors. If dynamics increase path length, more intermediate swatches may be needed; if gamut clipping shortens effective distances, fewer may suffice.

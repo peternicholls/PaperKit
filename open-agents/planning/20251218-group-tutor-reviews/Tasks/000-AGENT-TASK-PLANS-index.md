@@ -32,7 +32,7 @@
 - **Phase 3 (Strategic Enhancements):** 012–017
 
 ## Task Details
-Use /tasks-artifacts/ for saving intermediate outputs and handoff files.
+Use /tasks-artifacts/ for saving intermediate outputs and handoff files. Always check this directory for the latest briefs and instructions to supplement your task plan.
 
 ## Execution Timeline (from tutors)
 

@@ -9,9 +9,9 @@
 % ------------------------------------------------------------------------------
 % Chapter Introduction
 % ------------------------------------------------------------------------------
-The previous sections established \emph{what} the engine optimises for---smooth sequential flow in Journey Mode or maximum categorical distinction---and \emph{how} style controls shape the journey's character. This chapter addresses a complementary concern: \emph{what happens at the boundaries} when a palette must extend beyond its natural start-to-end path, whether through cycling, reversal, or progressive evolution.
+The previous sections established \emph{what} the engine optimizes for---smooth sequential flow in Journey Mode or maximum categorical distinction---and \emph{how} style controls shape the journey's character. This chapter addresses a complementary concern: \emph{what happens at the boundaries} when a palette must extend beyond its natural start-to-end path, whether through cycling, reversal, or progressive evolution.
 
-Five loop strategies provide different behaviours for sequences that need to repeat or continue beyond a single traversal.
+Five loop strategies provide different behaviors for sequences that need to repeat or continue beyond a single traversal.
 
 % ------------------------------------------------------------------------------
 % 7.1 Open Strategy
@@ -40,11 +40,11 @@ The \textbf{closed} strategy forms a complete cycle, returning smoothly from the
     J(0) = J(1) = A_1
 \end{equation}
 
-The engine adds a segment from $A_m$ back to $A_1$, creating a closed path with $C^1$ continuity at the wrap point. The tangent leaving $A_m$ toward $A_1$ matches the tangent arriving at $A_1$ from $A_m$, preventing a ``corner'' in colour space.
+The engine adds a segment from $A_m$ back to $A_1$, creating a closed path with $C^1$ continuity at the wrap point. The tangent leaving $A_m$ toward $A_1$ matches the tangent arriving at $A_1$ from $A_m$, preventing a ``corner'' in color space.
 
-In closed loop mode, the output array \emph{omits the duplicate final colour}. The last swatch is adjacent to (but not identical to) $A_1$, because $A_1$ is already the first swatch. When looped, the sequence wraps seamlessly.
+In closed loop mode, the output array \emph{omits the duplicate final color}. The last swatch is adjacent to (but not identical to) $A_1$, because $A_1$ is already the first swatch. When looped, the sequence wraps seamlessly.
 
-Closed loops are appropriate for continuous colour cycling animations, hue wheels, and looping ambient effects.
+Closed loops are appropriate for continuous color cycling animations, hue wheels, and looping ambient effects.
 
 % ------------------------------------------------------------------------------
 % 7.3 Ping-Pong Strategy
@@ -62,11 +62,11 @@ For parameter $u \in [0, 2]$:
     \end{cases}
 \end{equation}
 
-No new colours are generated in the reverse pass---the path is exactly retraced. Smooth reversal occurs at the turning point ($A_m$) and smooth loop at the return point ($A_1$).
+No new colors are generated in the reverse pass---the path is exactly retraced. Smooth reversal occurs at the turning point ($A_m$) and smooth loop at the return point ($A_1$).
 
 Ping-pong output includes the forward sequence; callers can traverse the array forward then backward, or the engine can output the full forward-and-back sequence explicitly.
 
-Ping-pong is appropriate for ``breathing'' or ``pulsing'' colour effects, bidirectional progress indicators, and oscillating state visualisations.
+Ping-pong is appropriate for ``breathing'' or ``pulsing'' color effects, bidirectional progress indicators, and oscillating state visualisations.
 
 % ------------------------------------------------------------------------------
 % 7.4 Möbius Strategy
@@ -74,22 +74,22 @@ Ping-pong is appropriate for ``breathing'' or ``pulsing'' colour effects, bidire
 \section{Möbius Strategy}
 \label{sec:loop-mobius}
 
-The \textbf{Möbius} strategy is a half-twist loop requiring \emph{two complete traversals} to return to the starting colour---named after the Möbius strip, a surface with a half-twist where walking one complete loop brings you to the ``other side,'' requiring a second loop to return to your starting position.
+The \textbf{Möbius} strategy is a half-twist loop requiring \emph{two complete traversals} to return to the starting color---named after the Möbius strip, a surface with a half-twist where walking one complete loop brings you to the ``other side,'' requiring a second loop to return to your starting position.
 
-In colour terms: after one cycle through the journey, you arrive at a colour \emph{related to} but distinct from the start; only after the second cycle do you return to the original. This creates animations that feel subtly different on alternating cycles.
+In color terms: after one cycle through the journey, you arrive at a color \emph{related to} but distinct from the start; only after the second cycle do you return to the original. This creates animations that feel subtly different on alternating cycles.
 
 One approach inverts the chromatic components at the halfway point:
 \begin{equation}
     J_{\text{mobius}}(1) = (L, -a, -b) \quad \text{when } J_{\text{mobius}}(0) = (L, a, b)
 \end{equation}
 
-This yields the complementary colour (180° hue rotation) at the midpoint. The viewer perceives continuous change that takes two ``laps'' to truly repeat:
+This yields the complementary color (180° hue rotation) at the midpoint. The viewer perceives continuous change that takes two ``laps'' to truly repeat:
 \begin{itemize}
     \item Cycle 1: Journey from Red → \ldots → Cyan (complement)
     \item Cycle 2: Journey from Cyan → \ldots → Red (back to original)
 \end{itemize}
 
-Möbius is an advanced option requiring careful understanding of the twist behaviour. It is appropriate for complex animations with implicit alternation, effects that should vary between loops, and artistic/generative applications.
+Möbius is an advanced option requiring careful understanding of the twist behavior. It is appropriate for complex animations with implicit alternation, effects that should vary between loops, and artistic/generative applications.
 
 % ------------------------------------------------------------------------------
 % 7.5 Phased Strategy
@@ -123,7 +123,7 @@ Phased loops are parameterised by shift amount and dimension. This is the most c
 \label{sec:loop-output}
 
 \begin{designdecision}[Unrolled Loop Output]
-\textbf{Choice:} All loop strategies output a flat array of $N$ colours. Loops are ``unrolled'' into a sequential list with no nested structure or cycle metadata.
+\textbf{Choice:} All loop strategies output a flat array of $N$ colors. Loops are ``unrolled'' into a sequential list with no nested structure or cycle metadata.
 
 \textbf{Rationale:} Flat arrays are universally consumable across languages and use cases. Callers needing cycle information can compute it from strategy and count; most callers don't need it.
 
@@ -139,7 +139,7 @@ Phased loops are parameterised by shift amount and dimension. This is the most c
 
 \subsection*{Non-Repetition Rule}
 
-Loop outputs omit duplicate colours at boundaries. If the loop returns to the starting colour, that colour is \emph{not} repeated at the end of the array:
+Loop outputs omit duplicate colors at boundaries. If the loop returns to the starting color, that color is \emph{not} repeated at the end of the array:
 
 \begin{itemize}
     \item Conceptual path: $A \to B \to C \to D \to E \to A$
@@ -147,8 +147,8 @@ Loop outputs omit duplicate colours at boundaries. If the loop returns to the st
     \item When looped: $A, B, C, D, E, A, B, C, D, E, \ldots$ ($A$ follows $E$ naturally)
 \end{itemize}
 
-This prevents doubled colours when looping externally and reduces array length.
+This prevents doubled colors when looping externally and reduces array length.
 
 \subsection*{Caller Responsibilities}
 
-Simple repetition behaviours are caller responsibility, not engine features. The engine provides smooth loop paths and appropriate swatch sequences; the caller controls ``play N times then stop'', animation timing, and pause/resume.
+Simple repetition behaviors are caller responsibility, not engine features. The engine provides smooth loop paths and appropriate swatch sequences; the caller controls ``play N times then stop'', animation timing, and pause/resume.

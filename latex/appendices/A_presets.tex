@@ -75,11 +75,11 @@ The following table provides the complete preset reference with all parameter va
 
 \paragraph{\texttt{linear}} The most basic preset---pure linear interpolation between anchors with no curve enhancement. Useful as a baseline for comparison or when mathematical predictability is paramount. Zero intensity means control points lie exactly on the anchor line (\S\ref{sec:bezier}).
 
-\paragraph{\texttt{smooth}} Gentle, flowing gradients with high smoothness for seamless $C^1$ continuity at anchor junctions. Appropriate for backgrounds, ambient effects, and contexts where the colour transition should feel natural and unobtrusive.
+\paragraph{\texttt{smooth}} Gentle, flowing gradients with high smoothness for seamless $C^1$ continuity at anchor junctions. Appropriate for backgrounds, ambient effects, and contexts where the color transition should feel natural and unobtrusive.
 
 \paragraph{\texttt{vivid}} High-intensity curves that create dramatic chromatic excursions between anchors. The path swings through higher-chroma regions, producing bold, attention-grabbing palettes. Best for creative applications where visual impact is desired.
 
-\paragraph{\texttt{muted}} Subdued palettes with low intensity and high smoothness. Produces sophisticated, understated colour combinations suitable for professional interfaces, document themes, and contexts requiring visual restraint.
+\paragraph{\texttt{muted}} Subdued palettes with low intensity and high smoothness. Produces sophisticated, understated color combinations suitable for professional interfaces, document themes, and contexts requiring visual restraint.
 
 \subsection{Mood-Based Presets}
 
@@ -89,9 +89,9 @@ The following table provides the complete preset reference with all parameter va
 
 \paragraph{\texttt{ocean}} Cool temperature bias ($-0.6$) emphasises blues, cyans, and aquatic greens. The path avoids warm hues entirely, creating cohesive underwater or maritime palettes.
 
-\paragraph{\texttt{forest}} Moderate cool bias with natural green emphasis. Lower intensity preserves the organic, muted quality of woodland colours without artificial saturation.
+\paragraph{\texttt{forest}} Moderate cool bias with natural green emphasis. Lower intensity preserves the organic, muted quality of woodland colors without artificial saturation.
 
-\paragraph{\texttt{autumn}} Warm bias with higher intensity to capture the vibrant oranges, reds, and golds of fall foliage. Slightly lower smoothness allows for more distinct colour ``stops'' resembling individual leaves.
+\paragraph{\texttt{autumn}} Warm bias with higher intensity to capture the vibrant oranges, reds, and golds of fall foliage. Slightly lower smoothness allows for more distinct color ``stops'' resembling individual leaves.
 
 \paragraph{\texttt{arctic}} Strong cool bias ($-0.8$) with low intensity and high smoothness for ice, snow, and cold atmospheres. The resulting palettes feel crisp and minimal.
 
@@ -99,23 +99,23 @@ The following table provides the complete preset reference with all parameter va
 
 \paragraph{\texttt{neon}} Maximum intensity with closed loop for continuous cycling. Creates electric, high-energy palettes suitable for nightclub aesthetics, gaming interfaces, or attention-grabbing animations.
 
-\paragraph{\texttt{pastel}} Low intensity with very high smoothness produces soft, desaturated palettes. The colours feel gentle and approachable---suitable for children's applications, wellness themes, or light UI backgrounds.
+\paragraph{\texttt{pastel}} Low intensity with very high smoothness produces soft, desaturated palettes. The colors feel gentle and approachable---suitable for children's applications, wellness themes, or light UI backgrounds.
 
-\paragraph{\texttt{earth}} Warm bias with restrained intensity for natural, organic colour combinations. Browns, tans, and warm neutrals dominate, suitable for outdoor, craft, or sustainability themes.
+\paragraph{\texttt{earth}} Warm bias with restrained intensity for natural, organic color combinations. Browns, tans, and warm neutrals dominate, suitable for outdoor, craft, or sustainability themes.
 
-\paragraph{\texttt{monochrome}} Minimal intensity (0.1) with near-maximum smoothness for single-hue depth exploration. When combined with a single anchor (\S\ref{sec:single-anchor}), produces sophisticated tonal variations of one colour.
+\paragraph{\texttt{monochrome}} Minimal intensity (0.1) with near-maximum smoothness for single-hue depth exploration. When combined with a single anchor (\S\ref{sec:single-anchor}), produces sophisticated tonal variations of one color.
 
 \subsection{Data Visualisation Presets}
 
-\paragraph{\texttt{categorical}} Uses Categorical Mode (\S\ref{sec:categorical-mode}) to maximise perceptual distance between all colour pairs. Essential for charts, legends, and any context where colours represent distinct categories that must be easily distinguished.
+\paragraph{\texttt{categorical}} Uses Categorical Mode (\S\ref{sec:categorical-mode}) to maximise perceptual distance between all color pairs. Essential for charts, legends, and any context where colors represent distinct categories that must be easily distinguished.
 
 \paragraph{\texttt{diverging}} Journey Mode with balanced parameters, intended for two-anchor use where one anchor represents a negative extreme and the other a positive extreme. The neutral midpoint is automatically generated through interpolation.
 
-\paragraph{\texttt{sequential}} Optimised for ordered data (low-to-high, early-to-late). Smooth progression with moderate intensity creates clear directionality in the palette.
+\paragraph{\texttt{sequential}} Optimized for ordered data (low-to-high, early-to-late). Smooth progression with moderate intensity creates clear directionality in the palette.
 
 \subsection{Animation Presets}
 
-\paragraph{\texttt{breathing}} Ping-pong loop (\S\ref{sec:loop-pingpong}) with very high smoothness for pulse effects. The colour smoothly advances then retreats, creating a ``breathing'' rhythm without any discontinuity at reversal points.
+\paragraph{\texttt{breathing}} Ping-pong loop (\S\ref{sec:loop-pingpong}) with very high smoothness for pulse effects. The color smoothly advances then retreats, creating a ``breathing'' rhythm without any discontinuity at reversal points.
 
 \paragraph{\texttt{cycling}} Closed loop (\S\ref{sec:loop-closed}) for continuous rotation. High smoothness ensures no visible ``seam'' where the loop wraps from end to beginning.
 
@@ -137,7 +137,7 @@ Soft, gentle, approachable & \texttt{pastel} or \texttt{muted} \\
 Chart/graph categories & \texttt{categorical} \\
 Heatmap or sequential data & \texttt{sequential} \\
 Looping animation & \texttt{cycling} or \texttt{breathing} \\
-Tonal variations of one colour & \texttt{monochrome} \\
+Tonal variations of one color & \texttt{monochrome} \\
 \bottomrule
 \end{tabular}
 \end{center}

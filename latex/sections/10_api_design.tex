@@ -22,7 +22,7 @@ Key characteristics:
 \begin{itemize}
     \item \textbf{Stateless} --- No memory between calls
     \item \textbf{Deterministic} --- Same inputs produce same outputs
-    \item \textbf{Focused} --- Does one thing well (colour journey generation)
+    \item \textbf{Focused} --- Does one thing well (color journey generation)
     \item \textbf{No side effects} --- No global state, no external dependencies
 \end{itemize}
 
@@ -39,8 +39,8 @@ The guiding principle: the engine should do only what the caller cannot do thems
 \toprule
 \textbf{Parameter} & \textbf{Type} & \textbf{Required} & \textbf{Description} \\
 \midrule
-\texttt{count} & integer & Yes & Number of colours to generate \\
-\texttt{anchors} & array & Yes & 1--5 colours (hex, RGB, or OKLab) \\
+\texttt{count} & integer & Yes & Number of colors to generate \\
+\texttt{anchors} & array & Yes & 1--5 colors (hex, RGB, or OKLab) \\
 \texttt{temperature} & float & No & $-1$ to $+1$, default $0$ \\
 \texttt{intensity} & float & No & $0$ to $1$, default $0.5$ \\
 \texttt{smoothness} & float & No & $0$ to $1$, default $0.7$ \\
@@ -62,7 +62,7 @@ When a preset is specified, it expands to a parameter set. Explicit parameters o
 
 The engine returns discrete swatches (not continuous functions) with three components:
 
-\paragraph{Palette Array.} An ordered list of colour swatches, each containing:
+\paragraph{Palette Array.} An ordered list of color swatches, each containing:
 \begin{itemize}
     \item \texttt{hex} --- sRGB hex code (\texttt{\#RRGGBB})
     \item \texttt{ok} --- OKLab coordinates (\texttt{\{L, a, b\}})
@@ -91,7 +91,7 @@ Diagnostics report quality metrics and constraint status:
 \texttt{maxDeltaE} & Largest perceptual distance between adjacent swatches \\
 \texttt{meanDeltaE} & Average distance \\
 \texttt{constraintViolations} & Count of constraint violations \\
-\texttt{gamutCorrections} & Count of colours requiring gamut mapping \\
+\texttt{gamutCorrections} & Count of colors requiring gamut mapping \\
 \texttt{traversalStrategy} & Algorithm used (e.g., ``arc-length'') \\
 \bottomrule
 \end{tabular}
@@ -106,15 +106,15 @@ Diagnostics are informational, not prescriptive. The engine does not fail on con
 \label{sec:api-scope}
 
 \begin{designdecision}[Engine Core vs.\ Caller Responsibilities]
-\textbf{Choice:} The engine core owns palette generation only. Colour naming, accessibility checking (WCAG), colour blindness simulation, and ICC colour management are explicitly caller responsibilities.
+\textbf{Choice:} The engine core owns palette generation only. Color naming, accessibility checking (WCAG), color blindness simulation, and ICC color management are explicitly caller responsibilities.
 
-\textbf{Rationale:} Keeping the core lean enables production-grade performance (5.6M colours/second) and avoids bloating with features that vary by use case. Language bindings and applications can add these capabilities as needed.
+\textbf{Rationale:} Keeping the core lean enables production-grade performance (5.6M colors/second) and avoids bloating with features that vary by use case. Language bindings and applications can add these capabilities as needed.
 
 \textbf{Alternatives Considered:}
 \begin{itemize}
   \item \textit{Integrated accessibility checking} --- Rejected: varies by standard (WCAG 2.1, 3.0), adds dependencies
-  \item \textit{Built-in colour naming} --- Rejected: naming systems are culturally/contextually specific
-  \item \textit{Colour blindness simulation} --- Rejected: simulation algorithms evolve independently
+  \item \textit{Built-in color naming} --- Rejected: naming systems are culturally/contextually specific
+  \item \textit{Color blindness simulation} --- Rejected: simulation algorithms evolve independently
 \end{itemize}
 
 \textbf{Reference:} \S\ref{sec:caller-responsibilities}, Appendix~D
@@ -135,8 +135,8 @@ The C-core implementation achieves production-grade performance:
 \toprule
 \textbf{Metric} & \textbf{Value} \\
 \midrule
-Per-colour generation & Microsecond range \\
-Throughput & 5.6 million colours/second\footnote{Measured on Apple M1 hardware, single-threaded, using default configuration (2 anchors, 8 colours, journey mode). Performance varies with configuration complexity and hardware.} \\
+Per-color generation & Microsecond range \\
+Throughput & 5.6 million colors/second\footnote{Measured on Apple M1 hardware, single-threaded, using default configuration (2 anchors, 8 colors, journey mode). Performance varies with configuration complexity and hardware.} \\
 Memory & Minimal; no caching required \\
 \bottomrule
 \end{tabular}
@@ -146,7 +146,7 @@ Computational complexity:
 \begin{itemize}
     \item Journey construction: $O(1)$ per anchor (fixed-degree Bézier)
     \item Arc-length parameterisation: $O(n)$ precomputation, $O(1)$ lookup
-    \item Sampling: $O(n)$ for $n$ colours with constraint checking
+    \item Sampling: $O(n)$ for $n$ colors with constraint checking
 \end{itemize}
 
 This performance enables real-time palette generation in interactive applications, eliminates the need for precomputation or caching, and supports high-throughput batch processing.
