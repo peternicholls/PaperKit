@@ -1,7 +1,7 @@
 installation:
   version: 1.0.0
-  installDate: "2024-12-13"
-  lastUpdated: "2024-12-14"
+  installDate: "2025-12-13"
+  lastUpdated: "2025-12-14"
   systemName: "Copilot Research Paper Assistant Kit"
   description: "Open Agent System for academic specification paper writing"
 modules:
@@ -16,16 +16,16 @@ schemas:
 manifests:
   agents:
     yaml: .paper/_cfg/agent-manifest.yaml
-    csv: .paper/_cfg/agent-manifest.csv  # Deprecated: Use YAML format
+    csv: .paper/_cfg/agent-manifest.csv # Deprecated: Use YAML format
     csvDeprecated: true
-    csvDeprecationDate: "2024-12-14"
+    csvDeprecationDate: "2025-12-14"
   tools:
     yaml: .paper/_cfg/tool-manifest.yaml
-    csv: .paper/_cfg/tool-manifest.csv  # Deprecated: Use YAML format
+    csv: .paper/_cfg/tool-manifest.csv # Deprecated: Use YAML format
     csvDeprecated: true
-    csvDeprecationDate: "2024-12-14"
+    csvDeprecationDate: "2025-12-14"
   workflows:
     yaml: .paper/_cfg/workflow-manifest.yaml
-    csv: .paper/_cfg/workflow-manifest.csv  # Deprecated: Use YAML format
+    csv: .paper/_cfg/workflow-manifest.csv # Deprecated: Use YAML format
     csvDeprecated: true
-    csvDeprecationDate: "2024-12-14"
+    csvDeprecationDate: "2025-12-14"

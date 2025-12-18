@@ -1,14 +1,14 @@
 # PaperKit Workflow Manifest
-# 
+#
 # This file provides an index of all workflows in the PaperKit system.
 # Individual workflow definitions are stored in .paper/_cfg/workflows/
-# 
+#
 # Schema: .paper/_cfg/schemas/workflow-schema.json
 # Validation: Run `python3 open-agents/tools/validate-workflow-schema.py`
 
-version: 1.0.0
+version: 2.0.0
 schemaVersion: 1.0.0
-lastUpdated: 2024-12-14
+lastUpdated: 2025-12-18
 
 workflows:
   # Core Research Workflows
@@ -19,7 +19,7 @@ workflows:
     displayName: Consolidate Research
     description: Synthesize research materials into coherent reference documents
     status: active
-    
+
   # Core Planning Workflows
   - name: outline
     module: core
@@ -28,7 +28,7 @@ workflows:
     displayName: Create Outline
     description: Design paper structure and create detailed outline
     status: active
-    
+
   - name: skeleton
     module: core
     category: planning
@@ -36,7 +36,7 @@ workflows:
     displayName: Generate Skeleton
     description: Create LaTeX skeleton files for sections
     status: active
-    
+
   # Core Drafting Workflows
   - name: write-section
     module: core
@@ -45,7 +45,7 @@ workflows:
     displayName: Write Section
     description: Draft a complete section with academic rigor
     status: active
-    
+
   # Core Refinement Workflows
   - name: refine-section
     module: core
@@ -54,16 +54,40 @@ workflows:
     displayName: Refine Section
     description: Improve draft quality through iterative refinement
     status: active
-    
+
   # Core Reference Workflows
+  - name: extract-citations
+    module: core
+    category: references
+    path: .paper/_cfg/workflows/extract-citations.yaml
+    displayName: Extract Citations
+    description: Extract all citation commands from LaTeX files and catalog them
+    status: active
+
   - name: validate-citations
     module: core
     category: references
     path: .paper/_cfg/workflows/validate-citations.yaml
     displayName: Validate Citations
-    description: Check all citations have matching BibTeX entries
+    description: Comprehensive citation validation against BibTeX database with Harvard style checking
     status: active
-    
+
+  - name: citation-completeness
+    module: core
+    category: references
+    path: .paper/_cfg/workflows/citation-completeness.yaml
+    displayName: Check Citation Completeness
+    description: Verify all BibTeX entries have complete information for their type
+    status: active
+
+  - name: format-bibliography
+    module: core
+    category: references
+    path: .paper/_cfg/workflows/format-bibliography.yaml
+    displayName: Format Bibliography
+    description: Generate properly formatted bibliography in Harvard style
+    status: active
+
   # Core Assembly Workflows
   - name: build
     module: core
@@ -72,7 +96,7 @@ workflows:
     displayName: Build Document
     description: Compile LaTeX document to PDF
     status: active
-    
+
   # Specialist Workflows
   - name: generate-ideas
     module: specialist
@@ -81,7 +105,7 @@ workflows:
     displayName: Generate Ideas
     description: Brainstorm ideas on a topic
     status: active
-    
+
   - name: analyze-problem
     module: specialist
     category: problem-solving
@@ -89,7 +113,7 @@ workflows:
     displayName: Analyze Problem
     description: Root cause analysis and solution options
     status: active
-    
+
   - name: review-draft
     module: specialist
     category: tutor
@@ -97,7 +121,7 @@ workflows:
     displayName: Review Draft
     description: Tutor feedback on draft quality
     status: active
-    
+
   - name: search-sources
     module: specialist
     category: librarian
@@ -107,12 +131,12 @@ workflows:
     status: active
 
 statistics:
-  totalWorkflows: 11
-  coreWorkflows: 7
+  totalWorkflows: 14
+  coreWorkflows: 10
   specialistWorkflows: 4
-  activeWorkflows: 11
+  activeWorkflows: 14
   deprecatedWorkflows: 0
-  
+
 categories:
   core:
     - research

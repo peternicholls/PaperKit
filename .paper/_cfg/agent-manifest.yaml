@@ -1,14 +1,14 @@
 # PaperKit Agent Manifest
-# 
+#
 # This file provides an index of all agents in the PaperKit system.
 # Individual agent definitions are stored in .paper/_cfg/agents/
-# 
+#
 # Schema: .paper/_cfg/schemas/agent-schema.json
 # Validation: Run `python3 open-agents/tools/validate-agent-schema.py`
 
-version: 1.0.0
+version: 2.0.0
 schemaVersion: 1.0.0
-lastUpdated: 2024-12-14
+lastUpdated: 2025-12-19
 
 agents:
   # Core Paper Writing Agents
@@ -19,7 +19,7 @@ agents:
     title: Research Consolidator
     icon: 🔬
     status: active
-    
+
   - name: paper-architect
     module: core
     path: .paper/_cfg/agents/paper-architect.yaml
@@ -27,7 +27,7 @@ agents:
     title: Paper Architect
     icon: 🏗️
     status: active
-    
+
   - name: section-drafter
     module: core
     path: .paper/_cfg/agents/section-drafter.yaml
@@ -35,7 +35,7 @@ agents:
     title: Section Drafter
     icon: ✍️
     status: active
-    
+
   - name: quality-refiner
     module: core
     path: .paper/_cfg/agents/quality-refiner.yaml
@@ -43,15 +43,19 @@ agents:
     title: Quality Refiner
     icon: 💎
     status: active
-    
+
   - name: reference-manager
     module: core
     path: .paper/_cfg/agents/reference-manager.yaml
     displayName: Harper
-    title: Reference Manager
+    title: Academic Bibliographer & Reference Specialist
     icon: 📚
     status: active
-    
+    version: 2.0.0
+    knowledgeBase:
+      - .paper/_cfg/guides/harvard-citation-guide.md
+      - .paper/_cfg/tools/citation-rules.yaml
+
   - name: latex-assembler
     module: core
     path: .paper/_cfg/agents/latex-assembler.yaml
@@ -59,7 +63,7 @@ agents:
     title: LaTeX Assembler
     icon: 🔧
     status: active
-    
+
   # Specialist Support Agents
   - name: brainstorm
     module: specialist
@@ -68,7 +72,7 @@ agents:
     title: Brainstorm Coach
     icon: 🧠
     status: active
-    
+
   - name: problem-solver
     module: specialist
     path: .paper/_cfg/agents/problem-solver.yaml
@@ -76,7 +80,7 @@ agents:
     title: Problem Solver
     icon: 🧩
     status: active
-    
+
   - name: tutor
     module: specialist
     path: .paper/_cfg/agents/tutor.yaml
@@ -84,7 +88,7 @@ agents:
     title: Review Tutor
     icon: 🎓
     status: active
-    
+
   - name: librarian
     module: specialist
     path: .paper/_cfg/agents/librarian.yaml

@@ -1,37 +1,43 @@
 # PaperKit Tool Manifest
-# 
+#
 # This file provides an index of all tools in the PaperKit system.
 # Individual tool definitions are stored in .paper/_cfg/tools/
-# 
+#
 # Schema: .paper/_cfg/schemas/tool-schema.json
 # Validation: Run `python3 open-agents/tools/validate-tool-schema.py`
 
-version: 1.0.0
+version: 2.0.0
 schemaVersion: 1.0.0
-lastUpdated: 2024-12-14
+lastUpdated: 2025-12-19
 
 tools:
+  # ==========================================================================
+  # Build Tools
+  # ==========================================================================
   - name: build-latex
     path: .paper/_cfg/tools/build-latex.yaml
     displayName: Build LaTeX
     description: Compile LaTeX document to PDF
     requiresConsent: true
     status: active
-    
+
   - name: lint-latex
     path: .paper/_cfg/tools/lint-latex.yaml
     displayName: Lint LaTeX
     description: Check LaTeX syntax for errors
     requiresConsent: true
     status: active
-    
+
   - name: validate-structure
     path: .paper/_cfg/tools/validate-structure.yaml
     displayName: Validate Structure
     description: Validate paper structure
     requiresConsent: true
     status: active
-    
+
+  # ==========================================================================
+  # Reference & Citation Tools
+  # ==========================================================================
   - name: format-references
     path: .paper/_cfg/tools/format-references.yaml
     displayName: Format References
@@ -39,7 +45,19 @@ tools:
     requiresConsent: true
     status: active
 
+  - name: citation-rules
+    path: .paper/_cfg/tools/citation-rules.yaml
+    displayName: Citation Validation Rules
+    description: Harvard citation validation rules and format specifications
+    requiresConsent: false
+    status: active
+    type: configuration
+    usedBy:
+      - reference-manager
+      - validate-citations workflow
+      - citation-completeness workflow
+
 statistics:
-  totalTools: 4
-  activeTools: 4
+  totalTools: 5
+  activeTools: 5
   deprecatedTools: 0
