@@ -65,7 +65,7 @@ The Reference Manager (Harper) supports comprehensive Harvard-style citation man
 | `.paper/_cfg/workflow-manifest.yaml` | All workflows catalog |
 | `.paper/_cfg/tool-manifest.yaml` | All tools catalog |
 | `.paper/_cfg/guides/harvard-citation-guide.md` | Harvard citation style guide |
-| `.paper/_cfg/tools/citation-rules.yaml` | Citation validation rules |
+| `.paper/_cfg/resources/citation-rules.yaml` | Citation validation rules |
 
 ### Consent Gate (Tools)
 
@@ -88,3 +88,9 @@ Before running tools that modify files:
 - **Progressive disclosure**: Agents load only their specific configuration on demand
 - **Menu-driven**: Each agent presents an interactive menu of options
 - **Handoff support**: Working reference at `open-agents/memory/working-reference.md` maintains context
+
+### Academic Integrity
+
+- Academic integrity is paramount—use reputable sources and proper Harvard-style citations.
+- Never summarize or quote academic papers without attribution; every quote needs text, page number, and full citation.
+- Use open access channels when downloading papers; do not fabricate or guess citations.

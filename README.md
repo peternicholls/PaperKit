@@ -55,6 +55,12 @@ Paper Kit provides a structured workflow for academic paper writing through spec
 - **Structured Outputs** — Clear file organization; no unnecessary artifacts
 - **System Identity** — Codename `PaperKit`
 
+### Academic Integrity Commitments
+
+- Academic integrity is paramount—use reputable sources and Harvard-style citations.
+- Never summarize or quote without attribution; every quote must include the quote text, page number, and full citation.
+- Use open access channels when downloading papers; do not fabricate or guess citations.
+
 ---
 
 ## How This System Works

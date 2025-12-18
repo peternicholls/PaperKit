@@ -114,6 +114,12 @@ open-agents/                      ← Legacy system (preserved)
 7. **Validate Refs** → Reference Manager validates citations (Harvard style)
 8. **Assemble** → LaTeX Assembler compiles final PDF
 
+### 🛡️ Academic Integrity
+
+- Academic integrity is paramount—always use reputable sources and Harvard-style citations.
+- Never summarize or quote without attribution; include quote text, page number, and full citation.
+- Use open access channels when downloading papers; never fabricate or guess citations.
+
 ### 🛠️ Tools Available
 
 ```bash
