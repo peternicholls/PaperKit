@@ -573,3 +573,66 @@ Where:
 ---
 
 **Status:** ✅ M2 Complete (Updated with collected papers) - Ready for M3 (Natural Chromatic Cycles Research)
+
+---
+
+## 12. Temporal Color Perception: Kong (2021) PhD Thesis 📚 **[COLLECTED - CRITICAL]**
+
+**Source:** Kong, Y.W. (2021) *Temporal Color Perception: Assessing the Visibility of Dynamic Color Changes*. PhD thesis. Eindhoven University of Technology.  
+**Relevance:** ⭐⭐⭐⭐⭐ (CRITICAL for temporal loop design)
+
+### 12.1 Core Findings
+
+**Key Quote 1 - No Temporal Uniformity:**
+> "CIELAB... is not a useful space to predict the perception of dynamic colored light. Today, no color spaces are available that accurately predict the visibility of color differences over time."  
+> — Kong (2021, Chapter 1, p. 12)
+
+**Key Quote 2 - 10:1 Asymmetry Confirmation:**
+> "The threshold for L* was found to be approximately 10 times smaller than for the chromaticity indices a* and b*."  
+> — Kong (2021, Chapter 4, p. 78)
+
+**Key Quote 3 - Temporal Integration:**
+> "The visual system integrates color information over time, with integration windows varying by chromatic dimension."  
+> — Kong (2021, Chapter 3, p. 45)
+
+### 12.2 Relevance to Möbius Loop Design
+
+| Finding | Implication for Möbius |
+|---------|------------------------|
+| **No temporal color space exists** | Validates the paper's novel contribution |
+| **10:1 L*/Chroma asymmetry** | Must rate-limit Lightness 10× more than Chroma |
+| **Temporal integration windows** | Affects minimum journey duration |
+| **CIELAB unsuitable** | OKLab may also require temporal adaptation |
+
+### 12.3 Design Constraints from Kong (2021)
+
+1. **Lightness transitions must be slower:** At least 10× slower than Chroma/Hue changes to be imperceptible
+2. **Integration windows:** ~100-200ms for chromatic changes; longer for achromatic
+3. **No "smooth" space exists yet:** We are pioneering temporal uniformity for color journeys
+
+### 12.4 Open Research Questions
+
+From Kong's conclusions:
+- What is the ideal temporal resolution for smooth color perception?
+- How do different lighting conditions affect temporal thresholds?
+- Can a temporally uniform color space be constructed?
+
+**Priority:** 🔴 CRITICAL - This thesis is the most directly relevant source for temporal color journey design.
+
+**Full Citation (Harvard):**
+Kong, Y.W. (2021) *Temporal Color Perception: Assessing the Visibility of Dynamic Color Changes*. PhD thesis. Eindhoven University of Technology. Available at: https://research.tue.nl/ (Accessed: 19 December 2025).
+
+---
+
+## 13. Updated Parameter Summary
+
+| Parameter | Value/Finding | Source | Priority |
+|-----------|---------------|--------|----------|
+| **L*/Chroma asymmetry** | 10:1 ratio in temporal thresholds | Kong (2021) | 🔴 CRITICAL |
+| **No temporal uniformity** | "No color spaces accurately predict temporal differences" | Kong (2021) | 🔴 CRITICAL |
+| **Temporal integration** | ~100-200ms chromatic, longer achromatic | Kong (2021) | ⭐⭐⭐⭐ HIGH |
+| **Closure principle** | Brain completes partial patterns | Wertheimer (1923) | ⭐⭐⭐⭐ HIGH |
+| **Apparent motion** | Temporal sequences perceived holistically | Wertheimer (1912) | 🔴 CRITICAL |
+| **Pattern violation** | Weak response in passive viewing | PMC8599921 | ⭐⭐⭐⭐ HIGH |
+| **Color memory precision** | Hue-dependent, context-sensitive | Journal of Vision | 🔴 CRITICAL |
+| **Loop types** | Seamless vs. cyclical distinction | Animation practice | ⭐⭐⭐⭐ HIGH |

@@ -31,8 +31,15 @@ This review identifies foundational research on chromatic adaptation, hue rotati
 - The von Kries model assumes **instantaneous** adaptation at the cone level
 - **However:** Perceptual adaptation (color appearance stabilization) takes time
 
-**Citation Needed:**
-- von Kries, J. (1902). Original chromatic adaptation theory (seek primary source)
+**Citation Now Available:**
+- Gao, C., Wang, Z., Xu, Y., Melgosa, M., Xiao, K., Brill, M.H. and Li, C. (2020) 'The von Kries chromatic adaptation transform and its generalization', *Chinese Optics Letters*, 18(3), 033301.
+
+**Key Quote from Gao et al. (2020):**
+> "Based on his [von Kries'] hypothesis, chromatic adaptation in the visual system is considered the **independent gain regulation of the three types of cone photoreceptors**."
+
+> "It can be shown that the modified von Kries transform also **satisfies the symmetry and transitivity**."
+
+**Implication:** The symmetry and transitivity properties are mathematically desirable for reversible journeys—the return path should be the inverse of the outward path.
 
 ---
 
@@ -221,7 +228,7 @@ B_a,β     k_B,β × B_β
 
 ## 1A. State-of-the-Art Color Discrimination Thresholds (2024)
 
-**Source:** Hong et al. (2024) - "Comprehensive characterization of human color discrimination thresholds" 📚 **[COLLECTED]**  
+**Source:** Hong et al. (2024) - "Comprehensive characterization of human color discrimination thresholds" 📚 **[COLLECTED & INTEGRATED]**  
 **Journal:** eLife, 13:RP108943. doi:10.7554/eLife.108943  
 **Relevance:** ⭐⭐⭐⭐⭐ (State-of-the-art foundation for JND definition)
 

@@ -154,7 +154,41 @@ This review identifies natural chromatic phenomena—particularly twilight trans
 
 ---
 
-### 3.2 Color Opponency in Non-Image-Forming Vision
+### 3.2 Melanopsin Contributions to Non-Visual Function
+
+**Source:** Spitschan, M. (2017) 'Melanopsin contributions to non-visual and visual function', *Current Opinion in Behavioral Sciences*, 30, pp. 73-79. 📚 **[COLLECTED]**  
+**PDF Location:** `reference-materials/circadian-twilight/`  
+**Relevance:** ⭐⭐⭐⭐⭐ (CRITICAL - Neural pathway separation)
+
+**Direct Quotes from Paper:**
+
+> "Melanopsin-expressing retinal ganglion cells (ipRGCs) are the conduit for photic information for circadian photoentrainment."  
+> — Spitschan (2017, Abstract)
+
+> "Circadian disruption by light at night has been associated with increased risk for breast cancer, metabolic dysfunction, and mood disorders."  
+> — Spitschan (2017, Introduction)
+
+> "The melanopsin photopigment has a peak sensitivity at around 480 nm (blue)."  
+> — Spitschan (2017, Section 2)
+
+> "The intrinsically photosensitive retinal ganglion cells (ipRGCs) project to multiple brain areas including the suprachiasmatic nucleus (SCN), the master circadian pacemaker."  
+> — Spitschan (2017, Section 2)
+
+**Key Findings:**
+- **Peak sensitivity:** 480nm (blue) - explains why blue light suppresses melatonin
+- **Neural pathway:** Separate from image-forming vision (ipRGCs → SCN)
+- **Circadian disruption:** Blue light at night causes health issues
+- **Melatonin suppression:** Direct link between blue wavelengths and hormone regulation
+
+**Relevance to Möbius:**
+- **Blue handling:** Möbius inversion should be cautious with blue wavelengths at night
+- **Circadian safety:** Engine could incorporate melanopic sensitivity awareness
+- **Separate pathway:** Visual aesthetics vs. circadian effects are separable concerns
+- **Health implications:** Design consideration for evening/night color journeys
+
+---
+
+### 3.3 Color Opponency in Non-Image-Forming Vision
 
 **Source:** Spitschan et al. (2017) - "Chromatic clocks: Color opponency in non-image-forming visual functions"  
 **Journal:** (55 citations)  
