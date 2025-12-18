@@ -1,0 +1,107 @@
+# Extract Citations Workflow Definition
+# Part of PaperKit Core Workflows
+
+name: extract-citations
+displayName: Extract Citations
+description: >
+  Extract all citation commands from LaTeX files and catalog them.
+  Identifies \cite{}, \citep{}, \citet{}, \citeauthor{} commands
+  and [CITATION NEEDED] markers.
+version: 1.0.0
+module: core
+category: references
+path: .paper/_cfg/workflows/extract-citations.yaml
+
+agents:
+  - reference-manager
+
+steps:
+  - name: scan-files
+    agent: reference-manager
+    description: Scan all LaTeX files in latex/sections/
+
+  - name: extract-commands
+    agent: reference-manager
+    description: >
+      Extract all citation commands using regex patterns.
+      Track location (file, line number) for each citation.
+
+  - name: catalog-citations
+    agent: reference-manager
+    description: >
+      Create deduplicated catalog of all citations.
+      Group by citation key and list all usage locations.
+
+  - name: identify-markers
+    agent: reference-manager
+    description: >
+      Find [CITATION NEEDED] markers that need sources.
+      Note context for each to help find appropriate sources.
+
+  - name: generate-report
+    agent: reference-manager
+    description: Generate extraction report with statistics and listings
+
+inputSchema:
+  type: object
+  properties:
+    texFiles:
+      type: array
+      description: "List of LaTeX files to scan (default: all in latex/sections/)"
+      items:
+        type: string
+    includeComments:
+      type: boolean
+      description: Include citations in LaTeX comments
+      default: false
+
+outputSchema:
+  type: object
+  properties:
+    citations:
+      type: array
+      description: List of extracted citations
+      items:
+        type: object
+        properties:
+          key:
+            type: string
+          command:
+            type: string
+          locations:
+            type: array
+            items:
+              type: object
+              properties:
+                file:
+                  type: string
+                line:
+                  type: integer
+    needsCitation:
+      type: array
+      description: Locations with [CITATION NEEDED] markers
+      items:
+        type: object
+        properties:
+          file:
+            type: string
+          line:
+            type: integer
+          context:
+            type: string
+    statistics:
+      type: object
+      properties:
+        totalCitations:
+          type: integer
+        uniqueKeys:
+          type: integer
+        needsCitationCount:
+          type: integer
+
+exampleUsage:
+  - "Extract all citations from paper"
+  - "Find places needing citations"
+  - "List citation usage across sections"
+
+owner: core-team
