@@ -10,7 +10,7 @@ description: >
 version: 1.0.0
 module: core
 category: references
-path: .paper/_cfg/workflows/extract-citations.yaml
+path: .paper/core/workflows/references/extract-citations.yaml
 
 agents:
   - reference-manager

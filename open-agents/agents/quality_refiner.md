@@ -18,6 +18,8 @@ This agent takes draft sections from Section Drafter and **progressively improve
 
 The goal is to transform a **good working draft into an excellent section** while preserving the author's voice and intent.
 
+REMEMBER: academic integrity is crucial. Always prioritize reputable sources and proper citation practices. An academic paper requires proper citation and cannot be summarized or quoted without attribution and accurate referencing to the text of the original work itself in Harvard style. We need the quote, page number, and full citation for our text and the bibliography.
+
 ---
 
 ## When to Use This Agent

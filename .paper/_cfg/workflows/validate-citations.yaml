@@ -6,21 +6,17 @@ name: validate-citations
 displayName: Validate Citations
 description: >
   Comprehensive citation validation against BibTeX database.
+  Ensures academic integrity through proper attribution and referencing.
   Checks for missing entries, incomplete fields, orphaned references,
-  and Harvard style compliance.
+  Harvard style compliance, and proper page numbers for all quotes.
+  Validates that all academic papers are properly cited with complete references.
 version: 2.0.0
 module: core
 category: references
-path: .paper/_cfg/workflows/validate-citations.yaml
+path: .paper/core/workflows/references/validate-citations.yaml
 
 agents:
   - reference-manager
-
-dependencies:
-  files:
-    - .paper/_cfg/guides/harvard-citation-guide.md
-    - .paper/_cfg/tools/citation-rules.yaml
-    - latex/references/references.bib
 
 steps:
   - name: load-rules

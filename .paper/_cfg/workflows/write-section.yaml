@@ -16,15 +16,25 @@ steps:
   - name: understand-context
     agent: section-drafter
     description: Review outline and surrounding sections
+  - name: verify-sources
+    agent: section-drafter
+    description: >-
+      Verify all sources are reputable and accessible via open access channels.
+      Academic integrity: prioritize proper citation practices.
   - name: draft-content
     agent: section-drafter
     description: Write section content with academic tone
   - name: add-citations
     agent: section-drafter
-    description: Include proper citations and references
+    description: >-
+      Include proper Harvard-style citations with complete attribution.
+      Every quote must have: quote text, page number, and full citation.
+      No summarizing or quoting without proper referencing.
   - name: review-quality
     agent: section-drafter
-    description: Self-review for clarity and coherence
+    description: >-
+      Self-review for clarity, coherence, and academic integrity.
+      Verify all citations are complete and properly attributed.
 
 inputSchema:
   type: object

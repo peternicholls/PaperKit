@@ -58,30 +58,164 @@ This review identifies foundational research on chromatic adaptation, hue rotati
 
 ### 1.3 Color Appearance Models: CAM02 & CAM16
 
-**Source:** Fairchild (2013) - "Color Appearance Models" (2nd Edition)  
-**Relevance:** ⭐⭐⭐⭐ (Modern implementation)
+**Source:** Fairchild (2013) - "Color Appearance Models" (3rd Edition) 📚 **[COLLECTED]**  
+**Relevance:** ⭐⭐⭐⭐⭐ (Definitive reference - full text available)
 
-**Key Findings:**
+**Direct Quotes from Book:**
+
+> "Like beauty, color is in the eye of the beholder. For as long as human scientific inquiry has been recorded, the nature of color perception has been a topic of great interest. Despite tremendous evolution of technology, fundamental issues of color perception remain unanswered. Many scientific attempts to explain color rely purely on the physical nature of light and objects. However, without the human observer there is no color."  
+> — Fairchild (2013, p. xix, Introduction)
+
+> "It is common to say that certain wavelengths of light, or certain objects, are a given color. This is an attempt to relegate color to the purely physical domain. Instead it is proper to state that those stimuli are perceived to be of a certain color when viewed under specified conditions."  
+> — Fairchild (2013, p. xix, Introduction)
+
+> "Various mechanisms of chromatic adaptation generally make us unaware of these gradual changes. However, we are all looking at the world through a yellow filter that not only changes with age, but is significantly different from observer to observer."  
+> — Fairchild (2013, p. 3, Chapter 1)
+
+> "The photoreceptors, rods and cones, serve to transduce the information present in the optical image into chemical and electrical signals that can be transmitted to the later stages of the visual system."  
+> — Fairchild (2013, p. 5, Chapter 1)
+
+> "The yellow filters of the lens and macula, through which we all view the world, are the major source of variability in color vision between observers with normal color vision."  
+> — Fairchild (2013, p. 6, Chapter 1)
+
+> "Chapters 8 and 9 concentrate on one of the most important component mechanisms of color appearance, chromatic adaptation. The models of chromatic adaptation described in Chapter 9 are the foundation of the color appearance models described in later chapters."  
+> — Fairchild (2013, p. xvii, Preface)
+
+**Key Findings from Full Text:**
 - **CIECAM02:** CIE's standard color appearance model (2002)
 - **CAM16:** Successor model (2016) with improved chromatic adaptation transform (CAT16)
 - **Chromatic Adaptation Transform (CAT):** Predicts color appearance under different illuminants
 - **Helson-Judd Effect:** Hue shift of nonselective samples under chromatic illumination
+- **Hunt-Pointer-Estevez transform:** Converts CIE tristimulus to normalized cone responses
+- **Chapter 8:** Dedicated chapter on chromatic adaptation physiology and models
+- **Sensory vs. Cognitive mechanisms:** Both contribute to color constancy
+- **Corresponding colors data:** Experimental datasets for validating CAT performance
 
-**Source:** Moroney & Fairchild - "The CIECAM02 Color Appearance Model"  
-**Additional Details:**
-- Hunt-Pointer-Estevez transform: Converts CIE tristimulus to normalized cone responses
-- Five transformation matrices considered for chromatic adaptation
-
-**Source:** CIECAM16 Development (2016)  
-**Performance Testing:** LUTCHI datasets, University of Derby data  
-**Validation:** Predicts lightness, colourfulness, hue quadrature, brightness, saturation
+**Book Structure (Relevant Chapters):**
+- Chapter 1: Human Color Vision (spatial/temporal properties)
+- Chapter 6: Color Appearance Phenomena (Bezold-Brücke, Hunt Effect, Stevens Effect)
+- Chapter 8: Chromatic Adaptation (physiology, corresponding colors, models)
+- Chapter 9: Chromatic Adaptation Models (von Kries and descendants)
 
 **Relevance to Möbius:**
+- **Definitive source** for chromatic adaptation theory and implementation
 - CAM02/CAM16 predict **static** color appearance after adaptation
 - Do NOT model **temporal dynamics** of gradual adaptation
 - Could validate final appearance after 180° rotation, not transition smoothness
+- **Hunt Effect** (§6.6): Colorfulness increases with luminance—relevant to journey perception
+- **Stevens Effect** (§6.7): Contrast increases with luminance—affects inversion visibility
 
-**Priority:** MEDIUM - Useful for endpoint validation, not transition design
+**Priority:** HIGH - Now available for detailed study
+
+**Full Citation (Harvard):**
+- Fairchild, M.D. (2013) *Color Appearance Models*. 3rd edn. Chichester: John Wiley & Sons. ISBN: 978-1-119-96703-3.
+
+---
+
+### 1.4 Computing Chromatic Adaptation: Sharp Sensors
+
+**Source:** Süsstrunk, S. (2005) - "Computing Chromatic Adaptation" 📚 **[COLLECTED]**  
+**Type:** PhD Thesis, University of East Anglia, Norwich  
+**Relevance:** ⭐⭐⭐⭐⭐ (Deep technical detail on CAT computation)
+
+**Direct Quotes from Thesis:**
+
+> "Most of today's chromatic adaptation transforms (CATs) are based on a modified form of the von Kries chromatic adaptation model, which states that chromatic adaptation is an independent gain regulation of the three photoreceptors in the human visual system. However, modern CATs apply the scaling not in cone space, but use 'sharper' sensors, i.e. sensors that have a narrower shape than cones."  
+> — Süsstrunk (2005, p. iii, Abstract)
+
+> "The recommended transforms currently in use are derived by minimizing perceptual error over experimentally obtained corresponding color data sets."  
+> — Süsstrunk (2005, p. iii, Abstract)
+
+> "We show that these sensors are still not optimally sharp. Using different computational approaches, we obtain sensors that are even more narrowband."  
+> — Süsstrunk (2005, p. iii, Abstract)
+
+> "We speculate that in order to make a final decision on a single CAT, we should consider secondary factors, such as their applicability in a color imaging workflow."  
+> — Süsstrunk (2005, p. iii, Abstract)
+
+> "We show that sharp sensors are very appropriate for color encodings, as they provide excellent gamut coverage and hue constancy."  
+> — Süsstrunk (2005, pp. iii–iv, Abstract)
+
+> "To faithfully reproduce the appearance of image colors, it thus follows that all image processing systems need to apply a transform that converts the input colors captured under the input illuminant to the corresponding output colors under the output illuminant. This can be achieved by using a chromatic adaptation transform (CAT)."  
+> — Süsstrunk (2005, p. 3, Chapter 1)
+
+> "In this thesis, we investigate different computational approaches to derive such chromatic adaptation transforms, which can be used in color science and color image processing. All our transforms are based on the von Kries model, which states that chromatic adaptation can be modeled as an independent gain control of three different sensor responses."  
+> — Süsstrunk (2005, pp. 4–5, Chapter 1)
+
+**Key Findings:**
+- **Sharp sensors:** Modern CATs use "sharper" sensors than cone fundamentals—narrower spectral sensitivity
+- **Performance measure:** CATs evaluated on corresponding color datasets
+- **Strong vs. weak von Kries:** 
+  - Strong: Gain depends only on same cone class
+  - Weak: Gain depends on all cone classes (cross-talk)
+- **Spectral sharpening:** Technique to derive optimal sensor functions for CAT
+- **CAT02 sensors:** Not uniquely optimal—many sensor sets perform equivalently
+- **Spherical sampling:** Demonstrated large equivalence class of valid CAT matrices
+- **Sharp CAT:** Proposed sensors that match or exceed CAT02 performance
+- **Hue constancy:** Sharp sensors provide better hue constancy across illuminants
+- **Gamut coverage:** Sharp sensors enable better color encoding coverage
+
+**Technical Details:**
+- **Diagonal matrix assumption:** von Kries model uses D = diag(k_R, k_G, k_B)
+- **Scaling coefficients:** k = 1/R_white, 1/G_white, 1/B_white (illuminant white point)
+- **Sensor-based sharpening:** Optimizes M matrix for CAT performance
+- **Prediction error:** RMS CIE ΔE94 used for evaluation
+- **Statistical evaluation:** No significant difference between Sharp CAT and CAT02
+
+**Relevance to Möbius:**
+- **Implementation detail:** If implementing CAT for inversion, Sharp CAT may be optimal
+- **Hue constancy:** Critical for Möbius—ensures hue trajectory remains coherent
+- **Not temporal:** Thesis addresses static adaptation, not temporal dynamics
+- **Sensor choice:** When computing opponent inversion, sensor matrix matters
+
+**Priority:** MEDIUM - Technical implementation reference
+
+**Full Citation (Harvard):**
+- Süsstrunk, S. (2005) *Computing Chromatic Adaptation*. PhD thesis. University of East Anglia, Norwich.
+
+---
+
+### 1.5 Von Kries Transform Generalization
+
+**Source:** Gao et al. (2020) - "The von Kries chromatic adaptation transform and its generalization" 📚 **[COLLECTED]**  
+**Journal:** Chinese Optics Letters, 18(3), p. 033301  
+**Relevance:** ⭐⭐⭐⭐ (Mathematical foundations)
+
+**Direct Quotes from Paper:**
+
+> "Most viable modern chromatic adaptation transforms (CATs), such as CAT16 and CAT02, can trace their roots both conceptually and mathematically to a simple model formulated from the hypotheses of Johannes von Kries in 1902, known as von Kries transform/model. However, while the von Kries transform satisfies the properties of symmetry and transitivity, most modern CATs do not satisfy these two important properties."  
+> — Gao et al. (2020, p. 1, Abstract)
+
+> "In this paper, we propose a generalized von Kries transform which satisfies the symmetry and transitivity properties in addition to improving the fit to most available experimental visual datasets on corresponding colors."  
+> — Gao et al. (2020, p. 1, Abstract)
+
+**Key Findings (with page references):**
+- **Symmetry property:** "while the von Kries transform satisfies the properties of symmetry...most modern CATs do not satisfy these two important properties" (p. 1)
+- **Transitivity property:** CAT02, CAT16 "no longer satisfy the symmetry and transitivity properties" when D differs from 1 or 0 (p. 4)
+- **Generalized von Kries:** Proposed transform "satisfies the symmetry and transitivity properties" (p. 1)
+- **Von Kries coefficient rule:** k_R = 1/R_white, k_G = 1/G_white, k_B = 1/B_white
+- **Corresponding colors:** "A pair of corresponding colors consists of a color observed under one illuminant (say, D65) and another color that has the same appearance when observed under a different illuminant (say, A)" (p. 1)
+
+**Mathematical Framework (p. 1-2):**
+```
+R_β     X_β
+(G_β) = M (Y_β)  [Convert tristimulus to sensor space]
+B_β     Z_β
+
+R_a,β     k_R,β × R_β
+(G_a,β) = (k_G,β × G_β)  [Apply von Kries scaling]
+B_a,β     k_B,β × B_β
+```
+
+**Relevance to Möbius:**
+- **Inversion as CAT:** Möbius inversion (L, -a, -b) is conceptually similar to CAT
+- **Symmetry:** Inversion should be reversible (apply twice = identity)
+- **Mathematical rigor:** Provides formal framework for opponent axis manipulation
+- **Not temporal:** Addresses static transforms only
+
+**Priority:** MEDIUM - Mathematical foundation reference
+
+**Full Citation (Harvard):**
+- Gao, C., Wang, Z., Xu, Y., Melgosa, M., Xiao, K., Brill, M.H. and Li, C. (2020) 'The von Kries chromatic adaptation transform and its generalization', *Chinese Optics Letters*, 18(3), p. 033301. doi: 10.3788/COL202018.033301
 
 ---
 
@@ -149,6 +283,56 @@ This review identifies foundational research on chromatic adaptation, hue rotati
 ---
 
 ## 3. Opponent Process Theory & Complementary Colors
+
+### 3.0 Color Constancy: Foundational Framework
+
+**Source:** Troost (1992) - "Perceptual and computational aspects of color constancy" 📚 **[COLLECTED]**  
+**Type:** PhD Dissertation, Katholieke Universiteit Nijmegen  
+**Relevance:** ⭐⭐⭐⭐⭐ (Deep theoretical foundation)
+
+**Direct Quotes from Dissertation:**
+
+> "Note that because the activities in the receptors are the same for both the standard and test papers, Helmholtz would have predicted that both papers will have the same color appearance. However, the actual color appearance of the test will be anything, indicating that it is not the absolute amount of light reaching the eye that determines the final color percept."  
+> — Troost (1992, p. 2)
+
+> "Von Kries proposed that the spectral sensitivities of the three receptor systems can be varied by a constant that is inversely related to the level of adaptation."  
+> — Troost (1992, p. 7)
+
+> "Hering already stated that 'one must not represent as products of experience the same innate functions of the visual system on the basis of which these experiences were originally acquired' (Hering, 1874/1962, p.21)."  
+> — Troost (1992, p. 3), citing Hering
+
+**Key Findings (with page references):**
+- **Central insight:** "it is not the absolute amount of light reaching the eye that determines the final color percept" (p. 2)
+- **Illuminant elimination:** "the visual system has to get rid of the illuminant component" (p. 3)
+- **von Kries coefficients:** Defined as $a_R = L'_{AVG}/L_{AVG}$, etc. (p. 8)
+- **Adaptation level:** "The average color in a scene is often used as an estimator" (p. 8)
+- **Receptor adaptation:** "spectral sensitivities...varied by a constant inversely related to the level of adaptation" (p. 7)
+- **Sensory vs. cognitive:** Helmholtz (cognitive, "unconscious inferences") vs. Hering (sensory, adaptation/contrast) debate (pp. 3-4)
+
+**Theoretical Framework:**
+- **Helmholtz:** Proposed "unconscious inferences" (cognitive, top-down)
+- **Hering:** Proposed receptor adaptation and contrast (sensory, bottom-up)
+- **Memory colors:** Aroused by non-color characteristics of objects (Hering's cognitive concession)
+- **Neither complete:** Both sensory and cognitive mechanisms contribute
+
+**Methodological Insight (Chapter 3):**
+- **Matching task:** Estimates sensory contribution (chromatic adaptation, lateral inhibition)
+- **Naming task:** Captures identification aspects beyond matching
+- **Sällström-Buchsbaum model:** Automatic illuminant elimination (pure sensory explanation)
+
+**Relevance to Möbius:**
+- **Adaptation baseline:** Viewer's visual system adapts to journey's overall chromaticity
+- **First cycle:** Establishes "illuminant" expectation (average journey color)
+- **Second cycle (inverted):** Challenges adaptation baseline—may trigger re-adaptation
+- **Cognitive vs. sensory:** Möbius "twist" sensation may be partly cognitive (recognizing difference)
+- **Memory colors:** Viewer's memory of first cycle influences perception of inverted second
+
+**Priority:** HIGH - Foundational theory for understanding inversion perception
+
+**Full Citation (Harvard):**
+- Troost, J.M. (1992) *Perceptual and computational aspects of color constancy*. PhD thesis. Katholieke Universiteit Nijmegen.
+
+---
 
 ### 3.1 Opponent Process Foundations
 
@@ -320,7 +504,52 @@ This review identifies foundational research on chromatic adaptation, hue rotati
 
 ---
 
-### 5.2 Temporal Frequency Discrimination
+### 5.2 Visual Sensitivity During Eye Movements
+
+**Source:** Braun, Schütz & Gegenfurtner (2017) - "Visual sensitivity for luminance and chromatic stimuli during the execution of smooth pursuit and saccadic eye movements" 📚 **[COLLECTED]**  
+**Journal:** Vision Research, 136, pp. 57-69  
+**Relevance:** ⭐⭐⭐⭐⭐ (CRITICAL - Chromatic sensitivity dynamics)
+
+**Direct Quotes from Paper:**
+
+> "During saccades, the reduction of contrast sensitivity was strongest for low-spatial frequency luminance stimuli (about 90%). However, a significant reduction was also present for chromatic stimuli (about 58%). Chromatic sensitivity was increased during smooth pursuit (about 12%)."  
+> — Braun, Schütz & Gegenfurtner (2017, p. 57, Abstract)
+
+> "Our results show that saccadic suppression is not quite as selective as proposed by Burr et al. (1994) because contrast sensitivity for chromatic stimuli was reduced significantly during saccades."  
+> — Braun, Schütz & Gegenfurtner (2017, p. 58)
+
+> "The sensitivity for low-spatial frequency luminance stimuli is only slightly suppressed by 5%, but the sensitivity for isoluminant color and for luminance stimuli with spatial frequencies above 3 cpd is actually increased by 15% (Schütz, Braun, & Gegenfurtner, 2009a, 2009b; Schütz, Braun, Kerzel, & Gegenfurtner, 2008). This sensitivity enhancement starts already 50 ms before pursuit onset and scales with pursuit velocity."  
+> — Braun, Schütz & Gegenfurtner (2017, p. 58)
+
+**Key Findings (with page references):**
+- **Saccadic suppression for chromatic:** "about 58%" reduction (p. 57)
+- **Previously thought:** "Chromatic stimuli largely unaffected" per Burr et al. (1994) (p. 57)
+- **New finding:** Suppression "not quite as selective as proposed" (p. 58)
+- **Pursuit enhancement:** Chromatic sensitivity "increased by 15%" during smooth pursuit (p. 58)
+- **Enhancement onset:** "starts already 50 ms before pursuit onset" (p. 58)
+- **Scaling:** "scales with pursuit velocity" (p. 58)
+- **Pathway attribution:** "increase in contrast gain along the parvocellular pathway" (p. 58)
+
+**Experimental Methods (p. 58-60):**
+- **DKL color space:** Used for isoluminant chromatic stimuli
+- **Psychometric functions:** Fitted to detection rates
+- **Temporal profile:** Detection rates measured from -100ms to +500ms around eye movement
+
+**Relevance to Möbius:**
+- **🚨 MAJOR FINDING:** During smooth chromatic transitions (like Möbius), pursuit-like enhancement may occur
+- **Viewer tracking:** If viewer's eyes track color change, sensitivity INCREASES
+- **Saccade risk:** If eyes jump (saccade), sensitivity drops briefly
+- **Design implication:** Smooth, gradual inversion benefits from pursuit-like processing
+- **Avoid sudden jumps:** Sudden chromatic changes trigger saccade-like suppression
+
+**Priority:** URGENT - **MODIFIES TEMPORAL DESIGN STRATEGY**
+
+**Full Citation (Harvard):**
+- Braun, D.I., Schütz, A.C. and Gegenfurtner, K.R. (2017) 'Visual sensitivity for luminance and chromatic stimuli during the execution of smooth pursuit and saccadic eye movements', *Vision Research*, 136, pp. 57-69. doi: 10.1016/j.visres.2017.05.008
+
+---
+
+### 5.3 Temporal Frequency Discrimination
 
 **Source:** PMC11112647 (continued)  
 **Additional Findings:**
@@ -466,17 +695,28 @@ This review identifies foundational research on chromatic adaptation, hue rotati
 
 ---
 
-## 10. Harvard-Style Reference List (Partial)
+## 10. Harvard-Style Reference List
 
-**To be completed once full papers obtained. Preliminary citations:**
+**Full papers collected (📚):**
 
-- Hecht, S. and Shlaer, S. (1936) *Flicker fusion frequency studies*. [Seek full citation]
-- Hurvich, L.M. and Jameson, D. (1957) 'An opponent-process theory of color vision', *Psychological Review*, 64(6), pp. 384-404.
-- MacAdam, D.L. (1942) 'Visual sensitivities to color differences in daylight', *Journal of the Optical Society of America*, 32(5), pp. 247-274.
-- Pastilha, R. et al. (2020) 'Temporal dynamics of daylight perception: Detection thresholds', *Journal of Vision*, [volume/issue]. doi: [pending]
-- Sekulovski, D., Vogels, I.M., van Beurden, M. and Clout, R. (2007) 'Smoothness and flicker perception of temporal color transitions', in *Proceedings of the 15th Color Imaging Conference*, pp. [pending].
-- Wisowaty (1981) *Chromatic flicker fusion rates*. [Seek full citation]
+- Braun, D.I., Schütz, A.C. and Gegenfurtner, K.R. (2017) 'Visual sensitivity for luminance and chromatic stimuli during the execution of smooth pursuit and saccadic eye movements', *Vision Research*, 136, pp. 57-69. doi:10.1016/j.visres.2017.05.008. 📚
+- Fairchild, M.D. (2013) *Color Appearance Models*. 3rd edn. Chichester: John Wiley & Sons. ISBN: 978-1-119-96703-3. 📚
+- Gao, C., Wang, Z., Xu, Y., Melgosa, M., Xiao, K., Brill, M.H. and Li, C. (2020) 'The von Kries chromatic adaptation transform and its generalization', *Chinese Optics Letters*, 18(3), p. 033301. doi:10.3788/COL202018.033301. 📚
+- Süsstrunk, S. (2005) *Computing Chromatic Adaptation*. PhD thesis. University of East Anglia, Norwich. 📚
+- Troost, J.M. (1992) *Perceptual and computational aspects of color constancy*. PhD thesis. Katholieke Universiteit Nijmegen. 📚
+
+**Foundational references:**
+
+- Hurvich, L.M. and Jameson, D. (1957) 'An opponent-process theory of color vision', *Psychological Review*, 64(6), pp. 384-404. doi:10.1037/h0041403.
+- MacAdam, D.L. (1942) 'Visual sensitivities to color differences in daylight', *Journal of the Optical Society of America*, 32(5), pp. 247-274. doi:10.1364/JOSA.32.000247.
+- von Kries, J. (1902) 'Chromatic adaptation', *Festschrift der Albrecht-Ludwigs-Universität*, pp. 145-158. [Reprinted in MacAdam, D.L. (ed.) (1970) *Sources of Color Science*. Cambridge, MA: MIT Press, pp. 109-119.]
+
+**Additional references:**
+
+- Pastilha, R., Hurlbert, A. and Nascimento, S.M.C. (2020) 'Temporal dynamics of daylight perception: detection thresholds', *Journal of Vision*, 20(11), p. 871. doi:10.1167/jov.20.11.871.
+- Sekulovski, D., Vogels, I.M., van Beurden, M. and Clout, R. (2007) 'Smoothness and flicker perception of temporal color transitions', in *Proceedings of the 15th Color and Imaging Conference*. Albuquerque, NM: Society for Imaging Science and Technology, pp. 112-117.
+- Webster, M.A. and Kay, P. (2012) 'Color categories and color appearance', *Cognition*, 122(3), pp. 375-392. doi:10.1016/j.cognition.2011.11.008.
 
 ---
 
-**Status:** ✅ M1 Complete - Ready for M2 (Perceptual Loops Literature Review)
+**Status:** ✅ M1 Complete (Updated with collected papers) - Ready for M2 (Perceptual Loops Literature Review)

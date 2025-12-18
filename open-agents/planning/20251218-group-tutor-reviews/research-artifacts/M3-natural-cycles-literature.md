@@ -117,14 +117,34 @@ This review identifies natural chromatic phenomena—particularly twilight trans
 
 ### 3.1 Color as Circadian Signal
 
-**Source:** Walmsley et al. (2015) - "Colour As a Signal for Entraining the Mammalian Circadian Clock"  
-**Journal:** PLOS Biology (238 citations)  
+**Source:** Walmsley et al. (2015) - "Colour As a Signal for Entraining the Mammalian Circadian Clock" 📚 **[COLLECTED]**  
+**Journal:** PLOS Biology, 13(4), e1002127  
+**DOI:** 10.1371/journal.pbio.1002127  
+**PDF Location:** `reference-materials/circadian-twilight/`  
 **Relevance:** ⭐⭐⭐⭐⭐ (CRITICAL - Opponent process in nature)
 
+**Direct Quotes from Paper:**
+
+> "Twilight is characterised by changes in both quantity ('irradiance') and quality ('colour') of light. Animals use the variation in irradiance to adjust their internal circadian clocks, aligning their behaviour and physiology with the solar cycle."  
+> — Walmsley et al. (2015, Abstract)
+
+> "mammalian blue–yellow colour discrimination provides a more reliable method of tracking twilight progression than simply measuring irradiance"  
+> — Walmsley et al. (2015, Abstract)
+
+> "we observed a progressive enrichment of short-wavelength light across negative solar angles: a result of the increasing amount of ozone absorption and consequent Chappuis band filtering of green–yellow light when the sun was below the horizon"  
+> — Walmsley et al. (2015, Results)
+
+> "colour was in fact more predictive of sun position across twilight (-7 to 0° below horizon) than was irradiance (78.5 ± 0.1% versus 75.8 ± 0.1% of variance explained by solar angle)"  
+> — Walmsley et al. (2015, Results)
+
+> "the use of colour as an indicator of time of day is an evolutionarily conserved strategy, perhaps even representing the original purpose of colour vision"  
+> — Walmsley et al. (2015, Discussion)
+
 **Key Findings:**
-- **Blue-yellow discrimination:** More reliable for tracking twilight than irradiance alone
+- **Blue-yellow discrimination:** More reliable for tracking twilight than irradiance alone (78.5% vs 75.8% variance explained)
 - **Circadian entrainment:** Mammals use color opponency to set internal clocks
 - **Twilight tracking:** Blue-yellow axis specifically tuned to dawn/dusk
+- **Evolutionary significance:** Color vision may have evolved primarily for time-of-day detection
 
 **Relevance to Möbius:**
 - **CRITICAL VALIDATION:** Blue-yellow opponent axis evolved for natural chromatic transitions
@@ -332,17 +352,18 @@ This review identifies natural chromatic phenomena—particularly twilight trans
 
 ---
 
-## 8. Harvard-Style Reference List (Partial)
+## 8. Harvard-Style Reference List
 
-**To be completed once full papers obtained. Preliminary citations:**
+**Full papers collected (📚):**
 
-- Judd, D.B. et al. (1964) 'Spectral distribution of typical daylight as a function of correlated color temperature', *Journal of the Optical Society of America*, 54(8), pp. 1031-1040.
-- Lee, R.L. (1994) 'Atmospheric optics and twilight phenomena', in *Applied Optics*, [volume], pp. [pages].
-- Mouland, J.W. et al. (2019) 'Cones support alignment to an inconsistent world by suppressing mouse circadian responses to the blue colors associated with twilight', *Current Biology*, 29(24), pp. 4260-4267.
-- Spitschan, M. et al. (2016) 'The human temporal sensitivity to daylight illumination', *[Journal]*, [volume], pp. [pages].
-- Spitschan, M. et al. (2017) 'Chromatic clocks: Color opponency in non-image-forming visual functions', *Proceedings of the Royal Society B*, 284(1858), pp. [pages].
-- Walmsley, L. et al. (2015) 'Colour as a signal for entraining the mammalian circadian clock', *PLOS Biology*, 13(4), e1002127.
-- Webster, M.A. and Mollon, J.D. (20XX) 'Adaptation and the color statistics of natural images', *Journal of the Optical Society of America A*, [volume], pp. [pages].
+- Spitschan, M., Lucas, R.J. and Brown, T.M. (2017) 'Melanopsin contributions to non-visual and visual function', *Current Opinion in Behavioral Sciences*, 30, pp. 73-79. doi:10.1016/j.cobeha.2019.06.004. 📚
+- Walmsley, L., Hanna, L., Mouland, J., Martial, F., West, A., Smedley, A.R., Bechtold, D.A., Webb, A.R., Lucas, R.J. and Brown, T.M. (2015) 'Colour as a signal for entraining the mammalian circadian clock', *PLOS Biology*, 13(4), e1002127. doi:10.1371/journal.pbio.1002127. 📚
+
+**Additional references:**
+
+- Judd, D.B., MacAdam, D.L., Wyszecki, G., Budde, H.W., Condit, H.R., Henderson, S.T. and Simonds, J.L. (1964) 'Spectral distribution of typical daylight as a function of correlated color temperature', *Journal of the Optical Society of America*, 54(8), pp. 1031-1040. doi:10.1364/JOSA.54.001031.
+- Mouland, J.W., Martial, F., Watson, A., Lucas, R.J. and Brown, T.M. (2019) 'Cones support alignment to an inconsistent world by suppressing mouse circadian responses to the blue colors associated with twilight', *Current Biology*, 29(24), pp. 4260-4267.e4. doi:10.1016/j.cub.2019.10.028.
+- Webster, M.A. and Mollon, J.D. (1997) 'Adaptation and the color statistics of natural images', *Vision Research*, 37(23), pp. 3283-3298. doi:10.1016/S0042-6989(97)00125-9.
 
 ---
 

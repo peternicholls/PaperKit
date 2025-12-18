@@ -9,15 +9,10 @@ description: >
 version: 1.0.0
 module: core
 category: references
-path: .paper/_cfg/workflows/format-bibliography.yaml
+path: .paper/core/workflows/references/format-bibliography.yaml
 
 agents:
   - reference-manager
-
-dependencies:
-  files:
-    - .paper/_cfg/guides/harvard-citation-guide.md
-    - latex/references/references.bib
 
 steps:
   - name: load-guide

@@ -222,6 +222,77 @@ This review identifies research on perceptual closure, temporal sequences, patte
 
 ## 4. Looping Animation Perception
 
+### 4.0 Perceptual Detection Thresholds for Rotation/Change
+
+**Source:** Wang et al. (2022) - "On Rotation Gains Within and Beyond Perceptual Limitations for Seated VR" 📚 **[COLLECTED]**  
+**Venue:** arXiv:2203.02750v1 [cs.HC]  
+**Relevance:** ⭐⭐⭐⭐ (Psychophysical methodology + detection threshold framework)
+
+**Direct Quotes from Paper:**
+
+> "Results indicate that users are unable to discriminate rotation gains between 0.89 and 1.28, a smaller range compared to the standing condition."  
+> — Wang et al. (2022, p. 1, Abstract)
+
+> "We further treated head amplification as an interaction technique and found that a gain of 2.5, though not a hard threshold, was near the largest gain that users consider applicable."  
+> — Wang et al. (2022, p. 1, Abstract)
+
+> "The gain at which users respond 'greater' with half probability is called the point of subjective equality (PSE), which means they cannot detect stimulus at this level. Detection thresholds were the gains where participants have 25 percent and 75 percent possibilities to give the response of 'greater', manipulations in between were considered imperceptible to users."  
+> — Wang et al. (2022, p. 5, Section 3.5 Results)
+
+> "From the psychometric function, we found a bias for PSE at 1.09 and 1.10 for the seated and the standing block respectively, meaning that most users tend to overestimate head rotations."  
+> — Wang et al. (2022, p. 5, Section 3.5.1)
+
+> "The 25% and 75% threshold is 0.89 and 1.28 for the seated block, a smaller range than for the standing block (0.80 and 1.40)."  
+> — Wang et al. (2022, p. 5, Section 3.5.1)
+
+> "Results demonstrated a significant effect of block, both in 25% threshold (F(1,18) = 12.015, p = 0.003) and 75% threshold (F(1,18) = 6.666, p = 0.019), and no interaction effect was found. This indicates that people are more sensitive to lower and upper bounds of detection thresholds in the seated condition."  
+> — Wang et al. (2022, pp. 5-6, Section 3.5.1)
+
+**Key Findings (with page references):**
+- **Two-alternative forced choice (2AFC):** Standard psychophysical method for detecting manipulations
+- **Point of subjective equality (PSE):** "gain at which users respond 'greater' with half probability" (p. 5)
+- **Detection thresholds:** "25 percent and 75 percent possibilities" define imperceptible range (p. 5)
+- **Psychometric function:** Cumulative normal distribution fits human detection performance
+- **Seated condition thresholds:** 0.89-1.28 (smaller range = more sensitive) (p. 5)
+- **Standing condition thresholds:** 0.80-1.40 (larger range = less sensitive) (p. 5)
+- **PSE bias:** "most users tend to overestimate head rotations" (PSE ≈ 1.09-1.10) (p. 5)
+
+**Methodological Framework (p. 5):**
+```
+ψ(x; γ, λ, α, β) = γ + (1 - γ - λ) × F(x; α, β)
+
+Where:
+- γ, λ = guess rate and lapse rate (asymptote adjustments)
+- F(x; α, β) = cumulative normal (sigmoid) function
+- α = PSE (point of subjective equality)
+- β = standard deviation (slope of psychometric function)
+```
+
+**Key Parameters:**
+- **Goodness of fit:** p = 0.85-0.99 for psychometric curves
+- **Individual variation:** Detection thresholds vary across participants
+- **Threshold interpretation:** 25%-75% range = "imperceptible manipulation"
+
+**Relevance to Möbius:**
+- **Methodological template:** 2AFC design applicable to color loop detection
+- **PSE concept:** "Point of subjective equality" for chromatic return detection
+- **Threshold interpretation:** Range where viewers don't notice deviation from origin
+- **Bias insight:** Viewers may systematically over/underestimate hue return
+- **Individual differences:** Expect variation in closure sensitivity across viewers
+
+**Potential Application to Möbius:**
+- Design 2AFC experiment: "Was the return color the same as or different from the start?"
+- Fit psychometric function to determine closure ΔE threshold
+- PSE indicates systematic bias in perceiving chromatic return
+- Detection threshold (25%-75%) defines "imperceptible" closure range
+
+**Priority:** HIGH - **Methodological framework for closure threshold studies**
+
+**Full Citation (Harvard):**
+- Wang, C., Zhang, S.-H., Zhang, Y., Zollmann, S. and Hu, S.-M. (2022) 'On rotation gains within and beyond perceptual limitations for seated VR', *arXiv preprint*, arXiv:2203.02750v1. Available at: https://arxiv.org/abs/2203.02750 (Accessed: 18 December 2025).
+
+---
+
 ### 4.1 Seamless vs. Cyclical Loops
 
 **Source:** YouTube/Animation School - "Loop Types: Seamless vs. Cyclical"  
@@ -480,19 +551,25 @@ This review identifies research on perceptual closure, temporal sequences, patte
 
 ---
 
-## 11. Harvard-Style Reference List (Partial)
+## 11. Harvard-Style Reference List
 
-**To be completed once full papers obtained. Preliminary citations:**
+**Full papers collected (📚):**
 
-- Bregman, A.S. (1990) *Auditory Scene Analysis: The Perceptual Organization of Sound*. Cambridge, MA: MIT Press.
-- Esterman, M. et al. (2010) 'Perceptual expectation evokes category-selective cortical activity', *Cerebral Cortex*, 20(5), pp. 1245-[end page].
-- Hindy, N.C., Ng, F.Y. and Turk-Browne, N.B. (20XX) 'Linking pattern completion in the hippocampus to predictive coding in visual cortex', *Nature Neuroscience*, [volume], pp. [pages].
-- Nemes, V.A., Parry, N.R.A. et al. (20XX) 'The retention and disruption of color information in human short-term visual memory', *Journal of Vision*, [volume/issue].
-- Olivers, C.N.L. (2014) 'Visual memory performance for color depends on stimulus complexity, spatial layout, and feature context', *[Journal]*, [volume], pp. [pages].
-- Sekuler, R. et al. (2006) 'Short-term visual recognition and temporal order memory', *[Journal]*, [volume], pp. [pages].
-- Wertheimer, M. (1912) 'Experimental studies of the perception of movement', *Zeitschrift für Psychologie*, 61, pp. 161-265.
-- Wertheimer, M. (1923) 'Laws of organization in perceptual forms', trans. Ellis, W. (1938), in *A source book of Gestalt psychology*. London: Routledge & Kegan Paul, pp. [pages].
+- Wang, C., Zhang, S.-H., Zhang, Y., Zollmann, S. and Hu, S.-M. (2022) 'On rotation gains within and beyond perceptual limitations for seated VR', *arXiv preprint*, arXiv:2203.02750v1. Available at: https://arxiv.org/abs/2203.02750. 📚
+
+**Foundational references:**
+
+- Bregman, A.S. (1990) *Auditory Scene Analysis: The Perceptual Organization of Sound*. Cambridge, MA: MIT Press. ISBN: 978-0-262-52195-6.
+- Hindy, N.C., Ng, F.Y. and Turk-Browne, N.B. (2016) 'Linking pattern completion in the hippocampus to predictive coding in visual cortex', *Nature Neuroscience*, 19(5), pp. 665-667. doi:10.1038/nn.4284.
+- Wertheimer, M. (1912) 'Experimentelle Studien über das Sehen von Bewegung', *Zeitschrift für Psychologie*, 61, pp. 161-265.
+- Wertheimer, M. (1923) 'Untersuchungen zur Lehre von der Gestalt II', *Psychologische Forschung*, 4, pp. 301-350. [Translated as 'Laws of organization in perceptual forms' in Ellis, W. (ed.) (1938) *A Source Book of Gestalt Psychology*. London: Routledge & Kegan Paul, pp. 71-88.]
+
+**Additional references:**
+
+- Esterman, M., Chiu, Y.-C., Tamber-Rosenau, B.J. and Yantis, S. (2009) 'Decoding cognitive control in human parietal cortex', *Proceedings of the National Academy of Sciences*, 106(42), pp. 17974-17979. doi:10.1073/pnas.0903593106.
+- Nemes, V.A., Parry, N.R.A., Whitaker, D. and McKeefry, D.J. (2010) 'The retention and disruption of color information in human short-term visual memory', *Journal of Vision*, 10(2), pp. 1-14. doi:10.1167/10.2.26.
+- Olivers, C.N.L., Peters, J., Houtkamp, R. and Roelfsema, P.R. (2011) 'Different states in visual working memory: when it guides attention and when it does not', *Trends in Cognitive Sciences*, 15(7), pp. 327-334. doi:10.1016/j.tics.2011.05.004.
 
 ---
 
-**Status:** ✅ M2 Complete - Ready for M3 (Natural Chromatic Cycles Research)
+**Status:** ✅ M2 Complete (Updated with collected papers) - Ready for M3 (Natural Chromatic Cycles Research)

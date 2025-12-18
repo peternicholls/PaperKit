@@ -10,16 +10,10 @@ description: >
 version: 1.0.0
 module: core
 category: references
-path: .paper/_cfg/workflows/citation-completeness.yaml
+path: .paper/core/workflows/references/citation-completeness.yaml
 
 agents:
   - reference-manager
-
-dependencies:
-  files:
-    - .paper/_cfg/guides/harvard-citation-guide.md
-    - .paper/_cfg/tools/citation-rules.yaml
-    - latex/references/references.bib
 
 steps:
   - name: load-rules

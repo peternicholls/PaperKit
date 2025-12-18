@@ -70,17 +70,25 @@ This review examines the perceptual topology of color space and the validity of 
 
 ### 1.4 Resnikoff's Homogeneous Color Space
 
-**Source:** ResearchGate - "Geometry of color perception. Part 1: structures and metrics"  
-**Relevance:** ⭐⭐⭐ (Classical geometry analysis)
+**Source:** Resnikoff (1974) - "Differential geometry and color perception"  
+**Journal:** Journal of Mathematical Biology, 1(2), pp. 97-131  
+**DOI:** 10.1007/BF00275798  
+**Relevance:** ⭐⭐⭐⭐ (Classical geometric foundation)
 
-**Key Finding:**
-- Analysis of Resnikoff (1974) work on color space geometry
-- Homogeneous color space structures and metrics
+**Full Citation (Harvard):**
+- Resnikoff, H.L. (1974) 'Differential geometry and color perception', *Journal of Mathematical Biology*, 1(2), pp. 97-131. doi:10.1007/BF00275798.
+
+**Key Findings:**
+- Proposed elegant model for perceived color space based on differential geometry
+- Built on Schrödinger's foundations with additional geometric techniques
+- Established homogeneous color space structures and metrics
+- Foundational work analysed in detail by subsequent researchers (Provenzi et al.)
 
 **Relevance to Möbius:**
-- Classical geometric analysis provides foundation
+- Classical geometric analysis provides mathematical foundation
 - Homogeneity assumption: JND uniform throughout space
-- Möbius violates this (inversion path crosses space)
+- Möbius path crosses space, potentially violating local uniformity
+- Riemannian framework supports geodesic path calculations
 
 ---
 
@@ -135,8 +143,12 @@ This review examines the perceptual topology of color space and the validity of 
 ### 3.1 Pitch Circularity Phenomenon
 
 **Source:** Shepard (1964) - "Circularity in Judgments of Relative Pitch"  
-**Journal:** Journal of the Acoustical Society of America (1227 citations!)  
+**Journal:** Journal of the Acoustical Society of America, 36(12), pp. 2346-2353  
+**Citations:** 1227+ (highly influential)  
 **Relevance:** ⭐⭐⭐⭐⭐ (DIRECT ANALOGUE TO HUE CIRCLE)
+
+**Full Citation (Harvard):**
+- Shepard, R.N. (1964) 'Circularity in judgments of relative pitch', *Journal of the Acoustical Society of America*, 36(12), pp. 2346-2353. doi:10.1121/1.1919362.
 
 **Key Findings:**
 - **Two-dimensional pitch:** Analysis into "pitch class" (note name) and "pitch height" (octave)
@@ -149,9 +161,6 @@ This review examines the perceptual topology of color space and the validity of 
 - **Shepard tone:** Continuously ascending pitch (like continuously rotating hue?)
 - **Circular dimension:** Hue circle analogous to pitch class circle
 - **Perceptual validity:** If pitch exhibits circularity, hue can too
-
-**Citation Needed:**
-- Shepard, R.N. (1964) 'Circularity in judgments of relative pitch', *Journal of the Acoustical Society of America*, 36(12), pp. 2346-2353.
 
 ---
 
@@ -370,16 +379,18 @@ This review examines the perceptual topology of color space and the validity of 
 
 ---
 
-## 8. Harvard-Style Reference List (Partial)
+## 8. Harvard-Style Reference List
 
-**To be completed once full papers obtained. Preliminary citations:**
+**Core references:**
 
-- Resnikoff, H.L. (1974) 'Differential geometry and color perception', *Journal of Mathematical Biology*, 1(1), pp. 97-131.
-- Shepard, R.N. (1964) 'Circularity in judgments of relative pitch', *Journal of the Acoustical Society of America*, 36(12), pp. 2346-2353.
-- (20XX) 'Color space geometry uncovered with magnetoencephalography', *[Journal]*, [volume], pp. [pages].
-- (20XX) 'Geometrical structure of perceptual color space', *[Journal]*, [volume], pp. [pages].
-- (20XX) 'Perceptual spaces and their symmetries: The geometry of color space', arXiv:2010.00541.
-- (20XX) 'Toroidal topology of population activity in grid cells', bioRxiv [preprint].
+- Resnikoff, H.L. (1974) 'Differential geometry and color perception', *Journal of Mathematical Biology*, 1(2), pp. 97-131. doi:10.1007/BF00275798.
+- Shepard, R.N. (1964) 'Circularity in judgments of relative pitch', *Journal of the Acoustical Society of America*, 36(12), pp. 2346-2353. doi:10.1121/1.1919362.
+
+**Additional references:**
+
+- Bujack, R., Teti, E., Miller, J., Caffrey, E. and Turton, T.L. (2022) 'The non-Riemannian nature of perceptual color space', *Proceedings of the National Academy of Sciences*, 119(18), e2119753119. doi:10.1073/pnas.2119753119.
+- Provenzi, E., Sangalli, L. and Fernández-Maloigne, C. (2020) 'Geometry of color perception. Part 1: structures and metrics of a homogeneous color space', *Journal of Mathematical Imaging and Vision*, 62(1), pp. 1-16. doi:10.1007/s10851-019-00884-x.
+- Schrödinger, E. (1920) 'Grundlinien einer Theorie der Farbenmetrik im Tagessehen', *Annalen der Physik*, 368(21), pp. 397-426. doi:10.1002/andp.19203682102.
 
 ---
 

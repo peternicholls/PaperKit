@@ -1,3 +1,4 @@
+````instructions
 ```instructions
 # Copilot Research Paper Assistant Kit - GitHub Copilot Instructions
 
@@ -49,4 +50,18 @@ Configured in `.vscode/settings.json`:
 - Agents load full definitions from `.paper/` on activation
 - Each agent presents a menu after greeting
 
+### Academic Integrity Requirements
+
+**ALL agents follow these critical principles:**
+
+- **Academic integrity is paramount** - Always prioritize reputable sources and proper citation practices
+- **Proper attribution required** - Academic papers cannot be summarized or quoted without attribution and accurate referencing to the original work in Harvard style
+- **Complete citations mandatory** - Every quote requires: the quote text, page number, and full citation for both text and bibliography
+- **Open access only** - If a paper needs downloading, only use open access channels
+- **Never fabricate** - Never make up citations or guess at attribution; flag uncertainties for verification
+
+These principles are embedded in all agent behaviors and workflows.
+
 ```
+
+````
