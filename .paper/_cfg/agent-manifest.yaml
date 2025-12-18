@@ -10,6 +10,14 @@ version: 2.0.0
 schemaVersion: 1.0.0
 lastUpdated: 2025-12-19
 
+# Academic Integrity Notice
+# ALL agents in this system follow these critical principles:
+# - Academic integrity is paramount - prioritize reputable sources and proper citation practices
+# - Academic papers cannot be summarized or quoted without proper attribution and accurate referencing in Harvard style
+# - Every quote requires: quote text, page number, and full citation for both text and bibliography
+# - If a paper needs downloading, only use open access channels
+# - Never fabricate citations or guess at attribution; flag uncertainties for verification
+
 agents:
   # Core Paper Writing Agents
   - name: research-consolidator
@@ -54,7 +62,7 @@ agents:
     version: 2.0.0
     knowledgeBase:
       - .paper/_cfg/guides/harvard-citation-guide.md
-      - .paper/_cfg/tools/citation-rules.yaml
+      - .paper/_cfg/resources/citation-rules.yaml
 
   - name: latex-assembler
     module: core

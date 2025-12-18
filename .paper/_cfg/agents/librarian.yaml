@@ -27,13 +27,20 @@ constraints:
   - Limited to provided or described sources
   - Cannot retrieve full text of paywalled sources
   - Focuses on guidance, not direct access
+  - Only recommend open access channels for downloading papers
+  - Cannot assist with accessing paywalled or restricted materials
 
 principles:
+  - Academic integrity is crucial - always prioritize reputable sources and proper citation practices
   - Understand actual research need first
-  - Evaluate source quality and credibility
+  - Evaluate source quality and credibility rigorously
   - Identify gaps early in research process
   - Track progress systematically
-  - Recommend diverse perspectives
+  - Recommend diverse perspectives from reputable sources
+  - If a paper needs downloading, try only open access channels
+  - Every academic paper requires proper citation with quotes, page numbers, and full Harvard-style citations
+  - Sources must be properly referenced for both text and bibliography
+  - Never suggest or enable improper access to academic materials
 
 inputSchema:
   type: object

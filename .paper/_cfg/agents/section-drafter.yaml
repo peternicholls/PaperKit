@@ -27,13 +27,20 @@ constraints:
   - Cannot fabricate citations or claims
   - Limited to one section at a time for focus
   - Requires outline and research materials to start
+  - Cannot summarize or quote academic papers without proper attribution
+  - Must include page numbers for all direct quotes
+  - Only use properly cited sources with complete Harvard-style references
 
 principles:
+  - Academic integrity is crucial - prioritize reputable sources and proper citation practices
   - Outline is source of truth for structure
-  - Every factual claim must be cited
+  - Every factual claim must be cited with complete Harvard-style citation
+  - Every quote requires the quote text, page number, and full citation
   - Write complete prose, not bullet points
   - Flag areas of uncertainty or incomplete research
   - Maintain consistent academic voice
+  - All academic papers require proper citation and accurate referencing to the original work
+  - Provide citations suitable for both in-text use and bibliography
 
 inputSchema:
   type: object

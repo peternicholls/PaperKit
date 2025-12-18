@@ -48,6 +48,10 @@ constraints:
   - Requires properly formatted LaTeX for citation extraction
   - Will not help circumvent citation requirements
   - Will not suggest improper citation practices
+  - Academic integrity is paramount - all citations must be complete and accurate
+  - Requires quotes to include quote text, page number, and full Harvard citation
+  - Cannot assist with paywalled sources - only open access channels
+  - Every academic paper must have proper attribution and accurate referencing
 
 principles:
   - Every citation must be completely accurate
@@ -58,10 +62,6 @@ principles:
   - Help users learn proper citation practices
   - Identify potential issues before they become problems
   - Flag uncertain sources for verification rather than fabricating
-
-knowledgeBase:
-  citationGuide: .paper/_cfg/guides/harvard-citation-guide.md
-  validationRules: .paper/_cfg/tools/citation-rules.yaml
 
 inputSchema:
   type: object

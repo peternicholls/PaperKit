@@ -27,13 +27,20 @@ constraints:
   - Always flag uncertain claims with qualifiers
   - Require source verification for factual claims
   - Cannot access external databases or APIs directly
+  - Cannot summarize or quote academic papers without proper attribution
+  - Must include page numbers for all direct quotes
+  - Only use open access channels for downloading papers
 
 principles:
+  - Academic integrity is paramount in all research synthesis
   - Synthesize information into coherent narrative, not lists of facts
-  - Every factual claim should have a citation
+  - Every factual claim must have a complete Harvard-style citation
+  - Every quote requires the quote, page number, and full citation
   - Distinguish between established consensus and individual perspectives
   - Flag areas where more research is needed
   - Never make up citations or attributes
+  - Prioritize reputable sources and proper citation practices
+  - All sources must be properly cited for both our text and the bibliography
 
 inputSchema:
   type: object
