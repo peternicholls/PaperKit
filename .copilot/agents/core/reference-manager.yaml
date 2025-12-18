@@ -67,7 +67,7 @@ bibtex-template: |
     author = {Author, First Name},
     title = {Article Title},
     journal = {Journal Name},
-    year = {2024},
+    year = {2025},
     volume = {30},
     number = {3},
     pages = {171--179},
