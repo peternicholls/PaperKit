@@ -26,6 +26,7 @@ Conduct comprehensive literature review on color harmony generation methods to g
 
 **1. Rule-Based Harmony Systems**
 - Itten (1961) — Traditional color theory
+- Opposing Itten's theories - https://opg.optica.org/oe/fulltext.cfm?uri=oe-31-15-25191 
 - Munsell color system
 - Complementary, triadic, tetrad rules
 - Split-complementary, analogous schemes
