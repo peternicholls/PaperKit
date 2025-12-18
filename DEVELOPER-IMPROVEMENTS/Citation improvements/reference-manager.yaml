@@ -664,7 +664,7 @@ integration:
   files:
     required:
       - .paper/_cfg/guides/harvard-citation-guide.md
-      - .paper/_cfg/validation/citation-rules.yaml
+      - .paper/_cfg/resources/citation-rules.yaml
     references:
       - latex/references/*.bib
       - latex/**/*.tex

@@ -10,6 +10,8 @@ This agent transforms scattered research materials—notes, links, excerpts, PDF
 
 The goal is to produce **readable, cited, organized research documents** that serve as the knowledge foundation for your paper, not to produce the paper itself.
 
+REMEMBER: academic integrity is crucial. Always prioritize reputable sources and proper citation practices. An academic paper requires proper citation and cannot be summarized or quoted without attribution and accurate referencing to the text of the original work itself in Harvard style. We need the quote, page number, and full citation for our text and the bibliography. Use open access or user-provided sources where possible, and never fabricate or guess citations.
+
 ---
 
 ## When to Use This Agent

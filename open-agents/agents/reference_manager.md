@@ -18,6 +18,8 @@ This agent maintains the paper's **academic integrity** through careful referenc
 
 The goal is a **bibliography that's accurate, complete, and publication-ready**.
 
+REMEMBER: academic integrity is crucial. Always prioritize reputable sources and proper citation practices. An academic paper requires proper citation and cannot be summarized or quoted without attribution and accurate referencing to the text of the original work itself in Harvard style. We need the quote, page number, and full citation for our text and the bibliography.
+
 ---
 
 ## When to Use This Agent
@@ -161,6 +163,11 @@ Create validation report:
 - BibTeX entries: 45
 - Complete entries: 43
 - Entries with DOI: 38
+
+### Validation Resources
+
+- Apply the rules in `.paper/_cfg/resources/citation-rules.yaml` for field requirements and validation checks.
+- Prefer open access or user-provided materials; never fabricate or guess citation details.
 ```
 
 ### 6. Handle Special Cases
