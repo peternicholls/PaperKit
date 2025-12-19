@@ -83,53 +83,329 @@ Each agent handles one phase. See the routing guide below.
 ## 📁 Folder Structure You'll Use
 
 ```
-.paperkit/        ← Core Framework (edit here)
-    _cfg/           ← manifests, schemas, guides
-    core/agents/    ← core agent specs (6)
-    specialist/agents/ ← specialist agent specs (4)
-    tools/          ← build, lint, validate, evidence, refs
-    data/           ← agent outputs (drafts/refined)
-
-latex/            ← publication document
-    main.tex, preamble.tex, metadata.tex, settings.tex
-    sections/01..12 *.tex, appendices A–D, references/references.bib
-
-.github/agents/   ← generated Copilot chat modes
-.codex/prompts/   ← generated Codex prompts
-open-agents/      ← legacy reference (do not edit)
+PaperKit/
+├── .paperkit/                      ← Core Framework (EDIT HERE)
+│   ├── _cfg/                       ← Manifests, schemas, guides
+│   │   ├── manifest.yaml           ← System version info
+│   │   ├── agent-manifest.yaml     ← All agents catalog
+│   │   ├── workflow-manifest.yaml  ← All workflows catalog
+│   │   ├── tool-manifest.yaml      ← All tools catalog
+│   │   ├── agents/                 ← Agent metadata (YAML)
+│   │   ├── workflows/              ← Workflow definitions (YAML)
+│   │   ├── tools/                  ← Tool metadata (YAML)
+│   │   ├── guides/                 ← Harvard citation guide, style guides
+│   │   └── schemas/                ← JSON Schemas for validation
+│   │
+│   ├── core/agents/                ← Core agent specifications (6)
+│   │   ├── research-consolidator.md
+│   │   ├── paper-architect.md
+│   │   ├── section-drafter.md
+│   │   ├── quality-refiner.md
+│   │   ├── reference-manager.md
+│   │   └── latex-assembler.md
+│   │
+│   ├── specialist/agents/          ← Specialist agent specifications (4)
+│   │   ├── brainstorm.md
+│   │   ├── problem-solver.md
+│   │   ├── tutor.md
+│   │   └── librarian.md
+│   │
+│   ├── tools/                      ← Tool implementations
+│   │   ├── build-latex.sh
+│   │   ├── lint-latex.sh
+│   │   ├── extract-evidence.sh
+│   │   ├── validate-structure.py
+│   │   └── format-references.py
+│   │
+│   ├── docs/                       ← IDE-specific instructions
+│   │   ├── github-copilot-instructions.md
+│   │   └── codex-instructions.md
+│   │
+│   └── data/                       ← Agent outputs (DO NOT EDIT)
+│       ├── output-drafts/          ← First drafts
+│       │   └── outlines/
+│       ├── output-refined/         ← Iterated versions
+│       │   ├── research/
+│       │   └── references/
+│       └── output-final/           ← Created on build
+│           └── pdf/
+│
+├── latex/                          ← Publication document
+│   ├── main.tex                    ← Main document (integrates all)
+│   ├── preamble.tex                ← Packages and configuration
+│   ├── metadata.tex                ← Title, author, abstract
+│   ├── settings.tex                ← Customization and macros
+│   │
+│   ├── sections/                   ← 12 atomic section files
+│   │   ├── ...
+│   │
+│   ├── appendices/                 ← Supplementary material
+│   │   ├── ...
+│   │
+│   └── references/
+│       └── references.bib          ← BibTeX database (Harvard style)
+│
+├── .github/agents/                 ← Generated Copilot chat modes
+│   └── paper-*.agent.md            ← One file per agent (DO NOT EDIT)
+│
+├── .codex/prompts/                 ← Generated Codex prompts
+│   └── paper-*.md                  ← One file per agent (DO NOT EDIT)
+│
+├── AGENTS.md                       ← Generated quick reference (DO NOT EDIT)
+├── COPILOT.md                      ← Generated integration guide (DO NOT EDIT)
+│
+├── planning/                       ← Session outputs from specialist agents
+│   └── YYYYMMDD-session-name/      ← Planning sessions, brainstorms, feedback
+│
+└── open-agents/                    ← Legacy system (kept for reference)
 ```
 
-## Typical Workflow (condensed)
+---
 
-1) **Plan** — Tell `paper-architect`: topic, scope, audience, target length. Review the outline.
-2) **Evidence** — Ask `paper-librarian` to locate sources and extract quotes (with page numbers).
-3) **Synthesize** — Ask `paper-research-consolidator` to structure notes in `.paperkit/data/output-refined/research/`.
-4) **Draft** — Ask `paper-section-drafter` to write one section at a time into `latex/sections/`.
-5) **Refine** — Use `paper-quality-refiner` (and `paper-tutor` if you want feedback) to polish.
-6) **References** — Run `paper-reference-manager` to validate citations and format bibliography.
-7) **Assemble** — Run `./.paperkit/tools/build-latex.sh` (creates `.paperkit/data/output-final/`).
+## 🎓 Typical Workflow Example
 
-## Essential Commands
+### Scenario: Writing a Specification Paper on Color Science
 
-- `./paperkit init` — install/repair generated assets.
-- `./paperkit generate [--check]` — sync `.paperkit/` → `.github/agents/` + `.codex/prompts/`.
-- `./paperkit validate` — schema + sync checks.
-- `./.paperkit/tools/build-latex.sh [--clean] [--final]` — build PDF.
-- `./.paperkit/tools/lint-latex.sh` — LaTeX preflight.
-- `python3 ./.paperkit/tools/validate-structure.py` — structure check.
-- `python3 ./.paperkit/tools/format-references.py --validate latex/references/references.bib` — bibliography check.
+**Step 1: Brainstorm and Scope** (Brainstorm Coach)
+```
+User: "I want to write about mathematical color perception models."
+→ Agent explores: What angle? Who's the audience? What's novel?
+→ Output: Session notes in planning/20251219-color-perception/
+```
 
-## Academic Integrity (always on)
+**Step 2: Create Structure** (Paper Architect)
+```
+User: "Outline a paper on color perception for researchers. 10,000 words."
+→ Agent creates 12-section outline with research requirements
+→ Output: .paperkit/data/output-drafts/outlines/color-perception-outline.md
+→ Also creates: latex/sections/*.tex skeleton files
+```
 
-- Cite every claim; include quote text and page numbers for direct quotes.
-- Prefer open-access sources; never fabricate citations.
-- Maintain Harvard style (Cite Them Right, 11th ed.).
+**Step 3: Find Evidence** (Research Librarian)
+```
+User: "Find sources on cone cell responses. Extract key quotes with page numbers."
+→ Agent searches, extracts evidence with context
+→ Output: planning/20251219-color-perception/evidence-cone-cells.md
+```
 
-## If You Get Stuck
+**Step 4: Consolidate Research** (Research Consolidator)
+```
+User: "Synthesize the evidence on color theory foundations."
+→ Agent creates coherent research document with citations
+→ Output: .paperkit/data/output-refined/research/color-theory-foundations.md
+```
 
-- Rerun `./paperkit init` to repair generated files.
-- Run `./paperkit generate --check` to see drift.
-- Validate with `./paperkit validate` before builds/commits.
-- Check `.paperkit/docs/github-copilot-instructions.md` or `.paperkit/docs/codex-instructions.md` for IDE usage.
+**Step 5: Draft Introduction** (Section Drafter)
+```
+User: "Draft §01 Introduction. Motivate color perception modeling."
+→ Agent writes 2000-word introduction with citations, logical flow
+→ Output: latex/sections/01_introduction.tex
+```
 
-Happy writing—keep edits in `.paperkit/`, regenerate often, and use the agents to stay in the loop.
+**Step 6: Refine Introduction** (Quality Refiner)
+```
+User: "Refine §01. The transitions feel rushed."
+→ Agent improves transitions, strengthens arguments, polishes prose
+→ Output: latex/sections/01_introduction.tex (refined in place)
+```
+
+**Step 7: Get Feedback** (Review Tutor, optional)
+```
+User: "Review §01 for academic quality."
+→ Agent provides constructive critique and suggestions
+→ Output: planning/20251219-color-perception/feedback-intro.md
+```
+
+**Repeat Steps 5-7** for each section (§02-§12)
+
+**Step 8: Validate Citations** (Reference Manager)
+```
+User: "Validate all citations and format bibliography."
+→ Agent checks citations, validates BibTeX, formats Harvard style
+→ Output: latex/references/references.bib (validated)
+→ Also: .paperkit/data/output-refined/references/citation-report.md
+```
+
+**Step 9: Final Assembly** (LaTeX Assembler)
+```
+User: "Assemble the paper. Build the document."
+→ Agent integrates all sections, validates syntax, compiles PDF
+→ Output: .paperkit/data/output-final/pdf/main.pdf
+```
+
+**Result:** Publication-ready PDF with 10,000 words, 12 sections, proper citations
+
+---
+
+## 🛠️ Available Tools
+
+You can run these scripts from the terminal:
+
+```bash
+# Build the LaTeX document (compile to PDF with proper BibTeX handling)
+./.paperkit/tools/build-latex.sh [--clean] [--final]
+
+# Check LaTeX syntax before compilation
+./.paperkit/tools/lint-latex.sh
+
+# Extract evidence from PDFs with page numbers (forensic audit)
+./.paperkit/tools/extract-evidence.sh <pdf_dir> <output_md> [search_terms...]
+
+# Validate paper structure
+python3 ./.paperkit/tools/validate-structure.py
+
+# Format and validate bibliography (Harvard style)
+python3 ./.paperkit/tools/format-references.py --validate latex/references/references.bib
+```
+
+---
+
+## 🎯 Essential Commands
+
+### System Management
+```bash
+./paperkit init                           # Initialize/repair generated assets
+./paperkit generate                       # Regenerate all IDE files
+./paperkit generate --check               # Check what's out of sync
+./paperkit generate --target=copilot      # Regenerate Copilot only
+./paperkit generate --target=codex        # Regenerate Codex only
+./paperkit validate                       # Validate schemas & structure
+./paperkit version                        # Show version
+./paperkit help                           # Show help
+```
+
+### Build & Validation
+```bash
+# Build PDF (3-pass LaTeX + BibTeX)
+./.paperkit/tools/build-latex.sh
+
+# Build with cleanup
+./.paperkit/tools/build-latex.sh --clean
+
+# Build final version (cleanup + optimize)
+./.paperkit/tools/build-latex.sh --final
+
+# Check syntax before building
+./.paperkit/tools/lint-latex.sh
+
+# Validate structure
+python3 ./.paperkit/tools/validate-structure.py
+
+# Check bibliography
+python3 ./.paperkit/tools/format-references.py --validate latex/references/references.bib
+```
+
+---
+
+## 🎓 Academic Standards
+
+This system enforces:
+
+- **Harvard referencing** (Cite Them Right, 11th edition) for all citations
+- **Proper LaTeX semantics** (equations, cross-references, figures, tables)
+- **Academic tone** (formal, objective, well-reasoned)
+- **Logical structure** (introduction → foundations → methods → results → conclusion)
+- **Iterative improvement** (draft → refine → feedback → redraft → polish)
+- **Citation integrity** (every claim is cited or clearly original)
+- **Page numbers** for all direct quotes
+- **Open access** sources preferred
+- **Never fabricate** - flag uncertainties for verification
+
+---
+
+## 🚨 Important Notes
+
+### Start with Scope
+Don't start writing immediately. Start with **goal definition** and **brainstorming**.
+
+Ask **Brainstorm Coach** to explore ideas, then **Paper Architect** to outline FIRST. This prevents rework and false starts.
+
+### Use Agents in Order
+Don't skip steps:
+```
+Brainstorm → Architect → Librarian → Consolidator → Drafter → Refiner → References → Assembler
+```
+
+Jumping steps creates quality problems and requires more rework.
+
+### Iterate Responsibly
+It's normal and healthy to refine sections 2-3 times:
+```
+Draft → Refine → Get Feedback → Refine Again → Done
+```
+
+Multiple refinement passes produce better results than trying to write perfect first drafts.
+
+### Keep Files Organized
+- **Edit only in** `.paperkit/` (source of truth)
+- **Let agents write to** `latex/sections/` (drafts and refinements)
+- **Planning outputs** go to `planning/YYYYMMDD-session/`
+- **Never edit** `.github/agents/`, `.codex/prompts/`, AGENTS.md, COPILOT.md
+
+This keeps your work clean, trackable, and regenerable.
+
+### Regenerate After Changes
+Whenever you edit `.paperkit/`, regenerate:
+```bash
+./paperkit generate
+./paperkit validate
+git add .paperkit/ .github/ .codex/ AGENTS.md COPILOT.md
+git commit -m "Update agent definitions"
+```
+
+---
+
+## 💡 Pro Tips
+
+- **Save often:** Git commit after each agent completes a task
+- **Ask questions:** Agents will ask you to clarify if uncertain
+- **Iterate freely:** Early drafts don't have to be perfect
+- **Trust the process:** Multiple refinement passes produce better results
+- **Use the tools:** Run `lint-latex.sh` before assembly to catch issues early
+- **Get feedback:** Use Review Tutor to identify improvement opportunities
+- **Extract evidence first:** Use Research Librarian to get quotes with page numbers before writing
+- **Check citations early:** Validate references throughout, not just at the end
+- **Read agent menus:** Each agent presents a menu of workflows when activated
+
+---
+
+## 🤝 Need Help?
+
+### Quick Questions
+- **Understanding the system?** Read [Docs/ARCHITECTURE.md](ARCHITECTURE.md)
+- **Which agent to use?** Check routing table above
+- **How to cite?** See `.paperkit/_cfg/guides/harvard-citation-guide.md`
+- **How to draft?** See `.paperkit/core/agents/section-drafter.md`
+- **How to compile?** Run `./.paperkit/tools/build-latex.sh`
+
+### Documentation
+- **[README.md](../README.md)** — Main system overview
+- **[AGENTS.md](../AGENTS.md)** — Quick reference for all agents
+- **[COPILOT.md](../COPILOT.md)** — GitHub Copilot integration
+- **[Docs/ARCHITECTURE.md](ARCHITECTURE.md)** — System architecture
+- **[Docs/SETUP_COMPLETE.md](SETUP_COMPLETE.md)** — Setup checklist
+
+### IDE-Specific
+- **GitHub Copilot:** `.paperkit/docs/github-copilot-instructions.md`
+- **OpenAI Codex:** `.paperkit/docs/codex-instructions.md`
+
+---
+
+## 🎉 You're Ready!
+
+Your PaperKit system is fully set up and ready to use.
+
+**Begin by running:**
+```bash
+./paperkit init
+```
+
+Then open your IDE, activate the **Brainstorm Coach** or **Paper Architect**, and tell them what you want to write.
+
+The agents will guide you through the entire process from idea to publication-ready PDF.
+
+---
+
+**Happy writing! 📝**
+
+Remember: Edit in `.paperkit/`, regenerate with `./paperkit generate`, and let the agents handle the rest.
