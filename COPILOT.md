@@ -11,28 +11,28 @@ This repo includes Copilot agent and slash-command scaffolding that routes into 
 ### Source of Truth
 
 - **Canonical definitions are in `.paperkit/`** (agents, workflows, tools).
-- **Do not edit** `.github/agents` or `.codex/prompts` independently; they derive from `.paper`.
-- **Keep in sync** by regenerating derived layers after changes in `.paper`.
+- **Do not edit** `.github/agents` or `.codex/prompts` independently; they are generated from `.paperkit/`.
+- **Keep in sync** by running `./paperkit generate` after changes in `.paperkit/`.
 
 ### Ten Specialized Agents
 
 #### Core Paper Writing Agents
 | Command | Agent | Purpose |
 |---------|-------|---------|
-| `paper-research-consolidator` | Research Consolidator (Alex) | Synthesize research into coherent documents |
-| `paper-architect` | Paper Architect (Morgan) | Design paper structure and outline |
-| `paper-section-drafter` | Section Drafter (Jordan) | Write individual sections with rigor |
-| `paper-quality-refiner` | Quality Refiner (Riley) | Improve clarity, flow, and polish |
-| `paper-reference-manager` | Reference Manager (Harper) | Harvard citations & bibliography validation |
-| `paper-latex-assembler` | LaTeX Assembler (Taylor) | Integrate sections and compile PDF |
+| `paper-research-consolidator` | Research Consolidator (Alex) | Research Consolidator |
+| `paper-architect` | Paper Architect (Morgan) | Paper Architect |
+| `paper-section-drafter` | Section Drafter (Jordan) | Section Drafter |
+| `paper-quality-refiner` | Quality Refiner (Riley) | Quality Refiner |
+| `paper-reference-manager` | Academic Bibliographer & Reference Specialist (Harper) | Academic Bibliographer & Reference Specialist |
+| `paper-latex-assembler` | LaTeX Assembler (Taylor) | LaTeX Assembler |
 
 #### Specialist Support Agents
 | Command | Agent | Purpose |
 |---------|-------|---------|
-| `paper-brainstorm` | Brainstorm Coach (Carson) | Creative ideation and exploration |
-| `paper-problem-solver` | Problem Solver (Quinn) | Analyze blockers and find solutions |
-| `paper-tutor` | Review Tutor (Sage) | Constructive feedback on drafts |
-| `paper-librarian` | Research Librarian (Ellis) | Forensic audit: extract quotable evidence with section mapping |
+| `paper-brainstorm` | Brainstorm Coach (Carson) | Brainstorm Coach |
+| `paper-problem-solver` | Problem Solver (Quinn) | Problem Solver |
+| `paper-tutor` | Review Tutor (Sage) | Review Tutor |
+| `paper-librarian` | Research Librarian — Forensic Audit (Ellis) | Research Librarian — Forensic Audit |
 
 ### Slash Commands
 - `/paper.init` → Initialize and update working reference
@@ -49,63 +49,68 @@ The Reference Manager (Harper) supports comprehensive Harvard-style citation man
 
 | Workflow | Description |
 |----------|-------------|
-| `extract-citations` | Extract all citations from LaTeX files |
-| `validate-citations` | Validate citations against BibTeX database |
-| `citation-completeness` | Check all required BibTeX fields |
-| `format-bibliography` | Format bibliography in Harvard style |
+| `extract-citations` | Extract all citations from LaTeX sections |
+| `validate-citations` | Validate against BibTeX database |
+| `citation-completeness` | Check required fields for all entries |
+| `format-bibliography` | Format in Harvard style (Cite Them Right) |
 
-### Artifacts & Rigor
+### Activation Protocol
 
-- Apply PhD-level rigor across agents. Revisit already processed sources; valuable quotes and validations often emerge on a second pass.
-- Artifact paths used by Librarian/Consolidator/Drafter/Refiner:
-	- `open-agents/planning/20251218-group-tutor-reviews/tasks-artifacts`
-	- `open-agents/planning/20251218-group-tutor-reviews/research-artifacts`
-- Direct quotes must include page numbers via `\cite[p. <page>]{key}`.
-- Tooling: `open-agents/tools/extract-evidence.sh` — batch evidence extraction using `pdftotext` + `grep` with context.
+Each agent follows this protocol when activated:
 
-### Tools Available
+1. **Load Definition**: Agent loads its full definition from `.paperkit/{module}/agents/{name}.md`
+2. **Load Config**: Reads module configuration from `.paperkit/{module}/config.yaml`
+3. **Initialize Context**: Sets up working memory and resources
+4. **Present Menu**: Displays interactive menu with available workflows
+5. **Process Commands**: Responds to user input following persona and workflows
 
-| Tool | Path | Purpose |
-|------|------|---------|
-| Build LaTeX | `open-agents/tools/build-latex.sh` | Compile document to PDF |
-| Lint LaTeX | `open-agents/tools/lint-latex.sh` | Check LaTeX syntax |
-| Validate Structure | `open-agents/tools/validate-structure.py` | Validate paper structure |
-| Format References | `open-agents/tools/format-references.py` | Format Harvard citations |
+### Configuration
 
-### Configuration Files
+Agents are configured at two levels:
 
-| File | Purpose |
-|------|---------|
-| `.paperkit/_cfg/agent-manifest.yaml` | All agents catalog |
-| `.paperkit/_cfg/workflow-manifest.yaml` | All workflows catalog |
-| `.paperkit/_cfg/tool-manifest.yaml` | All tools catalog |
-| `.paperkit/_cfg/guides/harvard-citation-guide.md` | Harvard citation style guide |
-| `.paperkit/_cfg/resources/citation-rules.yaml` | Citation validation rules |
+1. **Module Config**: `.paperkit/core/config.yaml` and `.paperkit/specialist/config.yaml`
+2. **Agent Metadata**: `.paperkit/_cfg/agents/{agent-name}.yaml`
 
-### Consent Gate (Tools)
+### Output Locations
 
-Before running tools that modify files:
-1. Prompt for scope: Allow once / Allow for session / Allow for workspace / Always allow
-2. Store scope in VS Code `workspaceState` or `globalState`
-3. Optional local log (gitignored): `.vscode/agent-consent.log`
+| Agent | Primary Output Path |
+|-------|---------------------|
+| Research Consolidator | `.paperkit/data/output-refined/research/` |
+| Paper Architect | `.paperkit/data/output-drafts/outlines/` |
+| Section Drafter | `.paperkit/data/output-drafts/sections/` |
+| Quality Refiner | `.paperkit/data/output-refined/sections/` |
+| Reference Manager | `latex/references/references.bib` |
+| LaTeX Assembler | `.paperkit/data/output-final/pdf/` |
+| Brainstorm Coach | `planning/YYYYMMDD-session-name/` |
+| Problem Solver | `planning/YYYYMMDD-session-name/` |
+| Review Tutor | `planning/YYYYMMDD-session-name/` |
+| Research Librarian | `planning/YYYYMMDD-session-name/` |
 
-### Output Directories
+### Quick Commands
 
-| Output Type | Location |
-|-------------|----------|
-| Draft sections | `.paperkit/data/output-drafts/sections/` |
-| Refined sections | `.paperkit/data/output-refined/sections/` |
-| Final PDF | `.paperkit/data/output-final/pdf/` |
-| BibTeX database | `latex/references/references.bib` |
+```bash
+# Generate IDE files from source
+./paperkit generate
 
-### Notes
+# Validate agent/workflow/tool definitions
+./paperkit validate
 
-- **Progressive disclosure**: Agents load only their specific configuration on demand
-- **Menu-driven**: Each agent presents an interactive menu of options
-- **Handoff support**: Working reference at `open-agents/memory/working-reference.md` maintains context
+# Build LaTeX document
+./.paperkit/tools/build-latex.sh
+
+# Lint LaTeX before compilation
+./.paperkit/tools/lint-latex.sh
+```
 
 ### Academic Integrity
 
-- Academic integrity is paramount—use reputable sources and proper Harvard-style citations.
-- Never summarize or quote academic papers without attribution; every quote needs text, page number, and full citation.
-- Use open access channels when downloading papers; do not fabricate or guess citations.
+All agents follow strict academic integrity protocols:
+
+- **Citation Required**: Every quote needs text, page number, and full citation
+- **Harvard Style**: Cite Them Right format (author-date system)
+- **Source Verification**: Only reputable academic sources and open access channels
+- **No Fabrication**: Never guess or make up citations; flag uncertainties
+
+---
+
+*This file is auto-generated from `.paperkit/` manifests. Run `./paperkit generate` to regenerate.*

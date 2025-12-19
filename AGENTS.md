@@ -16,8 +16,8 @@ This project uses a complete **Open Agent System** for planning, researching, st
 ### 🧭 Source of Truth
 
 - **Canonical definitions** live in `.paperkit/` (agents, workflows, tools, guides).
-- **Derived layers** (.github/agents, .codex/prompts, AGENTS.md, COPILOT.md) mirror `.paper`.
-- **Edit only in `.paper`**; regenerate or sync external layers to avoid drift.
+- **Derived layers** (.github/agents, .codex/prompts, AGENTS.md, COPILOT.md) are generated files.
+- **Edit only in `.paperkit/`**; regenerate derived layers with `./paperkit generate` to avoid drift.
 
 **For OpenAI Codex:**
 1. Type `/paper-` to see available prompts
@@ -30,21 +30,21 @@ This project uses a complete **Open Agent System** for planning, researching, st
 
 | Agent | Persona | Purpose | Trigger |
 |-------|---------|---------|---------|
-| 🔬 **Research Consolidator** | Alex | Synthesize research into coherent documents | `paper-research-consolidator` |
-| 🏗️ **Paper Architect** | Morgan | Design paper structure and outline | `paper-architect` |
-| ✍️ **Section Drafter** | Jordan | Write individual sections with rigor | `paper-section-drafter` |
-| 💎 **Quality Refiner** | Riley | Improve clarity, flow, and polish | `paper-quality-refiner` |
-| 📚 **Reference Manager** | Harper | Academic bibliographer - Harvard citations & validation | `paper-reference-manager` |
-| 🔧 **LaTeX Assembler** | Taylor | Integrate sections and compile PDF | `paper-latex-assembler` |
+| 🔬 **Research Consolidator** | Alex | Research Consolidator | `paper-research-consolidator` |
+| 🏗️ **Paper Architect** | Morgan | Paper Architect | `paper-architect` |
+| ✍️ **Section Drafter** | Jordan | Section Drafter | `paper-section-drafter` |
+| 💎 **Quality Refiner** | Riley | Quality Refiner | `paper-quality-refiner` |
+| 📚 **Academic Bibliographer & Reference Specialist** | Harper | Academic Bibliographer & Reference Specialist | `paper-reference-manager` |
+| 🔧 **LaTeX Assembler** | Taylor | LaTeX Assembler | `paper-latex-assembler` |
 
 #### Specialist Support Agents
 
 | Agent | Persona | Purpose | Trigger |
 |-------|---------|---------|---------|
-| 🧠 **Brainstorm Coach** | Carson | Creative ideation and exploration | `paper-brainstorm` |
-| 🔬 **Problem Solver** | Quinn | Analyze blockers and find solutions | `paper-problem-solver` |
-| 🎓 **Review Tutor** | Sage | Constructive feedback on drafts | `paper-tutor` |
-| 📖 **Research Librarian** | Ellis | Forensic audit: extract quotable evidence with section mapping | `paper-librarian` |
+| 🧠 **Brainstorm Coach** | Carson | Brainstorm Coach | `paper-brainstorm` |
+| 🧩 **Problem Solver** | Quinn | Problem Solver | `paper-problem-solver` |
+| 🎓 **Review Tutor** | Sage | Review Tutor | `paper-tutor` |
+| 📖 **Research Librarian — Forensic Audit** | Ellis | Research Librarian — Forensic Audit | `paper-librarian` |
 
 ### 📊 Quick Reference Table
 
@@ -199,3 +199,7 @@ The Reference Manager (Harper) supports comprehensive citation management:
 1. Open GitHub Copilot Chat in VS Code
 2. Select `paper-architect` from the agent dropdown
 3. Say "Create an outline for my paper on [topic]"
+
+---
+
+*This file is auto-generated from `.paperkit/` manifests. Run `./paperkit generate` to regenerate.*

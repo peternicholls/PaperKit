@@ -92,7 +92,7 @@ tools: ["changes","edit","fetch","problems","search","runSubagent","usages"]
 # ${agent_name} Agent
 
 <agent-activation CRITICAL="TRUE">
-1. LOAD the FULL agent file from @.paper/${module_type}/agents/${agent_name}.md
+1. LOAD the FULL agent file from @.paperkit/${module_type}/agents/${agent_name}.md
 2. READ its entire contents
 3. Execute ALL activation steps exactly as written
 4. Follow the agent's persona and menu system
@@ -101,7 +101,7 @@ tools: ["changes","edit","fetch","problems","search","runSubagent","usages"]
 
 ## Source of Truth
 
-This file is auto-generated from \`.paper/${module_type}/agents/${agent_name}.md\`.
+This file is auto-generated from \`.paperkit/${module_type}/agents/${agent_name}.md\`.
 Do not edit directly—run \`paperkit generate --target=copilot\` to regenerate.
 \`\`\`
 EOFAGENT
@@ -147,8 +147,8 @@ Activate the **${role}** persona from the Copilot Research Paper Assistant Kit.
 
 ## Instructions
 
-1. Load the full agent definition from \`.paper/${module_type}/agents/${agent_name}.md\`
-2. Load configuration from \`.paper/${module_type}/config.yaml\`
+1. Load the full agent definition from \`.paperkit/${module_type}/agents/${agent_name}.md\`
+2. Load configuration from \`.paperkit/${module_type}/config.yaml\`
 3. Follow all activation steps exactly as written
 4. Present the menu and wait for user input
 5. Stay in character throughout the session
@@ -156,8 +156,8 @@ Activate the **${role}** persona from the Copilot Research Paper Assistant Kit.
 ## Quick Reference
 
 **Purpose:** ${description}
-**Source:** \`.paper/${module_type}/agents/${agent_name}.md\`
-**Config:** \`.paper/${module_type}/config.yaml\`
+**Source:** \`.paperkit/${module_type}/agents/${agent_name}.md\`
+**Config:** \`.paperkit/${module_type}/config.yaml\`
 
 ---
 
@@ -175,9 +175,9 @@ main() {
     echo -e "${CYAN}╚═══════════════════════════════════════════════════╝${NC}"
     echo ""
     
-    # Verify .paper directory exists
-    if [ ! -d "${PAPERKIT_ROOT}/.paper" ]; then
-        error_msg ".paper/ directory not found. Run from PaperKit root."
+    # Verify .paperkit directory exists
+    if [ ! -d "${PAPERKIT_ROOT}/.paperkit" ]; then
+        error_msg ".paperkit/ directory not found. Run from PaperKit root."
         exit 1
     fi
     
@@ -193,7 +193,7 @@ main() {
         fi
         
         # Core agents
-        for agent_file in "${PAPERKIT_ROOT}"/.paper/core/agents/*.md; do
+        for agent_file in "${PAPERKIT_ROOT}"/.paperkit/core/agents/*.md; do
             [ -f "$agent_file" ] || continue
             if ! generate_copilot_agent "$agent_file"; then
                 has_errors=true
@@ -201,7 +201,7 @@ main() {
         done
         
         # Specialist agents
-        for agent_file in "${PAPERKIT_ROOT}"/.paper/specialist/agents/*.md; do
+        for agent_file in "${PAPERKIT_ROOT}"/.paperkit/specialist/agents/*.md; do
             [ -f "$agent_file" ] || continue
             if ! generate_copilot_agent "$agent_file"; then
                 has_errors=true
@@ -219,7 +219,7 @@ main() {
         fi
         
         # Core agents
-        for agent_file in "${PAPERKIT_ROOT}"/.paper/core/agents/*.md; do
+        for agent_file in "${PAPERKIT_ROOT}"/.paperkit/core/agents/*.md; do
             [ -f "$agent_file" ] || continue
             if ! generate_codex_prompt "$agent_file"; then
                 has_errors=true
@@ -227,12 +227,25 @@ main() {
         done
         
         # Specialist agents
-        for agent_file in "${PAPERKIT_ROOT}"/.paper/specialist/agents/*.md; do
+        for agent_file in "${PAPERKIT_ROOT}"/.paperkit/specialist/agents/*.md; do
             [ -f "$agent_file" ] || continue
             if ! generate_codex_prompt "$agent_file"; then
                 has_errors=true
             fi
         done
+    fi
+    
+    # Generate documentation files (AGENTS.md, COPILOT.md)
+    if [[ "$TARGET" == "all" ]]; then
+        echo ""
+        if ! $CHECK_ONLY; then
+            info_msg "Generating documentation files..."
+            if [ -f "${PAPERKIT_ROOT}/paperkit-generate-docs.sh" ]; then
+                "${PAPERKIT_ROOT}/paperkit-generate-docs.sh" || warning_msg "Documentation generation had issues"
+            else
+                warning_msg "paperkit-generate-docs.sh not found, skipping documentation generation"
+            fi
+        fi
     fi
     
     echo ""
@@ -246,7 +259,7 @@ main() {
         fi
     else
         success_msg "IDE file generation complete!"
-        info_msg "Generated files are derived from .paper/ source of truth."
+        info_msg "Generated files are derived from .paperkit/ source of truth."
     fi
 }
 

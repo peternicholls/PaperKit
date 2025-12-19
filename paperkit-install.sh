@@ -411,6 +411,17 @@ main() {
         esac
     done
     
+    # Generate IDE files and documentation
+    if [ ${#SELECTED_IDES[@]} -gt 0 ]; then
+        echo ""
+        info_msg "Generating IDE integration files..."
+        if [ -f "./paperkit-generate.sh" ]; then
+            ./paperkit-generate.sh || warning_msg "Generation had issues but installation continues"
+        else
+            warning_msg "paperkit-generate.sh not found, skipping file generation"
+        fi
+    fi
+    
     show_completion
 }
 
