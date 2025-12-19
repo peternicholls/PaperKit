@@ -1,11 +1,10 @@
 # PaperKit: Agentic Academic Paper Writing System
 [![Version](https://img.shields.io/github/v/tag/peternicholls/PaperKit?label=version&sort=semver)](VERSION)
 
-An **Open Agent System** for writing high-quality academic specification papers in LaTeX format. Ten specialized agents—coordinated through GitHub Copilot or OpenAI Codex—handle research consolidation, paper structuring, section drafting, quality refinement, reference management, and document assembly.
+PaperKit is a **document-first, agentic workflow** for researching and writing **high-quality academic papers** in **LaTeX** (compiled to PDF) with **verifiable citations** and repeatable builds.
 
-**Source of Truth:** `.paperkit/` — canonical agents, workflows, tools, and configuration  
-**Multi-IDE Support:** GitHub Copilot, OpenAI Codex (or both)  
-**Latest:** Enhanced installer with IDE selection, JSON schema validation, forensic audit tools, centralized implementations
+- **Core Framework:** `.paperkit/` (agents, workflows, tools, schemas).
+- **Multi-IDE:** GitHub Copilot (CLI and VS Code), MS Copilot, OpenAI Codex CLI (and more can be generated via shims.).
 
 ---
 
@@ -35,22 +34,60 @@ An **Open Agent System** for writing high-quality academic specification papers 
 
 For detailed setup, see [Installation](#installation)
 
----
+
 
 ## Table of Contents
 
-1. [What PaperKit Does](#what-paperkit-does)
-2. [Installation](#installation)
-3. [System Architecture](#system-architecture)
-4. [The Ten Agents](#the-ten-agents)
-5. [Workflows](#workflows)
-6. [Writing Your Paper](#writing-your-paper)
-7. [Tools & Commands](#tools--commands)
-8. [LaTeX Structure](#latex-structure)
-9. [Managing the System](#managing-the-system)
+1. [Quick Start](#quick-start)
+2. [Is this for me?](#is-this-for-me)
+3. [Why PaperKit was Created](#why-paperkit-was-created)
+4. [What PaperKit Does](#what-paperkit-does)
+5. [Installation](#installation)
+6. [System Architecture](#system-architecture)
+7. [The Ten Agents](#the-ten-agents)
+8. [Writing Your Paper](#writing-your-paper)
+9. [Tools & Commands](#tools--commands)
 10. [Getting Help](#getting-help)
 
----
+
+
+## Is this for me?
+
+PaperKit uses LaTeX as the *output format*, but you don’t need to be a LaTeX expert. In practice you write and review small section files, and PaperKit’s structure + build tools handle the assembly.
+
+### Why LaTeX (instead of Markdown or newer systems)?
+
+It’s still the most widely-supported “final mile” for academic PDFs: strong bibliography/citation tooling, robust cross-references/figures/tables, and broad compatibility with publisher templates and reproducible builds. If you already love Markdown/Quarto/Typst, PaperKit can still be useful as a workflow framework—but the built-in tooling currently assumes a LaTeX build target.
+
+Best fit if you:
+- Write academic papers and want the work broken into small, reviewable section files (even if you’re not fluent in LaTeX).
+- Care about academic integrity (quotes with page numbers, complete references, and "don’t invent citations").
+- Want an agent workflow that can be installed into your editor and regenerated from a single Core Framework.
+
+Probably not if you:
+- Want a chat-only writing tool with no local document workflow.
+- Don’t want LaTeX anywhere in the workflow (and don’t need citation rigor, however the research librarian tool can still be useful).
+
+### Contributing
+We really welcome contributions to this project by submitting issues, feature requests, or pull requests. Just fork the project and start working on your improvements! See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
+
+
+
+## Why PaperKit was Created
+
+PaperKit started as a personal toolkit for drafting a single, complex academic paper with strict citation and reproducibility requirements. I wanted a workflow that stayed honest under pressure: if a model produced fluent text, I still needed the underlying sources to be verifiable. It currently supports the Harvard citation style (Cite Them Right, 11th Edition) but could be adapted to others in the future.
+
+As the workflow matured, it became clear the same building blocks solved problems that show up in most serious writing projects:
+
+- **Multi-IDE, one Core Framework**: define agents and workflows once in `.paperkit/`, then generate IDE-specific wrappers.
+- **Modular LaTeX that stays reviewable**: keep sections atomic, keep diffs small, and make build steps repeatable.
+- **Less manual bibliography pain**: validate citations and manage references as part of the workflow, not an afterthought.
+- **Document-first evidence to counter hallucinations**: treat PDFs and web sources as primary data; pull quotes (with page numbers) and citations from the source material before they enter drafts.
+- **Reusable rigor**: forensic audit and research-mapping tools turned out to be useful beyond the original paper.
+
+Under the hood, that means PaperKit pushes you toward good academic hygiene: attribute summaries and quotes, keep complete references, prefer reputable/open sources where possible, and don’t invent citations when something can’t be verified.
+
+As it grew beyond that initial paper, I realized it could be useful to others too—so I generalized it into a framework with manifests, generators, and schema validation, making it easy to adopt the same outline → draft → audit → PDF loop with minimal friction.
 
 ## What PaperKit Does
 
@@ -62,25 +99,72 @@ PaperKit is a **complete system for academic paper writing** with:
 ✓ **Progressive refinement** — Multiple passes to improve clarity and quality  
 ✓ **Citation management** — Harvard style (Cite Them Right) with validation  
 ✓ **Build automation** — Compile, lint, and validate your document  
-✓ **Source of truth** — All definitions centralized in `.paperkit/`  
+✓ **Core Framework** — All definitions centralized in `.paperkit/`  
 ✓ **Forensic audit tools** — Extract evidence from PDFs with context and mapping  
 
-### The Agents
+### Meet The Agents
 
-| Agent | Role |
-|-------|------|
-| 🔬 **Research Consolidator** | Synthesize research into coherent documents |
-| 🏗️ **Paper Architect** | Design paper structure and outlines |
-| ✍️ **Section Drafter** | Write individual sections with rigor |
-| 💎 **Quality Refiner** | Improve clarity, flow, and polish |
-| 📚 **Reference Manager** | Manage bibliography and citations (Harvard) |
-| 🔧 **LaTeX Assembler** | Integrate sections and compile PDF |
-| 🧠 **Brainstorm Coach** | Explore ideas and alternatives |
-| 🔬 **Problem Solver** | Analyze blockers and find solutions |
-| 🎓 **Review Tutor** | Provide constructive feedback |
-| 📖 **Research Librarian** | Find sources and extract evidence |
+PaperKit ships with 10 agents (core + specialist). Each has a light persona and a sweet spot—try them in order or drop in where you need help.
 
----
+| Agent | Persona vibe | Best for |
+|-------|--------------|---------|
+| 🧠 **Brainstorm Coach** | Curious collaborator | Shaping angles, hypotheses, and scope |
+| 🏗️ **Paper Architect** | Structure-first organizer | Turning ideas into an outline and section plan |
+| 📖 **Research Librarian** | Evidence hunter | Finding sources, extracting quotes/evidence |
+| 🔬 **Research Consolidator** | Synthesis partner | Summarizing and structuring research into notes |
+| ✍️ **Section Drafter** | Focused writer | Drafting sections one at a time |
+| 💎 **Quality Refiner** | Polisher | Tightening clarity, flow, and tone |
+| 🎓 **Review Tutor** | Thoughtful reviewer | Spot-checking drafts and suggesting improvements |
+| 📚 **Reference Manager** | Detail hawk | Validating citations and formatting bibliography |
+| 🔧 **LaTeX Assembler** | Builder | Compiling the final PDF reliably |
+| 🔬 **Problem Solver** | Analysis partner | Unblocking tricky steps, edge cases, and research snags |
+
+You’ll typically interact with them through your IDE or CLI of choice:
+
+- **GitHub Copilot (VS Code):** open Copilot Chat and select an agent/mode.
+- **Core Framework:** `.paperkit/`.
+- **Generated IDE files:** `.github/agents/` and `.codex/prompts/`.
+
+In VSCode, you can pick an agent from the Copilot Chat dropdown (e.g., `paper-architect`) and type your request. The agent responds with structured output you can review and edit. In Codex, you can type `/paper-architect` to invoke the same agent.
+
+## Workflows
+
+Workflows combine multiple agents in sequences. Key workflows:
+
+| Workflow | Steps |
+|----------|-------|
+| **Paper Creation** | Architect → Research → Drafter → Refiner → Reference Manager → Assembler |
+| **Citation Management** | Reference Manager validates → extracts → formats → checks completeness |
+| **Forensic Audit** | Research Librarian pulls evidence and quotations, maps it to sections, validates, and produces audits of gaps in the research |
+| **Feedback Loop** | Drafter → Review Tutor → Refiner → Quality check |
+
+### If you just want to get moving, try this typical workflow:
+
+| Step | Agent | Purpose |
+|---:|---|---|
+| 1 | 🧠 **Paper Brainstorm** | Explore angles, hypotheses, and scope |
+| 2 | 🏗️ **Paper Architect** | Produce outline + section plan |
+| 3 | 📖 **Research Librarian** | Find sources and extract evidence |
+| 4 | 🔬 **Research Consolidator** | Synthesize research into usable notes |
+| 5 | ✍️ **Section Drafter** | Draft each section (one at a time) |
+| 6 | 💎 **Quality Refiner** | Improve clarity and flow |
+| 7 | 📚 **Reference Manager** | Validate and format citations/bibliography |
+| 8 | 🔧 **LaTeX Assembler** | Build the final PDF |
+
+This is only a suggested starting point—you can adapt the workflow to your needs, skipping or repeating steps as necessary.
+
+
+## Academic Integrity
+
+PaperKit enforces rigorous citation standards:
+
+- **Every claim** must have a source or be your own contribution
+- **Direct quotes** must include exact text, page number, and full citation
+- **Harvard style** (Cite Them Right, 11th Edition) for all citations
+- **Open access** preferred; never fabricate or guess citations
+- **Forensic audit** tools help verify and map evidence to sections
+
+
 
 ## Installation
 
@@ -95,120 +179,28 @@ PaperKit is a **complete system for academic paper writing** with:
 ### Verify Dependencies
 
 ```bash
-./.paper/tools/check-dependencies.sh
+./.paperkit/tools/check-dependencies.sh
 ```
 
-### Installation Steps
+### Install
 
 ```bash
-# 1. Clone the repository
 git clone https://github.com/peternicholls/PaperKit.git
 cd PaperKit
-
-# 2. Run the installer
 ./paperkit init
-
-# 3. Select your IDE(s) when prompted
-# - GitHub Copilot (VS Code)
-# - OpenAI Codex
-# - Both
-# - None (manual usage only)
 ```
 
-The installer will:
-- Create IDE-specific files (`.github/agents/`, `.codex/prompts/`)
-- Verify your LaTeX installation
-- Check Python dependencies
-- Create necessary directories
-
-### Alternative: Manual Setup
-
-For Windows or if you prefer not to run scripts:
-
-```bash
-# Generate IDE files manually
-./paperkit generate --target=copilot    # GitHub Copilot only
-./paperkit generate --target=codex      # OpenAI Codex only
-./paperkit generate                     # Both
-
-# Validate your setup
-./paperkit validate
-```
-
-### PowerShell (Windows)
-
-```powershell
-# Run the Windows installer
-.\paperkit-install-v2.sh
-
-# Or use PowerShell generator
-.\paperkit-generate.ps1
-```
+For platform-specific setup (including Windows/PowerShell), see [INSTALL-INSTRUCTIONS.md](INSTALL-INSTRUCTIONS.md).
 
 ---
 
 ## System Architecture
 
-### Directory Structure
+The full directory layout and architectural details live in [Docs/ARCHITECTURE.md](Docs/ARCHITECTURE.md).
 
-```
-.paperkit/                           ← CANONICAL SOURCE OF TRUTH
-├── _cfg/                         ← Configuration & manifests
-│   ├── agent-manifest.yaml       ← All agents catalog
-│   ├── workflow-manifest.yaml    ← All workflows catalog
-│   ├── tool-manifest.yaml        ← All tools catalog
-│   ├── agents/                   ← Agent definitions (YAML)
-│   ├── workflows/                ← Workflow definitions (YAML)
-│   ├── tools/                    ← Tool definitions (YAML)
-│   ├── schemas/                  ← JSON schemas for validation
-│   └── guides/                   ← Style guides (Harvard citations)
-│
-├── core/                         ← Core paper agents
-│   └── agents/                   ← Research, architect, drafter, refiner
-│
-├── specialist/                   ← Support agents
-│   └── agents/                   ← Brainstorm, tutor, librarian, solver
-│
-├── tools/                        ← Tool implementations
-│   ├── build-latex.sh
-│   ├── lint-latex.sh
-│   ├── extract-evidence.sh
-│   ├── format-references.py
-│   ├── validate-structure.py
-│   └── check-dependencies.sh
-│
-├── docs/                         ← Documentation
-│   ├── github-copilot-instructions.md
-│   ├── codex-instructions.md
-│   └── legacy-agent-examples.md
-│
-└── data/                         ← Outputs (drafts, refined, final)
+### Core Framework Principle
 
-.github/agents/                   ← GitHub Copilot chat agents
-├── paper-architect.agent.md
-├── paper-brainstorm.agent.md
-└── ... (one per agent)
-
-.codex/prompts/                   ← OpenAI Codex prompts
-├── paper-architect.md
-├── paper-brainstorm.md
-└── ... (one per agent)
-
-latex/                            ← LaTeX document
-├── main.tex
-├── sections/                     ← 01_introduction.tex, etc.
-├── appendices/                   ← A_supplementary.tex, etc.
-└── references/                   ← references.bib
-
-paperkit                          ← Main CLI
-paperkit-validate.py              ← Schema validator
-paperkit-generate.sh              ← Generator (bash)
-paperkit-generate.ps1             ← Generator (PowerShell)
-```
-
-### Source of Truth Principle
-
-**`.paperkit/` is canonical.** All other directories are derived:
+**`.paperkit/` is the Core Framework.** All other agent files and directories are derived:
 
 - **Agent definitions** live in `.paperkit/core/agents/` and `.paperkit/specialist/agents/`
 - **IDE files** (`.github/agents/`, `.codex/prompts/`) are generated from `.paperkit/agents/`
@@ -224,101 +216,6 @@ To update the system, edit `.paperkit/` and regenerate IDE files:
 ./paperkit generate --target=copilot  # Regenerate Copilot only
 ```
 
----
-
-## The Ten Agents
-
-### Core Writing Agents
-
-#### 🔬 Research Consolidator
-**Synthesize research into coherent documents with proper citations.**
-
-Use when:
-- You've collected multiple research sources
-- You need research synthesized into narrative form
-- You want to consolidate scattered notes
-
-Output: Consolidated research documents in `.paperkit/data/output-refined/research/`
-
-#### 🏗️ Paper Architect
-**Design paper structure, create outlines, establish logical flow.**
-
-Use when:
-- You need to outline the paper
-- You want to plan section structure
-- You need a detailed table of contents
-
-Output: Outline and LaTeX skeleton in `.paperkit/data/output-drafts/outlines/`
-
-#### ✍️ Section Drafter
-**Write individual sections with academic rigor and clarity.**
-
-Use when:
-- You're ready to draft a specific section
-- You have research and need it written up
-- You want sections written in proper LaTeX format
-
-Output: Section drafts in `.paperkit/data/output-drafts/sections/`
-
-#### 💎 Quality Refiner
-**Improve clarity, coherence, grammar, and logical flow.**
-
-Use when:
-- You want to polish a draft
-- Clarity needs improvement
-- Logical connections are weak
-
-Output: Refined sections in `.paperkit/data/output-refined/sections/`
-
-#### 📚 Reference Manager
-**Manage bibliography, format citations (Harvard style), validate entries.**
-
-Use when:
-- You need citations formatted
-- You want to validate your bibliography
-- You need to add new sources
-- You want completeness checks on citations
-
-Output: Validated bibliography in `latex/references/references.bib`
-
-#### 🔧 LaTeX Assembler
-**Integrate sections, compile to PDF, validate document structure.**
-
-Use when:
-- All sections are ready
-- You're preparing final document
-- You need to compile and check for errors
-
-Output: Final PDF in `.paperkit/data/output-final/pdf/`
-
-### Support Agents
-
-#### 🧠 Brainstorm Coach
-**Explore ideas, generate alternatives, creative thinking.**
-
-#### 🔬 Problem Solver
-**Analyze blockers, identify root causes, find solutions.**
-
-#### 🎓 Review Tutor
-**Provide constructive feedback, critique drafts, suggest improvements.**
-
-#### 📖 Research Librarian
-**Find sources, extract evidence, forensic audit of PDFs with context mapping.**
-
----
-
-## Workflows
-
-Workflows combine multiple agents in sequences. Key workflows:
-
-| Workflow | Steps |
-|----------|-------|
-| **Paper Creation** | Architect → Research → Drafter → Refiner → Reference Manager → Assembler |
-| **Citation Management** | Reference Manager validates → extracts → formats → checks completeness |
-| **Forensic Audit** | Librarian extracts evidence → maps to sections → validates → produces report |
-| **Feedback Loop** | Drafter → Review Tutor → Refiner → Quality check |
-
----
 
 ## Writing Your Paper
 
@@ -358,7 +255,6 @@ LaTeX Assembler                    # Compile final PDF
 3. Select agent: `/paper-architect`
 4. Provide instructions
 
----
 
 ## Tools & Commands
 
@@ -409,7 +305,6 @@ python3 paperkit-validate.py --agents-only    # Agents only
 python3 paperkit-validate.py --ide-sync       # Check IDE file sync
 ```
 
----
 
 ## LaTeX Structure
 
@@ -464,7 +359,6 @@ pdflatex main.tex
 ### Output
 PDF appears in: `.paperkit/data/output-final/pdf/main.pdf`
 
----
 
 ## Managing the System
 
@@ -500,19 +394,6 @@ PDF appears in: `.paperkit/data/output-final/pdf/main.pdf`
 python3 paperkit-validate.py --verbose # Full validation
 ```
 
----
-
-## Academic Integrity
-
-PaperKit enforces rigorous citation standards:
-
-- **Every claim** must have a source or be your own contribution
-- **Direct quotes** must include exact text, page number, and full citation
-- **Harvard style** (Cite Them Right, 11th Edition) for all citations
-- **Open access** preferred; never fabricate or guess citations
-- **Forensic audit** tools help verify and map evidence to sections
-
----
 
 ## Getting Help
 
@@ -528,7 +409,7 @@ PaperKit enforces rigorous citation standards:
 
 **Check dependencies:**
 ```bash
-./.paper/tools/check-dependencies.sh
+./.paperkit/tools/check-dependencies.sh
 ```
 
 **Validate your setup:**
@@ -553,47 +434,7 @@ PaperKit enforces rigorous citation standards:
 - **GitHub Discussions:** [Ask questions](https://github.com/peternicholls/PaperKit/discussions)
 - **Contributing:** See [CONTRIBUTING.md](CONTRIBUTING.md)
 
----
 
-## Key Features at a Glance
-
-| Feature | Details |
-|---------|---------|
-| **Agents** | 10 specialized, modular, chainable |
-| **IDEs** | GitHub Copilot (VS Code), OpenAI Codex, or both |
-| **Source of Truth** | `.paperkit/` canonical, derived to IDE formats |
-| **LaTeX** | Modular sections, clean diffs, parallel work |
-| **Citations** | Harvard style with validation workflows |
-| **Tools** | Build, lint, validate, extract evidence |
-| **Validation** | JSON schemas for agents, workflows, tools |
-| **Forensic Audit** | Extract evidence from PDFs with context |
-| **Installation** | Interactive, IDE selection, dependency check |
-
----
-
-## Quick Reference
-
-```bash
-# Setup
-./paperkit init                           # One-time initialization
-
-# Generate/validate
-./paperkit generate                       # Regenerate IDE files
-./paperkit validate                       # Validate schemas
-./paperkit version                        # Show version
-
-# Build
-./.paperkit/tools/build-latex.sh             # Compile PDF
-./.paperkit/tools/lint-latex.sh              # Check syntax
-./.paperkit/tools/check-dependencies.sh      # Verify system
-
-# Tools
-python3 ./.paperkit/tools/validate-structure.py
-python3 ./.paperkit/tools/format-references.py --validate refs.bib
-./.paperkit/tools/extract-evidence.sh <pdf_dir> <output_md> [terms]
-```
-
----
 
 ## Version
 
@@ -601,6 +442,9 @@ Current version: See [VERSION](VERSION) file
 
 Last updated: December 2025
 
----
+## Recent Updates
+See [CHANGELOG.md](CHANGELOG.md) for an overview of changes and RELEASE-NOTES.md for detailed notes about each release.
+
+
 
 **Ready to write?** → Start with `./paperkit init`

@@ -1,294 +1,143 @@
-# Contributing to Paper Kit
+# Contributing to PaperKit
 
-Thank you for your interest in contributing to **Paper Kit** — the Agentic Academic Style Paper Writing System! We welcome contributions from the community to help improve and expand this system.
+Thanks for your interest in contributing to PaperKit! This guide outlines a standard GitHub-driven flow: discuss → issue → backlog → fork → branch → PR → review → merge.
 
-## How to Contribute
+## Contribution Workflow
 
-There are many ways to contribute to Paper Kit:
+1. **Discuss**
+   - Use [Discussions](https://github.com/peternicholls/PaperKit/discussions) for questions, ideas, and design proposals.
 
-- **Ask questions** — Help others and learn from the community in [Discussions](https://github.com/peternicholls/PaperKit/discussions)
-- **Report bugs** — Help us identify and fix issues
-- **Suggest features** — Propose improvements or new capabilities
-- **Improve documentation** — Enhance guides, examples, or clarifications
-- **Develop new agents** — Create specialized agents for specific writing tasks
-- **Build tools** — Add validation scripts, build utilities, or integrations
-- **Share workflows** — Document and share your paper-writing workflows
-- **Test and feedback** — Test the system and provide constructive feedback
+2. **Open an Issue**
+   - Use templates for Bug Reports or Feature Requests.
+   - Provide clear context, steps to reproduce (for bugs), and desired outcomes.
 
-## Getting Started
+3. **Backlog & Triage**
+   - Issues are labeled (e.g., `bug`, `enhancement`, `docs`, `good first issue`) and, when relevant, assigned to a milestone.
+   - If your issue is accepted, it becomes part of the public backlog.
 
-### Prerequisites
-
-- macOS (or Linux with bash support)
-- VS Code with GitHub Copilot extension
-- Python 3.8+
-- LaTeX installation (for document compilation)
-- Git
-
-### Set Up Your Development Environment
-
-1. **Fork the repository** on GitHub
-2. **Clone your fork**:
+4. **Fork & Clone**
    ```bash
-   git clone https://github.com/YOUR-USERNAME/PaperKit.git
+   git fork https://github.com/peternicholls/PaperKit.git
+   git clone https://github.com/<your-username>/PaperKit.git
    cd PaperKit
    ```
-3. **Create a feature branch**:
+
+5. **Create a Branch**
+   - Use concise, descriptive names:
+     - `feature/latex-audit-tools`
+     - `fix/lint-latex-error`
+     - `docs/quickstart-refactor`
    ```bash
-   git checkout -b feature/your-feature-name
+   git checkout -b feature/your-branch-name
    ```
-4. **Set up Python environment**:
+
+6. **Set Up Environment**
    ```bash
    python3 -m venv .venv
    source .venv/bin/activate
-   pip install -r open-agents/tools/requirements.txt
+   # If tools need dependencies, add them to requirements and document it
    ```
 
-## Development Guidelines
+7. **Implement Changes**
+   - Edit the canonical sources in `.paperkit/` (agents, tools, manifests), then regenerate IDE files:
+   ```bash
+   ./paperkit generate
+   ```
+   - Keep changes focused (one issue/feature per branch).
 
-### Code Style
+8. **Run Checks**
+   - LaTeX lint & build:
+   ```bash
+   ./.paperkit/tools/lint-latex.sh
+   ./.paperkit/tools/build-latex.sh
+   ```
+   - Validate structure & schemas:
+   ```bash
+   python3 ./.paperkit/tools/validate-structure.py
+   ./paperkit validate
+   ```
 
-- **Python**: Follow PEP 8; use meaningful variable names
-- **Bash**: Use shellcheck for validation; add comments for complex logic
-- **Markdown**: Follow standard GitHub Flavored Markdown conventions
-- **YAML**: Use 2-space indentation; keep configurations clear and documented
+9. **Commit Cleanly**
+   - Write descriptive messages explaining what and why:
+   ```bash
+   git commit -m "Docs: clarify Quick Start install/regenerate flow"
+   git commit -m "Tools: add citation completeness check"
+   ```
 
-### Agent Development
+10. **Push & Open a PR**
+   ```bash
+   git push origin <branch>
+   ```
+   - In the PR, include:
+     - Motivation and summary
+     - Linked issues (`Fixes #123`)
+     - Testing/validation notes
+     - Breaking changes (if any)
 
-When creating or modifying agents:
+11. **Review & Merge**
+   - Maintainers review for clarity, scope, and correctness.
+   - Address feedback; keep the PR focused.
+   - Once approved, it will be merged.
 
-1. **Define agent role clearly** in `.copilot/agents/` YAML configuration
-2. **Specify triggers** — how users invoke the agent
-3. **Document inputs and outputs** — what the agent expects and produces
-4. **Test with Copilot** — ensure the agent works in GitHub Copilot
-5. **Register in manifest** — add to `.copilot/agents.yaml`
-6. **Write documentation** — explain capabilities and usage
+## Guidelines
 
-### Command Development
+### Code & Docs Style
+- **Python**: PEP 8, clear names, small functions.
+- **Bash**: Validate with `shellcheck`; keep output readable.
+- **Markdown**: GitHub Flavored Markdown; concise, actionable.
+- **YAML**: 2-space indentation; document fields.
 
-When adding commands:
+### Agents & Tools
+- Edit agent, workflow, and tool definitions in `.paperkit/`.
+- Regenerate IDE files after changes: `./paperkit generate`.
+- Prefer small, reviewable changes that preserve structure.
 
-1. **Create command YAML** in `.copilot/commands/paper/`
-2. **Map to agent** — specify which agent(s) the command routes to
-3. **Define inputs** — clearly specify user inputs needed
-4. **Document output** — explain what the command produces
-5. **Register in manifest** — add to `.copilot/commands.yaml`
-6. **Test routing** — verify the command invokes correctly
+### Commit Hygiene
+- One logical change per commit (or a short series).
+- Reference issues in the commit/PR.
+- Keep the history clean and easy to follow.
 
-### Tool Development
+## Testing Locally
 
-When building scripts/tools:
-
-1. **Place in `open-agents/tools/`**
-2. **Add error handling** — handle edge cases gracefully
-3. **Provide logging** — make output clear and debuggable
-4. **Document usage** — include docstrings and help text
-5. **Test before submitting** — verify correctness
-
-### Documentation
-
-- Write clear, concise documentation
-- Use present tense ("this system is", not "was built")
-- Include examples where appropriate
-- Keep README files current and accurate
-- Document any new commands or agents in relevant files
-
-## Making Changes
-
-### Commit Messages
-
-Use descriptive commit messages that explain *what* and *why*:
-
+### LaTeX & Structure
 ```bash
-# Good
-git commit -m "Add Brainstorm agent for creative ideation"
-git commit -m "Improve Quality Refiner clarity evaluation criteria"
-
-# Less helpful
-git commit -m "Update file"
-git commit -m "Fix bug"
+./.paperkit/tools/lint-latex.sh
+./.paperkit/tools/build-latex.sh
+python3 ./.paperkit/tools/validate-structure.py
+./paperkit validate
 ```
 
-### Organization
+### Agents (IDE)
+- In VS Code, use Copilot Chat and the generated `.github/agents/` files.
+- For Codex, use `.codex/prompts/` (generated from `.paperkit/`).
 
-- Keep changes focused — one feature or fix per branch
-- Test changes before committing
-- Update documentation alongside code changes
-- Reference related issues in commit messages
-
-## Testing Your Changes
-
-### Test Agents Locally
-
-1. **In GitHub Copilot Chat**:
-   - Load the agent configuration
-   - Test with sample queries
-   - Verify outputs match expectations
-
-2. **Test LaTeX Building**:
-   ```bash
-   ./open-agents/tools/lint-latex.sh
-   ./open-agents/tools/build-latex.sh
-   ```
-
-3. **Validate Structure**:
-   ```bash
-   python3 ./open-agents/tools/validate-structure.py
-   ```
-
-### Test Commands
-
-- Manually invoke commands in Copilot
-- Verify proper routing to agents
-- Confirm correct output locations
-- Check for error handling
-
-## Submitting Changes
-
-### Before Submitting
-
-- [ ] Changes follow code style guidelines
-- [ ] Documentation is updated
-- [ ] No unnecessary files are included
-- [ ] Commit history is clean
-- [ ] Changes have been tested locally
-
-### Pull Request Process
-
-1. **Create a descriptive PR title**:
-   - "Add [Feature]: Brief description"
-   - "Fix [Issue]: Brief description"
-   - "Docs: Brief description"
-
-2. **Write a clear PR description**:
-   - What does this change do?
-   - Why is it needed?
-   - How was it tested?
-   - Are there any breaking changes?
-
-3. **Link related issues**:
-   ```markdown
-   Fixes #123
-   Related to #456
-   ```
-
-4. **Request review** from maintainers
+## PR Checklist
+- [ ] Linked issue(s) and clear motivation
+- [ ] Focused scope (one feature/fix)
+- [ ] Code/docs follow style guidelines
+- [ ] Local checks pass (lint, build, validate)
+- [ ] Updated docs where relevant
 
 ## Reporting Issues
+- Use the **Bug Report** and **Feature Request** templates.
+- Provide clear repro steps (for bugs) and concrete outcomes (for features).
+- Add logs/screenshots where helpful.
 
-### Bug Reports
+## Versioning
+- Semantic versioning is used. See [VERSION](VERSION).
+- Pre-release tags like `alpha-*` / `beta-*` may appear during development.
 
-Use the **Bug Report** template when reporting issues:
-
-- **Title**: Clear, concise description of the bug
-- **Environment**: OS, software versions, relevant configs
-- **Steps to reproduce**: Specific steps that trigger the bug
-- **Expected behavior**: What should happen
-- **Actual behavior**: What actually happened
-- **Logs/output**: Any relevant error messages or logs
-- **Attachments**: Screenshots, sample files, etc.
-
-### Feature Requests
-
-Use the **Feature Request** template for new ideas:
-
-- **Title**: Clear description of the feature
-- **Use case**: Why is this feature needed?
-- **Proposed solution**: How should it work?
-- **Alternative approaches**: Other ways to solve the problem
-- **Context**: Any relevant background or examples
-
-## Code Review Process
-
-All contributions go through code review:
-
-- Maintainers will review your changes
-- Feedback will be constructive and specific
-- You may be asked to make revisions
-- Once approved, changes will be merged
-
-## Areas for Contribution
-
-### High Priority
-
-- [ ] Expand LaTeX template features
-- [ ] Add more specialized agents
-- [ ] Improve documentation clarity
-- [ ] Build additional validation tools
-- [ ] Create user workflow examples
-
-### Medium Priority
-
-- [ ] Add support for other citation styles
-- [ ] Improve error messages
-- [ ] Create video tutorials
-- [ ] Build integration examples
-- [ ] Develop templates for specific paper types
-
-### Nice to Have
-
-- [ ] Theme variations
-- [ ] Alternative output formats
-- [ ] Extended language support
-- [ ] Community showcase
-- [ ] Performance optimizations
-
-## Version Management
-
-The project follows semantic versioning. Check [VERSION](VERSION) for the current release version.
-
-Release candidates and previews are tagged with labels like `alpha-*` or `beta-*`. Version bumps are handled by the release process and should be coordinated with maintainers.
-
-## Community Guidelines
-
-### Be Respectful
-
-- Treat all contributors with respect
-- Assume good intentions
-- Provide constructive feedback
-- Welcome diverse perspectives
-
-### Be Helpful
-
-- Help answer questions
-- Share knowledge and experience
-- Mentor newer contributors
-- Celebrate contributions
-
-### Be Honest
-
-- Give accurate, truthful feedback
-- Acknowledge limitations
-- Share what you've learned
-- Admit mistakes
+## Community Norms
+- Be respectful and constructive.
+- Assume good intent; welcome diverse perspectives.
+- Share context and learnings.
 
 ## Questions?
-
-If you have questions about contributing:
-
-- **Check existing documentation** — start with README.md and CONTRIBUTING.md
-- **Search discussions** — your question may already be answered in [GitHub Discussions](https://github.com/peternicholls/PaperKit/discussions)
-- **Ask in discussions** — post in the [Help & Support](https://github.com/peternicholls/PaperKit/discussions/categories/help-support) category
-- **Open an issue** — open a discussion or issue if stuck
-- **Reach out** — contact maintainers if needed
-
-## Recognition
-
-Contributors will be recognized in:
-
-- Pull request comments
-- Release notes
-- Contributors section in README
-- Community showcases
-
-Thank you for contributing to making academic paper writing easier!
-
----
+- Start with the README and docs in `.paperkit/docs/`.
+- Ask in [Discussions](https://github.com/peternicholls/PaperKit/discussions).
+- Open an issue if you’re blocked.
 
 ## License
+By contributing to PaperKit, you agree that your contributions are licensed under MIT.
 
-By contributing to Paper Kit, you agree that your contributions will be licensed under the MIT License.
-
----
-
-**Happy contributing! 🎓✨**
+**Thank you for helping improve academic paper workflows! 🎓✨**
