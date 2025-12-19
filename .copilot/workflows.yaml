@@ -1,67 +1,251 @@
 ---
 # .copilot/workflows.yaml
 # Master workflow registry - defines sequences and orchestration
+# Generated from .paperkit/ manifests - DO NOT EDIT MANUALLY
+# Regenerate with: ./paperkit generate
 
-version: "1.0.0"
-description: >-
-  Registry of all workflows in the Copilot Research Paper Assistant Kit
-
+version: 1.0.0
+description: Registry of all workflows in the Copilot Research Paper Assistant Kit
 workflow-types:
-  initialization: >-
-    Project setup with canonical documents
-  sprint: >-
-    Work sprint (plan → tasks → review)
-  writing: >-
-    Paper writing and refinement
-
+  initialization: Project setup with canonical documents
+  sprint: Work sprint (plan → tasks → review)
+  writing: Paper writing and refinement
 workflows:
-  initialization:
-    name: "Paper Project Initialization"
-    description: >-
-      Set up a new paper project with canonical docs
-      (aims, requirements, spec)
+  consolidate:
+    name: Consolidate Research
+    description: Synthesize research materials into coherent reference documents
     entry-points:
-      - "paper.init"
-      - "paper.objectives"
-    file: "workflows/setup/initialization.yaml"
-    typical-duration: "15-30 minutes"
+    - paper.consolidate
+    file: workflows/consolidate.yaml
+    typical-duration: Variable
     phases:
-      - "collect-goals"
-      - "collect-requirements"
-      - "collect-spec"
-      - "complete-setup"
-
-  sprint:
-    name: "Sprint Workflow"
-    description: >-
-      Execute a focused sprint with planning, task execution,
-      and review
+    - name: gather-sources
+      agent: research-consolidator
+      description: Collect and organize research materials
+    - name: synthesize
+      agent: research-consolidator
+      description: Transform materials into coherent narrative
+    - name: cite-sources
+      agent: research-consolidator
+      description: Add proper citations and references
+    - name: identify-gaps
+      agent: research-consolidator
+      description: Flag areas needing more research
+  outline:
+    name: Create Outline
+    description: Design paper structure and create detailed outline
     entry-points:
-      - "paper.sprint-plan"
-    file: "workflows/sprint/sprint.yaml"
-    typical-duration: "Variable (1 day to 1 week)"
+    - paper.outline
+    file: workflows/outline.yaml
+    typical-duration: Variable
     phases:
-      - "plan-sprint"
-      - "execute-tasks"
-      - "review-outcomes"
-      - "decide-next"
-
-  core-writing:
-    name: "Core Paper Writing Workflow"
-    description: >-
-      Main paper writing workflow
-      (plan → research → draft → refine → refs → assemble)
+    - name: analyze-topic
+      agent: paper-architect
+      description: Understand the paper topic and scope
+    - name: design-structure
+      agent: paper-architect
+      description: Create hierarchical section structure
+    - name: create-outline
+      agent: paper-architect
+      description: Generate detailed outline with subsections
+    - name: validate-flow
+      agent: paper-architect
+      description: Ensure logical flow and coherence
+  skeleton:
+    name: Generate Skeleton
+    description: Create LaTeX skeleton files for sections
     entry-points:
-      - "paper.plan"
-      - "paper.research"
-      - "paper.draft"
-    file: "workflows/paper/core-writing.yaml"
-    typical-duration: "Varies by section"
+    - paper.skeleton
+    file: workflows/skeleton.yaml
+    typical-duration: Variable
     phases:
-      - "plan"
-      - "research"
-      - "draft"
-      - "optional-feedback"
-      - "refine"
-      - "manage-references"
-      - "assemble"
+    - name: parse-outline
+      agent: paper-architect
+      description: Parse outline to identify sections
+    - name: create-files
+      agent: latex-assembler
+      description: Generate LaTeX section files
+    - name: setup-structure
+      agent: latex-assembler
+      description: Create directory structure and main.tex
+    - name: validate-skeleton
+      agent: latex-assembler
+      description: Verify skeleton compiles
+  write-section:
+    name: Write Section
+    description: Draft a complete section with academic rigor
+    entry-points:
+    - paper.write-section
+    file: workflows/write-section.yaml
+    typical-duration: Variable
+    phases:
+    - name: understand-context
+      agent: section-drafter
+      description: Review outline and surrounding sections
+    - name: verify-sources
+      agent: section-drafter
+      description: 'Verify all sources are reputable and accessible via open access channels. Academic integrity: prioritize
+        proper citation practices.'
+    - name: draft-content
+      agent: section-drafter
+      description: Write section content with academic tone
+    - name: add-citations
+      agent: section-drafter
+      description: 'Include proper Harvard-style citations with complete attribution. Every quote must have: quote text, page
+        number, and full citation. No summarizing or quoting without proper referencing.'
+    - name: review-quality
+      agent: section-drafter
+      description: Self-review for clarity, coherence, and academic integrity. Verify all citations are complete and properly
+        attributed.
+  refine-section:
+    name: Refine Section
+    description: Improve draft quality through iterative refinement
+    entry-points:
+    - paper.refine-section
+    file: workflows/refine-section.yaml
+    typical-duration: Variable
+    phases:
+    - name: analyze-draft
+      agent: quality-refiner
+      description: Identify areas for improvement
+    - name: improve-clarity
+      agent: quality-refiner
+      description: Enhance clarity and readability
+    - name: strengthen-flow
+      agent: quality-refiner
+      description: Improve logical flow and transitions
+    - name: polish-language
+      agent: quality-refiner
+      description: Refine language and academic tone
+  extract-citations:
+    name: Extract Citations
+    description: Extract all citation commands from LaTeX files and catalog them
+    entry-points:
+    - paper.extract-citations
+    file: .paperkit/core/workflows/references/extract-citations.yaml
+    typical-duration: Variable
+    phases: []
+  validate-citations:
+    name: Validate Citations
+    description: Comprehensive citation validation against BibTeX database with Harvard style checking
+    entry-points:
+    - paper.validate-citations
+    file: .paperkit/core/workflows/references/validate-citations.yaml
+    typical-duration: Variable
+    phases: []
+  citation-completeness:
+    name: Check Citation Completeness
+    description: Verify all BibTeX entries have complete information for their type
+    entry-points:
+    - paper.citation-completeness
+    file: .paperkit/core/workflows/references/citation-completeness.yaml
+    typical-duration: Variable
+    phases: []
+  format-bibliography:
+    name: Format Bibliography
+    description: Generate properly formatted bibliography in Harvard style
+    entry-points:
+    - paper.format-bibliography
+    file: .paperkit/core/workflows/references/format-bibliography.yaml
+    typical-duration: Variable
+    phases: []
+  build:
+    name: Build Document
+    description: Compile LaTeX document to PDF
+    entry-points:
+    - paper.build
+    file: workflows/build.yaml
+    typical-duration: Variable
+    phases:
+    - name: validate-structure
+      agent: latex-assembler
+      description: Verify all section files exist and are linked
+    - name: compile-latex
+      agent: latex-assembler
+      description: Run pdflatex compilation
+    - name: process-bibliography
+      agent: latex-assembler
+      description: Run bibtex for references
+    - name: final-compile
+      agent: latex-assembler
+      description: Final compilation pass for cross-references
+  generate-ideas:
+    name: Generate Ideas
+    description: Brainstorm ideas on a topic
+    entry-points:
+    - paper.generate-ideas
+    file: workflows/generate-ideas.yaml
+    typical-duration: Variable
+    phases:
+    - name: explore-topic
+      agent: brainstorm
+      description: Explore topic from multiple angles
+    - name: generate-ideas
+      agent: brainstorm
+      description: Generate diverse ideas and approaches
+    - name: organize-ideas
+      agent: brainstorm
+      description: Categorize and structure ideas
+    - name: prioritize
+      agent: brainstorm
+      description: Identify most promising ideas
+  analyze-problem:
+    name: Analyze Problem
+    description: Root cause analysis and solution options
+    entry-points:
+    - paper.analyze-problem
+    file: workflows/analyze-problem.yaml
+    typical-duration: Variable
+    phases:
+    - name: define-problem
+      agent: problem-solver
+      description: Clearly define the problem
+    - name: identify-causes
+      agent: problem-solver
+      description: Identify root causes
+    - name: generate-solutions
+      agent: problem-solver
+      description: Generate potential solutions
+    - name: evaluate-options
+      agent: problem-solver
+      description: Evaluate solutions and recommend approach
+  review-draft:
+    name: Review Draft
+    description: Tutor feedback on draft quality
+    entry-points:
+    - paper.review-draft
+    file: workflows/review-draft.yaml
+    typical-duration: Variable
+    phases:
+    - name: read-draft
+      agent: tutor
+      description: Read and understand the draft
+    - name: assess-quality
+      agent: tutor
+      description: Assess overall quality and structure
+    - name: identify-issues
+      agent: tutor
+      description: Identify specific issues and weaknesses
+    - name: provide-feedback
+      agent: tutor
+      description: Provide constructive feedback and suggestions
+  search-sources:
+    name: Search Sources
+    description: Find research sources on topic
+    entry-points:
+    - paper.search-sources
+    file: workflows/search-sources.yaml
+    typical-duration: Variable
+    phases:
+    - name: clarify-query
+      agent: librarian
+      description: Refine search query and criteria
+    - name: search-databases
+      agent: librarian
+      description: Search academic databases and repositories
+    - name: filter-results
+      agent: librarian
+      description: Filter and rank relevant sources
+    - name: compile-bibliography
+      agent: librarian
+      description: Compile bibliography entries

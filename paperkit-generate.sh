@@ -261,6 +261,13 @@ main() {
         success_msg "IDE file generation complete!"
         info_msg "Generated files are derived from .paperkit/ source of truth."
     fi
+    
+    # Generate .copilot/ configuration files
+    if [ "$TARGET" = "all" ] || [ "$TARGET" = "copilot-config" ]; then
+        if [ -f "./paperkit-generate-copilot.sh" ]; then
+            ./paperkit-generate-copilot.sh || warning_msg ".copilot/ generation had issues"
+        fi
+    fi
 }
 
 main
