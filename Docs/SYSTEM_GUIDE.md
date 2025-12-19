@@ -1,284 +1,135 @@
-# Copilot Research Paper Assistant Kit - Quick Start Guide
+# PaperKit — Quick Start Guide
 
-Formerly: Academic Paper Writing System.
+Welcome to PaperKit! This is your complete system for writing high-quality academic papers with 10 specialized agents.
+
+---
 
 ## 🎯 What You Have Now
 
-A complete **Open Agent System** for writing high-quality academic specification papers in LaTeX. Six specialized agents work with you to research, structure, draft, refine, and publish your work.
+A **document-first, agentic workflow** for writing academic papers in LaTeX with:
+
+- **10 specialized agents** (6 core + 4 specialist) that guide you through the entire process
+- **Multi-IDE support** — Works with GitHub Copilot (VS Code) or OpenAI Codex
+- **Modular LaTeX** — 12 atomic section files for clean version control
+- **Progressive refinement** — Multiple passes to improve clarity and quality
+- **Citation management** — Harvard style (Cite Them Right) with validation
+- **Build automation** — One command compiles your document to PDF
+- **Core Framework** — All definitions centralized in `.paperkit/`
+- **Forensic audit tools** — Extract evidence from PDFs with page numbers
+
+`.paperkit/` is the source of truth; `.github/agents/`, `.codex/prompts/`, AGENTS.md, and COPILOT.md are generated from it.
 
 ---
 
 ## ⚡ Quick Start (3 Steps)
 
-### 1. Define Your Paper's Goal
+### 1. Initialize Your System
 
-Start by telling the system what you want to write:
+Run the initialization command:
 
-```
-Read open-agents/INSTRUCTIONS.md to understand the workflow.
-
-Then: "I want to write a specification paper about [your topic]. 
-The goal is to [what you want to accomplish]. 
-The audience is [who will read this]."
+```bash
+./paperkit init
 ```
 
-### 2. Create Paper Structure
+This will:
+- Verify dependencies (LaTeX, Python, Git)
+- Generate IDE-specific files
+- Validate your setup
+- Show you what's ready
 
-Ask the **Paper Architect** agent:
+**Safe to rerun anytime** to repair or update generated assets.
+
+### 2. Activate an Agent
+
+**In GitHub Copilot (VS Code):**
+1. Open Copilot Chat (Cmd+Shift+I or Ctrl+Shift+I)
+2. Click the mode selector at the top
+3. Select `paper-architect` from the dropdown
+4. Agent presents a menu with available workflows
+
+**In OpenAI Codex:**
+1. Type `/paper-architect` in your editor
+2. Agent activates and shows options
+
+### 3. Follow the Workflow Loop
 
 ```
-"Outline the paper on [topic]. 
-My scope is [what's included]. 
-Target length is [X] words."
+Define Scope → Outline → Research → Draft → Refine → Validate Citations → Assemble PDF
 ```
 
-The agent will create:
-- Detailed section outline
-- Research roadmap
-- LaTeX skeleton files ready to fill
-
-### 3. Build the Paper Progressively
-
-Then follow this workflow:
-
-```
-Research → Draft → Refine → Repeat for each section → Assemble → PDF
-```
-
-Each agent handles one phase. See routing table below.
+Each agent handles one phase. See the routing guide below.
 
 ---
 
-## 🚀 Quick Reference: Which Agent to Use
+## 🧭 Agent Routing Guide
 
-| Your Request | Use This Agent | Output Location |
-|---|---|---|
-| "Research [topic]" or "Consolidate research..." | **Research Consolidator** | `open-agents/output-refined/research/` |
-| "Outline the paper" or "Create structure" | **Paper Architect** | `open-agents/output-drafts/outlines/` |
-| "Draft [section]" or "Write the intro..." | **Section Drafter** | `open-agents/output-drafts/sections/` |
-| "Refine this draft" or "Improve clarity" | **Quality Refiner** | `open-agents/output-refined/sections/` |
-| "Format bibliography" or "Manage citations" | **Reference Manager** | `open-agents/output-refined/references/` |
-| "Assemble the paper" or "Build the document" | **LaTeX Assembler** | `latex/main.tex` → `output-final/pdf/` |
+### Quick Reference Table
+
+| Your Request | Use This Agent | Output Location | When to Use |
+|--------------|---------------|-----------------|-------------|
+| "Brainstorm ideas for..." | **Brainstorm Coach** | `planning/YYYYMMDD-session/` | Exploring angles, hypotheses, and scope |
+| "Outline the paper" | **Paper Architect** | `.paperkit/data/output-drafts/outlines/`<br>`latex/sections/` (skeleton) | After you know your topic and scope |
+| "Find sources for..." | **Research Librarian** | `planning/YYYYMMDD-session/` | Need evidence with page numbers |
+| "Consolidate research" | **Research Consolidator** | `.paperkit/data/output-refined/research/` | After gathering materials |
+| "Draft [section name]" | **Section Drafter** | `latex/sections/` | Ready to write a specific section |
+| "Refine this draft" | **Quality Refiner** | `latex/sections/` (in place) | After first draft; can repeat 2-3 times |
+| "Review this section" | **Review Tutor** | `planning/YYYYMMDD-session/` | Want expert feedback on quality |
+| "Validate citations" | **Reference Manager** | `latex/references/references.bib` | Before final assembly |
+| "I'm stuck on..." | **Problem Solver** | `planning/YYYYMMDD-session/` | Troubleshooting blockers |
+| "Assemble the paper" | **LaTeX Assembler** | `.paperkit/data/output-final/pdf/` | All sections refined and ready |
 
 ---
 
 ## 📁 Folder Structure You'll Use
 
 ```
-open-agents/
-├── INSTRUCTIONS.md          ← Full system documentation (READ THIS FIRST)
-│
-├── source/                  ← PUT YOUR INPUTS HERE
-│   ├── research-notes/      ← Research materials, notes, links
-│   ├── ideas/               ← Sparks of imagination, discussions
-│   └── reference-materials/ ← PDFs, sources, references
-│
-├── output-drafts/           ← First drafts (rough)
-│   ├── outlines/
-│   └── sections/
-│
-├── output-refined/          ← Better versions (iterated)
-│   ├── research/
-│   ├── sections/
-│   └── references/
-│
-└── latex/                   ← FINAL DOCUMENT HERE
-    ├── main.tex
-    ├── preamble.tex
-    ├── sections/            ← One file per section
-    └── references/          ← Bibliography database
+.paperkit/        ← Core Framework (edit here)
+    _cfg/           ← manifests, schemas, guides
+    core/agents/    ← core agent specs (6)
+    specialist/agents/ ← specialist agent specs (4)
+    tools/          ← build, lint, validate, evidence, refs
+    data/           ← agent outputs (drafts/refined)
+
+latex/            ← publication document
+    main.tex, preamble.tex, metadata.tex, settings.tex
+    sections/01..12 *.tex, appendices A–D, references/references.bib
+
+.github/agents/   ← generated Copilot chat modes
+.codex/prompts/   ← generated Codex prompts
+open-agents/      ← legacy reference (do not edit)
 ```
 
----
+## Typical Workflow (condensed)
 
-## 🎓 Typical Workflow Example
+1) **Plan** — Tell `paper-architect`: topic, scope, audience, target length. Review the outline.
+2) **Evidence** — Ask `paper-librarian` to locate sources and extract quotes (with page numbers).
+3) **Synthesize** — Ask `paper-research-consolidator` to structure notes in `.paperkit/data/output-refined/research/`.
+4) **Draft** — Ask `paper-section-drafter` to write one section at a time into `latex/sections/`.
+5) **Refine** — Use `paper-quality-refiner` (and `paper-tutor` if you want feedback) to polish.
+6) **References** — Run `paper-reference-manager` to validate citations and format bibliography.
+7) **Assemble** — Run `./.paperkit/tools/build-latex.sh` (creates `.paperkit/data/output-final/`).
 
-### Scenario: Writing a Specification Paper on Color Science
+## Essential Commands
 
-**Step 1: Define Goal** (You)
-```
-"I'm writing a specification paper on mathematical approaches to 
-color perception modeling. The audience is researchers in color science 
-and computer vision. Target length: 10,000 words."
-```
+- `./paperkit init` — install/repair generated assets.
+- `./paperkit generate [--check]` — sync `.paperkit/` → `.github/agents/` + `.codex/prompts/`.
+- `./paperkit validate` — schema + sync checks.
+- `./.paperkit/tools/build-latex.sh [--clean] [--final]` — build PDF.
+- `./.paperkit/tools/lint-latex.sh` — LaTeX preflight.
+- `python3 ./.paperkit/tools/validate-structure.py` — structure check.
+- `python3 ./.paperkit/tools/format-references.py --validate latex/references/references.bib` — bibliography check.
 
-**Step 2: Create Structure** (Paper Architect)
-```
-User: "Outline the paper on color perception specification."
-→ Agent creates 7-section outline with research requirements
-```
+## Academic Integrity (always on)
 
-**Step 3: Gather Research** (Research Consolidator)
-```
-User: "Research color theory foundations. I have 5 papers on cone cells 
-and 3 on color spaces. I've added notes to source/research-notes/"
-→ Agent synthesizes into coherent "Color Theory Foundations" document
-```
+- Cite every claim; include quote text and page numbers for direct quotes.
+- Prefer open-access sources; never fabricate citations.
+- Maintain Harvard style (Cite Them Right, 11th ed.).
 
-**Step 4: Draft Introduction** (Section Drafter)
-```
-User: "Draft the introduction. Motivate the problem of color perception 
-modeling."
-→ Agent writes 2000-word introduction with citations, logical flow
-```
+## If You Get Stuck
 
-**Step 5: Refine Introduction** (Quality Refiner)
-```
-User: "Refine the introduction for clarity. It feels a bit rushed."
-→ Agent improves transitions, strengthens arguments, polishes prose
-```
+- Rerun `./paperkit init` to repair generated files.
+- Run `./paperkit generate --check` to see drift.
+- Validate with `./paperkit validate` before builds/commits.
+- Check `.paperkit/docs/github-copilot-instructions.md` or `.paperkit/docs/codex-instructions.md` for IDE usage.
 
-**Repeat Steps 4-5** for each section (Background, Methodology, etc.)
-
-**Step 6: Final Assembly** (LaTeX Assembler)
-```
-User: "Assemble the paper. Build the document."
-→ Agent integrates all sections, validates bibliography, compiles PDF
-```
-
-**Result:** `open-agents/output-final/pdf/main.pdf` ready for review
-
----
-
-## 💾 Memory System
-
-The system remembers your progress in `open-agents/memory/`:
-
-- **paper-metadata.yaml** — Title, scope, goals, status
-- **section-status.yaml** — Progress on each section (drafted, refined, etc.)
-- **research-index.yaml** — All sources used in the paper
-- **revision-log.md** — History of changes and decisions
-
-These files help agents understand context without reloading everything.
-
----
-
-## 🛠️ Available Tools
-
-You can run these scripts from the terminal:
-
-```bash
-# Build the LaTeX document (compile to PDF)
-./open-agents/tools/build-latex.sh
-
-# Check LaTeX syntax before compilation
-./open-agents/tools/lint-latex.sh
-
-# Validate paper structure
-python3 ./open-agents/tools/validate-structure.py
-
-# Format and validate bibliography
-python3 ./open-agents/tools/format-references.py --validate latex/references/references.bib
-```
-
----
-
-## 📖 Full Documentation
-
-Everything is documented in:
-
-**[AGENTS.md](AGENTS.md)** — Quick reference (entry point)  
-**[open-agents/INSTRUCTIONS.md](open-agents/INSTRUCTIONS.md)** — Complete system documentation  
-**[open-agents/agents/*.md](open-agents/agents/)** — Individual agent specifications
-
-**Start by reading:** `open-agents/INSTRUCTIONS.md` (20-30 minutes)
-
----
-
-## ⚙️ System Features
-
-✓ **Six specialized agents** for different paper-writing tasks  
-✓ **Progressive refinement** — multiple passes for quality  
-✓ **Modular LaTeX** — atomic section files, not monolithic documents  
-✓ **Citation management** — Harvard style, BibTeX integration  
-✓ **Memory system** — tracks progress without context bloat  
-✓ **Iterative workflow** — write, refine, redraft, improve  
-✓ **Academic rigor** — proper citations, formal tone, logical structure  
-✓ **Automation** — build, validate, compile with one command  
-
----
-
-## 🎓 Academic Standards
-
-This system enforces:
-
-- **Harvard referencing** for citations
-- **Proper LaTeX semantics** (equations, cross-references, etc.)
-- **Academic tone** (formal, objective, well-reasoned)
-- **Logical structure** (introduction → foundations → methods → results → conclusion)
-- **Iterative improvement** (draft → refine → redraft → polish)
-- **Citation integrity** (every claim is cited or clearly original)
-
----
-
-## 🚨 Important Notes
-
-### Start with Scope
-Don't start writing. Start with **goal definition**.
-
-Ask Paper Architect to outline FIRST. This prevents rework and false starts.
-
-### Use Agents in Order
-Don't skip steps. Research → Structure → Draft → Refine → Assemble
-
-Jumping steps creates quality problems and rework.
-
-### Iterate Responsibly
-It's normal to refine sections 2-3 times.
-
-Draft → Refine → Get Feedback → Refine Again is healthy.
-
-### Keep Files Organized
-- Put research in `source/research-notes/`
-- Let drafts stay in `output-drafts/`
-- Move refined versions to `output-refined/`
-- Only final stuff in `output-final/`
-
-This keeps your work clean and trackable.
-
----
-
-## 🎯 Next Steps
-
-1. **Read** `open-agents/INSTRUCTIONS.md` (complete overview)
-2. **Define** your paper's scope and goals (what are you writing about?)
-3. **Use Paper Architect** to create structure (outline)
-4. **Begin researching** with Research Consolidator
-5. **Draft sections** one at a time with Section Drafter
-6. **Refine** each section with Quality Refiner
-7. **Manage references** throughout with Reference Manager
-8. **Assemble** into final PDF with LaTeX Assembler
-
----
-
-## 💡 Pro Tips
-
-- **Save often:** Git commit after each agent completes a task
-- **Ask questions:** Agents will ask you to clarify if uncertain
-- **Iterate freely:** Early drafts don't have to be perfect
-- **Trust the process:** Multiple refinement passes produce better results than trying to write perfect first drafts
-- **Use the tools:** Run lint-latex.sh before assembly to catch issues early
-
----
-
-## 🤝 Need Help?
-
-- **Understanding the system?** Read `open-agents/INSTRUCTIONS.md`
-- **Which agent to use?** Check routing table above
-- **How to cite?** See `open-agents/agents/reference_manager.md`
-- **How to draft?** See `open-agents/agents/section_drafter.md`
-- **How to compile?** Run `./open-agents/tools/build-latex.sh`
-
----
-
-## 🎉 You're Ready!
-
-Your Open Agent System is fully set up and ready to use.
-
-**Begin by telling the system what you want to write.**
-
-The agents will take care of the rest.
-
----
-
-**Happy writing! 📝**
+Happy writing—keep edits in `.paperkit/`, regenerate often, and use the agents to stay in the loop.

@@ -166,7 +166,22 @@ check_prerequisites() {
     
     # Python3 (recommended for tools)
     if command -v python3 &> /dev/null; then
-        success_msg "Python3: $(python3 --version | cut -d' ' -f2)"
+        local py_version=$(python3 --version | cut -d' ' -f2)
+        success_msg "Python3: $py_version"
+        
+        # Check for venv module
+        if python3 -c "import venv" 2>/dev/null; then
+            success_msg "Python venv module: available"
+        else
+            warning_msg "Python venv module not found. Install python3-venv package."
+        fi
+        
+        # Check for pip
+        if command -v pip3 &> /dev/null; then
+            success_msg "pip3: $(pip3 --version | cut -d' ' -f2)"
+        else
+            warning_msg "pip3 not found. Install python3-pip package."
+        fi
     else
         warning_msg "Python3 not found. Some tools may not work."
     fi
@@ -202,6 +217,60 @@ detect_platform() {
     fi
     
     success_msg "Platform: $os_type"
+}
+
+# Setup Python virtual environment
+setup_python_env() {
+    if ! command -v python3 &> /dev/null; then
+        warning_msg "Python3 not found. Skipping virtual environment setup."
+        return
+    fi
+    
+    echo ""
+    info_msg "Python virtual environment setup (recommended for tools)"
+    echo ""
+    echo "  ${CYAN}1)${NC} Create virtual environment (.venv) and install dependencies"
+    echo "  ${CYAN}2)${NC} Skip (you can set up later)"
+    echo ""
+    
+    read -p "Selection [2]: " py_choice
+    py_choice=${py_choice:-2}
+    
+    case $py_choice in
+        1)
+            info_msg "Creating Python virtual environment..."
+            if python3 -m venv .venv 2>/dev/null; then
+                success_msg "Virtual environment created: .venv/"
+                
+                # Try to install dependencies
+                if [ -f "${SCRIPT_DIR}/requirements.txt" ]; then
+                    info_msg "Installing Python dependencies..."
+                    if .venv/bin/pip install -r "${SCRIPT_DIR}/requirements.txt" > /dev/null 2>&1; then
+                        success_msg "Dependencies installed (pyyaml, jsonschema)"
+                        echo ""
+                        info_msg "To activate the environment:"
+                        echo "  ${CYAN}source .venv/bin/activate${NC}"
+                    else
+                        warning_msg "Failed to install dependencies. Run manually:"
+                        echo "  source .venv/bin/activate"
+                        echo "  pip install -r requirements.txt"
+                    fi
+                else
+                    warning_msg "requirements.txt not found. Install manually if needed."
+                fi
+            else
+                warning_msg "Failed to create virtual environment."
+                info_msg "You can create it manually: python3 -m venv .venv"
+            fi
+            ;;
+        2)
+            info_msg "Skipping Python environment setup."
+            info_msg "To set up later:"
+            echo "  python3 -m venv .venv"
+            echo "  source .venv/bin/activate"
+            echo "  pip install -r requirements.txt"
+            ;;
+    esac
 }
 
 # Create core directory structure
@@ -397,6 +466,9 @@ main() {
     
     echo ""
     create_core_structure
+    
+    echo ""
+    setup_python_env
     
     # Install selected IDE integrations
     for ide in "${SELECTED_IDES[@]}"; do

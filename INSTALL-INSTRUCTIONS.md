@@ -11,7 +11,7 @@ A complete **Open Agent System** for planning, researching, structuring, draftin
 **Prerequisites:**
 - Bash (Mac/Linux) or PowerShell (Windows)
 - Git (recommended)
-- Python 3 (recommended for some tools)
+- Python 3.8+ (recommended for validation tools)
 - Node.js (optional)
 
 ### For Mac/Linux:
@@ -30,6 +30,55 @@ A complete **Open Agent System** for planning, researching, structuring, draftin
 # Run in PowerShell
 .\paperkit-install.ps1
 ```
+
+### Python Environment Setup (Recommended)
+
+PaperKit includes Python validation tools and utilities. We recommend using a virtual environment:
+
+#### Mac/Linux:
+
+```bash
+# Create a virtual environment
+python3 -m venv .venv
+
+# Activate the environment
+source .venv/bin/activate
+
+# Install dependencies
+pip install -r requirements.txt
+```
+
+#### Windows:
+
+```powershell
+# Create a virtual environment
+python -m venv .venv
+
+# Activate the environment
+.venv\Scripts\activate
+
+# Install dependencies
+pip install -r requirements.txt
+```
+
+#### What Gets Installed:
+
+- **PyYAML** - For parsing metadata and configuration files
+- **jsonschema** - For validating agent definitions and manifests
+
+#### Alternative: Use System Python
+
+If you prefer not to use a virtual environment:
+
+```bash
+# Mac/Linux
+pip3 install --user -r requirements.txt
+
+# Windows
+pip install --user -r requirements.txt
+```
+
+**Note:** The virtual environment needs to be activated each time you open a new terminal session.
 
 ### Installation Steps
 
@@ -165,7 +214,10 @@ This creates `paperkit-alpha-1.0.0.tar.gz` containing all necessary files.
 
 ### Recommended
 - **Git** - For version control
-- **Python 3** - For validation and formatting tools
+- **Python 3.8+** - For validation and formatting tools
+  - Create a virtual environment: `python3 -m venv .venv`
+  - Activate: `source .venv/bin/activate` (Mac/Linux) or `.venv\Scripts\activate` (Windows)
+  - Install deps: `pip install -r requirements.txt`
 - **LaTeX** - For compiling the final PDF (TeX Live, MiKTeX, or similar)
 
 ### Optional

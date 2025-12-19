@@ -1,86 +1,67 @@
 # System Architecture and File Overview
 
-System name: Copilot Research Paper Assistant Kit (formerly Academic Specification Paper Writing System).
+PaperKit is a document-first, agentic workflow for writing academic papers with verifiable citations. The source of truth lives in `.paperkit/`; IDE-facing files are generated from there.
 
-## 📊 Complete File Structure
+## Core Layout (Source of Truth → Generated → Outputs)
 
 ```
-color-math-spec/
+PaperKit/
+├── .paperkit/                      ← Core Framework (edit here)
+│   ├── _cfg/                       ← manifests, schemas, guides
+│   ├── core/agents/                ← core agent specs (6)
+│   ├── specialist/agents/          ← specialist agent specs (4)
+│   ├── tools/                      ← build, lint, validate, evidence
+│   ├── docs/                       ← IDE usage guides
+│   └── data/                       ← agent outputs (drafts/refined)
+│       ├── output-drafts/
+│       │   └── outlines/
+│       └── output-refined/
+│           ├── research/
+│           └── references/
+│           # output-final/ is created by build workflows when needed
 │
-├── 📖 DOCUMENTATION (Start Here!)
-│   ├── AGENTS.md                    ← ENTRY POINT (read this first)
-│   ├── SYSTEM_GUIDE.md              ← Quick start guide
-│   ├── SETUP_COMPLETE.md            ← Initialization checklist  
-│   ├── README_SYSTEM.md             ← Complete system summary
-│   └── COPILOT.md                   ← Integration notes
+├── .github/agents/                 ← Generated Copilot chat modes
+├── .codex/prompts/                 ← Generated Codex prompts
+├── AGENTS.md, COPILOT.md           ← Generated reference files
 │
-├── 📚 OPEN AGENT SYSTEM
-│   └── open-agents/
-│       ├── README.md                ← System intro
-│       ├── INSTRUCTIONS.md          ← COMPLETE DOCUMENTATION (80+ KB)
-│       │
-│       ├── agents/                  ← THE AGENTS (6 specialized agents)
-│       │   ├── research_consolidator.md      (Research synthesizer)
-│       │   ├── paper_architect.md            (Structure designer)
-│       │   ├── section_drafter.md            (Writer)
-│       │   ├── quality_refiner.md            (Editor)
-│       │   ├── reference_manager.md          (Bibliographer)
-│       │   └── latex_assembler.md            (Integration engineer)
-│       │
-│       ├── tools/                   ← BUILD AND VALIDATION
-│       │   ├── build-latex.sh       (Compile LaTeX → PDF)
-│       │   ├── lint-latex.sh        (Check syntax)
-│       │   ├── validate-structure.py (Validate paper structure)
-│       │   └── format-references.py (Format bibliography)
-│       │
-│       ├── memory/                  ← SYSTEM STATE (YAML tracking)
-│       │   ├── paper-metadata.yaml      (Paper info, goals, status)
-│       │   ├── section-status.yaml      (Track each section's progress)
-│       │   ├── research-index.yaml      (Catalog all research)
-│       │   └── revision-log.md          (Change history)
-│       │
-│       ├── source/                  ← YOUR RESEARCH INPUT
-│       │   ├── research-notes/      (Research materials & notes)
-│       │   ├── ideas/               (Discussions & sparks)
-│       │   └── reference-materials/ (PDFs, links, sources)
-│       │
-│       ├── output-drafts/           ← STAGE 1: FIRST DRAFTS
-│       │   ├── outlines/            (Paper structure & outline)
-│       │   ├── sections/            (Individual section drafts)
-│       │   └── full-versions/       (Complete draft versions)
-│       │
-│       ├── output-refined/          ← STAGE 2: ITERATED & IMPROVED
-│       │   ├── research/            (Synthesized research docs)
-│       │   ├── sections/            (Refined section drafts)
-│       │   ├── references/          (Formatted bibliography)
-│       │   └── full-versions/       (Refined complete versions)
-│       │
-│       └── output-final/            ← STAGE 3: READY FOR PUBLICATION
-│           ├── pdf/                 (Compiled PDFs)
-│           └── latex/               (Final LaTeX files)
+├── latex/                          ← Publication document
+│   ├── main.tex
+│   ├── preamble.tex
+│   ├── metadata.tex
+│   ├── settings.tex
+│   ├── sections/                   ← Atomic sections (12)
+│   │   ├── ...
+│   ├── appendices/
+│   │   ├── ...
+│   └── references/
+│       └── references.bib
 │
-└── 📄 LATEX DOCUMENT (Publication Output)
-    └── latex/
-        ├── main.tex                 ← MAIN DOCUMENT (integrates all)
-        ├── preamble.tex             (Packages, configuration)
-        ├── metadata.tex             (Title, author, abstract)
-        ├── settings.tex             (Customization, macros)
-        │
-        ├── sections/                ← ATOMIC SECTION FILES
-        │   ├── 01_introduction.tex
-        │   ├── 02_background.tex
-        │   ├── 03_methodology.tex
-        │   ├── 04_results.tex
-        │   ├── 05_prior_work.tex
-        │   ├── 06_implications.tex
-        │   └── 07_conclusion.tex
-        │
-        ├── appendices/
-        │   └── A_supplementary.tex
-        │
-        └── references/
-            └── references.bib       (BibTeX database - Harvard style)
+├── paperkit                       ← CLI entrypoint for generation/validation
+├── paperkit-generate*.sh          ← Helpers for regenerating derived files
+└── open-agents/                   ← Legacy system (kept for reference)
 ```
+
+## Agent System (10 agents)
+
+### Core Paper Writing Agents (6)
+
+| Agent | Role | Located | Generated Mode |
+|-------|------|---------|----------------|
+| 🔬 **Research Consolidator** | Synthesize research into coherent documents | `.paperkit/core/agents/research-consolidator.md` | `paper-research-consolidator` |
+| 🏗️ **Paper Architect** | Design structure, create outlines, establish flow | `.paperkit/core/agents/paper-architect.md` | `paper-architect` |
+| ✍️ **Section Drafter** | Write sections with academic rigor | `.paperkit/core/agents/section-drafter.md` | `paper-section-drafter` |
+| 💎 **Quality Refiner** | Improve clarity, flow, coherence | `.paperkit/core/agents/quality-refiner.md` | `paper-quality-refiner` |
+| 📚 **Reference Manager** | Manage citations, format bibliography (Harvard) | `.paperkit/core/agents/reference-manager.md` | `paper-reference-manager` |
+| 🔧 **LaTeX Assembler** | Integrate sections, validate, compile PDF | `.paperkit/core/agents/latex-assembler.md` | `paper-latex-assembler` |
+
+### Specialist Support Agents (4)
+
+| Agent | Role | Located | Generated Mode |
+|-------|------|---------|----------------|
+| 🧠 **Brainstorm Coach** | Generate ideas, explore alternatives | `.paperkit/specialist/agents/brainstorm.md` | `paper-brainstorm` |
+| 🧩 **Problem Solver** | Identify blockers, analyze root causes | `.paperkit/specialist/agents/problem-solver.md` | `paper-problem-solver` |
+| 🎓 **Review Tutor** | Provide feedback, critique drafts | `.paperkit/specialist/agents/tutor.md` | `paper-tutor` |
+| 📖 **Research Librarian** | Find sources, extract evidence, forensic audit | `.paperkit/specialist/agents/librarian.md` | `paper-librarian` |
 
 ---
 
@@ -89,29 +70,47 @@ color-math-spec/
 ```
 User Input
     │
-    ├─→ "Research [topic]"
-    │   └─→ Research Consolidator
-    │       └─→ output-refined/research/
+    ├─→ "Brainstorm ideas for..."
+    │   └─→ Brainstorm Coach
+    │       └─→ planning/YYYYMMDD-session/
     │
-    ├─→ "Outline the paper"
+    ├─→ "Outline the paper" or "Create structure"
     │   └─→ Paper Architect
-    │       └─→ output-drafts/outlines/
+    │       └─→ .paperkit/data/output-drafts/outlines/
+    │           latex/sections/ (skeleton)
     │
-    ├─→ "Draft [section]"
+    ├─→ "Find sources for..." or "Extract evidence"
+    │   └─→ Research Librarian
+    │       └─→ planning/YYYYMMDD-session/ (evidence logs)
+    │
+    ├─→ "Research [topic]" or "Consolidate research"
+    │   └─→ Research Consolidator
+    │       └─→ .paperkit/data/output-refined/research/
+    │
+    ├─→ "Draft [section]" or "Write the intro"
     │   └─→ Section Drafter
-    │       └─→ output-drafts/sections/
+    │       └─→ latex/sections/
     │
-    ├─→ "Refine this draft"
+    ├─→ "Refine this draft" or "Improve clarity"
     │   └─→ Quality Refiner
-    │       └─→ output-refined/sections/
+    │       └─→ latex/sections/ (refined in place)
     │
-    ├─→ "Format references"
+    ├─→ "Review this section" or "Give feedback"
+    │   └─→ Review Tutor
+    │       └─→ planning/YYYYMMDD-session/ (feedback notes)
+    │
+    ├─→ "Validate citations" or "Format bibliography"
     │   └─→ Reference Manager
-    │       └─→ output-refined/references/
+    │       └─→ latex/references/references.bib
+    │           .paperkit/data/output-refined/references/
     │
-    └─→ "Assemble the paper"
+    ├─→ "I'm stuck on..." or "Help me solve..."
+    │   └─→ Problem Solver
+    │       └─→ planning/YYYYMMDD-session/ (analysis)
+    │
+    └─→ "Assemble the paper" or "Build the document"
         └─→ LaTeX Assembler
-            └─→ latex/main.tex → output-final/pdf/main.pdf
+            └─→ .paperkit/data/output-final/pdf/main.pdf
 ```
 
 ---
@@ -119,32 +118,36 @@ User Input
 ## 📈 Progressive Refinement Pipeline
 
 ```
-INPUT                 AGENTS              OUTPUT
-─────────────────────────────────────────────────────────────
+INPUT                    AGENTS                   OUTPUT
+────────────────────────────────────────────────────────────────────
 
-Research Notes    ─→  Research         ─→  output-refined/research/
-Papers               Consolidator          (Synthesized docs)
-Links                                      
+Ideas/Scope          ─→  Brainstorm Coach     ─→  planning/sessions/
+Hypothesis              Problem Solver             (exploration notes)
 
-Scope/Goals       ─→  Paper            ─→  output-drafts/outlines/
-Research Needs       Architect             (Structure, outline)
-                                          latex/sections/ (skeleton)
+Scope/Goals          ─→  Paper Architect      ─→  .paperkit/data/output-drafts/
+Research Needs                                      outlines/
+                                                    latex/sections/ (skeleton)
 
-Outline           ─→  Section          ─→  output-drafts/sections/
-Research          Drafter             (Draft .tex files)
-Citations                               
+Research Questions   ─→  Research Librarian   ─→  planning/sessions/
+PDF Sources                                         (evidence with page numbers)
 
-Draft Sections    ─→  Quality          ─→  output-refined/sections/
-User Feedback        Refiner           (Refined .tex files)
+Research Notes       ─→  Research             ─→  .paperkit/data/output-refined/
+Papers                  Consolidator              research/
+Links                                              (synthesized docs)
 
-Refined Section   ─→  Reference        ─→  latex/references/
-Scattered Cites      Manager           references.bib
-                                        (Formatted bibliography)
+Outline              ─→  Section Drafter      ─→  latex/sections/
+Research Synthesis                                 (draft .tex files)
 
-All Refined       ─→  LaTeX            ─→  latex/main.tex
-Sections             Assembler         (Integrated)
-Bibliography                           output-final/pdf/
-                                       (Compiled PDF)
+Draft Sections       ─→  Quality Refiner      ─→  latex/sections/
+                        Review Tutor               (refined .tex files)
+                                                   planning/sessions/feedback
+
+Refined Sections     ─→  Reference Manager    ─→  latex/references/references.bib
+Scattered Citations                                .paperkit/data/output-refined/
+                                                   references/
+
+All Refined          ─→  LaTeX Assembler      ─→  .paperkit/data/output-final/pdf/
+Sections + Bib                                     (compiled PDF)
 ```
 
 ---
@@ -152,85 +155,89 @@ Bibliography                           output-final/pdf/
 ## 🔄 Data Flow Architecture
 
 ```
-┌─────────────────────────────────────────────────────┐
-│  USER INTERACTION LAYER                             │
-│  (You talking to agents)                            │
-└────────────────┬────────────────────────────────────┘
-                 │
-                 ▼
-┌─────────────────────────────────────────────────────┐
-│  AGENT LAYER (6 Specialized Agents)                 │
-│  ┌──────────┐  ┌──────────┐  ┌──────────┐           │
-│  │Research  │  │Architect │  │Drafter   │  ...      │
-│  └──────────┘  └──────────┘  └──────────┘           │
-└────────────────┬────────────────────────────────────┘
-                 │
-                 ▼
-┌─────────────────────────────────────────────────────┐
-│  WORKFLOW LAYER (Progressive Refinement)            │
-│  Research → Outline → Draft → Refine → Assemble     │
-└────────────────┬────────────────────────────────────┘
-                 │
-                 ▼
-┌─────────────────────────────────────────────────────┐
-│  OUTPUT LAYER (Three Stages)                        │
-│  ┌──────────┐  ┌──────────┐  ┌──────────┐           │
-│  │Drafts    │→ │Refined   │→ │Final     │           │
-│  │(rough)   │  │(iterated)│  │(ready)   │           │
-│  └──────────┘  └──────────┘  └──────────┘           │
-└────────────────┬────────────────────────────────────┘
-                 │
-                 ▼
-┌─────────────────────────────────────────────────────┐
-│  STORAGE LAYER (File System)                        │
-│  LaTeX files, PDFs, YAML tracking, references       │
-└─────────────────────────────────────────────────────┘
+┌────────────────────────────────────────────────────────────┐
+│  USER INTERACTION LAYER                                    │
+│  (You talking to agents via Copilot/Codex)                │
+└────────────────────┬───────────────────────────────────────┘
+                     │
+                     ▼
+┌────────────────────────────────────────────────────────────┐
+│  AGENT LAYER (10 Specialized Agents)                       │
+│  ┌──────────┐  ┌──────────┐  ┌──────────┐  ┌──────────┐  │
+│  │Brainstorm│  │Architect │  │Librarian │  │Research  │  │
+│  └──────────┘  └──────────┘  └──────────┘  └──────────┘  │
+│  ┌──────────┐  ┌──────────┐  ┌──────────┐  ┌──────────┐  │
+│  │Drafter   │  │Refiner   │  │Tutor     │  │RefMgr    │  │
+│  └──────────┘  └──────────┘  └──────────┘  └──────────┘  │
+│  ┌──────────┐  ┌──────────┐                               │
+│  │Solver    │  │Assembler │                               │
+│  └──────────┘  └──────────┘                               │
+└────────────────────┬───────────────────────────────────────┘
+                     │
+                     ▼
+┌────────────────────────────────────────────────────────────┐
+│  WORKFLOW LAYER (Progressive Refinement)                   │
+│  Brainstorm → Plan → Research → Draft → Refine → Assemble │
+└────────────────────┬───────────────────────────────────────┘
+                     │
+                     ▼
+┌────────────────────────────────────────────────────────────┐
+│  OUTPUT LAYER (Multiple Stages)                            │
+│  ┌────────────┐  ┌────────────┐  ┌────────────┐           │
+│  │Planning    │  │Drafts      │→ │Refined     │→          │
+│  │(sessions)  │  │(rough)     │  │(iterated)  │           │
+│  └────────────┘  └────────────┘  └────────────┘           │
+│                                         │                   │
+│                                         ▼                   │
+│                                   ┌────────────┐            │
+│                                   │Final       │            │
+│                                   │(ready)     │            │
+│                                   └────────────┘            │
+└────────────────────┬───────────────────────────────────────┘
+                     │
+                     ▼
+┌────────────────────────────────────────────────────────────┐
+│  STORAGE LAYER (File System)                               │
+│  .paperkit/ (source), latex/ (document), generated/        │
+└────────────────────────────────────────────────────────────┘
 ```
-
----
-
-## 📊 File Statistics
-
-| Category | Count | Size | Purpose |
-|----------|-------|------|---------|
-| **Documentation** | 4 | 5+ KB | Getting started & reference |
-| **Agent Specs** | 6 | 50+ KB | Detailed agent specifications |
-| **LaTeX Files** | 10 | 5+ KB | Document template & sections |
-| **Scripts** | 4 | 2+ KB | Build, lint, validate |
-| **Memory Files** | 4 | 1+ KB | Tracking & metadata |
-| **Directories** | 20+ | - | Organized workflow stages |
-| **Total** | 48+ | 65+ KB | Complete system |
 
 ---
 
 ## ✨ Key System Properties
 
 ### Architecture Quality
-- ✓ Modular agent design (no overlap)
-- ✓ Clear separation of concerns
-- ✓ Progressive disclosure (load on demand)
-- ✓ Atomic LaTeX sections (small, manageable files)
-- ✓ YAML memory (efficient state tracking)
+- ✓ Modular agent design (no overlap, clear responsibilities)
+- ✓ Source of truth in `.paperkit/` with generated IDE layers
+- ✓ Clear separation of concerns (10 specialized agents)
+- ✓ Progressive disclosure (agents load on demand)
+- ✓ Atomic LaTeX sections (12 small, manageable files)
+- ✓ Schema validation for consistency
 
 ### User Experience
 - ✓ Clear routing (which agent for which task)
-- ✓ Simple entry point (AGENTS.md)
-- ✓ Comprehensive documentation
-- ✓ Organized folder structure
-- ✓ Automated build process
+- ✓ Simple entry point (AGENTS.md, SYSTEM_GUIDE.md)
+- ✓ Multi-IDE support (Copilot, Codex, extensible)
+- ✓ Comprehensive documentation (20,000+ words)
+- ✓ Organized folder structure (source → generated → output)
+- ✓ Automated build process (one command to PDF)
+- ✓ Menu-driven agent interactions
 
 ### Academic Quality
-- ✓ Harvard citation management
+- ✓ Harvard citation management (Cite Them Right, 11th ed.)
 - ✓ Professional LaTeX configuration
-- ✓ Formal writing standards
-- ✓ Logical paper structure
+- ✓ Formal writing standards enforced
+- ✓ Logical paper structure (12 sections + appendices)
 - ✓ Bibliography integrity checking
+- ✓ Forensic audit capability (evidence extraction with page numbers)
+- ✓ Citation validation workflows
 
 ### Development Workflow
-- ✓ Git version control
-- ✓ Clean commit history
+- ✓ Git version control friendly
+- ✓ Clean separation of concerns
 - ✓ Logical file organization
-- ✓ No clutter or temporary files
+- ✓ Regeneration from source (no drift)
+- ✓ Validation tooling (schema + structure)
 - ✓ Professional structure
 
 ---
@@ -238,13 +245,18 @@ Bibliography                           output-final/pdf/
 ## 🎓 How Agents Work Together
 
 ```
-┌──────────────────────────────────────────────────────┐
-│ User: "I want to write a paper on X"                 │
-└─────────────────┬──────────────────────────────────┘
+┌──────────────────────────────────────────────────────────┐
+│ User: "I want to write a paper on X"                     │
+└─────────────────┬────────────────────────────────────────┘
+                  │
+         ┌────────▼────────┐
+         │ Brainstorm Coach│
+         │ (explore ideas) │
+         └────────┬────────┘
                   │
          ┌────────▼────────┐
          │ Paper Architect │
-         │ (reads goal)    │
+         │ (create outline)│
          └────────┬────────┘
                   │
          ┌────────▼──────────────────┐
@@ -256,19 +268,23 @@ Bibliography                           output-final/pdf/
     ┌─────────────┴─────────────┐
     │                           │
     ▼                           ▼
-Research Consolidator    Section Drafter
-(synthesizes research)    (writes sections)
+Research Librarian      Section Drafter
+(finds evidence)        (writes sections)
+    │                           │
+    ▼                           ▼
+Research Consolidator   Quality Refiner
+(synthesizes)           (improves draft)
     │                           │
     └─────────────┬─────────────┘
                   │
-         ┌────────▼─────────┐
-         │ Quality Refiner  │
-         │ (improves draft) │
-         └────────┬─────────┘
+         ┌────────▼────────────┐
+         │ Review Tutor        │
+         │ (provides feedback) │
+         └────────┬────────────┘
                   │
          ┌────────▼────────────────┐
          │ Reference Manager       │
-         │ (manages bibliography)  │
+         │ (validates citations)   │
          └────────┬────────────────┘
                   │
          ┌────────▼──────────────┐
@@ -282,154 +298,201 @@ Research Consolidator    Section Drafter
 
 ---
 
-## 🚀 System Activation Sequence
-
-When you start using the system:
-
-```
-1. You read AGENTS.md
-   ↓
-2. You read SYSTEM_GUIDE.md
-   ↓
-3. You read open-agents/INSTRUCTIONS.md
-   ↓
-4. You define your paper's scope
-   ↓
-5. You ask Paper Architect to outline
-   ↓
-6. You provide research materials
-   ↓
-7. You ask Research Consolidator to synthesize
-   ↓
-8. You ask Section Drafter to write (iterate)
-   ↓
-9. You ask Quality Refiner to improve (iterate)
-   ↓
-10. You ask Reference Manager to format bibliography
-   ↓
-11. You ask LaTeX Assembler to build
-   ↓
-FINAL PDF PRODUCED ✓
-```
-
----
-
-## 💾 Memory System Design
-
-```
-paper-metadata.yaml
-├── title
-├── scope
-├── goals
-├── target_length
-├── deadline
-├── status (planning|drafting|refining|assembling)
-└── progress (0-100)
-
-section-status.yaml
-├── introduction
-│   ├── status (outline|drafted|refined|final)
-│   ├── words
-│   ├── completeness (0-100)
-│   ├── refinement_passes
-│   └── notes
-├── background
-├── methodology
-├── results
-├── prior_work
-├── implications
-└── conclusion
-
-research-index.yaml
-└── sources[]
-    ├── title
-    ├── authors[]
-    ├── year
-    ├── citation_key
-    ├── source_type
-    ├── file
-    ├── url
-    ├── topics[]
-    └── notes
-
-revision-log.md
-└── entries[]
-    ├── date
-    ├── agent
-    ├── action
-    ├── files[]
-    ├── notes
-    └── status
-```
-
----
-
 ## 🔧 Tool Integration Points
 
 ```
 build-latex.sh
+├─→ cd latex/
 ├─→ pdflatex main.tex (first pass)
-├─→ bibtex main (bibliography)
-├─→ pdflatex main.tex (second pass)
-├─→ pdflatex main.tex (third pass)
-└─→ Copy to output-final/pdf/
+├─→ bibtex main (process bibliography)
+├─→ pdflatex main.tex (second pass - resolve citations)
+├─→ pdflatex main.tex (third pass - resolve cross-refs)
+├─→ mkdir -p ../.paperkit/data/output-final/pdf/
+└─→ cp main.pdf ../.paperkit/data/output-final/pdf/
 
 lint-latex.sh
-├─→ Check braces matching
-├─→ Check math delimiters
-├─→ Check environments
-├─→ Check citations exist
-└─→ Check section files exist
+├─→ Check braces matching {}
+├─→ Check math delimiters $ $$
+├─→ Check environments (begin/end pairs)
+├─→ Check citation keys exist in .bib
+├─→ Check section files referenced in main.tex exist
+└─→ Report issues with line numbers
 
 validate-structure.py
-├─→ Verify section files
-├─→ Check metadata
-├─→ Report section status
-└─→ Show completion percentage
+├─→ Verify all 12 section files present
+├─→ Check appendices A-D exist
+├─→ Verify references.bib exists
+├─→ Parse section completeness
+└─→ Generate status report
 
 format-references.py
-├─→ Parse bibliography
+├─→ Parse references.bib
 ├─→ Validate BibTeX format
-├─→ Check required fields
-└─→ Report issues
+├─→ Check required fields (author, title, year, etc.)
+├─→ Validate Harvard style compliance
+└─→ Report missing/incomplete entries
+
+extract-evidence.sh
+├─→ Convert PDFs to text (pdftotext)
+├─→ Grep for search terms
+├─→ Extract context (±3 lines)
+├─→ Include page numbers
+└─→ Output markdown with citations
 ```
+
+---
+
+## 📊 System Statistics
+
+| Category | Count | Purpose |
+|----------|-------|---------|
+| **Core Agents** | 6 | Research, architecture, drafting, refining, references, assembly |
+| **Specialist Agents** | 4 | Brainstorming, problem-solving, tutoring, library research |
+| **LaTeX Sections** | 12 | Atomic section files (01-12) |
+| **LaTeX Appendices** | 4 | Supplementary material (A-D) |
+| **Build Scripts** | 5 | Build, lint, validate, format, extract |
+| **CLI Commands** | 10+ | init, generate, validate, build, etc. |
+| **Generated Files** | 20+ | Copilot agents, Codex prompts, docs |
+| **Documentation Files** | 10+ | Guides, architecture, setup, instructions |
 
 ---
 
 ## 📋 Reading Order (Recommended)
 
 ```
-FOR QUICK START (30 minutes)
-1. This file (System Architecture) - 10 min
-2. AGENTS.md - 5 min
-3. SYSTEM_GUIDE.md - 15 min
+FOR QUICK START (15 minutes)
+1. Docs/SYSTEM_GUIDE.md - 5 min (quick start)
+2. AGENTS.md - 3 min (agent reference)
+3. This file (Docs/ARCHITECTURE.md) - 7 min (understand structure)
 
-FOR COMPLETE UNDERSTANDING (90 minutes)
-1. All of above - 30 min
-2. open-agents/INSTRUCTIONS.md - 60 min
+FOR COMPLETE UNDERSTANDING (45 minutes)
+1. All of above - 15 min
+2. README.md - 15 min (full system overview)
+3. .paperkit/docs/github-copilot-instructions.md - 10 min (IDE usage)
+4. COPILOT.md - 5 min (integration notes)
 
 FOR SPECIFIC TASKS (on demand)
-- open-agents/agents/[agent_name].md
+- .paperkit/core/agents/[agent-name].md (agent details)
+- .paperkit/specialist/agents/[agent-name].md (specialist agents)
+- .paperkit/_cfg/guides/harvard-citation-guide.md (citation style)
 
-FOR TROUBLESHOOTING
-- SETUP_COMPLETE.md
-- open-agents/tools/ help text
+FOR DEVELOPMENT/CUSTOMIZATION
+- .paperkit/_cfg/schemas/ (validation schemas)
+- .paperkit/_cfg/workflows/ (workflow definitions)
+- .paperkit/_cfg/tools/ (tool metadata)
 ```
 
 ---
 
-## ✅ System Readiness Checklist
+## 🚀 System Activation Sequence
 
-- [x] All 6 agents fully specified
-- [x] Complete documentation (15,000+ words)
-- [x] LaTeX template with 7 section files
-- [x] Build and validation tools (4 scripts)
-- [x] Memory system for tracking (4 YAML files)
-- [x] Organized folder structure (20+ directories)
-- [x] Entry point and quick reference
-- [x] Git repository initialized with clean commits
-- [x] Academic standards enforced
-- [x] Ready for immediate use
+When you start using PaperKit:
+
+```
+1. Run ./paperkit init
+   ↓ (generates IDE files, validates setup)
+   
+2. Read Docs/SYSTEM_GUIDE.md
+   ↓ (understand workflow)
+   
+3. Open Copilot Chat, select paper-architect
+   ↓ (or use Codex with /paper-architect)
+   
+4. Define your paper's scope and goals
+   ↓
+   
+5. Paper Architect creates outline
+   ↓ (outline in .paperkit/data/output-drafts/outlines/)
+   
+6. Research Librarian finds evidence
+   ↓ (evidence with page numbers in planning/)
+   
+7. Research Consolidator synthesizes
+   ↓ (consolidated docs in .paperkit/data/output-refined/research/)
+   
+8. Section Drafter writes sections (iterate)
+   ↓ (sections in latex/sections/)
+   
+9. Quality Refiner improves sections (iterate)
+   ↓ (refined in place)
+   
+10. Review Tutor provides feedback (optional)
+   ↓ (feedback in planning/)
+   
+11. Reference Manager validates citations
+   ↓ (updates latex/references/references.bib)
+   
+12. LaTeX Assembler builds PDF
+   ↓
+   
+FINAL PDF in .paperkit/data/output-final/pdf/ ✓
+```
+
+---
+
+## 🔄 Regeneration & Governance
+
+### Source of Truth Principle
+
+`.paperkit/` is the **only** place to edit agents, workflows, and tools:
+- Agent definitions: `.paperkit/core/agents/` and `.paperkit/specialist/agents/`
+- Workflows: `.paperkit/_cfg/workflows/`
+- Tools: `.paperkit/tools/` (implementations) and `.paperkit/_cfg/tools/` (metadata)
+- Schemas: `.paperkit/_cfg/schemas/`
+- Guides: `.paperkit/_cfg/guides/`
+
+### Generated Files (Do Not Edit Directly)
+
+These are auto-generated from `.paperkit/`:
+- `.github/agents/paper-*.agent.md` (Copilot chat modes)
+- `.codex/prompts/paper-*.md` (Codex prompts)
+- `AGENTS.md` (quick reference)
+- `COPILOT.md` (integration guide)
+
+### Regeneration Workflow
+
+```bash
+# 1. Edit source in .paperkit/
+vim .paperkit/core/agents/paper-architect.md
+
+# 2. Check what's out of sync
+./paperkit generate --check
+
+# 3. Regenerate all derived files
+./paperkit generate
+
+# 4. Validate everything
+./paperkit validate
+
+# 5. Commit both source and generated
+git add .paperkit/ .github/ .codex/ AGENTS.md COPILOT.md
+git commit -m "Update Paper Architect agent"
+```
+
+### Academic Integrity Enforcement
+
+All agents follow strict principles:
+- **Cite every source** - never summarize or quote without attribution
+- **Include page numbers** - direct quotes must have exact page reference
+- **Harvard style** - Cite Them Right, 11th edition format
+- **Open access preferred** - use accessible, reputable sources
+- **Never fabricate** - if uncertain, flag for verification rather than guess
+- **Forensic audit** - evidence extraction includes context and page numbers
+
+---
+
+## ✅ System Readiness
+
+- [x] 10 specialized agents fully defined
+- [x] Complete documentation (20,000+ words)
+- [x] LaTeX template with 12 sections + 4 appendices
+- [x] Build and validation tools (5 scripts)
+- [x] Multi-IDE support (Copilot, Codex)
+- [x] Regeneration system (source → generated)
+- [x] Schema validation framework
+- [x] Citation workflows (extract, validate, format)
+- [x] Forensic audit capability
+- [x] Academic integrity enforcement
 
 **Status: COMPLETE AND READY ✅**
 

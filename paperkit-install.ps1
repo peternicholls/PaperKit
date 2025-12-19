@@ -100,11 +100,31 @@ try {
     $pythonVersion = python --version 2>&1
     if ($pythonVersion -match 'Python') {
         Write-Success "Python: $pythonVersion"
+        
+        # Check for pip
+        try {
+            $pipVersion = python -m pip --version 2>&1
+            if ($pipVersion -match 'pip') {
+                Write-Success "pip: available"
+            }
+        } catch {
+            Write-Warning-Custom "pip not found. Install pip for Python package management."
+        }
     } else {
         # Try python3
         try {
             $pythonVersion = python3 --version 2>&1
             Write-Success "Python3: $pythonVersion"
+            
+            # Check for pip3
+            try {
+                $pipVersion = python3 -m pip --version 2>&1
+                if ($pipVersion -match 'pip') {
+                    Write-Success "pip3: available"
+                }
+            } catch {
+                Write-Warning-Custom "pip3 not found."
+            }
         } catch {
             Write-Warning-Custom "Python not found. Some tools may not work."
         }
@@ -182,6 +202,69 @@ foreach ($dir in $directories) {
 }
 
 Write-Success "Basic directory structure created."
+
+# Python virtual environment setup
+Write-Host ""
+Write-Info "Python environment setup (recommended for validation tools)"
+Write-Host ""
+Write-Host "Would you like to create a Python virtual environment?"
+Write-Host "  1) Yes - Create .venv and install dependencies"
+Write-Host "  2) No - Skip (setup later)"
+Write-Host ""
+$pyChoice = Read-Host "Selection [2]"
+if ([string]::IsNullOrEmpty($pyChoice)) { $pyChoice = "2" }
+
+switch ($pyChoice) {
+    "1" {
+        Write-Info "Creating Python virtual environment..."
+        try {
+            # Try python first, then python3
+            $pythonCmd = "python"
+            try {
+                & $pythonCmd --version 2>&1 | Out-Null
+            } catch {
+                $pythonCmd = "python3"
+            }
+            
+            & $pythonCmd -m venv .venv
+            Write-Success "Virtual environment created: .venv\"
+            
+            # Check for requirements.txt
+            if (Test-Path "requirements.txt") {
+                Write-Info "Installing Python dependencies..."
+                try {
+                    & .venv\Scripts\python.exe -m pip install -r requirements.txt | Out-Null
+                    Write-Success "Dependencies installed (pyyaml, jsonschema)"
+                    Write-Host ""
+                    Write-Info "To activate the environment:"
+                    Write-Host "  .venv\Scripts\activate"
+                } catch {
+                    Write-Warning-Custom "Failed to install dependencies. Run manually:"
+                    Write-Host "  .venv\Scripts\activate"
+                    Write-Host "  pip install -r requirements.txt"
+                }
+            } else {
+                Write-Warning-Custom "requirements.txt not found in current directory."
+            }
+        } catch {
+            Write-Warning-Custom "Failed to create virtual environment: $_"
+            Write-Info "You can create it manually:"
+            Write-Host "  python -m venv .venv"
+            Write-Host "  .venv\Scripts\activate"
+            Write-Host "  pip install -r requirements.txt"
+        }
+    }
+    "2" {
+        Write-Info "Skipping Python environment setup."
+        Write-Info "To set up later:"
+        Write-Host "  python -m venv .venv"
+        Write-Host "  .venv\Scripts\activate"
+        Write-Host "  pip install -r requirements.txt"
+    }
+    default {
+        Write-Info "Invalid selection. Skipping Python environment setup."
+    }
+}
 
 # Final success message
 Write-Host ""

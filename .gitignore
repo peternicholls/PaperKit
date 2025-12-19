@@ -15,5 +15,16 @@ node_modules/
 paperkit-*.tar.gz
 paperkit-*.zip
 
+# Generated files
+.codex/
+.copilot/
+.vscode/
+.github/
+COPILOT.md
+AGENTS.md
+.venv/ # install your own python env
+
+
+# Specific directories to ignore
 BacktimeCalculator/
 open-agents/source/reference-materials/tech-docs-from-exisiting-software-repo/
