@@ -1,0 +1,69 @@
+# PaperKit Tool Manifest
+#
+# This file provides an index of all tools in the PaperKit system.
+# Individual tool definitions are stored in .paperkit/_cfg/tools/
+# Tool implementations are stored in .paperkit/tools/
+#
+# Schema: .paperkit/_cfg/schemas/tool-schema.json
+# Validation: Run `./paperkit validate`
+
+version: 2.0.0
+schemaVersion: 1.0.0
+lastUpdated: 2025-12-19
+
+tools:
+  # ==========================================================================
+  # Build Tools
+  # ==========================================================================
+  - name: build-latex
+    path: .paperkit/_cfg/tools/build-latex.yaml
+    displayName: Build LaTeX
+    description: Compile LaTeX document to PDF
+    requiresConsent: true
+    status: active
+
+  - name: lint-latex
+    path: .paperkit/_cfg/tools/lint-latex.yaml
+    displayName: Lint LaTeX
+    description: Check LaTeX syntax for errors
+    requiresConsent: true
+    status: active
+
+  - name: validate-structure
+    path: .paperkit/_cfg/tools/validate-structure.yaml
+    displayName: Validate Structure
+    description: Validate paper structure
+    requiresConsent: true
+    status: active
+
+  - name: check-dependencies
+    path: .paperkit/_cfg/tools/check-dependencies.yaml
+    displayName: Check Dependencies
+    description: Verify all required system dependencies
+    requiresConsent: false
+    status: active
+
+  # ==========================================================================
+  # Reference & Citation Tools
+  # ==========================================================================
+  - name: format-references
+    path: .paperkit/_cfg/tools/format-references.yaml
+    displayName: Format References
+    description: Format references in Harvard style
+    requiresConsent: true
+    status: active
+
+  # ==========================================================================
+  # Forensic Audit Tools
+  # ==========================================================================
+  - name: extract-evidence
+    path: .paperkit/_cfg/tools/extract-evidence.yaml
+    displayName: Extract Evidence (Forensic Audit)
+    description: Batch extract quotable evidence from sources using pdftotext + grep with context
+    requiresConsent: true
+    status: active
+
+statistics:
+  totalTools: 6
+  activeTools: 6
+  deprecatedTools: 0

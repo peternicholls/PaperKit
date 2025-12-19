@@ -20,13 +20,13 @@
 
 #### Task Brief
 
-Conduct comprehensive literature review on color harmony generation methods to ground the paper's novelty claims in prior art.
+Conduct comprehensive literature review on color harmony generation methods to ground the paper's novelty claims in prior art. Ask the user to download or search for things manually to assist.
 
 #### Scope of Review
 
 **1. Rule-Based Harmony Systems**
 - Itten (1961) — Traditional color theory
-- Opposing Itten's theories - https://opg.optica.org/oe/fulltext.cfm?uri=oe-31-15-25191 
+- Opposing Itten's theories - Ittens color diagram fails to illustrate color mixing, ERIC KIRCHNER [./open-agents/source/reference-materials/Ittens color diagram fails to illustrate color mixing.pdf]
 - Munsell color system
 - Complementary, triadic, tetrad rules
 - Split-complementary, analogous schemes

@@ -1,0 +1,113 @@
+# PaperKit Agent Manifest
+#
+# This file provides an index of all agents in the PaperKit system.
+# Individual agent definitions are stored in .paperkit/_cfg/agents/
+#
+# Schema: .paperkit/_cfg/schemas/agent-schema.json
+# Validation: Run `python3 open-agents/tools/validate-agent-schema.py`
+
+version: 2.0.0
+schemaVersion: 1.0.0
+lastUpdated: 2025-12-19
+
+# Academic Integrity Notice
+# ALL agents in this system follow these critical principles:
+# - Academic integrity is paramount - prioritize reputable sources and proper citation practices
+# - Academic papers cannot be summarized or quoted without proper attribution and accurate referencing in Harvard style
+# - Every quote requires: quote text, page number, and full citation for both text and bibliography
+# - If a paper needs downloading, only use open access channels
+# - Never fabricate citations or guess at attribution; flag uncertainties for verification
+
+agents:
+  # Core Paper Writing Agents
+  - name: research-consolidator
+    module: core
+    path: .paperkit/_cfg/agents/research-consolidator.yaml
+    displayName: Alex
+    title: Research Consolidator
+    icon: 🔬
+    status: active
+
+  - name: paper-architect
+    module: core
+    path: .paperkit/_cfg/agents/paper-architect.yaml
+    displayName: Morgan
+    title: Paper Architect
+    icon: 🏗️
+    status: active
+
+  - name: section-drafter
+    module: core
+    path: .paperkit/_cfg/agents/section-drafter.yaml
+    displayName: Jordan
+    title: Section Drafter
+    icon: ✍️
+    status: active
+
+  - name: quality-refiner
+    module: core
+    path: .paperkit/_cfg/agents/quality-refiner.yaml
+    displayName: Riley
+    title: Quality Refiner
+    icon: 💎
+    status: active
+
+  - name: reference-manager
+    module: core
+    path: .paperkit/_cfg/agents/reference-manager.yaml
+    displayName: Harper
+    title: Academic Bibliographer & Reference Specialist
+    icon: 📚
+    status: active
+    version: 2.0.0
+    knowledgeBase:
+      - .paperkit/_cfg/guides/harvard-citation-guide.md
+      - .paperkit/_cfg/resources/citation-rules.yaml
+
+  - name: latex-assembler
+    module: core
+    path: .paperkit/_cfg/agents/latex-assembler.yaml
+    displayName: Taylor
+    title: LaTeX Assembler
+    icon: 🔧
+    status: active
+
+  # Specialist Support Agents
+  - name: brainstorm
+    module: specialist
+    path: .paperkit/_cfg/agents/brainstorm.yaml
+    displayName: Carson
+    title: Brainstorm Coach
+    icon: 🧠
+    status: active
+
+  - name: problem-solver
+    module: specialist
+    path: .paperkit/_cfg/agents/problem-solver.yaml
+    displayName: Quinn
+    title: Problem Solver
+    icon: 🧩
+    status: active
+
+  - name: tutor
+    module: specialist
+    path: .paperkit/_cfg/agents/tutor.yaml
+    displayName: Sage
+    title: Review Tutor
+    icon: 🎓
+    status: active
+
+  - name: librarian
+    module: specialist
+    path: .paperkit/_cfg/agents/librarian.yaml
+    displayName: Ellis
+    title: Research Librarian — Forensic Audit
+    icon: 📖
+    status: active
+
+statistics:
+  totalAgents: 10
+  coreAgents: 6
+  specialistAgents: 4
+  activeAgents: 10
+  deprecatedAgents: 0

@@ -1,0 +1,62 @@
+# Consolidate Research Workflow Definition
+# Part of PaperKit Core Workflows
+
+name: consolidate
+displayName: Consolidate Research
+description: Synthesize research materials into coherent reference documents
+version: 1.0.0
+module: core
+category: research
+path: .paperkit/core/workflows/research/consolidate.yaml
+
+agents:
+  - research-consolidator
+
+steps:
+  - name: gather-sources
+    agent: research-consolidator
+    description: Collect and organize research materials
+  - name: synthesize
+    agent: research-consolidator
+    description: Transform materials into coherent narrative
+  - name: cite-sources
+    agent: research-consolidator
+    description: Add proper citations and references
+  - name: identify-gaps
+    agent: research-consolidator
+    description: Flag areas needing more research
+
+inputSchema:
+  type: object
+  properties:
+    topic:
+      type: string
+      description: Research topic or question
+    sources:
+      type: array
+      description: List of research materials
+      items:
+        type: object
+    depth:
+      type: string
+      enum: [shallow, moderate, deep]
+      default: moderate
+
+outputSchema:
+  type: object
+  properties:
+    document:
+      type: string
+      description: Synthesized research document
+    citations:
+      type: array
+      description: List of citations used
+    gaps:
+      type: array
+      description: Identified research gaps
+
+exampleUsage:
+  - "Consolidate research on machine learning algorithms"
+  - "Synthesize 10 papers on climate change impacts"
+
+owner: core-team

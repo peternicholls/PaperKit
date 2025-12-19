@@ -1,0 +1,61 @@
+# Generate Skeleton Workflow Definition
+# Part of PaperKit Core Workflows
+
+name: skeleton
+displayName: Generate Skeleton
+description: Create LaTeX skeleton files for sections
+version: 1.0.0
+module: core
+category: planning
+path: .paperkit/core/workflows/planning/skeleton.yaml
+
+agents:
+  - paper-architect
+  - latex-assembler
+
+steps:
+  - name: parse-outline
+    agent: paper-architect
+    description: Parse outline to identify sections
+  - name: create-files
+    agent: latex-assembler
+    description: Generate LaTeX section files
+  - name: setup-structure
+    agent: latex-assembler
+    description: Create directory structure and main.tex
+  - name: validate-skeleton
+    agent: latex-assembler
+    description: Verify skeleton compiles
+
+inputSchema:
+  type: object
+  properties:
+    outline:
+      type: string
+      description: Paper outline from outline workflow
+    sections:
+      type: array
+      description: List of section names
+      items:
+        type: string
+
+outputSchema:
+  type: object
+  properties:
+    files:
+      type: array
+      description: List of generated LaTeX files
+      items:
+        type: string
+    mainTex:
+      type: string
+      description: Path to main.tex file
+    success:
+      type: boolean
+      description: Whether skeleton was created successfully
+
+exampleUsage:
+  - "Generate skeleton from paper outline"
+  - "Create LaTeX structure with 5 sections"
+
+owner: core-team

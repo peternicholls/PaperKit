@@ -1,245 +1,227 @@
 # .copilot/agents.yaml
 # Master agent registry - single source of truth for agent discovery and routing
+# Generated from .paperkit/ manifests - DO NOT EDIT MANUALLY
+# Regenerate with: ./paperkit generate
 
-version: "1.0.0"
-description: "Registry of all agents available in the Copilot Research Paper Assistant Kit"
-
+version: 1.0.0
+description: Registry of all agents available in the Copilot Research Paper Assistant Kit
 categories:
-  core: "Core paper writing agents (from Open Agent System)"
-  specialist: "Support agents for brainstorming, problem-solving, feedback, research"
-  system: "System agents for routing and orchestration"
-
+  core: Core paper writing agents (from Open Agent System)
+  specialist: Support agents for brainstorming, problem-solving, feedback, research
+  system: System agents for routing and orchestration
 agents:
   core:
     research-consolidator:
-      name: "Research Consolidator"
-      description: "Synthesizes research materials into coherent reference documents"
-      category: "research"
-      role: "Synthesizer"
+      name: Research Consolidator
+      description: Transforms scattered research materials into polished, synthesized research  documents with proper citations
+        and clear narrative structure
+      category: research
+      role: Synthesizer
       triggers:
-        - "research"
-        - "consolidate research"
-        - "research [topic]"
+      - research
+      - consolidate research
+      - research [topic]
       inputs:
-        - "Topic or research question"
-        - "Available sources or notes"
-        - "Depth/breadth preference"
+      - Research topic or question to investigate
+      - List of research materials (PDFs, URLs, notes)
+      - Level of research synthesis required
       outputs:
-        - "output-refined/research/"
-        - "memory/research-index.yaml (updated)"
-        - "memory/working-reference.md (updated)"
-      spec-file: "agents/core/research-consolidator.yaml"
-      doc-file: "open-agents/agents/research_consolidator.md"
+      - output-refined/research/
+      - memory/research-index.yaml (updated)
+      spec-file: agents/core/research-consolidator.yaml
+      doc-file: open-agents/agents/research_consolidator.md
       requires-tools: []
       requires-consent: false
-
     paper-architect:
-      name: "Paper Architect"
-      description: "Designs paper structure, outlines sections, establishes logical flow"
-      category: "planning"
-      role: "Architect"
+      name: Paper Architect
+      description: Transforms paper scope and goals into comprehensive, hierarchical paper  structure with logical skeletons
+        and LaTeX scaffolding
+      category: planning
+      role: Architect
       triggers:
-        - "plan"
-        - "outline"
-        - "structure"
+      - plan
+      - outline
+      - structure
       inputs:
-        - "Paper topic and scope"
-        - "Audience and target length"
-        - "Deadlines or constraints"
-        - "Standards flexibility"
-      outputs:
-        - "output-drafts/outlines/"
-        - "latex/sections/ (skeletons)"
-        - "memory/paper-metadata.yaml (updated)"
-      spec-file: "agents/core/paper-architect.yaml"
-      doc-file: "open-agents/agents/paper_architect.md"
+      - Paper scope and research question
+      - Key goals and objectives for the paper
+      - Target audience (e.g., academic, general, technical)
+      - Type of academic paper
+      outputs: []
+      spec-file: agents/core/paper-architect.yaml
+      doc-file: open-agents/agents/paper_architect.md
       requires-tools: []
       requires-consent: false
-
     section-drafter:
-      name: "Section Drafter"
-      description: "Writes individual paper sections with academic rigor and logical flow"
-      category: "writing"
-      role: "Writer"
+      name: Section Drafter
+      description: 'Transforms section outlines and research materials into written content  with academic rigor: clear thesis,
+        proper flow, accurate citations'
+      category: writing
+      role: Writer
       triggers:
-        - "draft [section]"
-        - "write"
+      - draft [section]
+      - write
       inputs:
-        - "Section name"
-        - "Outline context"
-        - "Relevant research docs"
-        - "Specific claims or constraints"
-      outputs:
-        - "output-drafts/sections/"
-        - "memory/section-status.yaml (updated)"
-      spec-file: "agents/core/section-drafter.yaml"
-      doc-file: "open-agents/agents/section_drafter.md"
+      - Name of the section to draft
+      - Section outline with key points
+      - Relevant research materials and citations
+      - Target word count for section
+      outputs: []
+      spec-file: agents/core/section-drafter.yaml
+      doc-file: open-agents/agents/section_drafter.md
       requires-tools: []
       requires-consent: false
-
     quality-refiner:
-      name: "Quality Refiner"
-      description: "Improves drafts for clarity, coherence, grammar, and logical flow"
-      category: "refinement"
-      role: "Editor"
+      name: Quality Refiner
+      description: Takes draft sections and progressively improves them through careful  refinement
+      category: refinement
+      role: Editor
       triggers:
-        - "refine"
-        - "improve"
-        - "polish"
+      - quality-refiner
       inputs:
-        - "Target section draft path"
-        - "Desired focus areas"
-        - "Standards flexibility"
-      outputs:
-        - "output-refined/sections/"
-        - "memory/section-status.yaml (updated)"
-      spec-file: "agents/core/quality-refiner.yaml"
-      doc-file: "open-agents/agents/quality_refiner.md"
+      - Draft section to refine
+      - Specific areas to focus refinement on
+      - Depth of refinement to apply
+      outputs: []
+      spec-file: agents/core/quality-refiner.yaml
+      doc-file: open-agents/agents/quality_refiner.md
       requires-tools: []
       requires-consent: false
-
     reference-manager:
-      name: "Reference Manager"
-      description: "Academic bibliographer - validates citations, formats Harvard style (Cite Them Right), checks bibliography completeness"
-      category: "references"
-      role: "Bibliographer"
+      name: Academic Bibliographer & Reference Specialist
+      description: Harper is a meticulous academic bibliographer who maintains the highest standards of academic integrity
+        through careful reference management
+      category: references
+      role: Bibliographer
       triggers:
-        - "refs"
-        - "references"
-        - "bibliography"
-        - "citations"
-        - "validate citations"
-        - "format bibliography"
+      - reference-manager
       inputs:
-        - "New sources or citation keys"
-        - "Desired operations (extract, validate, format, completeness)"
+      - Operation to perform
+      - Text content containing citations (for extract operation)
+      - List of LaTeX files to scan
+      - Path to BibTeX database file
+      - Specific citation keys to validate
+      - Treat warnings as errors
+      - Automatically fix simple formatting issues
+      - Format for output reports
       outputs:
-        - "latex/references/references.bib"
-        - "output-refined/references/"
-      workflows:
-        - "extract-citations"
-        - "validate-citations"
-        - "citation-completeness"
-        - "format-bibliography"
+      - latex/references/references.bib
+      - output-refined/references/
+      spec-file: agents/core/reference-manager.yaml
+      doc-file: open-agents/agents/reference_manager.md
+      requires-tools: []
+      requires-consent: false
       knowledgeBase:
-        - ".paper/_cfg/guides/harvard-citation-guide.md"
-        - ".paper/_cfg/resources/citation-rules.yaml"
-      spec-file: "agents/core/reference-manager.yaml"
-      doc-file: "open-agents/agents/reference_manager.md"
-      requires-tools:
-        - "format-references.py"
-      requires-consent: true
-
+      - .paperkit/_cfg/guides/harvard-citation-guide.md
+      - .paperkit/_cfg/resources/citation-rules.yaml
     latex-assembler:
-      name: "LaTeX Assembler"
-      description: "Integrates sections into complete LaTeX, validates, compiles to PDF"
-      category: "assembly"
-      role: "Engineer"
+      name: LaTeX Assembler
+      description: Final integration point—takes all separate sections and builds them into  a cohesive, compiled, publication-ready
+        document
+      category: assembly
+      role: Engineer
       triggers:
-        - "assemble"
-        - "build"
-        - "compile"
+      - latex-assembler
       inputs:
-        - "Refined sections status"
-        - "Bibliography status"
-        - "Build flags"
+      - List of section files to integrate
+      - Main LaTeX template file
+      - Bibliography file path
+      - LaTeX compilation options
       outputs:
-        - "latex/ (integrated)"
-        - "output-final/pdf/"
-        - "Build logs"
-      spec-file: "agents/core/latex-assembler.yaml"
-      doc-file: "open-agents/agents/latex_assembler.md"
-      requires-tools:
-        - "lint-latex.sh"
-        - "validate-structure.py"
-        - "build-latex.sh"
-      requires-consent: true
-
+      - latex/ (integrated)
+      - output-final/pdf/
+      - Build logs
+      spec-file: agents/core/latex-assembler.yaml
+      doc-file: open-agents/agents/latex_assembler.md
+      requires-tools: []
+      requires-consent: false
   specialist:
     brainstorm:
-      name: "Brainstorm Agent"
-      description: "Help generate ideas, explore possibilities, think creatively"
-      category: "ideation"
-      role: "Idea Generator"
+      name: Brainstorm Coach
+      description: Elite facilitator who leads breakthrough sessions
+      category: ideation
+      role: Idea Generator
       triggers:
-        - "brainstorm"
-        - "explore ideas"
-        - "think about"
+      - brainstorm
+      - explore ideas
+      - think about
       inputs:
-        - "Topic or problem to brainstorm"
-        - "Constraints (if any)"
-        - "Current thinking"
+      - Brainstorming topic or challenge
+      - Brainstorming technique to use
+      - Session duration in minutes
+      - Number of participants
       outputs:
-        - "planning/YYYYMMDD-[name]/brainstorm.md"
-      spec-file: "agents/specialist/brainstorm.yaml"
-      doc-file: ".copilot/agents/brainstorm.md"
+      - planning/YYYYMMDD-[name]/brainstorm.md
+      spec-file: agents/specialist/brainstorm.yaml
+      doc-file: .copilot/agents/brainstorm.md
       requires-tools: []
       requires-consent: false
-
     problem-solver:
-      name: "Problem-Solver Agent"
-      description: "Identify, analyze, and solve blockers and gaps"
-      category: "support"
-      role: "Problem Solver"
+      name: Problem Solver
+      description: Renowned problem-solver who cracks impossible challenges
+      category: support
+      role: Problem Solver
       triggers:
-        - "solve"
-        - "stuck on"
-        - "how do we handle"
+      - solve
+      - stuck on
+      - how do we handle
       inputs:
-        - "Problem or blocker description"
-        - "Context and constraints"
+      - Problem statement or challenge
+      - Additional context and constraints
+      - Solutions already tried
+      - Depth of analysis required
       outputs:
-        - "planning/YYYYMMDD-[name]/problem-solving.md"
-      spec-file: "agents/specialist/problem-solver.yaml"
-      doc-file: ".copilot/agents/problem-solver.md"
+      - planning/YYYYMMDD-[name]/problem-solver.md
+      spec-file: agents/specialist/problem-solver.yaml
+      doc-file: .copilot/agents/problem-solver.md
       requires-tools: []
       requires-consent: false
-
     tutor:
-      name: "Tutor Agent"
-      description: "Provide feedback on drafts, clarity, argument strength, academic quality"
-      category: "feedback"
-      role: "Mentor"
+      name: Review Tutor
+      description: Professor giving constructive feedback on drafts, clarity, and argument  strength
+      category: feedback
+      role: Mentor
       triggers:
-        - "tutor-feedback"
-        - "review"
-        - "feedback"
-        - "critique"
+      - tutor-feedback
+      - review
+      - feedback
+      - critique
       inputs:
-        - "Draft text or section"
-        - "Context and concerns"
+      - Draft content to review
+      - Specific aspects to focus on
+      - Depth of review requested
       outputs:
-        - "planning/YYYYMMDD-[name]/tutor-feedback.md"
-      spec-file: "agents/specialist/tutor.yaml"
-      doc-file: ".copilot/agents/tutor.md"
+      - planning/YYYYMMDD-[name]/tutor.md
+      spec-file: agents/specialist/tutor.yaml
+      doc-file: .copilot/agents/tutor.md
       requires-tools: []
       requires-consent: false
-
     librarian:
-      name: "Librarian Agent"
-      description: "Find, evaluate, organize research materials; track sources and gaps"
-      category: "research"
-      role: "Research Guide"
+      name: Research Librarian — Forensic Audit
+      description: Expert at finding, evaluating, and organizing research materials
+      category: research
+      role: Research Guide
       triggers:
-        - "librarian-research"
-        - "librarian-sources"
-        - "librarian-gaps"
-        - "find sources"
+      - librarian-research
+      - librarian-sources
+      - librarian-gaps
+      - find sources
       inputs:
-        - "Research topic or gap"
-        - "Scope and level"
+      - Research topic or question
+      - Type of sources needed
+      - Sources already collected
+      - Whether to perform gap analysis
       outputs:
-        - "planning/YYYYMMDD-[name]/research-roadmap.md"
-      spec-file: "agents/specialist/librarian.yaml"
-      doc-file: ".copilot/agents/librarian.md"
+      - planning/YYYYMMDD-[name]/research-roadmap.md
+      spec-file: agents/specialist/librarian.yaml
+      doc-file: .copilot/agents/librarian.md
       requires-tools: []
       requires-consent: false
-
   system:
     paper-system:
-      name: "Paper System Router"
-      description: "Routes commands to agents, manages consent, orchestrates workflows"
-      category: "system"
-      role: "Orchestrator"
-      spec-file: "agents/paper-system.yaml"
+      name: Paper System Router
+      description: Routes commands to agents, manages consent, orchestrates workflows
+      category: system
+      role: Orchestrator
+      spec-file: agents/paper-system.yaml
       internal: true

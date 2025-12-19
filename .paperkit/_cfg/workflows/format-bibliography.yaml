@@ -1,0 +1,88 @@
+# Format Bibliography Workflow Definition
+# Part of PaperKit Core Workflows
+
+name: format-bibliography
+displayName: Format Bibliography
+description: >
+  Generate a properly formatted bibliography from BibTeX database.
+  Applies Harvard style (Cite Them Right) formatting rules.
+version: 1.0.0
+module: core
+category: references
+path: .paperkit/core/workflows/references/format-bibliography.yaml
+
+agents:
+  - reference-manager
+
+steps:
+  - name: load-guide
+    agent: reference-manager
+    description: Load Harvard citation style guide
+
+  - name: parse-bibtex
+    agent: reference-manager
+    description: Parse all entries from BibTeX database
+
+  - name: sort-entries
+    agent: reference-manager
+    description: Sort entries alphabetically by author surname
+
+  - name: format-entries
+    agent: reference-manager
+    description: >
+      Format each entry according to its type and Harvard rules.
+      Apply proper punctuation, italics markers, and structure.
+
+  - name: generate-bibliography
+    agent: reference-manager
+    description: >
+      Generate formatted bibliography document.
+      Apply hanging indent structure.
+
+  - name: output-formats
+    agent: reference-manager
+    description: >
+      Output in requested formats (Markdown, LaTeX, plain text).
+      Save to output-refined/references/.
+
+inputSchema:
+  type: object
+  properties:
+    bibFile:
+      type: string
+      description: Path to BibTeX file
+      default: latex/references/references.bib
+    outputFormat:
+      type: string
+      description: Output format for bibliography
+      enum: [markdown, latex, text]
+      default: markdown
+    includeKeys:
+      type: array
+      description: Only include these citation keys (default all)
+      items:
+        type: string
+    excludeUnused:
+      type: boolean
+      description: Exclude entries not cited in document
+      default: false
+
+outputSchema:
+  type: object
+  properties:
+    bibliography:
+      type: string
+      description: Formatted bibliography content
+    entryCount:
+      type: integer
+      description: Number of entries in bibliography
+    outputPath:
+      type: string
+      description: Path where bibliography was saved
+
+exampleUsage:
+  - "Generate formatted bibliography"
+  - "Create Markdown bibliography for review"
+  - "Format bibliography excluding unused entries"
+
+owner: core-team
