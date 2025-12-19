@@ -1,4 +1,5 @@
 # PaperKit: Agentic Academic Paper Writing System
+[![Version](https://img.shields.io/github/v/tag/peternicholls/PaperKit?label=version&sort=semver)](VERSION)
 
 An **Open Agent System** for writing high-quality academic specification papers in LaTeX format. Ten specialized agents—coordinated through GitHub Copilot or OpenAI Codex—handle research consolidation, paper structuring, section drafting, quality refinement, reference management, and document assembly.
 
@@ -10,14 +11,27 @@ An **Open Agent System** for writing high-quality academic specification papers 
 
 ## Quick Start
 
+**Fresh install (new clone)**
+
 ```bash
 ./paperkit init
 ```
+- Interactive installer: pick IDE(s), generate IDE files, verify dependencies.
 
-This launches an interactive installer with:
-- IDE selection (GitHub Copilot, OpenAI Codex, or both)
-- Automatic file generation for your chosen IDE(s)
-- Dependency verification
+**Reinstall/repair (same repo)**
+
+```bash
+./paperkit init
+```
+- Safe to rerun; use this if you switch IDEs or want a clean reset of generated files.
+
+**Regenerate derived files only**
+
+```bash
+./paperkit generate --check   # see what is out of date
+./paperkit generate           # regenerate Copilot+Codex files
+```
+- Use after editing `.paperkit/` sources to sync `.github/agents/` and `.codex/prompts/`.
 
 For detailed setup, see [Installation](#installation)
 
