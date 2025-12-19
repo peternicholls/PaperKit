@@ -114,8 +114,8 @@ def main():
     parser.add_argument('--agent', help='Validate specific agent only')
     parser.add_argument('--verbose', action='store_true', help='Show detailed information')
     parser.add_argument('--ci', action='store_true', help='CI mode: exit with error on failure')
-    parser.add_argument('--schema', help='Path to JSON Schema file (default: .paper/_cfg/schemas/agent-schema.json)')
-    parser.add_argument('--agents-dir', help='Path to agents directory (default: .paper/_cfg/agents)')
+    parser.add_argument('--schema', help='Path to JSON Schema file (default: .paperkit/_cfg/schemas/agent-schema.json)')
+    parser.add_argument('--agents-dir', help='Path to agents directory (default: .paperkit/_cfg/agents)')
     args = parser.parse_args()
     
     # Paths - support environment variables and command-line overrides
@@ -125,13 +125,13 @@ def main():
         schema_path = Path(args.schema)
     else:
         schema_path = Path(os.getenv('PAPERKIT_SCHEMA_PATH', 
-                                     repo_root / ".paper" / "_cfg" / "schemas" / "agent-schema.json"))
+                                     repo_root / ".paperkit" / "_cfg" / "schemas" / "agent-schema.json"))
     
     if args.agents_dir:
         agents_dir = Path(args.agents_dir)
     else:
         agents_dir = Path(os.getenv('PAPERKIT_AGENTS_DIR',
-                                    repo_root / ".paper" / "_cfg" / "agents"))
+                                    repo_root / ".paperkit" / "_cfg" / "agents"))
     
     print("Agent Schema Validation")
     print("=" * 70)
