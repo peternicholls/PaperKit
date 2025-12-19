@@ -29,16 +29,27 @@ Usage:
   paperkit <command> [options]
 
 Commands:
-  init        Initialize a new paperkit project in current directory
-  version     Show version information
-  help        Show this help message
+  init                 Initialize a new paperkit project in current directory
+  generate [--target]  Generate IDE files from .paperkit/ source of truth
+  validate             Validate agent/workflow/tool schemas
+  version              Show version information
+  help                 Show this help message
+
+Generate options:
+  --target=copilot     Generate GitHub Copilot agents only
+  --target=codex       Generate OpenAI Codex prompts only
+  --target=all         Generate for all IDEs (default)
+  --check              Check if files are up to date without generating
 
 Examples:
-  paperkit init       # Initialize paperkit in current directory
-  paperkit version    # Show version
-  paperkit help       # Show this help
+  paperkit init                    # Initialize paperkit in current directory
+  paperkit generate                # Regenerate all IDE files
+  paperkit generate --target=copilot  # Regenerate Copilot agents only
+  paperkit generate --check        # Check if IDE files need updating
+  paperkit version                 # Show version
+  paperkit help                    # Show this help
 
-For more information, visit the documentation in .paper/docs/
+For more information, visit the documentation in .paperkit/docs/
 EOF
 }
 
@@ -56,14 +67,94 @@ init_project() {
         fi
     fi
     
-    # Run the installer
+    # Run the installer (prefer v2 if available)
     SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-    if [ -f "$SCRIPT_DIR/paperkit-install.sh" ]; then
+    if [ -f "$SCRIPT_DIR/paperkit-install-v2.sh" ]; then
+        "$SCRIPT_DIR/paperkit-install-v2.sh"
+    elif [ -f "$SCRIPT_DIR/paperkit-install.sh" ]; then
         "$SCRIPT_DIR/paperkit-install.sh"
     else
-        echo -e "${RED}Error: paperkit-install.sh not found.${NC}"
+        echo -e "${RED}Error: paperkit installer not found.${NC}"
         echo "Make sure you have the complete paperkit distribution."
         exit 1
+    fi
+}
+
+# Generate IDE files
+generate_ide_files() {
+    SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+    
+    if [ -f "$SCRIPT_DIR/paperkit-generate.sh" ]; then
+        "$SCRIPT_DIR/paperkit-generate.sh" "$@"
+    else
+        echo -e "${RED}Error: paperkit-generate.sh not found.${NC}"
+        exit 1
+    fi
+}
+
+# Validate schemas
+validate_schemas() {
+    SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+    
+    # Check .paper directory exists
+    if [ ! -d ".paper" ]; then
+        echo -e "${YELLOW}⚠ .paperkit/ directory not found. Run 'paperkit init' first.${NC}"
+        exit 1
+    fi
+    
+    # Prefer Python validator if available and dependencies are met
+    if [ -f "$SCRIPT_DIR/paperkit-validate.py" ]; then
+        # Check if required Python packages are available
+        if python3 -c "import yaml, jsonschema" 2>/dev/null; then
+            python3 "$SCRIPT_DIR/paperkit-validate.py" "$@"
+            return $?
+        else
+            echo -e "${YELLOW}Note: Install 'pyyaml' and 'jsonschema' for full schema validation:${NC}"
+            echo "  pip install pyyaml jsonschema"
+            echo ""
+        fi
+    fi
+    
+    # Fallback to basic validation
+    echo -e "${BLUE}Validating PaperKit schemas (basic mode)...${NC}"
+    local has_errors=false
+    
+    # Check for validation tools (prefer .paperkit/tools/, fall back to legacy)
+    local validate_script=""
+    if [ -f "$SCRIPT_DIR/.paperkit/tools/validate-structure.py" ]; then
+        validate_script="$SCRIPT_DIR/.paperkit/tools/validate-structure.py"
+    elif [ -f "$SCRIPT_DIR/open-agents/tools/validate-structure.py" ]; then
+        validate_script="$SCRIPT_DIR/open-agents/tools/validate-structure.py"
+    fi
+    
+    if [ -n "$validate_script" ] && python3 -c "import yaml" 2>/dev/null; then
+        echo "Running structure validation..."
+        python3 "$validate_script" || has_errors=true
+    fi
+    
+    # Basic checks
+    echo "Checking agent definitions..."
+    local agent_count=0
+    for f in .paperkit/core/agents/*.md .paperkit/specialist/agents/*.md; do
+        [ -f "$f" ] && ((agent_count++))
+    done
+    echo -e "${GREEN}✓ Found $agent_count agent definitions${NC}"
+    
+    echo "Checking manifests..."
+    for manifest in .paperkit/_cfg/agent-manifest.yaml .paperkit/_cfg/workflow-manifest.yaml .paperkit/_cfg/tool-manifest.yaml; do
+        if [ -f "$manifest" ]; then
+            echo -e "${GREEN}✓ $(basename $manifest) exists${NC}"
+        else
+            echo -e "${YELLOW}⚠ $(basename $manifest) missing${NC}"
+        fi
+    done
+    
+    if $has_errors; then
+        echo -e "${RED}Validation completed with errors.${NC}"
+        exit 1
+    else
+        echo -e "${GREEN}✓ Basic validation complete${NC}"
+        echo -e "${YELLOW}Install 'pyyaml' and 'jsonschema' for full JSON schema validation.${NC}"
     fi
 }
 
@@ -71,6 +162,13 @@ init_project() {
 case "${1:-help}" in
     init)
         init_project
+        ;;
+    generate)
+        shift
+        generate_ide_files "$@"
+        ;;
+    validate)
+        validate_schemas
         ;;
     version|--version|-v)
         show_version

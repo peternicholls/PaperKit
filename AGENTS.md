@@ -1,4 +1,4 @@
-**CRITICAL: Read `.paper/docs/github-copilot-instructions.md` for GitHub Copilot or `.paper/docs/codex-instructions.md` for OpenAI Codex.**
+**CRITICAL: Read `.paperkit/docs/github-copilot-instructions.md` for GitHub Copilot or `.paperkit/docs/codex-instructions.md` for OpenAI Codex.**
 
 ---
 
@@ -12,6 +12,12 @@ This project uses a complete **Open Agent System** for planning, researching, st
 1. Open Copilot Chat
 2. Select agent from dropdown (e.g., `paper-architect`)
 3. Agent activates and presents menu
+
+### 🧭 Source of Truth
+
+- **Canonical definitions** live in `.paperkit/` (agents, workflows, tools, guides).
+- **Derived layers** (.github/agents, .codex/prompts, AGENTS.md, COPILOT.md) mirror `.paper`.
+- **Edit only in `.paper`**; regenerate or sync external layers to avoid drift.
 
 **For OpenAI Codex:**
 1. Type `/paper-` to see available prompts
@@ -38,19 +44,19 @@ This project uses a complete **Open Agent System** for planning, researching, st
 | 🧠 **Brainstorm Coach** | Carson | Creative ideation and exploration | `paper-brainstorm` |
 | 🔬 **Problem Solver** | Quinn | Analyze blockers and find solutions | `paper-problem-solver` |
 | 🎓 **Review Tutor** | Sage | Constructive feedback on drafts | `paper-tutor` |
-| 📖 **Research Librarian** | Ellis | Find and organize sources | `paper-librarian` |
+| 📖 **Research Librarian** | Ellis | Forensic audit: extract quotable evidence with section mapping | `paper-librarian` |
 
 ### 📊 Quick Reference Table
 
 | You say... | Agent | Output Location |
 |-----------|-------|-----------------|
-| "Research X" | Research Consolidator | `.paper/data/output-refined/research/` |
-| "Outline the paper" | Paper Architect | `.paper/data/output-drafts/outlines/` |
-| "Draft section Y" | Section Drafter | `.paper/data/output-drafts/sections/` |
-| "Refine this" | Quality Refiner | `.paper/data/output-refined/sections/` |
+| "Research X" | Research Consolidator | `.paperkit/data/output-refined/research/` |
+| "Outline the paper" | Paper Architect | `.paperkit/data/output-drafts/outlines/` |
+| "Draft section Y" | Section Drafter | `.paperkit/data/output-drafts/sections/` |
+| "Refine this" | Quality Refiner | `.paperkit/data/output-refined/sections/` |
 | "Validate citations" | Reference Manager | `latex/references/references.bib` |
-| "Format bibliography" | Reference Manager | `.paper/data/output-refined/references/` |
-| "Build the document" | LaTeX Assembler | `.paper/data/output-final/pdf/` |
+| "Format bibliography" | Reference Manager | `.paperkit/data/output-refined/references/` |
+| "Build the document" | LaTeX Assembler | `.paperkit/data/output-final/pdf/` |
 | "Brainstorm ideas" | Brainstorm Coach | `planning/YYYYMMDD-[name]/` |
 | "I'm stuck on..." | Problem Solver | `planning/YYYYMMDD-[name]/` |
 | "Review this draft" | Review Tutor | `planning/YYYYMMDD-[name]/` |
@@ -59,7 +65,7 @@ This project uses a complete **Open Agent System** for planning, researching, st
 ### 📁 Directory Structure
 
 ```
-.paper/                           ← Main agent system container
+.paperkit/                           ← Main agent system container
 ├── _cfg/                         ← Configuration and manifests
 │   ├── manifest.yaml            ← System version info
 │   ├── agent-manifest.yaml      ← All agents catalog
@@ -79,6 +85,12 @@ This project uses a complete **Open Agent System** for planning, researching, st
 ├── specialist/                   ← Support agents module
 │   ├── config.yaml
 │   └── agents/
+│
+├── tools/                        ← Tool implementations
+│   ├── build-latex.sh
+│   ├── lint-latex.sh
+│   ├── extract-evidence.sh
+│   └── *.py
 │
 ├── docs/                         ← IDE instructions
 │   ├── github-copilot-instructions.md
@@ -100,7 +112,7 @@ latex/                            ← Final LaTeX document
 ├── sections/
 └── references/
 
-open-agents/                      ← Legacy system (preserved)
+open-agents/                      ← Legacy system (deprecated)
 ```
 
 ### 🎯 Typical Workflow
@@ -124,13 +136,16 @@ open-agents/                      ← Legacy system (preserved)
 
 ```bash
 # Build and compile LaTeX document
-./open-agents/tools/build-latex.sh
+./.paperkit/tools/build-latex.sh
 
 # Check LaTeX syntax before compilation
-./open-agents/tools/lint-latex.sh
+./.paperkit/tools/lint-latex.sh
 
 # Validate paper structure
-python3 ./open-agents/tools/validate-structure.py
+python3 ./.paperkit/tools/validate-structure.py
+
+# Extract evidence from PDFs (forensic audit)
+./.paperkit/tools/extract-evidence.sh <pdf_dir> <output_md> [terms...]
 ```
 
 ### 📚 Citation Workflows
@@ -144,16 +159,26 @@ The Reference Manager (Harper) supports comprehensive citation management:
 | `citation-completeness` | Check all required BibTeX fields |
 | `format-bibliography` | Format bibliography in Harvard style |
 
+### 🧪 Forensic Audit Protocol (Rigor)
+
+- Apply PhD-level rigor across agents; revisit previously processed sources to uncover deeper quotes, validations, and philosophical framing.
+- Prioritize quantitative anchors and exact quotations with page numbers.
+- Map every extracted finding to paper sections (§02–§12).
+- Artifact paths for audited materials:
+    - `open-agents/planning/20251218-group-tutor-reviews/tasks-artifacts`
+    - `open-agents/planning/20251218-group-tutor-reviews/research-artifacts`
+- Tooling: `open-agents/tools/extract-evidence.sh` for batch `pdftotext` + `grep` extraction.
+
 ### 📖 Documentation
 
 | Document | Purpose |
 |----------|---------|
-| `.paper/docs/github-copilot-instructions.md` | VS Code Copilot usage |
-| `.paper/docs/codex-instructions.md` | OpenAI Codex usage |
-| `.paper/_cfg/agent-manifest.yaml` | Complete agent catalog |
-| `.paper/_cfg/workflow-manifest.yaml` | Complete workflow catalog |
-| `.paper/_cfg/tool-manifest.yaml` | Complete tool catalog |
-| `.paper/_cfg/guides/harvard-citation-guide.md` | Harvard citation style guide |
+| `.paperkit/docs/github-copilot-instructions.md` | VS Code Copilot usage |
+| `.paperkit/docs/codex-instructions.md` | OpenAI Codex usage |
+| `.paperkit/_cfg/agent-manifest.yaml` | Complete agent catalog |
+| `.paperkit/_cfg/workflow-manifest.yaml` | Complete workflow catalog |
+| `.paperkit/_cfg/tool-manifest.yaml` | Complete tool catalog |
+| `.paperkit/_cfg/guides/harvard-citation-guide.md` | Harvard citation style guide |
 | `SYSTEM-PLANNING/SYSTEM_GUIDE.md` | System overview |
 | `open-agents/INSTRUCTIONS.md` | Legacy full documentation |
 

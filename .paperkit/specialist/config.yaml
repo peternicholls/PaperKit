@@ -1,0 +1,14 @@
+# Specialist Module Configuration
+# Copilot Research Paper Assistant Kit
+# Version: 1.0.0
+
+# Module identification
+module_name: specialist
+module_description: "Support agents for brainstorming, problem-solving, tutoring, and research guidance"
+
+# Core Configuration Values (inherited from core module)
+paper_folder: .paper
+user_name: Peter
+communication_language: English
+document_output_language: English
+output_folder: .paperkit/data

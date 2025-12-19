@@ -1,0 +1,70 @@
+# Review Draft Workflow Definition
+# Part of PaperKit Specialist Workflows
+
+name: review-draft
+displayName: Review Draft
+description: Tutor feedback on draft quality
+version: 1.0.0
+module: specialist
+category: tutor
+path: .paperkit/specialist/workflows/tutor/review.yaml
+
+agents:
+  - tutor
+
+steps:
+  - name: read-draft
+    agent: tutor
+    description: Read and understand the draft
+  - name: assess-quality
+    agent: tutor
+    description: Assess overall quality and structure
+  - name: identify-issues
+    agent: tutor
+    description: Identify specific issues and weaknesses
+  - name: provide-feedback
+    agent: tutor
+    description: Provide constructive feedback and suggestions
+
+inputSchema:
+  type: object
+  properties:
+    content:
+      type: string
+      description: Draft content to review
+    focusAreas:
+      type: array
+      description: Specific areas to focus feedback on
+      items:
+        type: string
+    level:
+      type: string
+      description: Level of detail for feedback
+      enum: [high-level, detailed, comprehensive]
+      default: detailed
+
+outputSchema:
+  type: object
+  properties:
+    overallAssessment:
+      type: string
+      description: High-level quality assessment
+    strengths:
+      type: array
+      description: Identified strengths
+      items:
+        type: string
+    improvements:
+      type: array
+      description: Suggested improvements
+      items:
+        type: object
+    grade:
+      type: string
+      description: Quality grade (A-F)
+
+exampleUsage:
+  - "Review introduction draft"
+  - "Provide detailed feedback on methodology section"
+
+owner: specialist-team

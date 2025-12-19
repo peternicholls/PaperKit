@@ -1,0 +1,123 @@
+# Citation Completeness Workflow Definition
+# Part of PaperKit Core Workflows
+
+name: citation-completeness
+displayName: Check Citation Completeness
+description: >
+  Verify all BibTeX entries have complete information for their type.
+  Checks required and recommended fields per entry type according
+  to Harvard style requirements.
+version: 1.0.0
+module: core
+category: references
+path: .paperkit/core/workflows/references/citation-completeness.yaml
+
+agents:
+  - reference-manager
+
+steps:
+  - name: load-rules
+    agent: reference-manager
+    description: Load entry type requirements from citation-rules.yaml
+
+  - name: parse-bibtex
+    agent: reference-manager
+    description: Parse all entries from BibTeX database
+
+  - name: check-required-fields
+    agent: reference-manager
+    description: >
+      For each entry, verify all required fields are present.
+      Required fields vary by entry type (article, book, etc.).
+
+  - name: check-recommended-fields
+    agent: reference-manager
+    description: >
+      Check for recommended fields that improve citation quality.
+      DOI for articles, publisher location for books, etc.
+
+  - name: validate-field-format
+    agent: reference-manager
+    description: >
+      Verify field values follow Harvard format requirements.
+      Author names, date formats, title capitalization.
+
+  - name: check-online-sources
+    agent: reference-manager
+    description: >
+      Ensure online sources have URLs and access dates.
+      Verify URL format is complete.
+
+  - name: generate-report
+    agent: reference-manager
+    description: >
+      Generate completeness report organized by entry.
+      List missing required fields, missing recommended fields,
+      and format issues.
+
+inputSchema:
+  type: object
+  properties:
+    bibFile:
+      type: string
+      description: Path to BibTeX file
+      default: latex/references/references.bib
+    checkKeys:
+      type: array
+      description: "Specific citation keys to check (default: all)"
+      items:
+        type: string
+    strictMode:
+      type: boolean
+      description: Include recommended fields in error count
+      default: false
+
+outputSchema:
+  type: object
+  properties:
+    complete:
+      type: boolean
+      description: Whether all entries are complete
+    entries:
+      type: array
+      description: Status of each entry
+      items:
+        type: object
+        properties:
+          key:
+            type: string
+          type:
+            type: string
+          status:
+            type: string
+            enum: [complete, incomplete, warnings]
+          missingRequired:
+            type: array
+            items:
+              type: string
+          missingRecommended:
+            type: array
+            items:
+              type: string
+          formatIssues:
+            type: array
+            items:
+              type: string
+    statistics:
+      type: object
+      properties:
+        totalEntries:
+          type: integer
+        completeEntries:
+          type: integer
+        incompleteEntries:
+          type: integer
+        completionRate:
+          type: number
+
+exampleUsage:
+  - "Check if all bibliography entries are complete"
+  - "Verify specific citation has all required fields"
+  - "Find entries missing DOIs"
+
+owner: core-team

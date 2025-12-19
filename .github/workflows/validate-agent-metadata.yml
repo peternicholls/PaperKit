@@ -3,15 +3,15 @@ name: Validate Agent Metadata
 on:
   push:
     paths:
-      - '.paper/_cfg/agents/*.yaml'
-      - '.paper/_cfg/schemas/agent-schema.json'
-      - '.paper/_cfg/agent-manifest.yaml'
+      - '.paperkit/_cfg/agents/*.yaml'
+      - '.paperkit/_cfg/schemas/agent-schema.json'
+      - '.paperkit/_cfg/agent-manifest.yaml'
       - 'open-agents/tools/validate-agent-schema.py'
   pull_request:
     paths:
-      - '.paper/_cfg/agents/*.yaml'
-      - '.paper/_cfg/schemas/agent-schema.json'
-      - '.paper/_cfg/agent-manifest.yaml'
+      - '.paperkit/_cfg/agents/*.yaml'
+      - '.paperkit/_cfg/schemas/agent-schema.json'
+      - '.paperkit/_cfg/agent-manifest.yaml'
       - 'open-agents/tools/validate-agent-schema.py'
 
 jobs:
@@ -47,7 +47,7 @@ jobs:
           import yaml
           from pathlib import Path
           
-          manifest_path = Path('.paper/_cfg/agent-manifest.yaml')
+          manifest_path = Path('.paperkit/_cfg/agent-manifest.yaml')
           with open(manifest_path) as f:
               manifest = yaml.safe_load(f)
           

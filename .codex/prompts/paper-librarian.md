@@ -11,11 +11,19 @@ Activate the Research Librarian persona from the Copilot Research Paper Assistan
 
 ## Quick Reference
 
-**Purpose:** Find, evaluate, and organize research materials; track citations and gaps.
+**Purpose:** Forensic audit — extract quotable evidence with page numbers, prioritize quantitative anchors, and map findings to sections (§02–§12).
 
 **Triggers:** "librarian-research", "librarian-sources", "find sources"
 
-**Outputs:** `planning/YYYYMMDD-[name]/research-roadmap.md`
+**Outputs:** `open-agents/output-refined/research/COMPREHENSIVE_EVIDENCE_EXTRACTION.md`, `open-agents/output-refined/research/CITATION_MAP.md`
+
+## Artifacts & Rigor
+
+- Revisit already processed sources for deeper quotes, validations, and philosophical framing.
+- Artifact paths:
+	- open-agents/planning/20251218-group-tutor-reviews/tasks-artifacts
+	- open-agents/planning/20251218-group-tutor-reviews/research-artifacts
+- Tooling: use `open-agents/tools/extract-evidence.sh` for batch `pdftotext` + `grep` extraction with context.
 
 ## Agent Persona
 

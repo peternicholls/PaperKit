@@ -1,0 +1,137 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://paperkit.dev/schemas/workflow-schema.json",
+  "title": "PaperKit Workflow Definition Schema",
+  "description": "JSON Schema for validating PaperKit workflow metadata definitions",
+  "type": "object",
+  "required": [
+    "name",
+    "displayName",
+    "description",
+    "module",
+    "path"
+  ],
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Machine identifier (kebab-case, used in code/configs)",
+      "pattern": "^[a-z][a-z0-9-]*$"
+    },
+    "displayName": {
+      "type": "string",
+      "description": "Human-readable name for UI display"
+    },
+    "description": {
+      "type": "string",
+      "description": "Detailed description of what the workflow does"
+    },
+    "version": {
+      "type": "string",
+      "description": "Semantic version of the workflow definition",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$",
+      "default": "1.0.0"
+    },
+    "module": {
+      "type": "string",
+      "description": "Module the workflow belongs to (e.g., 'core', 'specialist')",
+      "enum": [
+        "core",
+        "specialist"
+      ]
+    },
+    "category": {
+      "type": "string",
+      "description": "Workflow category (e.g., 'research', 'planning', 'drafting', 'refinement')",
+      "enum": [
+        "research",
+        "planning",
+        "drafting",
+        "refinement",
+        "references",
+        "assembly",
+        "brainstorm",
+        "problem-solving",
+        "tutor",
+        "librarian"
+      ]
+    },
+    "path": {
+      "type": "string",
+      "description": "Path to workflow definition file",
+      "pattern": "^\\.paperkit/(core|specialist)/workflows/[a-z][a-z0-9-/]*\\.yaml$"
+    },
+    "agents": {
+      "type": "array",
+      "description": "List of agents involved in this workflow",
+      "items": {
+        "type": "string"
+      }
+    },
+    "steps": {
+      "type": "array",
+      "description": "Ordered list of workflow steps",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "agent": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "inputSchema": {
+      "type": "object",
+      "description": "JSON Schema for expected input format",
+      "properties": {
+        "type": {
+          "type": "string"
+        },
+        "properties": {
+          "type": "object"
+        },
+        "required": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "outputSchema": {
+      "type": "object",
+      "description": "JSON Schema for expected output format",
+      "properties": {
+        "type": {
+          "type": "string"
+        },
+        "properties": {
+          "type": "object"
+        },
+        "required": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "exampleUsage": {
+      "type": "array",
+      "description": "Example workflow invocations",
+      "items": {
+        "type": "string"
+      }
+    },
+    "owner": {
+      "type": "string",
+      "description": "Team or person responsible for maintaining this workflow"
+    }
+  },
+  "additionalProperties": false
+}

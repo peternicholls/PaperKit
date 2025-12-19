@@ -16,6 +16,8 @@ An **Open Agent System** for planning, researching, structuring, drafting, refin
 8. [Managing the System](#managing-the-system)
 9. [Git Commit Protocol](#git-commit-protocol)
 10. [File Naming Conventions](#file-naming-conventions)
+11. [Forensic Audit Protocol](#forensic-audit-protocol)
+12. [Citation Workflows](#citation-workflows)
 
 ---
 
@@ -54,9 +56,92 @@ User: "/paper draft introduction"
          ↓
     AGENTS.md (entry point with read directive)
          ↓
-    open-agents/INSTRUCTIONS.md (this file—agent index)
+        ## Forensic Audit Protocol
+
+        ### Mission
+        Provide PhD-level rigor in extracting and documenting evidence from all collected PDFs and sources. Every claim in the paper should be traceable to a quotable finding with section mapping and Harvard-style citation.
+
+        ### Academic Integrity Standards
+        - Never fabricate: Only cite sources you have actually collected/read
+        - Direct quotation: Use exact quotes with quotation marks and page numbers where available
+        - Harvard citation: Author-date in-text citations; complete BibTeX entries
+        - Source verification: Prefer open access; confirm accessibility before extraction
+
+        ### Extraction Methodology
+        1. Inventory first: List ALL available PDFs before extraction
+        2. Systematic coverage: Process each source methodically; do not cherry-pick
+        3. Tool-assisted extraction: Use `pdftotext` + `grep` with context flags (`-A 10 -B 3`)
+        4. Context preservation: Include surrounding sentences for proper interpretation
+        5. Section mapping: Map each finding to specific paper sections (§02–§12)
+        6. BibTeX entries: Create/update entries for every new source cited
+        7. Document gaps: Explicitly note missing evidence for any claim
+
+        ### Document Search Protocol
+        - Timeouts: Set maximum search iterations when fetching documents online
+        - Boundaries: Define a max number of attempts before escalating to manual retrieval
+        - Terminal downloads: Prefer `wget` or `curl` for controlled retries and integrity checks
+        - Verify content: Confirm file integrity and format before adding to inventory
+
+        ### Search Efficiency Guidelines
+        - Pre-filter targets: Prefer academic databases (arXiv, institutional repos)
+        - Log queries: Record search terms and failed searches to avoid duplication
+        - Cache successes: Maintain a record of source locations for quick re-access
+        - Escalate blocks: If not locatable after three attempts, flag for manual intervention
+        - Check access: Confirm open-access or institutional access before extraction
+
+        ### Tools
+        - `open-agents/tools/extract-evidence.sh` — batch `pdftotext` + `grep` with context capture
+        - `open-agents/tools/lint-latex.sh` — validate LaTeX syntax before compilation
+        - `open-agents/tools/validate-structure.py` — validate paper section integrity
+
+        ### Outputs
+        - `open-agents/output-refined/research/COMPREHENSIVE_EVIDENCE_EXTRACTION.md`
+        - `open-agents/output-refined/research/CITATION_MAP.md`
+        - Updated `latex/references/references.bib` (via Reference Manager)
+
+        ### Quality Checklist
+        - [ ] Inventory all sources before extraction
+        - [ ] Use exact quotes with page numbers where available
+        - [ ] Map findings to sections (§02–§12)
+        - [ ] Maintain Harvard citation format
+        - [ ] Note gaps explicitly; do not hide missing evidence
+        - [ ] Add/validate BibTeX entries as you go
+        - [ ] Update citation map with each finding
+        - [ ] Produce handoff document for next agent
+
+        ---
+
+        ## Citation Workflows
+
+        These workflows are executed by the Reference Manager and integrated across agents:
+
+        - extract-citations: Parse LaTeX and markdown to extract all citations and direct quotes
+        - validate-citations: Verify all citations match `references.bib` and appear in text
+        - citation-completeness: Check required BibTeX fields per source type
+        - format-bibliography: Generate Harvard-style bibliography in `output-refined/references/`
+
+        Integration points:
+        - Section Drafter inserts `\cite{}` placeholders; Reference Manager resolves
+        - Research Librarian adds/updates BibTeX entries during extraction
+        - LaTeX Assembler validates that all citations resolve during build
+        
+        ---
+        
+        ## Artifacts & Rigor
+        
+        Agents should consistently apply PhD-level rigor and leverage existing research artifacts across the project:
+        
+        - Primary artifact locations:
+          - open-agents/planning/20251218-group-tutor-reviews/tasks-artifacts
+          - open-agents/planning/20251218-group-tutor-reviews/research-artifacts
+        - When documents are renamed or moved (e.g., into tasks-artifacts), agents must update their inventories and continue processing—do not skip prior work.
+        - Revisit previously reviewed sources as needed; deeper quotes, validations, and philosophical framing often emerge on second pass.
+        - Maintain section mapping (§02–§12) for every extracted finding and enforce Harvard citation style, including page numbers for direct quotes.
+        
+        These practices apply to Research Librarian, Research Consolidator, Section Drafter, Quality Refiner, and Reference Manager.
+
          ↓
-    open-agents/agents/drafter.md (full agent definition—loaded on demand)
+    .paper/core/agents/section-drafter.md (full agent definition—loaded on demand)
          ↓
     Agent executes, produces output, updates memory
 ```
@@ -72,7 +157,9 @@ This three-layer architecture:
 |-------|------|------|
 | Entry | `AGENTS.md` | Quick reference, tool detection, pointer to instructions |
 | Index | `open-agents/INSTRUCTIONS.md` | This file—agent catalog, routing, workflow documentation |
-| Agents | `open-agents/agents/*.md` | Full agent definitions; behavioral specifications; examples |
+| Agents | `.paper/core/agents/*.md` and `.paper/specialist/agents/*.md` | Full agent definitions (canonical source of truth) |
+
+> **Note:** Legacy agent files in `open-agents/agents/` are deprecated. See `.paper/` for canonical definitions.
 
 ---
 
@@ -85,19 +172,41 @@ open-agents/
 ├── README.md                    # Human-readable system intro
 ├── INSTRUCTIONS.md              # This file—full documentation
 │
-├── agents/                      # Agent definitions
-│   ├── research_consolidator.md
-│   ├── paper_architect.md
-│   ├── section_drafter.md
-│   ├── quality_refiner.md
-│   ├── reference_manager.md
-│   └── latex_assembler.md
+├── agents/                      # ⚠️ DEPRECATED - see .paper/
+│   └── DEPRECATED.md            # Migration notice
 │
 ├── tools/                       # Scripts and tools
 │   ├── build-latex.sh          # LaTeX compilation script
 │   ├── validate-structure.py   # Paper structure validator
 │   ├── lint-latex.sh           # LaTeX syntax checking
-│   └── format-references.py    # Reference formatter (Harvard)
+│   ├── format-references.py    # Reference formatter (Harvard)
+│   └── extract-evidence.sh     # Forensic audit extraction
+```
+
+### Canonical Agent Definitions (.paper/)
+
+```
+.paper/
+├── core/agents/                 # Core paper writing agents
+│   ├── latex-assembler.md
+│   ├── paper-architect.md
+│   ├── quality-refiner.md
+│   ├── reference-manager.md
+│   ├── research-consolidator.md
+│   └── section-drafter.md
+│
+├── specialist/agents/           # Support agents
+│   ├── brainstorm.md
+│   ├── librarian.md
+│   ├── problem-solver.md
+│   └── tutor.md
+│
+├── _cfg/                        # Configuration and manifests
+│   ├── agents/                  # YAML agent metadata
+│   ├── workflows/               # Workflow definitions
+│   ├── tools/                   # Tool definitions
+│   └── guides/                  # Style guides
+```
 │
 ├── memory/                      # System memory (created automatically)
 │   ├── paper-metadata.yaml      # Paper title, scope, goals
@@ -326,6 +435,25 @@ latex/
 ---
 
 ## Routing Logic
+ 
+### 7. Research Librarian (`agents/research_librarian.md`)
+
+**Purpose:** Conduct comprehensive, systematic evidence extraction from collected PDFs and sources, ensuring academic integrity and providing exhaustive quotable findings mapped to paper sections.
+
+**When to use:**
+- User requests an audit of collected sources or “extract all evidence”
+- Gaps remain for claims requiring direct quotations or quantitative anchors
+- Need to inventory sources, verify accessibility, and standardize extraction outputs
+
+**Input:** PDFs and source files under `open-agents/source/reference-materials/` or user-provided paths
+
+**Output:**
+- Exhaustive evidence documents in `open-agents/output-refined/research/`
+- Updated `latex/references/references.bib` via Reference Manager
+- Citation map and audit report files in `open-agents/output-refined/research/`
+
+See full agent spec in [.paper/specialist/agents/librarian.md](.paper/specialist/agents/librarian.md).
+
 
 | User says... | Agent to Use | Output Location |
 |--------------|--------------|-----------------|
@@ -440,26 +568,27 @@ The `build-latex.sh` tool automates this.
 
 ## Managing the System
 
+> **Important:** Agent definitions now live in `.paper/`. The `open-agents/agents/` directory is deprecated.
+
 ### Adding a New Agent
 
-1. Create `open-agents/agents/{name}.md` following the anatomy template
-2. Create command in `.claude/commands/paper/{command}.md`
-3. Add to "Available Agents" section above
-4. Add routing entry
-5. Commit
+1. Create `.paper/core/agents/{name}.md` or `.paper/specialist/agents/{name}.md` following the anatomy template
+2. Create invocation command in your IDE agent system (Copilot Chat/Codex prompt) or run `paperkit generate`
+3. Add to agent manifest in `.paper/_cfg/agent-manifest.yaml`
+4. Commit
 
 ### Editing an Agent
 
-1. Locate `open-agents/agents/{name}.md`
+1. Locate `.paper/core/agents/{name}.md` or `.paper/specialist/agents/{name}.md`
 2. Modify behaviors, update output locations if needed
-3. Update routing table if triggers change
+3. Run `paperkit generate` to update IDE-specific files
 4. Commit
 
 ### Removing an Agent
 
-1. Delete `open-agents/agents/{name}.md`
-2. Delete associated command file
-3. Remove from "Available Agents" and routing table
+1. Delete the agent file from `.paper/core/agents/` or `.paper/specialist/agents/`
+2. Remove from `.paper/_cfg/agent-manifest.yaml`
+3. Run `paperkit generate` to clean up IDE files
 4. Commit
 
 ---

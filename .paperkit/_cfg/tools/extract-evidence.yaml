@@ -1,0 +1,86 @@
+# Extract Evidence Tool Definition
+# Part of PaperKit Tool Collection
+
+name: extract-evidence
+displayName: Extract Evidence (Forensic Audit)
+description: Batch extract quotable evidence from sources using pdftotext + grep with context
+version: 1.0.0
+path: .paperkit/tools/extract-evidence.sh
+requiresConsent: true
+
+capabilities:
+  - Convert PDFs to text via pdftotext
+  - Search for patterns with context using grep
+  - Generate comprehensive evidence reports with section mapping flags
+  - Support artifact-aware scanning (tasks-artifacts and research-artifacts)
+
+constraints:
+  - Requires `pdftotext` (poppler) and `grep`
+  - Static text extraction; does not interpret semantics
+  - Large repositories may require filtered scopes to perform well
+
+dependencies:
+  - pdftotext
+  - grep
+
+inputSchema:
+  type: object
+  properties:
+    sourcesDir:
+      type: string
+      description: Root directory containing source PDFs or text artifacts
+      default: open-agents/planning/20251218-group-tutor-reviews
+    artifactDirs:
+      type: array
+      description: Specific artifact subdirectories to include
+      items:
+        type: string
+      default:
+        - open-agents/planning/20251218-group-tutor-reviews/tasks-artifacts
+        - open-agents/planning/20251218-group-tutor-reviews/research-artifacts
+    outputFile:
+      type: string
+      description: Path for comprehensive evidence report
+      default: open-agents/planning/20251218-group-tutor-reviews/tasks-artifacts/COMPREHENSIVE_EVIDENCE_EXTRACTION.md
+    patterns:
+      type: array
+      description: List of search patterns (regex supported)
+      items:
+        type: string
+      default:
+        - "\b(result|findings|experiment|evaluation)\b"
+        - "\b(quote|\u201c|\u201d)\b"
+        - "\b(p-value|statistically significant|CI|confidence interval)\b"
+    contextLines:
+      type: integer
+      description: Number of context lines to include around matches
+      default: 2
+    sectionMapping:
+      type: string
+      description: Optional path to section mapping file (e.g., §02–§12)
+      default: .paperkit/data/output-drafts/outlines/SECTION_MAP.md
+
+outputSchema:
+  type: object
+  properties:
+    reportPath:
+      type: string
+      description: Path to generated evidence report
+    sourcesScanned:
+      type: integer
+      description: Number of files scanned
+    matchesFound:
+      type: integer
+      description: Number of pattern matches found
+    errors:
+      type: array
+      description: List of errors encountered
+      items:
+        type: string
+
+exampleUsage:
+  - "./.paperkit/tools/extract-evidence.sh"
+  - "./.paperkit/tools/extract-evidence.sh --sources=open-agents/planning/20251218-group-tutor-reviews"
+  - "./.paperkit/tools/extract-evidence.sh --output=COMPREHENSIVE_EVIDENCE_EXTRACTION.md --context=2"
+
+owner: core-team

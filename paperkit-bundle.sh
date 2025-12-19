@@ -30,10 +30,16 @@ echo "Copying core files..."
 
 # Installation scripts
 cp paperkit-install.sh "$BUNDLE_DIR/"
+cp paperkit-install-v2.sh "$BUNDLE_DIR/"
 cp paperkit-install.ps1 "$BUNDLE_DIR/"
 cp paperkit "$BUNDLE_DIR/"
+cp paperkit-generate.sh "$BUNDLE_DIR/"
+cp paperkit-generate.ps1 "$BUNDLE_DIR/"
+cp paperkit-validate.py "$BUNDLE_DIR/"
 chmod +x "$BUNDLE_DIR/paperkit"
 chmod +x "$BUNDLE_DIR/paperkit-install.sh"
+chmod +x "$BUNDLE_DIR/paperkit-install-v2.sh"
+chmod +x "$BUNDLE_DIR/paperkit-generate.sh"
 
 # Version and documentation
 cp VERSION "$BUNDLE_DIR/"

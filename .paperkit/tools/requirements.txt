@@ -1,0 +1,14 @@
+# Python Dependencies for Academic Paper Writing System Tools
+#
+# Install with: pip install -r requirements.txt
+#
+# Recommended: Use a virtual environment
+#   python3 -m venv .venv
+#   source .venv/bin/activate  # On Windows: .venv\Scripts\activate
+#   pip install -r requirements.txt
+
+# YAML parsing for metadata and configuration files
+pyyaml>=6.0
+
+# JSON Schema validation for agent definitions
+jsonschema>=4.0

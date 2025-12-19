@@ -8,6 +8,12 @@ This repo includes Copilot agent and slash-command scaffolding that routes into 
 - **Agent definitions**: Located in [.github/agents/](.github/agents/) with one file per agent
 - **Full system config**: [.copilot/agents.yaml](.copilot/agents.yaml) defines all agents and their capabilities
 
+### Source of Truth
+
+- **Canonical definitions are in `.paperkit/`** (agents, workflows, tools).
+- **Do not edit** `.github/agents` or `.codex/prompts` independently; they derive from `.paper`.
+- **Keep in sync** by regenerating derived layers after changes in `.paper`.
+
 ### Ten Specialized Agents
 
 #### Core Paper Writing Agents
@@ -26,7 +32,7 @@ This repo includes Copilot agent and slash-command scaffolding that routes into 
 | `paper-brainstorm` | Brainstorm Coach (Carson) | Creative ideation and exploration |
 | `paper-problem-solver` | Problem Solver (Quinn) | Analyze blockers and find solutions |
 | `paper-tutor` | Review Tutor (Sage) | Constructive feedback on drafts |
-| `paper-librarian` | Research Librarian (Ellis) | Find and organize sources |
+| `paper-librarian` | Research Librarian (Ellis) | Forensic audit: extract quotable evidence with section mapping |
 
 ### Slash Commands
 - `/paper.init` → Initialize and update working reference
@@ -48,6 +54,15 @@ The Reference Manager (Harper) supports comprehensive Harvard-style citation man
 | `citation-completeness` | Check all required BibTeX fields |
 | `format-bibliography` | Format bibliography in Harvard style |
 
+### Artifacts & Rigor
+
+- Apply PhD-level rigor across agents. Revisit already processed sources; valuable quotes and validations often emerge on a second pass.
+- Artifact paths used by Librarian/Consolidator/Drafter/Refiner:
+	- `open-agents/planning/20251218-group-tutor-reviews/tasks-artifacts`
+	- `open-agents/planning/20251218-group-tutor-reviews/research-artifacts`
+- Direct quotes must include page numbers via `\cite[p. <page>]{key}`.
+- Tooling: `open-agents/tools/extract-evidence.sh` — batch evidence extraction using `pdftotext` + `grep` with context.
+
 ### Tools Available
 
 | Tool | Path | Purpose |
@@ -61,11 +76,11 @@ The Reference Manager (Harper) supports comprehensive Harvard-style citation man
 
 | File | Purpose |
 |------|---------|
-| `.paper/_cfg/agent-manifest.yaml` | All agents catalog |
-| `.paper/_cfg/workflow-manifest.yaml` | All workflows catalog |
-| `.paper/_cfg/tool-manifest.yaml` | All tools catalog |
-| `.paper/_cfg/guides/harvard-citation-guide.md` | Harvard citation style guide |
-| `.paper/_cfg/resources/citation-rules.yaml` | Citation validation rules |
+| `.paperkit/_cfg/agent-manifest.yaml` | All agents catalog |
+| `.paperkit/_cfg/workflow-manifest.yaml` | All workflows catalog |
+| `.paperkit/_cfg/tool-manifest.yaml` | All tools catalog |
+| `.paperkit/_cfg/guides/harvard-citation-guide.md` | Harvard citation style guide |
+| `.paperkit/_cfg/resources/citation-rules.yaml` | Citation validation rules |
 
 ### Consent Gate (Tools)
 
@@ -78,9 +93,9 @@ Before running tools that modify files:
 
 | Output Type | Location |
 |-------------|----------|
-| Draft sections | `.paper/data/output-drafts/sections/` |
-| Refined sections | `.paper/data/output-refined/sections/` |
-| Final PDF | `.paper/data/output-final/pdf/` |
+| Draft sections | `.paperkit/data/output-drafts/sections/` |
+| Refined sections | `.paperkit/data/output-refined/sections/` |
+| Final PDF | `.paperkit/data/output-final/pdf/` |
 | BibTeX database | `latex/references/references.bib` |
 
 ### Notes

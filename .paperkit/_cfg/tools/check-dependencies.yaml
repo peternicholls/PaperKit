@@ -1,0 +1,46 @@
+# Check Dependencies Tool Definition
+# Part of PaperKit Tool Collection
+
+name: check-dependencies
+displayName: Check Dependencies
+description: Verify all required system dependencies are installed
+version: 1.0.0
+path: .paperkit/tools/check-dependencies.sh
+requiresConsent: false
+
+capabilities:
+  - Check LaTeX distribution (pdflatex, bibtex)
+  - Verify Python installation and packages
+  - Check optional tools (pdfinfo, pdftotext)
+  - Verify LaTeX packages are installed
+  - Provide installation instructions for missing dependencies
+
+constraints:
+  - Requires bash shell
+  - Some checks require network access for package verification
+  - LaTeX package checks require kpsewhich
+
+dependencies:
+  - bash
+
+inputSchema:
+  type: object
+  properties: {}
+
+outputSchema:
+  type: object
+  properties:
+    requiredMissing:
+      type: integer
+      description: Count of missing required dependencies
+    optionalMissing:
+      type: integer
+      description: Count of missing optional dependencies
+    ready:
+      type: boolean
+      description: Whether system is ready to build papers
+
+exampleUsage:
+  - "./.paperkit/tools/check-dependencies.sh"
+
+owner: core-team
