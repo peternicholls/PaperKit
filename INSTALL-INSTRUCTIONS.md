@@ -14,19 +14,45 @@ A complete **Open Agent System** for planning, researching, structuring, draftin
 - Python 3.8+ (recommended for validation tools)
 - Node.js (optional)
 
-### For Mac/Linux:
+### Base Installation (Recommended)
+
+Run the base installation script to install PaperKit to your home directory:
 
 ```bash
-# Option 1: Using the paperkit command
+curl -sSL https://raw.githubusercontent.com/peternicholls/PaperKit/main/scripts/base-install.sh | bash
+```
+
+This creates `~/paperkit` with the default configuration containing agents, workflows, and tools.
+
+**Alternatively:** You can manually download the files from the GitHub repository and place them in your home directory at `~/paperkit/`.
+
+**Updating?** If you already have PaperKit installed, you'll be prompted with update options and the ability to create a backup.
+
+**Windows Users:** The installation command requires a bash shell. We recommend using **Windows Subsystem for Linux (WSL)**, which provides a full Linux environment on Windows. Alternatively, you can use **Git Bash** (included with Git for Windows) to run the installation command. Once installed, open your bash terminal and run the curl command above.
+
+### Alternative Installation Methods
+
+#### For Mac/Linux (Custom Location):
+
+```bash
+# Option 1: Clone and use paperkit command
+git clone https://github.com/peternicholls/PaperKit.git
+cd PaperKit
 ./paperkit init
 
-# Option 2: Direct installation
+# Option 2: Direct installation script
+git clone https://github.com/peternicholls/PaperKit.git
+cd PaperKit
 ./paperkit-install.sh
 ```
 
-### For Windows:
+#### For Windows:
 
 ```powershell
+# Clone the repository
+git clone https://github.com/peternicholls/PaperKit.git
+cd PaperKit
+
 # Run in PowerShell
 .\paperkit-install.ps1
 ```
@@ -80,7 +106,48 @@ pip install --user -r requirements.txt
 
 **Note:** The virtual environment needs to be activated each time you open a new terminal session.
 
-### Installation Steps
+## 🔄 Updating PaperKit
+
+### Automatic Update (Base Installation)
+
+If you installed PaperKit using the base installation script, updating is simple:
+
+```bash
+curl -sSL https://raw.githubusercontent.com/peternicholls/PaperKit/main/scripts/base-install.sh | bash
+```
+
+The script will:
+1. Detect your existing installation at `~/paperkit`
+2. Prompt you to choose an update method:
+   - **Update** (recommended): Pull latest changes while preserving your work
+   - **Backup and reinstall**: Create a timestamped backup, then fresh install
+   - **Cancel**: Exit without making changes
+
+If you have local changes (uncommitted work), the script will:
+- Automatically stash your changes before updating
+- Provide instructions to restore them after the update completes
+
+### Manual Update (Custom Location)
+
+If you cloned the repository to a custom location:
+
+```bash
+cd /path/to/your/PaperKit
+git pull origin main
+./paperkit generate  # Regenerate IDE integration files
+```
+
+If you have local changes:
+
+```bash
+cd /path/to/your/PaperKit
+git stash  # Save your changes
+git pull origin main
+git stash pop  # Restore your changes
+./paperkit generate
+```
+
+### Installation Steps (Custom Location)
 
 1. **Navigate to your project directory** - The installer will set up PaperKit in your current location
    ```bash
