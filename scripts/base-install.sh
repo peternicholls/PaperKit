@@ -325,7 +325,12 @@ run_post_install_setup() {
     # Run the paperkit init command if available
     if [ -x "./paperkit" ]; then
         # Create a temporary response file to automate the installer
-        local temp_response="/tmp/paperkit_install_response_$$"
+        # Using mktemp for secure temporary file creation instead of PID-based naming
+        local temp_response
+        temp_response=$(mktemp "/tmp/paperkit_install_response.XXXXXX")
+        
+        # Ensure cleanup on exit or interruption
+        trap 'rm -f "$temp_response"' EXIT INT TERM
         
         # Prepare responses based on selected IDEs
         case "${#SELECTED_IDES[@]}" in
@@ -350,6 +355,7 @@ run_post_install_setup() {
         # Note: The paperkit-install.sh expects interactive input
         # For now, we'll just notify the user to run it manually
         rm -f "$temp_response"
+        trap - EXIT INT TERM  # Clear the trap after cleanup
         
         info_msg "Generating IDE integration files..."
         if [ ${#SELECTED_IDES[@]} -gt 0 ]; then
