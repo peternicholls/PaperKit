@@ -1,0 +1,33 @@
+# PaperKit Version Configuration
+# This is the source of truth for version information across the system
+
+version:
+  # Current release version (semantic versioning)
+  current: "alpha-1.2.0"
+  
+  # Version history and release information
+  release:
+    name: "alpha-1.2.0"
+    date: "2025-12-19"
+    type: "alpha"  # alpha, beta, rc, stable
+    
+  # Version components
+  components:
+    major: 1
+    minor: 2
+    patch: 0
+    prerelease: "alpha"
+    
+  # Build and metadata
+  metadata:
+    buildDate: "2025-12-19"
+    lastUpdated: "2025-12-19"
+    
+  # Compatibility information
+  compatibility:
+    minPythonVersion: "3.7"
+    minGitVersion: "2.0"
+    
+  # Release notes reference
+  releaseNotes: "RELEASE-NOTES.md"
+  changelog: "CHANGELOG.md"

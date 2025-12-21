@@ -456,7 +456,18 @@ python3 paperkit-validate.py --verbose # Full validation
 
 ## Version
 
-Current version: See [VERSION](VERSION) file
+Current version: See [version.yaml](.paperkit/_cfg/version.yaml) (or legacy [VERSION](VERSION) file)
+
+**Quick check:**
+```bash
+./paperkit version
+# or
+python3 ./.paperkit/tools/version-manager.py get
+```
+
+For version management documentation, see:
+- [Version System README](.paperkit/docs/version-system-readme.md)
+- [Migration Guide](.paperkit/docs/version-migration-guide.md)
 
 Last updated: December 2025
 

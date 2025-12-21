@@ -4,9 +4,16 @@
 # Version: alpha-1.0.0
 # Main entry point for paperkit commands
 
-# Get version from VERSION file, fallback to hardcoded if not found
+# Get version from YAML config, fallback to VERSION file for backwards compatibility
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-VERSION=$(cat "$SCRIPT_DIR/VERSION" 2>/dev/null || echo "alpha-1.0.0")
+
+# Try to get version from YAML config
+if [ -f "$SCRIPT_DIR/.paperkit/tools/get-version.sh" ]; then
+    VERSION=$("$SCRIPT_DIR/.paperkit/tools/get-version.sh" 2>/dev/null)
+else
+    # Fallback to legacy VERSION file
+    VERSION=$(cat "$SCRIPT_DIR/VERSION" 2>/dev/null || echo "unknown")
+fi
 
 # Color codes
 BLUE='\033[0;34m'
