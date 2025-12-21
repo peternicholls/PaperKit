@@ -30,10 +30,10 @@ from typing import Dict, List, Tuple
 import argparse
 
 try:
-    from jsonschema import validate, ValidationError, Draft7Validator
+    from jsonschema import Draft7Validator
 except ImportError:
     print("Error: jsonschema package not installed")
-    print("Install with: pip install jsonschema>=4.0")
+    print("Install with: pip install 'jsonschema>=4.0'")
     sys.exit(1)
 
 # Constants
