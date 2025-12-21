@@ -7,6 +7,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [alpha-1.3.2] - 2025-12-21
+
+### Added
+- Uncommitted changes detection in release workflow
+- Interactive release options when uncommitted changes are present:
+  - Commit and proceed (with custom commit message)
+  - Ignore and proceed (for manual commit handling)
+  - Cancel release
+- Git status display showing affected files before release
+
+### Fixed
+- Release workflow now prevents accidental releases with untracked changes
+- Improved user guidance for handling work-in-progress changes
+
 ## [alpha-1.3.0] - 2025-12-21
 
 ### Added

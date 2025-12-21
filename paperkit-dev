@@ -346,6 +346,65 @@ release_usage
 return 1
 fi
 
+# Check for uncommitted changes (unless dry-run)
+if ! $dry_run; then
+if ! git diff-index --quiet HEAD --; then
+echo ""
+echo -e "${YELLOW}⚠️  Warning: You have uncommitted changes!${NC}"
+echo ""
+echo "Changed files:"
+git status -s
+echo ""
+echo "Options:"
+echo -e "  ${CYAN}1)${NC} Commit changes and proceed with release"
+echo -e "  ${CYAN}2)${NC} Ignore and proceed with release as-is"
+echo -e "  ${CYAN}3)${NC} Cancel release"
+echo ""
+read -p "Selection [3]: " change_choice
+change_choice=${change_choice:-3}
+
+case $change_choice in
+1)
+echo ""
+read -p "Commit message: " commit_msg
+if [ -z "$commit_msg" ]; then
+echo -e "${RED}Error: Commit message is required.${NC}"
+return 1
+fi
+
+if ! git add -A; then
+echo -e "${RED}Error: Failed to stage changes.${NC}"
+return 1
+fi
+
+if ! git commit -m "$commit_msg"; then
+echo -e "${RED}Error: Failed to commit changes.${NC}"
+return 1
+fi
+
+echo -e "${GREEN}✓${NC} Changes committed"
+if ! git push origin HEAD; then
+echo -e "${YELLOW}⚠️  Failed to push changes automatically.${NC}"
+echo "You can push manually with: git push origin master"
+fi
+echo ""
+;;
+2)
+echo -e "${YELLOW}Proceeding with uncommitted changes...${NC}"
+echo ""
+;;
+3)
+echo "Release cancelled."
+return 0
+;;
+*)
+echo -e "${RED}Invalid selection.${NC}"
+return 1
+;;
+esac
+fi
+fi
+
 # Get current version
 local CURRENT_VERSION
 CURRENT_VERSION=$("$SCRIPT_DIR/.paperkit/tools/get-version.sh" 2>/dev/null || echo "unknown")
