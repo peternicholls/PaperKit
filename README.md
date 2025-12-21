@@ -176,18 +176,36 @@ PaperKit enforces rigorous citation standards:
 - **LaTeX distribution** (pdflatex, bibtex)
 - **GitHub Copilot** or **OpenAI Codex** (or both)
 
-### Verify Dependencies
+### Base Installation
+
+Run the base installation script to install PaperKit to your home directory:
 
 ```bash
-./.paperkit/tools/check-dependencies.sh
+curl -sSL https://raw.githubusercontent.com/peternicholls/PaperKit/main/scripts/base-install.sh | bash
 ```
 
-### Install
+This creates `~/paperkit` with the default configuration containing agents, workflows, and tools.
+
+**Alternatively:** You can manually download the files from the GitHub repository and place them in your home directory at `~/paperkit/`.
+
+**Updating?** If you already have PaperKit installed, you'll be prompted with update options and the ability to create a backup. For more information on updating, see [INSTALL-INSTRUCTIONS.md](INSTALL-INSTRUCTIONS.md).
+
+**Windows Users:** The installation command requires a bash shell. We recommend using **Windows Subsystem for Linux (WSL)**, which provides a full Linux environment on Windows. Alternatively, you can use **Git Bash** (included with Git for Windows) to run the installation command. Once installed, open your bash terminal and run the curl command above.
+
+### Alternative: Manual Installation
+
+If you prefer to install to a custom location or clone the repository directly:
 
 ```bash
 git clone https://github.com/peternicholls/PaperKit.git
 cd PaperKit
 ./paperkit init
+```
+
+### Verify Dependencies
+
+```bash
+./.paperkit/tools/check-dependencies.sh
 ```
 
 For platform-specific setup (including Windows/PowerShell), see [INSTALL-INSTRUCTIONS.md](INSTALL-INSTRUCTIONS.md).
