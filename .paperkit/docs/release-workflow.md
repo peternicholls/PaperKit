@@ -1,0 +1,240 @@
+# Release Workflow with YAML Version System
+
+This guide explains how to use the new YAML-based version system when creating releases for PaperKit.
+
+## Quick Release Workflow
+
+### 1. Bump the Version
+
+Choose the appropriate version bump type:
+
+```bash
+# For bug fixes (1.2.0 -> 1.2.1)
+python3 ./.paperkit/tools/version-manager.py bump patch
+
+# For new features (1.2.0 -> 1.3.0)
+python3 ./.paperkit/tools/version-manager.py bump minor
+
+# For breaking changes (1.2.0 -> 2.0.0)
+python3 ./.paperkit/tools/version-manager.py bump major
+```
+
+Or set a specific version:
+
+```bash
+python3 ./.paperkit/tools/version-manager.py set alpha-1.3.0
+```
+
+### 2. Verify the Version
+
+```bash
+# Check version
+./paperkit version
+
+# View full version info
+python3 ./.paperkit/tools/version-manager.py info
+```
+
+### 3. Update Release Documentation
+
+Edit the following files:
+- `RELEASE-NOTES.md` - Detailed release notes for this version
+- `CHANGELOG.md` - Add entry to changelog
+
+### 4. Create Distribution Bundle
+
+```bash
+./paperkit-bundle.sh
+```
+
+This creates a file like `paperkit-alpha-1.3.0.tar.gz` using the version from the YAML config.
+
+### 5. Commit Changes
+
+```bash
+git add .paperkit/_cfg/version.yaml RELEASE-NOTES.md CHANGELOG.md
+git commit -m "Release alpha-1.3.0"
+```
+
+### 6. Tag the Release
+
+```bash
+git tag alpha-1.3.0
+git push origin alpha-1.3.0
+```
+
+### 7. Upload Distribution
+
+Upload the bundle created in step 4 to GitHub releases or your distribution channel.
+
+## Advanced Usage
+
+### Setting a Specific Release Type
+
+```bash
+python3 ./.paperkit/tools/version-manager.py set alpha-2.0.0
+# Then manually edit .paperkit/_cfg/version.yaml to set:
+# release:
+#   type: beta  # or alpha, rc, stable
+```
+
+### Custom Release Date
+
+By default, version bumping updates the release date to today. To prevent this:
+
+```bash
+python3 ./.paperkit/tools/version-manager.py set alpha-1.3.0 --no-date-update
+```
+
+### Viewing Version Components
+
+```bash
+python3 ./.paperkit/tools/version-manager.py info | grep components
+```
+
+Output:
+```json
+"components": {
+  "major": 1,
+  "minor": 3,
+  "patch": 0,
+  "prerelease": "alpha"
+}
+```
+
+## CI/CD Integration
+
+### GitHub Actions Example
+
+```yaml
+name: Release
+
+on:
+  push:
+    tags:
+      - 'alpha-*'
+      - 'beta-*'
+      - 'v*'
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      
+      - name: Get version
+        id: version
+        run: |
+          VERSION=$(python3 ./.paperkit/tools/version-manager.py get)
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+      
+      - name: Create bundle
+        run: ./paperkit-bundle.sh
+      
+      - name: Create Release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: Release ${{ steps.version.outputs.version }}
+          draft: false
+          prerelease: true
+      
+      - name: Upload Bundle
+        uses: actions/upload-artifact@v2
+        with:
+          name: paperkit-${{ steps.version.outputs.version }}
+          path: paperkit-*.tar.gz
+```
+
+## Version Naming Convention
+
+PaperKit uses the following version format:
+
+```
+[prerelease]-[major].[minor].[patch]
+```
+
+Examples:
+- `alpha-1.2.0` - Alpha release, version 1.2.0
+- `beta-1.3.0` - Beta release, version 1.3.0
+- `rc-2.0.0` - Release candidate, version 2.0.0
+- `stable-2.0.0` - Stable release, version 2.0.0
+
+## Troubleshooting
+
+### Version not updating
+
+Make sure you have PyYAML installed:
+```bash
+pip install pyyaml
+```
+
+### Bundle using wrong version
+
+The bundle script reads from YAML first, then VERSION file. Verify:
+```bash
+./.paperkit/tools/get-version.sh
+```
+
+### Version command shows "unknown"
+
+Check that `.paperkit/_cfg/version.yaml` exists and is properly formatted:
+```bash
+cat .paperkit/_cfg/version.yaml
+```
+
+Run the test suite:
+```bash
+./.paperkit/tools/test-version-system.sh
+```
+
+## Best Practices
+
+1. **Always bump version before creating a release** - Don't manually edit version.yaml
+2. **Update release notes** - Keep RELEASE-NOTES.md and CHANGELOG.md in sync
+3. **Test the bundle** - Extract and test the bundle before publishing
+4. **Tag consistently** - Use the same version string for git tags
+5. **Keep VERSION file in sync** (optional) - For backwards compatibility
+
+## Example: Complete Release Process
+
+```bash
+# 1. Bump version
+python3 ./.paperkit/tools/version-manager.py bump minor
+# Output: Version bumped to: alpha-1.3.0
+
+# 2. Verify
+./paperkit version
+# Output: paperkit version alpha-1.3.0
+
+# 3. Update documentation
+vim RELEASE-NOTES.md
+vim CHANGELOG.md
+
+# 4. Create bundle
+./paperkit-bundle.sh
+# Output: Archive: paperkit-alpha-1.3.0.tar.gz
+
+# 5. Commit
+git add .paperkit/_cfg/version.yaml RELEASE-NOTES.md CHANGELOG.md
+git commit -m "Release alpha-1.3.0"
+
+# 6. Tag
+git tag alpha-1.3.0
+git push origin main alpha-1.3.0
+
+# 7. Upload bundle to GitHub releases
+```
+
+## Migration from Old System
+
+If you have existing scripts that read the VERSION file, they will continue to work. The new system falls back to the VERSION file automatically.
+
+To fully migrate:
+1. Start using `.paperkit/tools/version-manager.py` for version updates
+2. Update any custom scripts to use `.paperkit/tools/get-version.sh`
+3. Eventually, you can remove the VERSION file (after updating all dependencies)
+
+See `.paperkit/docs/version-migration-guide.md` for complete migration instructions.
