@@ -1,32 +1,43 @@
-# Release Notes - PaperKit alpha-1.2.0
+# Release Notes - PaperKit alpha-1.3.0
 
-**Release Date:** December 19, 2025
+**Release Date:** December 21, 2025
 
 ## Overview
 
-PaperKit alpha-1.2.0 introduces significant improvements to automation, validation, and documentation generation. This release focuses on streamlining the paper-writing workflow through automated CI/CD integration and enhanced IDE support.
+PaperKit alpha-1.3.0 delivers critical quality-of-life improvements focused on developer experience and release automation. This release fixes terminal output formatting issues that affected readability and introduces fully automated GitHub release workflows.
 
 ## Key Features
 
-### 🤖 Automation Enhancements
-- **Automated Directory Generation**: The `.copilot/` directory is now automatically generated from `.paperkit/` source files, eliminating manual synchronization
-- **Documentation Generation**: AGENTS.md and COPILOT.md are now auto-generated, ensuring consistency across all documentation
-- **Validation Scripts**: Comprehensive agent schema validation ensures all agents meet system requirements
+### 🚀 Release Automation
+- **Fully Automated Releases**: `./paperkit-dev release --full` now handles the entire release process
+  - Creates and pushes git tags
+  - Generates distribution bundles
+  - Creates GitHub releases with auto-generated notes
+  - Uploads release assets automatically
+- **GitHub CLI Integration**: Seamless integration with `gh` CLI for release management
+- **Smart Fallback**: Gracefully handles missing GitHub CLI with helpful manual instructions
 
-### 🔧 Installation & Setup
-- **PaperKit Installer v2.0.0**: Enhanced installer with IDE selection (GitHub Copilot and OpenAI Codex support) and rigorous validation checks
-- **Better Configuration Management**: Improved `.paperkit/_cfg/` structure with manifests and schemas
-
-### 📚 Academic Integrity
-- **Enhanced Constraints**: Stronger academic integrity enforcement in agent definitions
-- **Forensic Audit Protocol**: Comprehensive documentation for auditing and validating research sources
-- **Citation Validation**: Improved Harvard citation style validation and completeness checks
+### 🎨 Terminal Output Improvements
+- **Fixed Color Rendering**: All ANSI color codes now display correctly
+- **24 Fixes Across Scripts**: Corrected missing `-e` flags in echo commands
+  - `paperkit-dev` version display
+  - `paperkit-install.sh` IDE selection and Python setup menus
+  - `scripts/base-install.sh` installation menus and next steps
+- **Enhanced Readability**: Colored output improves user experience and command clarity
 
 ## Bug Fixes
 
-- **Fixed validation script paths** from incorrect `.paper/` to correct `.paperkit/` directory structure
-- **Improved LaTeX tooling** for document compilation and linting
-- **Enhanced error handling** in validation and generation workflows
+### Terminal Output Formatting
+- **Fixed ANSI color codes** displaying as literal text (e.g., `\033[1;33m`) instead of formatted colors
+- **Corrected 24 echo commands** missing the `-e` flag required to interpret escape sequences
+- **Affected files:**
+  - `paperkit-dev`: Version command output
+  - `paperkit-install.sh`: IDE selection menu, Python setup options, activation instructions
+  - `scripts/base-install.sh`: Installation menus, next steps, stash instructions
+
+### Developer Experience
+- **Improved error messages** in release workflow with clearer troubleshooting steps
+- **Better authentication checks** for GitHub CLI before attempting release creation
 
 ## Breaking Changes
 
@@ -39,11 +50,20 @@ None in this release.
 
 ## Migration Guide
 
-If you're upgrading from alpha-1.0.0:
+If you're upgrading from alpha-1.2.x:
 
-1. Run the PaperKit installer to ensure your environment is configured correctly
-2. The `.paperkit/` directory structure has been finalized—ensure your custom configurations are in `.paperkit/_cfg/`
-3. All documentation generation now occurs automatically during CI/CD
+1. **No breaking changes** - this is a quality-of-life release
+2. **Optional**: Install GitHub CLI for automated releases:
+   ```bash
+   # macOS
+   brew install gh
+   
+   # Authenticate
+   gh auth login
+   ```
+3. **Enjoy improved output** - all color formatting now works correctly
+
+If you're upgrading from alpha-1.0.0 or earlier, see previous release notes for migration steps.
 
 ## Known Issues
 
@@ -69,6 +89,6 @@ PaperKit is maintained by Peter Nicholls and contributors.
 
 ---
 
-**Version:** alpha-1.2.0  
+**Version:** alpha-1.3.0  
 **Release Channel:** Alpha  
 **Status:** Active Development

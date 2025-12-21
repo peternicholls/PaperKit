@@ -7,6 +7,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [alpha-1.3.0] - 2025-12-21
+
+### Added
+- Automated GitHub release creation via GitHub CLI integration
+- Release command now creates releases, uploads bundles, and publishes automatically
+
+### Fixed
+- Color formatting in terminal output (missing `-e` flag in echo commands)
+- Fixed 24 instances across `paperkit-dev`, `paperkit-install.sh`, and `scripts/base-install.sh`
+- ANSI color codes now render properly instead of displaying literal escape sequences
+
+### Changed
+- Release workflow now fully automated with `./paperkit-dev release --full`
+- Improved error handling with graceful fallback when GitHub CLI unavailable
+
+## [alpha-1.2.1] - 2025-12-19
+
 ### Added
 - YAML-based version management system (`.paperkit/_cfg/version.yaml`)
 - Version management tools:

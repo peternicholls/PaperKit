@@ -425,6 +425,84 @@ fi
 echo ""
 fi
 
+# Create GitHub release (if both tag and bundle were created)
+if $do_tag && $do_bundle && ! $dry_run; then
+echo -e "${YELLOW}Creating GitHub release${NC}"
+
+# Check if gh CLI is installed
+if ! command -v gh &> /dev/null; then
+echo -e "${RED}Error: GitHub CLI (gh) is not installed.${NC}"
+echo "Install it from: https://cli.github.com/"
+echo ""
+echo "Manual steps required:"
+echo "  1. Go to GitHub releases page"
+echo "  2. Draft a new release from tag: ${CURRENT_VERSION}"
+echo "  3. Upload the distribution bundle"
+echo "  4. Publish the release"
+echo ""
+return 1
+fi
+
+# Check if authenticated
+if ! gh auth status &> /dev/null; then
+echo -e "${RED}Error: Not authenticated with GitHub CLI.${NC}"
+echo "Run: gh auth login"
+echo ""
+echo "Manual steps required:"
+echo "  1. Go to GitHub releases page"
+echo "  2. Draft a new release from tag: ${CURRENT_VERSION}"
+echo "  3. Upload the distribution bundle"
+echo "  4. Publish the release"
+echo ""
+return 1
+fi
+
+local BUNDLE_FILE="$SCRIPT_DIR/paperkit-${CURRENT_VERSION}.tar.gz"
+if [ ! -f "$BUNDLE_FILE" ]; then
+echo -e "${RED}Error: Bundle file not found: $BUNDLE_FILE${NC}"
+return 1
+fi
+
+# Generate release notes
+local RELEASE_NOTES="Release $CURRENT_VERSION
+
+**Installation:**
+\`\`\`bash
+tar -xzf paperkit-${CURRENT_VERSION}.tar.gz
+cd paperkit-${CURRENT_VERSION}
+./paperkit init
+\`\`\`
+
+**What's Changed:**
+See [CHANGELOG.md](https://github.com/peternicholls/PaperKit/blob/master/CHANGELOG.md) for details.
+"
+
+# Create release with bundle
+if gh release create "$CURRENT_VERSION" \
+"$BUNDLE_FILE" \
+--title "PaperKit $CURRENT_VERSION" \
+--notes "$RELEASE_NOTES"; then
+echo -e "${GREEN}✓${NC} Created GitHub release"
+echo -e "${GREEN}✓${NC} Uploaded distribution bundle"
+else
+echo -e "${RED}Error: Failed to create GitHub release.${NC}"
+echo ""
+echo "Manual steps required:"
+echo "  1. Go to GitHub releases page"
+echo "  2. Draft a new release from tag: ${CURRENT_VERSION}"
+echo "  3. Upload: $BUNDLE_FILE"
+echo "  4. Publish the release"
+echo ""
+return 1
+fi
+echo ""
+elif $dry_run && $do_tag && $do_bundle; then
+echo -e "${YELLOW}Creating GitHub release${NC}"
+echo "  [dry-run] Would create GitHub release: $CURRENT_VERSION"
+echo "  [dry-run] Would upload: paperkit-${CURRENT_VERSION}.tar.gz"
+echo ""
+fi
+
 # Summary
 echo -e "${GREEN}Release process complete!${NC}"
 echo ""
@@ -435,12 +513,8 @@ echo "  paperkit-${CURRENT_VERSION}.tar.gz"
 echo ""
 fi
 
-if $do_tag && ! $dry_run; then
-echo "Next steps:"
-echo "  1. Go to GitHub releases page"
-echo "  2. Draft a new release from tag: ${CURRENT_VERSION}"
-echo "  3. Upload the distribution bundle"
-echo "  4. Publish the release"
+if $do_tag && $do_bundle && ! $dry_run; then
+echo "GitHub release: https://github.com/peternicholls/PaperKit/releases/tag/${CURRENT_VERSION}"
 echo ""
 fi
 }
