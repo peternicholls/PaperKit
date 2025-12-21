@@ -97,17 +97,25 @@ class VersionManager:
             if len(parts) == 2:
                 prerelease, semver = parts
                 version.setdefault('components', {})['prerelease'] = prerelease
-            else:
+            elif len(parts) == 1:
                 semver = version_string
+            else:
+                # Invalid format, skip parsing
+                raise ValueError(f"Invalid version format: {version_string}")
             
             # Parse major.minor.patch
-            major, minor, patch = semver.split('.')
+            semver_parts = semver.split('.')
+            if len(semver_parts) != 3:
+                raise ValueError(f"Invalid semantic version format: {semver}")
+            
+            major, minor, patch = semver_parts
             components = version.setdefault('components', {})
             components['major'] = int(major)
             components['minor'] = int(minor)
             components['patch'] = int(patch)
-        except:
-            pass  # If parsing fails, just keep the version string
+        except (ValueError, IndexError) as e:
+            # If parsing fails, just keep the version string
+            pass
         
         self.save()
     

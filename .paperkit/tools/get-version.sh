@@ -26,7 +26,7 @@ try:
         data = yaml.safe_load(f)
         print(data.get('version', {}).get('current', ''))
     sys.exit(0)
-except:
+except Exception:
     sys.exit(1)
 " 2>/dev/null)
         
