@@ -122,42 +122,60 @@ else
     info "Skipping consistency check (one or both tools not available)"
 fi
 
-# Test 8: Test backwards compatibility with VERSION file
+# Test 8: Test backwards compatibility with deprecated VERSION file
 section "Test 8: Backwards Compatibility"
-if [ -f "${PAPERKIT_ROOT}/VERSION" ]; then
-    LEGACY_VERSION=$(cat "${PAPERKIT_ROOT}/VERSION")
-    pass "Legacy VERSION file exists: $LEGACY_VERSION"
+LEGACY_DEPRECATED_FILE="${PAPERKIT_ROOT}/VERSION.deprecated"
+LEGACY_FILE="${PAPERKIT_ROOT}/VERSION"
+LEGACY_VERSION="alpha-0.9.0"
+
+# Check if version.yaml exists for fallback testing
+if [ -f "${PAPERKIT_ROOT}/.paperkit/_cfg/version.yaml" ]; then
+    VERSION_YAML="${PAPERKIT_ROOT}/.paperkit/_cfg/version.yaml"
+    VERSION_YAML_BAK="${VERSION_YAML}.bak"
+
+    restore_files() {
+        [ -f "$VERSION_YAML_BAK" ] && mv "$VERSION_YAML_BAK" "$VERSION_YAML"
+        rm -f "$LEGACY_DEPRECATED_FILE.test" "$LEGACY_FILE.test"
+    }
+    trap 'restore_files' INT TERM EXIT
+
+    # Test 1: Fallback to VERSION.deprecated
+    echo "$LEGACY_VERSION" > "${LEGACY_DEPRECATED_FILE}.test"
+    mv "$LEGACY_DEPRECATED_FILE" "${LEGACY_DEPRECATED_FILE}.original" 2>/dev/null || true
+    mv "${LEGACY_DEPRECATED_FILE}.test" "$LEGACY_DEPRECATED_FILE"
+    mv "$VERSION_YAML" "$VERSION_YAML_BAK"
+    FALLBACK_VERSION=$("${PAPERKIT_ROOT}/.paperkit/tools/get-version.sh" 2>/dev/null)
+    mv "$VERSION_YAML_BAK" "$VERSION_YAML"
+    mv "$LEGACY_DEPRECATED_FILE" "${LEGACY_DEPRECATED_FILE}.test"
+    mv "${LEGACY_DEPRECATED_FILE}.original" "$LEGACY_DEPRECATED_FILE" 2>/dev/null || true
+
+    if [ "$FALLBACK_VERSION" = "$LEGACY_VERSION" ]; then
+        pass "Fallback to VERSION.deprecated works correctly"
+    else
+        fail "Fallback to VERSION.deprecated mismatch: Expected=$LEGACY_VERSION, Got=$FALLBACK_VERSION"
+    fi
+
+    # Test 2: Fallback to VERSION (if .deprecated is missing)
+    echo "$LEGACY_VERSION" > "${LEGACY_FILE}.test"
+    mv "$LEGACY_DEPRECATED_FILE" "${LEGACY_DEPRECATED_FILE}.original" 2>/dev/null || true
+    mv "$LEGACY_FILE" "${LEGACY_FILE}.original" 2>/dev/null || true
+    mv "${LEGACY_FILE}.test" "$LEGACY_FILE"
+    mv "$VERSION_YAML" "$VERSION_YAML_BAK"
+    FALLBACK_VERSION=$("${PAPERKIT_ROOT}/.paperkit/tools/get-version.sh" 2>/dev/null)
+    mv "$VERSION_YAML_BAK" "$VERSION_YAML"
     
-    # Temporarily move version.yaml and test fallback
-    if [ -f "${PAPERKIT_ROOT}/.paperkit/_cfg/version.yaml" ]; then
-        VERSION_YAML="${PAPERKIT_ROOT}/.paperkit/_cfg/version.yaml"
-        VERSION_YAML_BAK="${VERSION_YAML}.bak"
+    restore_files
+    trap - INT TERM EXIT
+    mv "${LEGACY_DEPRECATED_FILE}.original" "$LEGACY_DEPRECATED_FILE" 2>/dev/null || true
+    mv "${LEGACY_FILE}.original" "$LEGACY_FILE" 2>/dev/null || true
 
-        restore_version_yaml() {
-            if [ -f "$VERSION_YAML_BAK" ]; then
-                mv "$VERSION_YAML_BAK" "$VERSION_YAML"
-            fi
-        }
-
-        # Ensure we restore version.yaml even if interrupted
-        trap 'restore_version_yaml' INT TERM EXIT
-
-        mv "$VERSION_YAML" "$VERSION_YAML_BAK"
-        FALLBACK_VERSION=$("${PAPERKIT_ROOT}/.paperkit/tools/get-version.sh" 2>/dev/null)
-
-        # Normal restoration path
-        restore_version_yaml
-        # Clear the trap now that restoration has completed
-        trap - INT TERM EXIT
-        
-        if [ "$FALLBACK_VERSION" = "$LEGACY_VERSION" ]; then
-            pass "Fallback to VERSION file works correctly"
-        else
-            fail "Fallback version mismatch: Expected=$LEGACY_VERSION, Got=$FALLBACK_VERSION"
-        fi
+    if [ "$FALLBACK_VERSION" = "$LEGACY_VERSION" ]; then
+        pass "Fallback to VERSION file works correctly"
+    else
+        fail "Fallback to VERSION file mismatch: Expected=$LEGACY_VERSION, Got=$FALLBACK_VERSION"
     fi
 else
-    pass "No deprecated VERSION file (fully migrated to version.yaml)"
+    fail "Could not find version.yaml to conduct fallback test"
 fi
 
 # Test 9: Test version.yaml structure (new schema)

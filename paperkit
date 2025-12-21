@@ -37,7 +37,7 @@ Usage:
   paperkit version --bump <part>       Bump semver (major|minor|patch)
   paperkit version --build <value>     Set build metadata (appends +value)
   paperkit version --clear-build       Remove build metadata
-    paperkit version --test              Run version system tests
+  paperkit version --test              Run version system tests
 EOF
 }
 
@@ -87,7 +87,7 @@ version_command() {
     done
 
     # If no flags, just show version
-    if [[ -z "$action" && -z "$setval" && -z "$bumpval" && -z "$buildval" && "$clear_build" != true ]]; then
+    if [[ -z "$action" && -z "$setval" && -z "$bumpval" && -z "$buildval" && "$clear_build" != true && "$run_tests" != true ]]; then
         show_version
         return 0
     fi

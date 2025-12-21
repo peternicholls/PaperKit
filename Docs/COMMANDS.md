@@ -73,5 +73,5 @@ Compile academic papers, check LaTeX syntax, and preview PDF output. Build runs 
 Extract text evidence from PDF files based on search terms. Useful for forensic audits and citation verification.
 
 ```bash
-./paperkit evidence extract <pdf_dir> <output_md> [terms...]
+./paperkit evidence extract <pdf_dir> <output_md> `[terms...]`
 ```

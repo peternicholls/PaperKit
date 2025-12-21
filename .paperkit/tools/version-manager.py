@@ -118,7 +118,7 @@ class VersionManager:
             if len(parts) == 2:
                 prerelease, semver = parts
             elif len(parts) == 1:
-                semver = version_string
+                semver = main_part
             else:
                 raise ValueError(f"Invalid version format: {version_string}")
 
