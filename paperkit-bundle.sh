@@ -8,12 +8,11 @@ set -e
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
-# Get version from YAML config, fallback to VERSION file for backwards compatibility
+# Get version from YAML config (get-version.sh handles VERSION file fallback if needed)
 if [ -f "$SCRIPT_DIR/.paperkit/tools/get-version.sh" ]; then
     VERSION=$("$SCRIPT_DIR/.paperkit/tools/get-version.sh" 2>/dev/null || echo "unknown")
 else
-    # Fallback to legacy VERSION file
-    VERSION=$(cat VERSION 2>/dev/null || echo "unknown")
+    VERSION="unknown"
 fi
 BUNDLE_NAME="paperkit-${VERSION}"
 BUNDLE_DIR="/tmp/${BUNDLE_NAME}"

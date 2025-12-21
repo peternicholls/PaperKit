@@ -9,6 +9,7 @@ import json
 import argparse
 from pathlib import Path
 from datetime import datetime
+from typing import Any, Dict
 
 try:
     import yaml
@@ -18,7 +19,7 @@ except ImportError:
 
 
 class VersionManager:
-    """Manages version information for PaperKit"""
+    """Manages PaperKit version state stored in .paperkit/_cfg/version.yaml."""
     
     def __init__(self, config_path=None):
         """Initialize the version manager"""
@@ -29,7 +30,7 @@ class VersionManager:
             config_path = paperkit_root / ".paperkit" / "_cfg" / "version.yaml"
         
         self.config_path = Path(config_path)
-        self.version_data = None
+        self.version_data: Dict[str, Any] = {'version': {}}
         
         if self.config_path.exists():
             self.load()
@@ -38,9 +39,18 @@ class VersionManager:
         """Load version data from YAML file"""
         try:
             with open(self.config_path, 'r') as f:
-                self.version_data = yaml.safe_load(f)
+                loaded = yaml.safe_load(f)
+                self.version_data = loaded if isinstance(loaded, dict) else {'version': {}}
         except Exception as e:
             print(f"Error loading version config: {e}", file=sys.stderr)
+            sys.exit(1)
+
+        if not isinstance(self.version_data, dict):
+            print("Error: version.yaml must be a mapping", file=sys.stderr)
+            sys.exit(1)
+
+        if 'version' not in self.version_data or not isinstance(self.version_data['version'], dict):
+            print("Error: version.yaml missing required 'version' mapping", file=sys.stderr)
             sys.exit(1)
     
     def save(self):
@@ -54,96 +64,118 @@ class VersionManager:
             print(f"Error saving version config: {e}", file=sys.stderr)
             sys.exit(1)
     
+    def _compute_current_from_semver(self):
+        """Return derived version string from semver block, honoring prerelease and build."""
+        version = self.version_data.get('version', {})
+        semver = version.get('semver', {})
+        if not all(k in semver for k in ('major', 'minor', 'patch')):
+            return None
+
+        prerelease = semver.get('prerelease') or ""
+        build = semver.get('build') or ""
+
+        base = f"{semver['major']}.{semver['minor']}.{semver['patch']}"
+        current = f"{prerelease}-{base}" if prerelease else base
+        if build:
+            current = f"{current}+{build}"
+        return current
+
     def get_version(self):
-        """Get the current version string"""
-        if not self.version_data:
-            return "unknown"
-        return self.version_data.get('version', {}).get('current', 'unknown')
+        """Return current version; derive from semver if explicit current is absent."""
+        version = self.version_data.get('version', {})
+        current = version.get('current')
+        if current:
+            return current
+        computed = self._compute_current_from_semver()
+        return computed if computed else "unknown"
     
     def get_full_info(self):
-        """Get all version information"""
+        """Return the full version mapping from the YAML payload."""
         if not self.version_data:
             return {}
         return self.version_data.get('version', {})
     
     def set_version(self, version_string, release_type=None, update_date=True):
         """
-        Set a new version
-        
+        Set a new version and rewrite YAML.
+
         Args:
-            version_string: Version string (e.g., "alpha-1.3.0")
-            release_type: Optional release type (alpha, beta, rc, stable)
-            update_date: Whether to update the release date
+            version_string: Accepts <semver> or <prerelease>-<semver>[+build]
+            release_type: Optional explicit release type (alpha, beta, rc, stable)
+            update_date: When true, stamp release and lastUpdated with today
         """
-        if not self.version_data:
-            self.version_data = {'version': {}}
-        
         version = self.version_data.setdefault('version', {})
-        
-        # Parse version string
-        version['current'] = version_string
-        version.setdefault('release', {})['name'] = version_string
-        
-        if update_date:
-            today = datetime.now().strftime("%Y-%m-%d")
-            version['release']['date'] = today
-            version.setdefault('metadata', {})['lastUpdated'] = today
-        
-        if release_type:
-            version['release']['type'] = release_type
-        
-        # Try to parse semantic version components
+
+        # Parse version string into semver + prerelease (+ optional build)
+        prerelease = None
+        build = None
         try:
-            # Handle format like "alpha-1.2.0" or "1.2.0"
-            parts = version_string.split('-')
+            main_part, build_part = (version_string.split('+', 1) + [None])[:2]
+            if build_part is not None:
+                build = build_part
+
+            parts = main_part.split('-')
             if len(parts) == 2:
                 prerelease, semver = parts
-                version.setdefault('components', {})['prerelease'] = prerelease
             elif len(parts) == 1:
                 semver = version_string
             else:
-                # Invalid format, skip parsing
                 raise ValueError(f"Invalid version format: {version_string}")
-            
-            # Parse major.minor.patch
+
             semver_parts = semver.split('.')
             if len(semver_parts) != 3:
                 raise ValueError(f"Invalid semantic version format: {semver}")
-            
+
             major, minor, patch = semver_parts
-            components = version.setdefault('components', {})
-            components['major'] = int(major)
-            components['minor'] = int(minor)
-            components['patch'] = int(patch)
+            semver_block = version.setdefault('semver', {})
+            semver_block['major'] = int(major)
+            semver_block['minor'] = int(minor)
+            semver_block['patch'] = int(patch)
+            semver_block['prerelease'] = prerelease or ""
+            semver_block['build'] = build or ""
         except (ValueError, IndexError) as e:
-            # If parsing fails, just keep the version string, but warn the user.
             print(
-                f"Warning: Failed to parse semantic components from version '{version_string}': {e}. "
-                f"Version bumping based on components may not work as expected.",
+                f"Error: Failed to parse version '{version_string}': {e}.",
                 file=sys.stderr,
             )
-        
+            sys.exit(1)
+
+        # Derived current (generated, do not edit manually)
+        computed = self._compute_current_from_semver()
+        version['current'] = computed if computed else version_string
+
+        # Release metadata
+        release = version.setdefault('release', {})
+        if release_type:
+            release['type'] = release_type
+        elif prerelease:
+            release.setdefault('type', prerelease)
+        else:
+            release.setdefault('type', 'stable')
+
+        if update_date:
+            today = datetime.now().strftime("%Y-%m-%d")
+            release['date'] = today
+            version.setdefault('metadata', {})['lastUpdated'] = today
+
         self.save()
     
     def bump_version(self, part='patch'):
-        """
-        Bump version by incrementing major, minor, or patch
-        
-        Args:
-            part: Which part to bump ('major', 'minor', or 'patch')
-        """
-        if not self.version_data:
-            print("Error: No version data loaded", file=sys.stderr)
-            sys.exit(1)
-        
+        """Increment semver component (major/minor/patch) and clear build metadata."""
         version = self.version_data.get('version', {})
-        components = version.get('components', {})
-        
-        major = components.get('major', 1)
-        minor = components.get('minor', 0)
-        patch = components.get('patch', 0)
-        prerelease = components.get('prerelease', 'alpha')
-        
+        semver = version.get('semver', {})
+
+        if not all(k in semver for k in ('major', 'minor', 'patch')):
+            print("Error: semver block is missing required fields", file=sys.stderr)
+            sys.exit(1)
+
+        major = semver.get('major', 1)
+        minor = semver.get('minor', 0)
+        patch = semver.get('patch', 0)
+        prerelease = semver.get('prerelease', '')
+        # Build numbers are per-build metadata; reset on bump
+        semver['build'] = ''
+
         if part == 'major':
             major += 1
             minor = 0
@@ -156,8 +188,10 @@ class VersionManager:
         else:
             print(f"Error: Invalid part '{part}'. Use 'major', 'minor', or 'patch'", file=sys.stderr)
             sys.exit(1)
-        
-        new_version = f"{prerelease}-{major}.{minor}.{patch}"
+
+        new_base = f"{major}.{minor}.{patch}"
+        new_version = f"{prerelease}-{new_base}" if prerelease else new_base
+
         self.set_version(new_version)
         return new_version
 

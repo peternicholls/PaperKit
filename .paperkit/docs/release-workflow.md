@@ -192,17 +192,17 @@ Run the test suite:
 
 ## Best Practices
 
-1. **Always bump version before creating a release** - Don't manually edit version.yaml
+1. **Always bump version before creating a release** - Use `./paperkit version --bump <part>` instead of manually editing version.yaml
 2. **Update release notes** - Keep RELEASE-NOTES.md and CHANGELOG.md in sync
 3. **Test the bundle** - Extract and test the bundle before publishing
 4. **Tag consistently** - Use the same version string for git tags
-5. **Keep VERSION file in sync** (optional) - For backwards compatibility
+5. **Use CLI commands** - Use `./paperkit version` commands for all version management
 
 ## Example: Complete Release Process
 
 ```bash
 # 1. Bump version
-python3 ./.paperkit/tools/version-manager.py bump minor
+./paperkit version --bump minor
 # Output: Version bumped to: alpha-1.3.0
 
 # 2. Verify
@@ -230,11 +230,11 @@ git push origin main alpha-1.3.0
 
 ## Migration from Old System
 
-If you have existing scripts that read the VERSION file, they will continue to work. The new system falls back to the VERSION file automatically.
+**Status:** Migration complete as of December 21, 2025. The `VERSION` file has been deprecated and renamed to `VERSION.deprecated`.
 
-To fully migrate:
-1. Start using `.paperkit/tools/version-manager.py` for version updates
-2. Update any custom scripts to use `.paperkit/tools/get-version.sh`
-3. Eventually, you can remove the VERSION file (after updating all dependencies)
+- All PaperKit scripts now use the YAML-based version system
+- The deprecated VERSION.deprecated file is maintained only for backwards compatibility with external tools
+- Use `./paperkit version` commands for all version management
+- External scripts should migrate to use `.paperkit/tools/get-version.sh` (which handles fallback)
 
 See `.paperkit/docs/version-migration-guide.md` for complete migration instructions.

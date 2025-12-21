@@ -24,8 +24,26 @@ try:
     import yaml
     with open('${version_file}', 'r') as f:
         data = yaml.safe_load(f)
-        print(data.get('version', {}).get('current', ''))
-    sys.exit(0)
+        if not isinstance(data, dict):
+            raise ValueError('version.yaml must be a mapping')
+        version = data.get('version', {}) if isinstance(data.get('version', {}), dict) else {}
+        current = version.get('current', '')
+        if current:
+            print(current)
+            sys.exit(0)
+        semver = version.get('semver', {}) if isinstance(version.get('semver', {}), dict) else {}
+        if all(k in semver for k in ('major', 'minor', 'patch')):
+            base = '{}.{}.{}'.format(semver['major'], semver['minor'], semver['patch'])
+            prerelease = semver.get('prerelease') or ''
+            build = semver.get('build') or ''
+
+            current = '{}-{}'.format(prerelease, base) if prerelease else base
+            if build:
+                current = '{}+{}'.format(current, build)
+
+            print(current)
+            sys.exit(0)
+    sys.exit(1)
 except Exception:
     sys.exit(1)
 " 2>/dev/null)
@@ -44,7 +62,7 @@ except Exception:
     #   current: "1.2.3"
     # It intentionally supports only simple 'current: <value>' mappings on a single line.
     local version
-    version=$(sed -n -E 's/^[[:space:]]*current:[[:space:]]*["'\'']\?\([^"'\'']*\)["'\'']\?.*/\1/p' "$version_file" | head -n 1 | tr -d '[:space:]')
+    version=$(sed -n -E "s/^[[:space:]]*current:[[:space:]]*[\"']?([^\"']*)[\"']?.*/\\1/p" "$version_file" | head -n 1 | tr -d '[:space:]')
     
     if [ -n "$version" ]; then
         echo "$version"
@@ -54,10 +72,18 @@ except Exception:
     return 1
 }
 
-# Function to get version from legacy VERSION file
+# Function to get version from deprecated VERSION file (backwards compatibility only)
 get_version_from_file() {
-    local version_file="${PAPERKIT_ROOT}/VERSION"
+    local version_file="${PAPERKIT_ROOT}/VERSION.deprecated"
     
+    if [ -f "$version_file" ]; then
+        # Extract only the version line (first line, ignore comments)
+        grep -v '^#' "$version_file" | head -n 1 | tr -d '[:space:]'
+        return 0
+    fi
+    
+    # Fallback to old VERSION file name if it still exists
+    version_file="${PAPERKIT_ROOT}/VERSION"
     if [ -f "$version_file" ]; then
         cat "$version_file"
         return 0

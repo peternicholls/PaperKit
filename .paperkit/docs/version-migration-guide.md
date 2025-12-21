@@ -2,7 +2,9 @@
 
 ## Overview
 
-PaperKit now uses a YAML-based configuration file (`.paperkit/_cfg/version.yaml`) for version management instead of the legacy `VERSION` file. This provides a more robust, structured approach to version releases.
+PaperKit now uses a YAML-based configuration file (`.paperkit/_cfg/version.yaml`) for version management instead of the deprecated `VERSION` file. This provides a more robust, structured approach to version releases.
+
+**Status:** The plain-text `VERSION` file has been deprecated and renamed to `VERSION.deprecated` as of December 21, 2025. All scripts now use the YAML-based system, with fallback support for backwards compatibility.
 
 ## What Changed
 
@@ -15,32 +17,42 @@ PaperKit now uses a YAML-based configuration file (`.paperkit/_cfg/version.yaml`
 - Version stored in `.paperkit/_cfg/version.yaml`
 - Rich metadata including release dates, compatibility info, semantic version components
 - Tools for reading and updating versions programmatically
-- Backwards compatible with legacy `VERSION` file
+- Backwards compatible with deprecated `VERSION.deprecated` file
 
 ## New Version Configuration File
 
-Location: `.paperkit/_cfg/version.yaml`
+Location: `.paperkit/_cfg/version.yaml` (generated; do not edit manually)
 
 ```yaml
 version:
   current: "alpha-1.2.0"
-  release:
-    name: "alpha-1.2.0"
-    date: "2025-12-19"
-    type: "alpha"
-  components:
+  # Canonical semantic version components
+  semver:
     major: 1
     minor: 2
     patch: 0
     prerelease: "alpha"
+    build: "" # optional build metadata (appended as +build)
+
+  # Release metadata
+  release:
+    date: "2025-12-19"
+    type: "alpha"
+
+  # Build and update metadata
   metadata:
     buildDate: "2025-12-19"
     lastUpdated: "2025-12-19"
+
+  # Compatibility information
   compatibility:
     minPythonVersion: "3.7"
     minGitVersion: "2.0"
-  releaseNotes: "RELEASE-NOTES.md"
-  changelog: "CHANGELOG.md"
+
+  # References
+  references:
+    releaseNotes: "RELEASE-NOTES.md"
+    changelog: "CHANGELOG.md"
 ```
 
 ## Tools
@@ -67,6 +79,9 @@ python3 ./.paperkit/tools/version-manager.py info
 
 # Set a new version
 python3 ./.paperkit/tools/version-manager.py set alpha-1.3.0
+
+# Optionally include a build number (appends `+build`)
+python3 ./.paperkit/tools/version-manager.py set alpha-1.3.0+45
 
 # Bump version (patch, minor, or major)
 python3 ./.paperkit/tools/version-manager.py bump patch
@@ -116,20 +131,22 @@ python3 ./.paperkit/tools/version-manager.py set alpha-1.3.0
 
 ### For Package Maintainers
 
-The `VERSION` file is now considered deprecated but will be maintained for backwards compatibility. You can:
+The `VERSION` file has been deprecated and renamed to `VERSION.deprecated`. All PaperKit scripts now use the YAML system:
 
-1. **Keep both files** (recommended for transition period):
-   - Update `.paperkit/_cfg/version.yaml` as the source of truth
-   - Optionally keep `VERSION` file in sync for legacy tools
+1. **Migration Complete** (as of December 21, 2025):
+   - All scripts now use `.paperkit/_cfg/version.yaml` as the source of truth
+   - `VERSION.deprecated` is maintained only for backwards compatibility with external tools
+   - Use `./paperkit version` commands to manage versions
 
-2. **Remove VERSION file** (after full migration):
-   - Can be removed once all scripts use the new YAML system
-   - The deprecation notice is in `.paperkit/_cfg/manifest.yaml`
+2. **Remove VERSION.deprecated** (optional, after external tool migration):
+   - Can be removed once all external scripts are updated
+   - The file contains a deprecation notice for users who encounter it
 
 ## Deprecation Timeline
 
-- **December 21, 2025**: New YAML system introduced, VERSION file deprecated
-- **Future releases**: VERSION file may be removed in a future major version
+- **December 21, 2025**: VERSION file deprecated and renamed to VERSION.deprecated
+- **Current**: All PaperKit scripts migrated to YAML system
+- **Future**: VERSION.deprecated may be removed in a future major version once external dependencies are updated
 
 ## Benefits of YAML-Based System
 

@@ -6,7 +6,7 @@ installation:
   description: "Open Agent System for academic specification paper writing"
 version:
   configFile: .paperkit/_cfg/version.yaml
-  legacyFile: VERSION  # Deprecated: Use version.yaml
+  legacyFile: VERSION.deprecated # Deprecated: Use version.yaml
   legacyDeprecated: true
   legacyDeprecationDate: "2025-12-21"
 modules:

@@ -7,12 +7,11 @@
 # Get version from YAML config, fallback to VERSION file for backwards compatibility
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
-# Try to get version from YAML config
+# Get version from YAML config (get-version.sh handles VERSION file fallback if needed)
 if [ -f "$SCRIPT_DIR/.paperkit/tools/get-version.sh" ]; then
-    VERSION=$("$SCRIPT_DIR/.paperkit/tools/get-version.sh" 2>/dev/null)
+    VERSION=$("$SCRIPT_DIR/.paperkit/tools/get-version.sh" 2>/dev/null || echo "unknown")
 else
-    # Fallback to legacy VERSION file
-    VERSION=$(cat "$SCRIPT_DIR/VERSION" 2>/dev/null || echo "unknown")
+    VERSION="unknown"
 fi
 
 # Color codes
@@ -27,6 +26,146 @@ show_version() {
     echo "paperkit version $VERSION"
 }
 
+# Version command (supports flags for update/info)
+version_usage() {
+    cat << EOF
+Usage:
+  paperkit version                     Show current version
+  paperkit version --get               Show current version
+  paperkit version --info              Show full version info (JSON)
+  paperkit version --set <version>     Set version (e.g., alpha-1.3.0 or 1.3.0+45)
+  paperkit version --bump <part>       Bump semver (major|minor|patch)
+  paperkit version --build <value>     Set build metadata (appends +value)
+  paperkit version --clear-build       Remove build metadata
+    paperkit version --test              Run version system tests
+EOF
+}
+
+version_command() {
+    local action=""
+    local setval=""
+    local bumpval=""
+    local buildval=""
+    local clear_build=false
+    local run_tests=false
+
+    while [[ $# -gt 0 ]]; do
+        case "$1" in
+            --get)
+                action="get"
+                ;;
+            --info)
+                action="info"
+                ;;
+            --set)
+                shift
+                setval="${1:-}"
+                ;;
+            --bump)
+                shift
+                bumpval="${1:-}"
+                ;;
+            --build)
+                shift
+                buildval="${1:-}"
+                ;;
+            --clear-build)
+                clear_build=true
+                ;;
+            --test)
+                run_tests=true
+                ;;
+            -h|--help)
+                version_usage
+                return 0
+                ;;
+            *)
+                # Ignore unknown args and continue
+                ;;
+        esac
+        shift || break
+    done
+
+    # If no flags, just show version
+    if [[ -z "$action" && -z "$setval" && -z "$bumpval" && -z "$buildval" && "$clear_build" != true ]]; then
+        show_version
+        return 0
+    fi
+
+    local VM_SCRIPT="$SCRIPT_DIR/.paperkit/tools/version-manager.py"
+    local PYTHON_BIN="python3"
+    if [ -x "$SCRIPT_DIR/.venv/bin/python" ]; then
+        PYTHON_BIN="$SCRIPT_DIR/.venv/bin/python"
+    fi
+
+    if [ ! -f "$VM_SCRIPT" ]; then
+        echo -e "${RED}Error: version-manager.py not found.${NC}"
+        return 1
+    fi
+
+    # Ensure PyYAML is available for update operations
+    if ! "$PYTHON_BIN" -c "import yaml" 2>/dev/null; then
+        echo -e "${YELLOW}PyYAML is required for version updates.${NC}"
+        echo "Install: pip install pyyaml"
+        return 1
+    fi
+
+    if [[ "$action" == "get" ]]; then
+        show_version
+        return 0
+    fi
+
+    if [[ "$action" == "info" ]]; then
+        "$PYTHON_BIN" "$VM_SCRIPT" info
+        return $?
+    fi
+
+    if [[ -n "$setval" ]]; then
+        "$PYTHON_BIN" "$VM_SCRIPT" set "$setval"
+        return $?
+    fi
+
+    if [[ -n "$bumpval" ]]; then
+        if [[ "$bumpval" != "major" && "$bumpval" != "minor" && "$bumpval" != "patch" ]]; then
+            echo -e "${RED}Error: --bump must be one of major|minor|patch.${NC}"
+            return 1
+        fi
+        "$PYTHON_BIN" "$VM_SCRIPT" bump "$bumpval"
+        return $?
+    fi
+
+    if [[ -n "$buildval" ]]; then
+        local cur
+        cur=$("$PYTHON_BIN" "$VM_SCRIPT" get 2>/dev/null || echo "")
+        if [ -z "$cur" ] || [ "$cur" = "unknown" ]; then
+            cur=$("$SCRIPT_DIR/.paperkit/tools/get-version.sh" 2>/dev/null || echo "unknown")
+        fi
+        # Strip existing +build if present
+        local base_no_build="${cur%%+*}"
+        "$PYTHON_BIN" "$VM_SCRIPT" set "${base_no_build}+${buildval}"
+        return $?
+    fi
+
+    if $clear_build; then
+        local cur
+        cur=$("$PYTHON_BIN" "$VM_SCRIPT" get 2>/dev/null || echo "")
+        if [ -z "$cur" ] || [ "$cur" = "unknown" ]; then
+            cur=$("$SCRIPT_DIR/.paperkit/tools/get-version.sh" 2>/dev/null || echo "unknown")
+        fi
+        local base_no_build="${cur%%+*}"
+        "$PYTHON_BIN" "$VM_SCRIPT" set "${base_no_build}"
+        return $?
+    fi
+
+    if $run_tests; then
+        PATH="$SCRIPT_DIR/.venv/bin:$PATH" "$SCRIPT_DIR/.paperkit/tools/test-version-system.sh"
+        return $?
+    fi
+
+    # Fallback
+    show_version
+}
+
 # Show help
 show_help() {
     cat << EOF
@@ -39,7 +178,9 @@ Commands:
   init                 Initialize a new paperkit project in current directory
   generate [--target]  Generate IDE files from .paperkit/ source of truth
   validate             Validate agent/workflow/tool schemas
-  version              Show version information
+    version              Show version information or update via flags
+    latex                LaTeX tools (build, lint)
+    evidence             Extract evidence from PDFs
   help                 Show this help message
 
 Generate options:
@@ -54,6 +195,16 @@ Examples:
   paperkit generate --target=copilot  # Regenerate Copilot agents only
   paperkit generate --check        # Check if IDE files need updating
   paperkit version                 # Show version
+  paperkit version --info          # Show full version info (JSON)
+  paperkit version --set alpha-1.3.0     # Set version
+  paperkit version --bump patch           # Bump version
+  paperkit version --build 45             # Add build metadata (+45)
+  paperkit version --clear-build          # Remove build metadata
+  paperkit version --test                 # Run version system tests
+  paperkit latex build                    # Build LaTeX document
+  paperkit latex lint                     # Lint LaTeX sources
+  paperkit latex open                     # Open built PDF
+  paperkit evidence extract <pdf_dir> <out.md> [terms...]  # Extract quotes
   paperkit help                    # Show this help
 
 For more information, visit the documentation in .paperkit/docs/
@@ -97,6 +248,98 @@ generate_ide_files() {
         echo -e "${RED}Error: paperkit-generate.sh not found.${NC}"
         exit 1
     fi
+}
+
+# LaTeX commands
+latex_usage() {
+    cat << EOF
+Usage:
+  paperkit latex build    Build LaTeX document
+  paperkit latex lint     Lint LaTeX sources
+  paperkit latex open     Open built PDF (if present)
+EOF
+}
+
+latex_command() {
+    local subcmd="${1:-}"
+    case "$subcmd" in
+        build)
+            if [ -f "$SCRIPT_DIR/.paperkit/tools/build-latex.sh" ]; then
+                "$SCRIPT_DIR/.paperkit/tools/build-latex.sh"
+            else
+                echo -e "${RED}Error: build-latex.sh not found.${NC}"
+                return 1
+            fi
+            ;;
+        lint)
+            if [ -f "$SCRIPT_DIR/.paperkit/tools/lint-latex.sh" ]; then
+                "$SCRIPT_DIR/.paperkit/tools/lint-latex.sh"
+            else
+                echo -e "${RED}Error: lint-latex.sh not found.${NC}"
+                return 1
+            fi
+            ;;
+        open)
+            # Try common output locations for PDF
+            local candidates=(
+                "$SCRIPT_DIR/open-agents/output-final/pdf/main.pdf"
+                "$SCRIPT_DIR/.paperkit/data/output-final/pdf/main.pdf"
+                "$SCRIPT_DIR/latex/main.pdf"
+            )
+            local pdf=""
+            for f in "${candidates[@]}"; do
+                if [ -f "$f" ]; then
+                    pdf="$f"
+                    break
+                fi
+            done
+            if [ -z "$pdf" ]; then
+                echo -e "${YELLOW}No PDF found. Run:${NC} paperkit latex build"
+                return 1
+            fi
+            if command -v open >/dev/null 2>&1; then
+                open "$pdf"
+            else
+                echo "$pdf"
+            fi
+            ;;
+        -h|--help|*)
+            latex_usage
+            ;;
+    esac
+}
+
+# Evidence extraction commands
+evidence_usage() {
+    cat << EOF
+Usage:
+  paperkit evidence extract <pdf_dir> <output_md> [terms...]
+EOF
+}
+
+evidence_command() {
+    local subcmd="${1:-}"
+    shift || true
+    case "$subcmd" in
+        extract)
+            local pdf_dir="${1:-}"
+            local output_md="${2:-}"
+            shift 2 || true
+            if [ -z "$pdf_dir" ] || [ -z "$output_md" ]; then
+                echo -e "${YELLOW}Usage:${NC} paperkit evidence extract <pdf_dir> <output_md> [terms...]"
+                return 1
+            fi
+            if [ -f "$SCRIPT_DIR/.paperkit/tools/extract-evidence.sh" ]; then
+                "$SCRIPT_DIR/.paperkit/tools/extract-evidence.sh" "$pdf_dir" "$output_md" "$@"
+            else
+                echo -e "${RED}Error: extract-evidence.sh not found.${NC}"
+                return 1
+            fi
+            ;;
+        -h|--help|*)
+            evidence_usage
+            ;;
+    esac
 }
 
 # Validate schemas
@@ -177,8 +420,17 @@ case "${1:-help}" in
     validate)
         validate_schemas
         ;;
+    latex)
+        shift
+        latex_command "$@"
+        ;;
+    evidence)
+        shift
+        evidence_command "$@"
+        ;;
     version|--version|-v)
-        show_version
+        shift
+        version_command "$@"
         ;;
     help|--help|-h|"")
         show_help

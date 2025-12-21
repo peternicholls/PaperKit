@@ -1,5 +1,5 @@
 # PaperKit: Agentic Academic Paper Writing System
-[![Version](https://img.shields.io/github/v/tag/peternicholls/PaperKit?label=version&sort=semver)](VERSION)
+[![Version](https://img.shields.io/github/v/tag/peternicholls/PaperKit?label=version&sort=semver)](.paperkit/_cfg/version.yaml)
 
 PaperKit is a **document-first, agentic workflow** for researching and writing **high-quality academic papers** in **LaTeX** (compiled to PDF) with **verifiable citations** and repeatable builds.
 
@@ -17,13 +17,6 @@ PaperKit is a **document-first, agentic workflow** for researching and writing *
 ```
 - Interactive installer: pick IDE(s), generate IDE files, verify dependencies.
 
-**Reinstall/repair (same repo)**
-
-```bash
-./paperkit init
-```
-- Safe to rerun; use this if you switch IDEs or want a clean reset of generated files.
-
 **Regenerate derived files only**
 
 ```bash
@@ -32,7 +25,7 @@ PaperKit is a **document-first, agentic workflow** for researching and writing *
 ```
 - Use after editing `.paperkit/` sources to sync `.github/agents/` and `.codex/prompts/`.
 
-For detailed setup, see [Installation](#installation)
+For all available commands, see [Commands Reference](Docs/COMMANDS.md)
 
 
 
@@ -255,8 +248,9 @@ Review Tutor                       # Get feedback (as needed)
 # 4. References
 Reference Manager                  # Format bibliography
 
-# 5. Assemble
-LaTeX Assembler                    # Compile final PDF
+# 5. Build & Review
+./paperkit latex build             # Compile PDF
+./paperkit latex open              # Preview output
 ```
 
 ### Using with GitHub Copilot (VS Code)
@@ -274,53 +268,50 @@ LaTeX Assembler                    # Compile final PDF
 4. Provide instructions
 
 
-## Tools & Commands
+## Commands Reference
 
-### CLI Commands
+All commands use the `./paperkit` CLI. For detailed command documentation, see [Docs/COMMANDS.md](Docs/COMMANDS.md).
+
+### Setup & Validation
 
 ```bash
-./paperkit init                           # Initialize (IDE selection)
+./paperkit init                           # Initialize PaperKit
+./paperkit validate                       # Validate schemas & structure
+./paperkit help                           # Show all commands
+```
+
+### Generate IDE Files
+
+```bash
 ./paperkit generate                       # Generate all IDE files
 ./paperkit generate --target=copilot      # Generate Copilot agents only
 ./paperkit generate --target=codex        # Generate Codex prompts only
 ./paperkit generate --check               # Check if files up to date
-./paperkit validate                       # Validate schemas & structure
-./paperkit version                        # Show version
-./paperkit help                           # Show help
 ```
 
-### Tool Scripts
+### Version Management
 
 ```bash
-# Build LaTeX
-./.paperkit/tools/build-latex.sh [--clean] [--final]
-
-# Check LaTeX syntax
-./.paperkit/tools/lint-latex.sh
-
-# Extract evidence from PDFs (forensic audit)
-./.paperkit/tools/extract-evidence.sh <pdf_dir> <output_md> [terms...]
-
-# Validate paper structure
-python3 ./.paperkit/tools/validate-structure.py
-
-# Format bibliography (Harvard style)
-python3 ./.paperkit/tools/format-references.py --validate <file.bib>
-
-# Check dependencies
-./.paperkit/tools/check-dependencies.sh
+./paperkit version                        # Show current version
+./paperkit version --info                 # Show full version info (JSON)
+./paperkit version --set alpha-1.3.0      # Set version
+./paperkit version --bump patch           # Bump version (major|minor|patch)
+./paperkit version --build 45             # Add build metadata (+45)
+./paperkit version --test                 # Run version system tests
 ```
 
-### Schema Validation
+### LaTeX Document
 
 ```bash
-# Full validation with Python
-python3 paperkit-validate.py
+./paperkit latex build                    # Build PDF document
+./paperkit latex lint                     # Check LaTeX syntax
+./paperkit latex open                     # Open built PDF
+```
 
-# Validation options
-python3 paperkit-validate.py --verbose        # Detailed output
-python3 paperkit-validate.py --agents-only    # Agents only
-python3 paperkit-validate.py --ide-sync       # Check IDE file sync
+### Evidence Extraction
+
+```bash
+./paperkit evidence extract <pdf_dir> <output_md> [terms...]
 ```
 
 
@@ -363,19 +354,18 @@ Your content here...
 ### Build Process
 
 ```bash
-# Automated
-./.paperkit/tools/build-latex.sh
+# Build PDF (automated 3-pass compilation)
+./paperkit latex build
 
-# Manual (3 passes for cross-references)
-cd latex/
-pdflatex main.tex
-bibtex main
-pdflatex main.tex
-pdflatex main.tex
+# Check syntax before building
+./paperkit latex lint
+
+# Preview the result
+./paperkit latex open
 ```
 
 ### Output
-PDF appears in: `.paperkit/data/output-final/pdf/main.pdf`
+PDF appears in: `open-agents/output-final/pdf/main.pdf`
 
 
 ## Managing the System
@@ -408,8 +398,9 @@ PDF appears in: `.paperkit/data/output-final/pdf/main.pdf`
 ### Validate Changes
 
 ```bash
-./paperkit validate                    # Quick check
-python3 paperkit-validate.py --verbose # Full validation
+./paperkit validate                    # Validate schemas and structure
+./paperkit generate --check            # Check if IDE files need updating
+./paperkit latex lint                  # Check LaTeX syntax
 ```
 
 
@@ -425,11 +416,6 @@ python3 paperkit-validate.py --verbose # Full validation
 
 ### Troubleshooting
 
-**Check dependencies:**
-```bash
-./.paperkit/tools/check-dependencies.sh
-```
-
 **Validate your setup:**
 ```bash
 ./paperkit validate
@@ -437,13 +423,18 @@ python3 paperkit-validate.py --verbose # Full validation
 
 **Check LaTeX syntax:**
 ```bash
-./.paperkit/tools/lint-latex.sh
+./paperkit latex lint
 ```
 
 **Regenerate IDE files:**
 ```bash
 ./paperkit generate --check   # See what's missing
 ./paperkit generate           # Regenerate all
+```
+
+**Test version system:**
+```bash
+./paperkit version --test
 ```
 
 ### Support Channels
@@ -456,18 +447,18 @@ python3 paperkit-validate.py --verbose # Full validation
 
 ## Version
 
-Current version: See [version.yaml](.paperkit/_cfg/version.yaml) (or legacy [VERSION](VERSION) file)
+Current version: See [version.yaml](.paperkit/_cfg/version.yaml)
 
 **Quick check:**
 ```bash
-./paperkit version
-# or
-python3 ./.paperkit/tools/version-manager.py get
+./paperkit version              # Show current version
+./paperkit version --info       # Show full details
+./paperkit version --help       # Show version management options
 ```
 
 For version management documentation, see:
 - [Version System README](.paperkit/docs/version-system-readme.md)
-- [Migration Guide](.paperkit/docs/version-migration-guide.md)
+- [Commands Reference](Docs/COMMANDS.md)
 
 Last updated: December 2025
 

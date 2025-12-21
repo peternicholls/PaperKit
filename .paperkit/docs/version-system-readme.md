@@ -1,5 +1,7 @@
 # PaperKit Version Management System
 
+> Do not edit `.paperkit/_cfg/version.yaml` manually. Use `.paperkit/tools/version-manager.py` (`set`/`bump`) to update; the `current` field is generated from `semver`.
+
 This directory contains the YAML-based version management system for PaperKit.
 
 ## Quick Start
@@ -30,21 +32,23 @@ python3 ./.paperkit/tools/version-manager.py set alpha-1.3.0
 python3 ./.paperkit/tools/version-manager.py bump patch  # 1.2.0 -> 1.2.1
 python3 ./.paperkit/tools/version-manager.py bump minor  # 1.2.0 -> 1.3.0
 python3 ./.paperkit/tools/version-manager.py bump major  # 1.2.0 -> 2.0.0
+
+# Include an optional build number (appends `+build`)
+python3 ./.paperkit/tools/version-manager.py set alpha-1.3.0+45
 ```
 
 ## Configuration File
 
-**Location:** `.paperkit/_cfg/version.yaml`
+**Location:** `.paperkit/_cfg/version.yaml` (generated; do not edit manually)
 
 This YAML file is the source of truth for all version information. It contains:
 
-- **current**: The current version string
-- **release**: Release metadata (name, date, type)
-- **components**: Semantic version components (major, minor, patch, prerelease)
+- **current**: Generated version string derived from `semver`
+- **semver**: Semantic components (major, minor, patch, optional prerelease, optional build metadata)
+- **release**: Release metadata (date, type)
 - **metadata**: Build and update dates
 - **compatibility**: Minimum required versions of dependencies
-- **releaseNotes**: Path to release notes file
-- **changelog**: Path to changelog file
+- **references**: Paths to release notes and changelog
 
 ## Tools
 

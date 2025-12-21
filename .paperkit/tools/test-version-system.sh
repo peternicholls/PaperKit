@@ -157,10 +157,10 @@ if [ -f "${PAPERKIT_ROOT}/VERSION" ]; then
         fi
     fi
 else
-    info "Legacy VERSION file not present (acceptable)"
+    pass "No deprecated VERSION file (fully migrated to version.yaml)"
 fi
 
-# Test 9: Test version.yaml structure
+# Test 9: Test version.yaml structure (new schema)
 section "Test 9: YAML Structure Validation"
 if command -v python3 >/dev/null 2>&1 && python3 -c "import yaml" 2>/dev/null; then
     python3 << 'EOF'
@@ -169,18 +169,29 @@ import sys
 try:
     with open('.paperkit/_cfg/version.yaml', 'r') as f:
         data = yaml.safe_load(f)
-    required = ['version']
-    version_required = ['current', 'release', 'components']
-    
-    if 'version' not in data:
-        print("Missing 'version' key")
+
+    if not isinstance(data, dict):
+        print('version.yaml must be a mapping')
         sys.exit(1)
-    
-    for key in version_required:
-        if key not in data['version']:
+
+    version = data.get('version')
+    if not isinstance(version, dict):
+        print("Missing 'version' mapping")
+        sys.exit(1)
+
+    # Required keys
+    required_keys = ['current', 'semver']
+    for key in required_keys:
+        if key not in version:
             print(f"Missing 'version.{key}' key")
             sys.exit(1)
-    
+
+    semver = version.get('semver', {})
+    for key in ['major', 'minor', 'patch']:
+        if key not in semver:
+            print(f"Missing 'version.semver.{key}' key")
+            sys.exit(1)
+
     print("valid")
     sys.exit(0)
 except Exception as e:
