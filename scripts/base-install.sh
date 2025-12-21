@@ -159,7 +159,7 @@ check_existing_installation() {
         echo "  ${CYAN}3)${NC} Cancel installation"
         echo ""
         
-        read -p "Selection [1]: " choice
+        read -r -p "Selection [1]: " choice
         choice=${choice:-1}
         
         case $choice in
@@ -245,7 +245,7 @@ update_installation() {
         echo "  cd $INSTALL_DIR"
         echo "  git stash pop"
         echo ""
-        read -p "Press Enter to continue with update..."
+        read -r -p "Press Enter to continue with update..."
     fi
     
     # Comment #16: Auto-detect repository default branch instead of hardcoding "main"
@@ -321,7 +321,7 @@ clone_repository() {
         if [ "$attempt" -lt "$max_retries" ]; then
             echo ""
             info_msg "Please check your internet connection. The script will retry."
-            read -p "Press Enter to retry now, or Ctrl+C to abort... " _
+            read -r -p "Press Enter to retry now, or Ctrl+C to abort... " _
             attempt=$((attempt + 1))
             echo ""
         else
@@ -385,7 +385,7 @@ select_ides_menu() {
     echo ""
     
     while true; do
-        read -p "Selection [3]: " choice
+        read -r -p "Selection [3]: " choice
         choice=${choice:-3}
         
         case $choice in
