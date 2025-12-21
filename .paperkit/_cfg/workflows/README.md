@@ -32,7 +32,6 @@ Each workflow YAML file follows this structure:
 name: workflow-name              # Machine identifier (kebab-case)
 displayName: Workflow Name       # Human-readable name
 description: What workflow does  # Full description
-version: 1.0.0                   # Semantic version
 module: core                     # Module: core or specialist
 category: drafting               # Workflow category
 path: .paperkit/core/workflows/drafting/workflow-name.yaml

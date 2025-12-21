@@ -4,7 +4,6 @@
 name: build-latex
 displayName: Build LaTeX
 description: Compile LaTeX document to PDF
-version: 1.0.0
 path: .paperkit/tools/build-latex.sh
 requiresConsent: true
 

@@ -7,7 +7,6 @@ description: >
   Verify all BibTeX entries have complete information for their type.
   Checks required and recommended fields per entry type according
   to Harvard style requirements.
-version: 1.0.0
 module: core
 category: references
 path: .paperkit/core/workflows/references/citation-completeness.yaml

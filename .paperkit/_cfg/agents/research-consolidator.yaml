@@ -5,7 +5,6 @@ name: research-consolidator
 displayName: Alex
 title: Research Consolidator
 icon: 🔬
-version: 1.0.0
 module: core
 
 identity:

@@ -1,7 +1,6 @@
 # GitHub Copilot IDE Configuration
 
 ide: github-copilot
-version: 1.0.0
 
 # Agent discovery
 agent_location: ".github/agents"

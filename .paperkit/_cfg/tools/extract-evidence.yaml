@@ -4,7 +4,6 @@
 name: extract-evidence
 displayName: Extract Evidence (Forensic Audit)
 description: Batch extract quotable evidence from sources using pdftotext + grep with context
-version: 1.0.0
 path: .paperkit/tools/extract-evidence.sh
 requiresConsent: true
 

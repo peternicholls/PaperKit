@@ -5,7 +5,6 @@ name: latex-assembler
 displayName: Taylor
 title: LaTeX Assembler
 icon: 🔧
-version: 1.0.0
 module: core
 
 identity:

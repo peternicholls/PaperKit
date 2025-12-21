@@ -5,7 +5,6 @@ name: brainstorm
 displayName: Carson
 title: Brainstorm Coach
 icon: 🧠
-version: 1.0.0
 module: specialist
 
 identity:

@@ -5,7 +5,6 @@ name: quality-refiner
 displayName: Riley
 title: Quality Refiner
 icon: 💎
-version: 1.0.0
 module: core
 
 identity:

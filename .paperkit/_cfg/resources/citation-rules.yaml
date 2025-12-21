@@ -4,7 +4,6 @@
 # These rules define validation criteria for citations and bibliography entries.
 # Used by the reference-manager agent for automated checking.
 
-version: 1.0.0
 style: harvard-cite-them-right
 lastUpdated: 2025-12-18
 

@@ -4,7 +4,6 @@
 name: lint-latex
 displayName: Lint LaTeX
 description: Check LaTeX syntax for errors
-version: 1.0.0
 path: .paperkit/tools/lint-latex.sh
 requiresConsent: true
 

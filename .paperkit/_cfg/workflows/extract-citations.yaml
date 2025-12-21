@@ -7,7 +7,6 @@ description: >
   Extract all citation commands from LaTeX files and catalog them.
   Identifies \cite{}, \citep{}, \citet{}, \citeauthor{} commands
   and [CITATION NEEDED] markers.
-version: 1.0.0
 module: core
 category: references
 path: .paperkit/core/workflows/references/extract-citations.yaml

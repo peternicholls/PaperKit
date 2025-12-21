@@ -4,7 +4,6 @@
 name: consolidate
 displayName: Consolidate Research
 description: Synthesize research materials into coherent reference documents
-version: 1.0.0
 module: core
 category: research
 path: .paperkit/core/workflows/research/consolidate.yaml

@@ -6,7 +6,6 @@
 # Schema: .paperkit/_cfg/schemas/workflow-schema.json
 # Validation: Run `python3 open-agents/tools/validate-workflow-schema.py`
 
-version: 2.0.0
 schemaVersion: 1.0.0
 lastUpdated: 2025-12-18
 

@@ -4,7 +4,6 @@
 name: check-dependencies
 displayName: Check Dependencies
 description: Verify all required system dependencies are installed
-version: 1.0.0
 path: .paperkit/tools/check-dependencies.sh
 requiresConsent: false
 

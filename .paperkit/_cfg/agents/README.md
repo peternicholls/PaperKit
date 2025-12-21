@@ -48,7 +48,6 @@ path: .paperkit/module/agents/name.md  # Path to agent file
 ### Optional Fields
 
 ```yaml
-version: 1.0.0                  # Semantic version
 capabilities: []                # List of capabilities
 constraints: []                 # List of constraints
 principles: []                  # Core principles
