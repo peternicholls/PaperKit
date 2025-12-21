@@ -63,11 +63,11 @@ get_version_from_file() {
 VERSION=""
 
 # Try YAML config first
-VERSION=$(get_version_from_yaml 2>/dev/null)
+VERSION=$(get_version_from_yaml 2>/dev/null || echo "")
 
-# Fallback to legacy VERSION file
-if [ -z "$VERSION" ]; then
-    VERSION=$(get_version_from_file 2>/dev/null)
+# Fallback to legacy VERSION file if YAML didn't return a valid version
+if [ -z "$VERSION" ] || [ "$VERSION" = "unknown" ]; then
+    VERSION=$(get_version_from_file 2>/dev/null || echo "")
 fi
 
 # Final fallback to unknown
