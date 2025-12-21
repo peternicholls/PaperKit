@@ -40,7 +40,7 @@ version_usage() {
     echo ""
     echo -e "${BLUE}════════════════════════════════════════════════════════════════════════════${NC}"
     echo ""
-    echo -e "${BLUE}${NC}  ${YELLOW}${TITLE_SHORT}${NC} Version Management. ${GREEN}Current Version${NC} $VERSION"
+    echo -e "  ${YELLOW}${TITLE_SHORT}${NC} Version Information. ${GREEN}Current Version${NC} $VERSION"
     echo ""
     echo -e "${BLUE}════════════════════════════════════════════════════════════════════════════${NC}"
     echo ""
@@ -49,63 +49,38 @@ version_usage() {
     echo ""
     echo -e "${YELLOW}OPTIONS${NC}"
     echo -e "  ${GREEN}(no flags)${NC}             Show current version"
-    echo -e "  ${GREEN}--get${NC}                  Show current version"
     echo -e "  ${GREEN}--info${NC}                 Show full version info (JSON)"
-    echo -e "  ${GREEN}--set${NC} <version>        Set version (e.g., alpha-1.3.0 or 1.3.0+45)"
-    echo -e "  ${GREEN}--bump${NC} <part>          Bump semver (major|minor|patch)"
-    echo -e "  ${GREEN}--build${NC} <value>        Set build metadata (appends +value)"
-    echo -e "  ${GREEN}--clear-build${NC}          Remove build metadata"
-    echo -e "  ${GREEN}--test${NC}                 Run version system tests"
+    echo ""
+    echo -e "${YELLOW}VERSION MANAGEMENT${NC}"
+    echo "  To modify version numbers, use: paperkit-dev version --bump <part>"
+    echo "  See: paperkit-dev version --help"
     echo ""
     echo -e "${YELLOW}EXAMPLES${NC}"
     echo -e "  ${BLUE}#${NC} Show current version"
     echo "  paperkit version"
     echo ""
-    echo -e "  ${BLUE}#${NC} Bump to next patch version"
-    echo "  paperkit version --bump patch"
-    echo ""
-    echo -e "  ${BLUE}#${NC} Set specific version with build metadata"
-    echo "  paperkit version --set 1.2.3+build.456"
+    echo -e "  ${BLUE}#${NC} Show full version details"
+    echo "  paperkit version --info"
     echo ""
 }
 
 version_command() {
     local action=""
-    local setval=""
-    local bumpval=""
-    local buildval=""
-    local clear_build=false
-    local run_tests=false
 
     while [[ $# -gt 0 ]]; do
         case "$1" in
-            --get)
-                action="get"
-                ;;
             --info)
                 action="info"
-                ;;
-            --set)
-                shift
-                setval="${1:-}"
-                ;;
-            --bump)
-                shift
-                bumpval="${1:-}"
-                ;;
-            --build)
-                shift
-                buildval="${1:-}"
-                ;;
-            --clear-build)
-                clear_build=true
-                ;;
-            --test)
-                run_tests=true
                 ;;
             -h|--help)
                 version_usage
                 return 0
+                ;;
+            --set|--bump|--build|--clear-build|--test)
+                echo -e "${YELLOW}Version modification commands have moved to paperkit-dev${NC}"
+                echo "Use: paperkit-dev version $1"
+                echo ""
+                return 1
                 ;;
             *)
                 # Ignore unknown args and continue
@@ -115,7 +90,7 @@ version_command() {
     done
 
     # If no flags, just show version
-    if [[ -z "$action" && -z "$setval" && -z "$bumpval" && -z "$buildval" && "$clear_build" != true && "$run_tests" != true ]]; then
+    if [[ -z "$action" ]]; then
         show_version
         return 0
     fi
@@ -131,67 +106,17 @@ version_command() {
         return 1
     fi
 
-    # Ensure PyYAML is available for update operations
+    # Ensure PyYAML is available
     if ! "$PYTHON_BIN" -c "import yaml" 2>/dev/null; then
-        echo -e "${YELLOW}PyYAML is required for version updates.${NC}"
+        echo -e "${YELLOW}PyYAML is required for version info.${NC}"
         echo "Install: pip install pyyaml"
         return 1
-    fi
-
-    if [[ "$action" == "get" ]]; then
-        show_version
-        return 0
     fi
 
     if [[ "$action" == "info" ]]; then
         "$PYTHON_BIN" "$VM_SCRIPT" info
         return $?
     fi
-
-    if [[ -n "$setval" ]]; then
-        "$PYTHON_BIN" "$VM_SCRIPT" set "$setval"
-        return $?
-    fi
-
-    if [[ -n "$bumpval" ]]; then
-        if [[ "$bumpval" != "major" && "$bumpval" != "minor" && "$bumpval" != "patch" ]]; then
-            echo -e "${RED}Error: --bump must be one of major|minor|patch.${NC}"
-            return 1
-        fi
-        "$PYTHON_BIN" "$VM_SCRIPT" bump "$bumpval"
-        return $?
-    fi
-
-    if [[ -n "$buildval" ]]; then
-        local cur
-        cur=$("$PYTHON_BIN" "$VM_SCRIPT" get 2>/dev/null || echo "")
-        if [ -z "$cur" ] || [ "$cur" = "unknown" ]; then
-            cur=$("$SCRIPT_DIR/.paperkit/tools/get-version.sh" 2>/dev/null || echo "unknown")
-        fi
-        # Strip existing +build if present
-        local base_no_build="${cur%%+*}"
-        "$PYTHON_BIN" "$VM_SCRIPT" set "${base_no_build}+${buildval}"
-        return $?
-    fi
-
-    if $clear_build; then
-        local cur
-        cur=$("$PYTHON_BIN" "$VM_SCRIPT" get 2>/dev/null || echo "")
-        if [ -z "$cur" ] || [ "$cur" = "unknown" ]; then
-            cur=$("$SCRIPT_DIR/.paperkit/tools/get-version.sh" 2>/dev/null || echo "unknown")
-        fi
-        local base_no_build="${cur%%+*}"
-        "$PYTHON_BIN" "$VM_SCRIPT" set "${base_no_build}"
-        return $?
-    fi
-
-    if $run_tests; then
-        PATH="$SCRIPT_DIR/.venv/bin:$PATH" "$SCRIPT_DIR/.paperkit/tools/test-version-system.sh"
-        return $?
-    fi
-
-    # Fallback
-    show_version
 }
 
 # Show help
@@ -199,7 +124,7 @@ show_help() {
     echo ""
     echo -e "${BLUE}════════════════════════════════════════════════════════════════════════════${NC}"
     echo ""
-    echo -e "${BLUE}${NC}  ${YELLOW}${TITLE_SHORT}${NC} ${TITLE_LONG} CLI. ${GREEN}Version${NC} $VERSION"
+    echo -e "  ${YELLOW}${TITLE_SHORT}${NC} ${TITLE_LONG} CLI. ${GREEN}Version${NC} $VERSION"
     echo ""
     echo -e "${BLUE}════════════════════════════════════════════════════════════════════════════${NC}"
     echo ""
@@ -211,11 +136,14 @@ show_help() {
     echo -e "  ${GREEN}init${NC}                          Initialize a new paperkit project"
     echo -e "  ${GREEN}generate${NC} [--target]           Generate IDE files from .paperkit/ source"
     echo -e "  ${GREEN}validate${NC}                      Validate agent/workflow/tool schemas"
-    echo -e "  ${GREEN}version${NC}                       Version management (show, set, bump)"
+    echo -e "  ${GREEN}version${NC}                       Show version information"
     echo -e "  ${GREEN}latex${NC}                         LaTeX tools (build, lint, open)"
     echo -e "  ${GREEN}evidence${NC}                      Extract evidence from PDFs"
-    echo -e "  ${GREEN}release${NC}                       Create and tag a release"
     echo -e "  ${GREEN}help${NC}                          Show this help message"
+    echo ""
+    echo -e "${YELLOW}DEVELOPER COMMANDS${NC}"
+    echo -e "  For version management and releases, use: ${GREEN}paperkit-dev${NC}"
+    echo "  See: paperkit-dev --help"
     echo ""
     echo -e "For more information: ${GREEN}.paperkit/docs/${NC}"
     echo ""
@@ -226,7 +154,7 @@ init_usage() {
     echo ""
     echo -e "${BLUE}════════════════════════════════════════════════════════════════════════════${NC}"
     echo ""
-    echo -e "${BLUE}${NC}  ${YELLOW}${TITLE_SHORT}${NC} Initialization${NC}"
+    echo -e "  ${YELLOW}${TITLE_SHORT}${NC} Initialization"
     echo ""
     echo -e "${BLUE}════════════════════════════════════════════════════════════════════════════${NC}"
     echo ""
@@ -289,7 +217,7 @@ generate_usage() {
     echo ""
     echo -e "${BLUE}════════════════════════════════════════════════════════════════════════════${NC}"
     echo ""
-    echo -e "${BLUE}${NC}  ${YELLOW}${TITLE_SHORT} IDE File Generation${NC}"
+    echo -e "  ${YELLOW}${TITLE_SHORT}${NC} IDE File Generation"
     echo ""
     echo -e "${BLUE}════════════════════════════════════════════════════════════════════════════${NC}"
     echo ""
@@ -344,7 +272,7 @@ latex_usage() {
     echo ""
     echo -e "${BLUE}════════════════════════════════════════════════════════════════════════════${NC}"
     echo ""
-    echo -e "${BLUE}${NC}  ${YELLOW}${TITLE_SHORT} LaTeX Tools${NC}"
+    echo -e "  ${YELLOW}${TITLE_SHORT}${NC} LaTeX Tools"
     echo ""
     echo -e "${BLUE}════════════════════════════════════════════════════════════════════════════${NC}"
     echo ""
@@ -417,7 +345,7 @@ evidence_usage() {
     echo ""
     echo -e "${BLUE}════════════════════════════════════════════════════════════════════════════${NC}"
     echo ""
-    echo -e "${BLUE}${NC}  ${YELLOW}${TITLE_SHORT} Evidence Extraction${NC}"
+    echo -e "  ${YELLOW}${TITLE_SHORT}${NC} Evidence Extraction"
     echo ""
     echo -e "${BLUE}════════════════════════════════════════════════════════════════════════════${NC}"
     echo ""
@@ -472,7 +400,7 @@ validate_usage() {
     echo ""
     echo -e "${BLUE}════════════════════════════════════════════════════════════════════════════${NC}"
     echo ""
-    echo -e "${BLUE}${NC}  ${YELLOW}${TITLE_SHORT} Schema Validation${NC}"
+    echo -e "  ${YELLOW}${TITLE_SHORT}${NC} Schema Validation"
     echo ""
     echo -e "${BLUE}════════════════════════════════════════════════════════════════════════════${NC}"
     echo ""
@@ -573,197 +501,6 @@ validate_schemas() {
 }
 
 # Release command
-release_usage() {
-    echo ""
-    echo -e "${BLUE}════════════════════════════════════════════════════════════════════════════${NC}"
-    echo ""
-    echo -e "${BLUE}${NC}  ${YELLOW}${TITLE_SHORT} Release Management${NC}"
-    echo ""
-    echo -e "${BLUE}════════════════════════════════════════════════════════════════════════════${NC}"
-    echo ""
-    echo -e "${YELLOW}USAGE${NC}"
-    echo "  paperkit release [options]"
-    echo ""
-    echo -e "${YELLOW}OPTIONS${NC}"
-    echo -e "  ${GREEN}--tag${NC}                 Create and push git tag for current version"
-    echo -e "  ${GREEN}--bundle${NC}              Create distribution bundle"
-    echo -e "  ${GREEN}--full${NC}                Full release (bundle + tag + push)"
-    echo -e "  ${GREEN}--dry-run${NC}             Show what would be done without doing it"
-    echo ""
-    echo -e "${YELLOW}DESCRIPTION${NC}"
-    echo "  Automate release tasks: creating bundles, tagging, and publishing."
-    echo "  The tag name is automatically derived from the current version in"
-    echo "  .paperkit/_cfg/version.yaml"
-    echo ""
-    echo -e "${YELLOW}WORKFLOW${NC}"
-    echo "  Before releasing:"
-    echo "  1. Bump version: paperkit version --bump <major|minor|patch>"
-    echo "  2. Update RELEASE-NOTES.md and CHANGELOG.md"
-    echo "  3. Commit changes: git commit -am 'Release <version>'"
-    echo "  4. Run: paperkit release --full"
-    echo ""
-    echo -e "${YELLOW}EXAMPLES${NC}"
-    echo -e "  ${BLUE}#${NC} Create and push release tag"
-    echo "  paperkit release --tag"
-    echo ""
-    echo -e "  ${BLUE}#${NC} Create distribution bundle only"
-    echo "  paperkit release --bundle"
-    echo ""
-    echo -e "  ${BLUE}#${NC} Full release (bundle + tag + push)"
-    echo "  paperkit release --full"
-    echo ""
-    echo -e "  ${BLUE}#${NC} Preview what would happen"
-    echo "  paperkit release --full --dry-run"
-    echo ""
-}
-
-release_command() {
-    local do_tag=false
-    local do_bundle=false
-    local dry_run=false
-    
-    # Parse arguments
-    for arg in "$@"; do
-        case "$arg" in
-            --tag)
-                do_tag=true
-                ;;
-            --bundle)
-                do_bundle=true
-                ;;
-            --full)
-                do_tag=true
-                do_bundle=true
-                ;;
-            --dry-run)
-                dry_run=true
-                ;;
-            -h|--help)
-                release_usage
-                return 0
-                ;;
-            *)
-                echo -e "${RED}Unknown option: $arg${NC}"
-                release_usage
-                return 1
-                ;;
-        esac
-    done
-    
-    # If no options, show usage
-    if [ "$do_tag" = false ] && [ "$do_bundle" = false ]; then
-        release_usage
-        return 0
-    fi
-    
-    # Get current version
-    local CURRENT_VERSION
-    if [ -f "$SCRIPT_DIR/.paperkit/tools/get-version.sh" ]; then
-        CURRENT_VERSION=$("$SCRIPT_DIR/.paperkit/tools/get-version.sh" 2>/dev/null || echo "unknown")
-    else
-        CURRENT_VERSION="unknown"
-    fi
-    
-    if [ "$CURRENT_VERSION" = "unknown" ]; then
-        echo -e "${RED}Error: Could not determine current version${NC}"
-        return 1
-    fi
-    
-    echo -e "${BLUE}════════════════════════════════════════════════════════════════════════════${NC}"
-    echo -e "${YELLOW}${TITLE_SHORT} Release${NC}: ${GREEN}${CURRENT_VERSION}${NC}"
-    echo -e "${BLUE}════════════════════════════════════════════════════════════════════════════${NC}"
-    echo ""
-    
-    if $dry_run; then
-        echo -e "${YELLOW}DRY RUN MODE - No changes will be made${NC}"
-        echo ""
-    fi
-    
-    # Create bundle
-    if $do_bundle; then
-        echo -e "${BLUE}Creating distribution bundle...${NC}"
-        if $dry_run; then
-            echo "  Would run: ./.paperkit/tools/bundle.sh"
-            echo "  Would create: paperkit-${CURRENT_VERSION}.tar.gz"
-        else
-            if [ -f "$SCRIPT_DIR/.paperkit/tools/bundle.sh" ]; then
-                "$SCRIPT_DIR/.paperkit/tools/bundle.sh" || {
-                    echo -e "${RED}Bundle creation failed${NC}"
-                    return 1
-                }
-            else
-                echo -e "${RED}Error: bundle.sh not found${NC}"
-                return 1
-            fi
-        fi
-        echo ""
-    fi
-    
-    # Create and push tag
-    if $do_tag; then
-        # Check if tag already exists
-        if git rev-parse "$CURRENT_VERSION" >/dev/null 2>&1; then
-            echo -e "${YELLOW}⚠ Tag ${CURRENT_VERSION} already exists${NC}"
-            read -p "Delete and recreate? (yes/no): " confirm
-            if [[ "$confirm" =~ ^[Yy][Ee][Ss]$ ]]; then
-                if $dry_run; then
-                    echo "  Would run: git tag -d ${CURRENT_VERSION}"
-                    echo "  Would run: git push origin :refs/tags/${CURRENT_VERSION}"
-                else
-                    git tag -d "$CURRENT_VERSION"
-                    git push origin ":refs/tags/${CURRENT_VERSION}" 2>/dev/null || true
-                fi
-            else
-                echo "Skipping tag creation"
-                return 0
-            fi
-        fi
-        
-        echo -e "${BLUE}Creating git tag: ${GREEN}${CURRENT_VERSION}${NC}"
-        if $dry_run; then
-            echo "  Would run: git tag -a ${CURRENT_VERSION} -m 'Release ${CURRENT_VERSION}'"
-        else
-            git tag -a "$CURRENT_VERSION" -m "Release ${CURRENT_VERSION}" || {
-                echo -e "${RED}Tag creation failed${NC}"
-                return 1
-            }
-            echo -e "${GREEN}✓ Tag created${NC}"
-        fi
-        echo ""
-        
-        echo -e "${BLUE}Pushing tag to origin...${NC}"
-        if $dry_run; then
-            echo "  Would run: git push origin ${CURRENT_VERSION}"
-        else
-            git push origin "$CURRENT_VERSION" || {
-                echo -e "${RED}Tag push failed${NC}"
-                return 1
-            }
-            echo -e "${GREEN}✓ Tag pushed${NC}"
-        fi
-        echo ""
-    fi
-    
-    # Success summary
-    echo -e "${GREEN}✓ Release ${CURRENT_VERSION} complete!${NC}"
-    echo ""
-    
-    if $do_bundle && ! $dry_run; then
-        echo "Distribution bundle created:"
-        echo "  paperkit-${CURRENT_VERSION}.tar.gz"
-        echo ""
-    fi
-    
-    if $do_tag && ! $dry_run; then
-        echo "Next steps:"
-        echo "  1. Go to GitHub releases page"
-        echo "  2. Draft a new release from tag: ${CURRENT_VERSION}"
-        echo "  3. Upload the distribution bundle"
-        echo "  4. Publish the release"
-        echo ""
-    fi
-}
-
 # Main command dispatcher
 case "${1:-help}" in
     init)
@@ -787,8 +524,10 @@ case "${1:-help}" in
         evidence_command "$@"
         ;;
     release)
-        shift
-        release_command "$@"
+        echo -e "${YELLOW}Release commands have moved to paperkit-dev${NC}"
+        echo "Use: paperkit-dev release --help"
+        echo ""
+        exit 1
         ;;
     version|--version|-v)
         shift

@@ -1,5 +1,10 @@
 {
     "yaml.schemas": {
         "": ".copilot/workflows.yaml"
+    },
+    "files.associations": {
+        "paperkit": "shellscript",
+        "paperkit-dev": "shellscript",
+        "paperkit-install.sh": "shellscript"
     }
 }

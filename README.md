@@ -227,6 +227,15 @@ To update the system, edit `.paperkit/` and regenerate IDE files:
 ./paperkit generate --target=copilot  # Regenerate Copilot only
 ```
 
+### Command Separation
+
+PaperKit separates **user commands** from **developer commands** for security:
+
+- **`./paperkit`** - User commands (init, generate, latex, evidence, version info)
+- **`./paperkit-dev`** - Developer commands (release, version modifications)
+
+Developer commands require authorization via git user.email to prevent accidental system modifications. See [Developer Commands](.paperkit/docs/developer-commands.md) for details.
+
 
 ## Writing Your Paper
 
