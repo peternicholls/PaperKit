@@ -130,9 +130,25 @@ if [ -f "${PAPERKIT_ROOT}/VERSION" ]; then
     
     # Temporarily move version.yaml and test fallback
     if [ -f "${PAPERKIT_ROOT}/.paperkit/_cfg/version.yaml" ]; then
-        mv "${PAPERKIT_ROOT}/.paperkit/_cfg/version.yaml" "${PAPERKIT_ROOT}/.paperkit/_cfg/version.yaml.bak"
+        VERSION_YAML="${PAPERKIT_ROOT}/.paperkit/_cfg/version.yaml"
+        VERSION_YAML_BAK="${VERSION_YAML}.bak"
+
+        restore_version_yaml() {
+            if [ -f "$VERSION_YAML_BAK" ]; then
+                mv "$VERSION_YAML_BAK" "$VERSION_YAML"
+            fi
+        }
+
+        # Ensure we restore version.yaml even if interrupted
+        trap 'restore_version_yaml' INT TERM EXIT
+
+        mv "$VERSION_YAML" "$VERSION_YAML_BAK"
         FALLBACK_VERSION=$("${PAPERKIT_ROOT}/.paperkit/tools/get-version.sh" 2>/dev/null)
-        mv "${PAPERKIT_ROOT}/.paperkit/_cfg/version.yaml.bak" "${PAPERKIT_ROOT}/.paperkit/_cfg/version.yaml"
+
+        # Normal restoration path
+        restore_version_yaml
+        # Clear the trap now that restoration has completed
+        trap - INT TERM EXIT
         
         if [ "$FALLBACK_VERSION" = "$LEGACY_VERSION" ]; then
             pass "Fallback to VERSION file works correctly"
@@ -147,7 +163,7 @@ fi
 # Test 9: Test version.yaml structure
 section "Test 9: YAML Structure Validation"
 if command -v python3 >/dev/null 2>&1 && python3 -c "import yaml" 2>/dev/null; then
-    YAML_VALID=$(python3 << 'EOF'
+    python3 << 'EOF'
 import yaml
 import sys
 try:
@@ -171,11 +187,11 @@ except Exception as e:
     print(f"Error: {e}")
     sys.exit(1)
 EOF
-)
-    if [ "$YAML_VALID" = "valid" ]; then
+    YAML_VALID_STATUS=$?
+    if [ $YAML_VALID_STATUS -eq 0 ]; then
         pass "version.yaml has correct structure"
     else
-        fail "version.yaml structure invalid: $YAML_VALID"
+        fail "version.yaml structure validation failed"
     fi
 else
     info "Python/PyYAML not available, skipping YAML structure validation"
@@ -184,8 +200,8 @@ fi
 # Test 10: Test version bumping (if PyYAML available)
 section "Test 10: Version Bump Functionality"
 if command -v python3 >/dev/null 2>&1 && python3 -c "import yaml" 2>/dev/null; then
-    # Create a test version file
-    TEST_VERSION_FILE="/tmp/test-version-$$.yaml"
+    # Create a test version file using mktemp
+    TEST_VERSION_FILE="$(mktemp "/tmp/test-version-XXXXXX.yaml")"
     cp "${PAPERKIT_ROOT}/.paperkit/_cfg/version.yaml" "$TEST_VERSION_FILE"
     
     # Test bump

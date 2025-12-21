@@ -36,8 +36,15 @@ except Exception:
         fi
     fi
     
-    # Fallback: Simple grep/sed (less reliable but works without PyYAML)
-    local version=$(grep -A1 '^version:' "$version_file" | grep 'current:' | sed 's/.*current:[[:space:]]*["'\'']\?\([^"'\'']*\)["'\'']\?.*/\1/' | tr -d ' ')
+    # Fallback: Simple sed-based extraction (works without PyYAML)
+    # Expected YAML format for this fallback:
+    #   version:
+    #     current: 1.2.3
+    # or:
+    #   current: "1.2.3"
+    # It intentionally supports only simple 'current: <value>' mappings on a single line.
+    local version
+    version=$(sed -n -E 's/^[[:space:]]*current:[[:space:]]*["'\'']\?\([^"'\'']*\)["'\'']\?.*/\1/p' "$version_file" | head -n 1 | tr -d '[:space:]')
     
     if [ -n "$version" ]; then
         echo "$version"

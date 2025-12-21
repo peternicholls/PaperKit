@@ -5,7 +5,7 @@ Manages version information from .paperkit/_cfg/version.yaml
 """
 
 import sys
-import os
+import json
 import argparse
 from pathlib import Path
 from datetime import datetime
@@ -13,7 +13,7 @@ from datetime import datetime
 try:
     import yaml
 except ImportError:
-    print("Error: PyYAML is required. Install with: pip install pyyaml", file=sys.stderr)
+    print("Error: PyYAML is required. Install with: pip install 'pyyaml>=5.4'", file=sys.stderr)
     sys.exit(1)
 
 
@@ -47,6 +47,8 @@ class VersionManager:
         """Save version data to YAML file"""
         try:
             with open(self.config_path, 'w') as f:
+                # Note: sort_keys=False relies on Python 3.7+ dict insertion ordering.
+                # This is acceptable because the project's minPythonVersion is 3.7.
                 yaml.dump(self.version_data, f, default_flow_style=False, sort_keys=False)
         except Exception as e:
             print(f"Error saving version config: {e}", file=sys.stderr)
@@ -114,8 +116,12 @@ class VersionManager:
             components['minor'] = int(minor)
             components['patch'] = int(patch)
         except (ValueError, IndexError) as e:
-            # If parsing fails, just keep the version string
-            pass
+            # If parsing fails, just keep the version string, but warn the user.
+            print(
+                f"Warning: Failed to parse semantic components from version '{version_string}': {e}. "
+                f"Version bumping based on components may not work as expected.",
+                file=sys.stderr,
+            )
         
         self.save()
     
@@ -192,7 +198,6 @@ Examples:
         print(vm.get_version())
     
     elif args.command == 'info':
-        import json
         info = vm.get_full_info()
         print(json.dumps(info, indent=2))
     
