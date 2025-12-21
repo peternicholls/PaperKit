@@ -151,7 +151,7 @@ print(f"Current version: {vm.get_version()}")
 
 When making changes:
 
-1. Update `.paperkit/_cfg/version.yaml`
+1. Use `./paperkit-dev version` commands or `.paperkit/tools/version-manager.py` to update version (do not edit `.paperkit/_cfg/version.yaml` manually)
 2. Test with both tools to ensure consistency
 3. Run `./paperkit version` to verify
 4. Update RELEASE-NOTES.md and CHANGELOG.md

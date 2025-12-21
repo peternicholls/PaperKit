@@ -2,12 +2,13 @@
 
 Run the CLI commands in the terminal:
 
-## Setup
+## Initialization
 
-Initialize PaperKit in your project directory. Creates the `.paperkit/` structure, agent definitions, and configuration files.
+Initialize a new PaperKit paper project. Sets up directory structure, LaTeX templates, and configuration.
 
 ```bash
-./paperkit init
+./paperkit init                        # Initialize new paper project
+./paperkit init --help                 # Show initialization options
 ```
 
 ## Get Help
@@ -38,25 +39,17 @@ Validate agent definitions, workflow schemas, and tool configurations. Checks YA
 ./paperkit validate
 ```
 
-## Version Management
+## Version Information
 
-Manage semantic versioning with optional prerelease tags and build metadata. Supports automatic bumping (major/minor/patch) and testing.
+View current version and detailed version metadata. Version management commands (modify/bump) require `paperkit-dev`.
 
 ```bash
-./paperkit version                     # show current version
-./paperkit version --info              # show full JSON info
-./paperkit version --set alpha-1.3.0   # set version
-./paperkit version --bump patch        # bump patch (major|minor|patch)
-./paperkit version --build 45          # add build metadata (+45)
-./paperkit version --clear-build       # remove build metadata
-./paperkit version --help              # show flags help
-./paperkit version --test              # run version system tests
+./paperkit version                     # Show current version
+./paperkit version --info              # Show full version info (JSON)
+./paperkit version --help              # Show version help
 ```
 
-Test the version system:
-```bash
-PATH=".venv/bin:$PATH" ./.paperkit/tools/test-version-system.sh
-```
+For version modification commands, see [Developer Commands](developer-commands.md).
 
 ## LaTeX
 
@@ -73,5 +66,6 @@ Compile academic papers, check LaTeX syntax, and preview PDF output. Build runs 
 Extract text evidence from PDF files based on search terms. Useful for forensic audits and citation verification.
 
 ```bash
-./paperkit evidence extract <pdf_dir> <output_md> `[terms...]`
+./paperkit evidence --dir <pdf_dir> --output <output_md> [--terms "term1" "term2" ...]
+./paperkit evidence --help             # Show evidence extraction help
 ```

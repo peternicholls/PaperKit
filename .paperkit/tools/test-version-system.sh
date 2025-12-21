@@ -256,6 +256,43 @@ else
     info "Python/PyYAML not available, skipping version bump test"
 fi
 
+# Test 11: Build metadata functionality
+section "Test 11: Build Metadata Support"
+if command -v python3 >/dev/null 2>&1 && python3 -c "import yaml" 2>/dev/null; then
+    TEST_VERSION_FILE="$(mktemp "/tmp/test-version-XXXXXX.yaml")"
+    cp "${PAPERKIT_ROOT}/.paperkit/_cfg/version.yaml" "$TEST_VERSION_FILE"
+    
+    # Test setting version with build metadata
+    SET_BUILD_RESULT=$(python3 "${PAPERKIT_ROOT}/.paperkit/tools/version-manager.py" --config "$TEST_VERSION_FILE" set "1.2.0+45" 2>/dev/null || echo "error")
+    if echo "$SET_BUILD_RESULT" | grep -q "1.2.0+45"; then
+        pass "Setting version with build metadata works (1.2.0+45)"
+    else
+        fail "Setting version with build metadata failed: $SET_BUILD_RESULT"
+    fi
+    
+    # Test adding build metadata to existing version
+    python3 "${PAPERKIT_ROOT}/.paperkit/tools/version-manager.py" --config "$TEST_VERSION_FILE" set "1.3.0" >/dev/null 2>&1
+    BUILD_RESULT=$(python3 "${PAPERKIT_ROOT}/.paperkit/tools/version-manager.py" --config "$TEST_VERSION_FILE" build "78" 2>/dev/null || echo "error")
+    if echo "$BUILD_RESULT" | grep -q "1.3.0+78"; then
+        pass "Adding build metadata works (1.3.0+78)"
+    else
+        fail "Adding build metadata failed: $BUILD_RESULT"
+    fi
+    
+    # Test clearing build metadata
+    CLEAR_BUILD_RESULT=$(python3 "${PAPERKIT_ROOT}/.paperkit/tools/version-manager.py" --config "$TEST_VERSION_FILE" clear-build 2>/dev/null || echo "error")
+    if echo "$CLEAR_BUILD_RESULT" | grep -q "Build metadata cleared" && ! echo "$CLEAR_BUILD_RESULT" | grep -q "+"; then
+        pass "Clearing build metadata works"
+    else
+        fail "Clearing build metadata failed: $CLEAR_BUILD_RESULT"
+    fi
+    
+    # Cleanup
+    rm -f "$TEST_VERSION_FILE"
+else
+    info "Python/PyYAML not available, skipping build metadata tests"
+fi
+
 # Summary
 section "Test Summary"
 echo ""

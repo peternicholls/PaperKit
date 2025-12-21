@@ -1,4 +1,4 @@
-# PaperKit Developer Commands
+# PaperKit Developer CLI Commands
 
 ## Overview
 
@@ -86,8 +86,24 @@ git config user.email "your-email@example.com"
 # Bump patch version (1.2.0 → 1.2.1)
 ./paperkit-dev version --bump patch
 
+# Bump minor or major version
+./paperkit-dev version --bump minor
+./paperkit-dev version --bump major
+
 # Set specific version
 ./paperkit-dev version --set alpha-1.3.0
+
+# Set version with build metadata
+./paperkit-dev version --set 1.2.3+build.456
+
+# Add build metadata to current version
+./paperkit-dev version --build 45
+
+# Remove build metadata
+./paperkit-dev version --clear-build
+
+# Run version system tests
+./paperkit-dev version --test
 
 # Create full release (bundle + tag + push)
 ./paperkit-dev release --full

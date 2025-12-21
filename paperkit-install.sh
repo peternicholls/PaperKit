@@ -17,21 +17,47 @@ BOLD='\033[1m'
 
 # Global variables
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-VERSION="2.0.0"
+
+# Get version and title from version.yaml
+if [ -f "${SCRIPT_DIR}/.paperkit/tools/get-version.sh" ]; then
+    VERSION=$("${SCRIPT_DIR}/.paperkit/tools/get-version.sh" 2>/dev/null || echo "unknown")
+else
+    VERSION="unknown"
+fi
+
+# Get title info from version.yaml using Python
+if command -v python3 >/dev/null 2>&1 && [ -f "${SCRIPT_DIR}/.paperkit/_cfg/version.yaml" ]; then
+    TITLE_INFO=$(python3 -c "
+import yaml
+try:
+    with open('${SCRIPT_DIR}/.paperkit/_cfg/version.yaml', 'r') as f:
+        data = yaml.safe_load(f)
+        title = data.get('version', {}).get('title', {})
+        print(title.get('short', 'PaperKit'))
+        print(title.get('long', 'Research Paper Assistant'))
+except:
+    print('PaperKit')
+    print('Research Paper Assistant')
+" 2>/dev/null)
+    TITLE_SHORT=$(echo "$TITLE_INFO" | sed -n '1p')
+    TITLE_LONG=$(echo "$TITLE_INFO" | sed -n '2p')
+else
+    TITLE_SHORT="PaperKit"
+    TITLE_LONG="Research Paper Assistant"
+fi
+
 SELECTED_IDES=()
 
 # Display banner
 show_banner() {
     echo -e "${CYAN}"
-    cat << "EOF"
-╔═══════════════════════════════════════════════════╗
-║                                                   ║
-║             📝 PaperKit Installer                 ║
-║                                                   ║
-║    Research Paper Assistant Kit v2.0.0            ║
-║                                                   ║
-╚═══════════════════════════════════════════════════╝
-EOF
+    echo "╔═══════════════════════════════════════════════════╗"
+    echo "║                                                   ║"
+    echo "║             📝 PaperKit Installer                 ║"
+    echo "║                                                   ║"
+    printf "║    %-47s║\n" "${TITLE_LONG} ${VERSION}"
+    echo "║                                                   ║"
+    echo "╚═══════════════════════════════════════════════════╝"
     echo -e "${NC}"
 }
 
