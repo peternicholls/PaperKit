@@ -120,10 +120,10 @@ select_ides_menu() {
     echo ""
     echo -e "${BOLD}Select IDE integration(s):${NC}"
     echo ""
-    echo "  ${CYAN}1)${NC} GitHub Copilot (VS Code chat modes)"
-    echo "  ${CYAN}2)${NC} OpenAI Codex (prompt library)"
-    echo "  ${CYAN}3)${NC} Both (recommended)"
-    echo "  ${CYAN}4)${NC} None (core .paperkit system only)"
+    echo -e "  ${CYAN}1)${NC} GitHub Copilot (VS Code chat modes)"
+    echo -e "  ${CYAN}2)${NC} OpenAI Codex (prompt library)"
+    echo -e "  ${CYAN}3)${NC} Both (recommended)"
+    echo -e "  ${CYAN}4)${NC} None (core .paperkit system only)"
     echo ""
     
     while true; do
@@ -253,8 +253,8 @@ setup_python_env() {
     echo ""
     info_msg "Python virtual environment setup (recommended for tools)"
     echo ""
-    echo "  ${CYAN}1)${NC} Create virtual environment (.venv) and install dependencies"
-    echo "  ${CYAN}2)${NC} Skip (you can set up later)"
+    echo -e "  ${CYAN}1)${NC} Create virtual environment (.venv) and install dependencies"
+    echo -e "  ${CYAN}2)${NC} Skip (you can set up later)"
     echo ""
     
     read -p "Selection [2]: " py_choice
@@ -273,7 +273,7 @@ setup_python_env() {
                         success_msg "Dependencies installed (pyyaml, jsonschema)"
                         echo ""
                         info_msg "To activate the environment:"
-                        echo "  ${CYAN}source .venv/bin/activate${NC}"
+                        echo -e "  ${CYAN}source .venv/bin/activate${NC}"
                     else
                         warning_msg "Failed to install dependencies. Run manually:"
                         echo "  source .venv/bin/activate"

@@ -120,9 +120,9 @@ check_existing_installation() {
         echo ""
         echo -e "${BOLD}What would you like to do?${NC}"
         echo ""
-        echo "  ${CYAN}1)${NC} Update (pull latest changes, preserve your work)"
-        echo "  ${CYAN}2)${NC} Backup and reinstall (creates backup, fresh install)"
-        echo "  ${CYAN}3)${NC} Cancel installation"
+        echo -e "  ${CYAN}1)${NC} Update (pull latest changes, preserve your work)"
+        echo -e "  ${CYAN}2)${NC} Backup and reinstall (creates backup, fresh install)"
+        echo -e "  ${CYAN}3)${NC} Cancel installation"
         echo ""
         
         read -p "Selection [1]: " choice
@@ -267,10 +267,10 @@ select_ides_menu() {
     echo ""
     echo -e "${BOLD}Select IDE integration(s):${NC}"
     echo ""
-    echo "  ${CYAN}1)${NC} GitHub Copilot (VS Code chat modes)"
-    echo "  ${CYAN}2)${NC} OpenAI Codex (prompt library)"
-    echo "  ${CYAN}3)${NC} Both (recommended)"
-    echo "  ${CYAN}4)${NC} None (core .paperkit system only)"
+    echo -e "  ${CYAN}1)${NC} GitHub Copilot (VS Code chat modes)"
+    echo -e "  ${CYAN}2)${NC} OpenAI Codex (prompt library)"
+    echo -e "  ${CYAN}3)${NC} Both (recommended)"
+    echo -e "  ${CYAN}4)${NC} None (core .paperkit system only)"
     echo ""
     
     while true; do
@@ -404,19 +404,19 @@ EOF
     
     echo ""
     info_msg "Next steps:"
-    echo "  1. Navigate to PaperKit: ${CYAN}cd $INSTALL_DIR${NC}"
-    echo "  2. Review available agents: ${CYAN}cat AGENTS.md${NC}"
+    echo -e "  1. Navigate to PaperKit: ${CYAN}cd $INSTALL_DIR${NC}"
+    echo -e "  2. Review available agents: ${CYAN}cat AGENTS.md${NC}"
     echo "  3. (Optional) Set up Python environment:"
-    echo "     ${CYAN}python3 -m venv .venv${NC}"
-    echo "     ${CYAN}source .venv/bin/activate${NC}"
-    echo "     ${CYAN}pip install -r requirements.txt${NC}"
+    echo -e "     ${CYAN}python3 -m venv .venv${NC}"
+    echo -e "     ${CYAN}source .venv/bin/activate${NC}"
+    echo -e "     ${CYAN}pip install -r requirements.txt${NC}"
     echo "  4. Open your IDE (VS Code for Copilot, etc.)"
     echo "  5. Select 'paper-architect' to begin your paper"
     echo ""
     
     info_msg "To regenerate IDE files after editing .paperkit/ agents:"
-    echo "  ${CYAN}cd $INSTALL_DIR${NC}"
-    echo "  ${CYAN}./paperkit generate${NC}"
+    echo -e "  ${CYAN}cd $INSTALL_DIR${NC}"
+    echo -e "  ${CYAN}./paperkit generate${NC}"
     
     echo ""
     info_msg "For more information, see:"
@@ -444,8 +444,8 @@ EOF
     info_msg "Your PaperKit installation has been updated to the latest version."
     echo ""
     info_msg "If you had local changes, they were stashed. To restore them:"
-    echo "  ${CYAN}cd $INSTALL_DIR${NC}"
-    echo "  ${CYAN}git stash pop${NC}"
+    echo -e "  ${CYAN}cd $INSTALL_DIR${NC}"
+    echo -e "  ${CYAN}git stash pop${NC}"
     echo ""
 }
 

@@ -64,7 +64,7 @@ return 1
 
 # Show version
 show_version() {
-echo "${YELLOW}${TITLE_SHORT}${NC} Developer Tools - version $VERSION"
+echo -e "${YELLOW}${TITLE_SHORT}${NC} Developer Tools - version $VERSION"
 }
 
 # Main help
