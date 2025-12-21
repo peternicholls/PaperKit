@@ -189,9 +189,11 @@ create_backup() {
     local timestamp=$(date +%Y%m%d_%H%M%S)
     
     # Use mktemp for guaranteed unique directory name
+    # Try system temp directory if local mktemp fails
     if ! BACKUP_DIR=$(mktemp -d "${INSTALL_DIR}_backup_${timestamp}_XXXXXX" 2>/dev/null); then
-        # Fallback if mktemp fails
-        BACKUP_DIR="${INSTALL_DIR}_backup_${timestamp}"
+        # Fallback to system temp directory
+        BACKUP_DIR=$(mktemp -d 2>/dev/null) || BACKUP_DIR="/tmp/paperkit_backup_${timestamp}"
+        info_msg "Using system temp directory for backup"
     fi
     
     info_msg "Creating backup..."
@@ -199,7 +201,8 @@ create_backup() {
     echo "  To:   $BACKUP_DIR"
     
     # Use cp -a to preserve symlinks, permissions, and timestamps (Comment #22)
-    if cp -a "$INSTALL_DIR" "$BACKUP_DIR"; then
+    # Copy contents of directory, not the directory itself
+    if cp -a "$INSTALL_DIR/." "$BACKUP_DIR/"; then
         success_msg "Backup created successfully"
         
         # Comment #8: Add safety checks before rm -rf
@@ -256,11 +259,18 @@ update_installation() {
     if current_branch=$(git rev-parse --abbrev-ref HEAD 2>/dev/null) && [ "$current_branch" != "HEAD" ]; then
         branch_to_pull="$current_branch"
     else
+        # Try git symbolic-ref first
         default_branch=$(git symbolic-ref --short refs/remotes/origin/HEAD 2>/dev/null | sed 's@^origin/@@')
+        
+        # Fallback to git ls-remote for shallow clones or if symbolic-ref fails
+        if [ -z "$default_branch" ]; then
+            default_branch=$(git ls-remote --symref origin HEAD 2>/dev/null | awk '/^ref:/ {sub(/^refs\/heads\//, "", $2); print $2; exit}')
+        fi
+        
+        # Final fallback to 'main' to maintain previous behavior
         if [ -n "$default_branch" ]; then
             branch_to_pull="$default_branch"
         else
-            # Fallback to 'main' to maintain previous behavior if detection fails
             branch_to_pull="main"
         fi
     fi
@@ -311,7 +321,12 @@ clone_repository() {
         # Comment #1: Clean up partially-created directory on clone failure
         if [ -d "$INSTALL_DIR" ]; then
             warning_msg "Clone failed; removing partially created directory at $INSTALL_DIR"
-            rm -rf "$INSTALL_DIR"
+            # Add safety checks before rm -rf
+            if [ -n "$INSTALL_DIR" ] && [ "$INSTALL_DIR" != "$HOME" ] && [ "$INSTALL_DIR" != "/" ]; then
+                rm -rf "$INSTALL_DIR"
+            else
+                error_exit "Safety check failed: refusing to remove $INSTALL_DIR"
+            fi
         fi
 
         warning_msg "Failed to clone repository (attempt $attempt of $max_retries)."
@@ -348,7 +363,7 @@ None (core only)"
     # Remove --multi to prevent contradictory selections (Comment #18)
     local selection=$(echo "$options" | fzf --header="Select IDE - ENTER to confirm" \
         --preview="echo 'Selected: {}'" \
-        --height=10 \
+        --height=~50% \
         --reverse \
         --prompt="IDE> ")
     
