@@ -136,6 +136,16 @@ if [ -f "${PAPERKIT_ROOT}/.paperkit/_cfg/version.yaml" ]; then
     restore_files() {
         [ -f "$VERSION_YAML_BAK" ] && mv "$VERSION_YAML_BAK" "$VERSION_YAML"
         rm -f "$LEGACY_DEPRECATED_FILE.test" "$LEGACY_FILE.test"
+        # Restore original files if they exist, or remove test-created files
+        if [ -f "${LEGACY_DEPRECATED_FILE}.original" ]; then
+            mv "${LEGACY_DEPRECATED_FILE}.original" "$LEGACY_DEPRECATED_FILE"
+        fi
+        if [ -f "${LEGACY_FILE}.original" ]; then
+            mv "${LEGACY_FILE}.original" "$LEGACY_FILE"
+        else
+            # Remove test-created VERSION file if no original existed
+            rm -f "$LEGACY_FILE"
+        fi
     }
     trap 'restore_files' INT TERM EXIT
 
@@ -166,8 +176,6 @@ if [ -f "${PAPERKIT_ROOT}/.paperkit/_cfg/version.yaml" ]; then
     
     restore_files
     trap - INT TERM EXIT
-    mv "${LEGACY_DEPRECATED_FILE}.original" "$LEGACY_DEPRECATED_FILE" 2>/dev/null || true
-    mv "${LEGACY_FILE}.original" "$LEGACY_FILE" 2>/dev/null || true
 
     if [ "$FALLBACK_VERSION" = "$LEGACY_VERSION" ]; then
         pass "Fallback to VERSION file works correctly"
