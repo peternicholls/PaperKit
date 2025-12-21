@@ -28,17 +28,34 @@ show_version() {
 
 # Version command (supports flags for update/info)
 version_usage() {
-    cat << EOF
-Usage:
-  paperkit version                     Show current version
-  paperkit version --get               Show current version
-  paperkit version --info              Show full version info (JSON)
-  paperkit version --set <version>     Set version (e.g., alpha-1.3.0 or 1.3.0+45)
-  paperkit version --bump <part>       Bump semver (major|minor|patch)
-  paperkit version --build <value>     Set build metadata (appends +value)
-  paperkit version --clear-build       Remove build metadata
-  paperkit version --test              Run version system tests
-EOF
+    echo ""
+    echo -e "${BLUE}╔══════════════════════════════════════════════════════════════╗${NC}"
+    echo -e "${BLUE}║${NC}  ${YELLOW}PaperKit Version Management${NC}                          ${BLUE}║${NC}"
+    echo -e "${BLUE}╚══════════════════════════════════════════════════════════════╝${NC}"
+    echo ""
+    echo -e "${YELLOW}USAGE${NC}"
+    echo "  paperkit version [options]"
+    echo ""
+    echo -e "${YELLOW}OPTIONS${NC}"
+    echo -e "  ${GREEN}(no flags)${NC}             Show current version"
+    echo -e "  ${GREEN}--get${NC}                  Show current version"
+    echo -e "  ${GREEN}--info${NC}                 Show full version info (JSON)"
+    echo -e "  ${GREEN}--set${NC} <version>        Set version (e.g., alpha-1.3.0 or 1.3.0+45)"
+    echo -e "  ${GREEN}--bump${NC} <part>          Bump semver (major|minor|patch)"
+    echo -e "  ${GREEN}--build${NC} <value>        Set build metadata (appends +value)"
+    echo -e "  ${GREEN}--clear-build${NC}          Remove build metadata"
+    echo -e "  ${GREEN}--test${NC}                 Run version system tests"
+    echo ""
+    echo -e "${YELLOW}EXAMPLES${NC}"
+    echo -e "  ${BLUE}#${NC} Show current version"
+    echo "  paperkit version"
+    echo ""
+    echo -e "  ${BLUE}#${NC} Bump to next patch version"
+    echo "  paperkit version --bump patch"
+    echo ""
+    echo -e "  ${BLUE}#${NC} Set specific version with build metadata"
+    echo "  paperkit version --set 1.2.3+build.456"
+    echo ""
 }
 
 version_command() {
@@ -168,47 +185,67 @@ version_command() {
 
 # Show help
 show_help() {
-    cat << EOF
-$(echo -e "${BLUE}PaperKit${NC}") - Research Paper Assistant Kit
-
-Usage:
-  paperkit <command> [options]
-
-Commands:
-  init                 Initialize a new paperkit project in current directory
-  generate [--target]  Generate IDE files from .paperkit/ source of truth
-  validate             Validate agent/workflow/tool schemas
-    version              Show version information or update via flags
-    latex                LaTeX tools (build, lint)
-    evidence             Extract evidence from PDFs
-  help                 Show this help message
-
-Generate options:
-  --target=copilot     Generate GitHub Copilot agents only
-  --target=codex       Generate OpenAI Codex prompts only
-  --target=all         Generate for all IDEs (default)
-  --check              Check if files are up to date without generating
-
-Examples:
-  paperkit init                    # Initialize paperkit in current directory
-  paperkit generate                # Regenerate all IDE files
-  paperkit generate --target=copilot  # Regenerate Copilot agents only
-  paperkit generate --check        # Check if IDE files need updating
-  paperkit version                 # Show version
-  paperkit version --info          # Show full version info (JSON)
-  paperkit version --set alpha-1.3.0     # Set version
-  paperkit version --bump patch           # Bump version
-  paperkit version --build 45             # Add build metadata (+45)
-  paperkit version --clear-build          # Remove build metadata
-  paperkit version --test                 # Run version system tests
-  paperkit latex build                    # Build LaTeX document
-  paperkit latex lint                     # Lint LaTeX sources
-  paperkit latex open                     # Open built PDF
-  paperkit evidence extract <pdf_dir> <out.md> [terms...]  # Extract quotes
-  paperkit help                    # Show this help
-
-For more information, visit the documentation in .paperkit/docs/
-EOF
+    echo ""
+    echo -e "${BLUE}╔══════════════════════════════════════════════════════════════╗${NC}"
+    echo -e "${BLUE}║${NC}  ${YELLOW}PaperKit${NC} - Research Paper Assistant Kit              ${BLUE}║${NC}"
+    echo -e "${BLUE}║${NC}  Version: $VERSION                                     ${BLUE}║${NC}"
+    echo -e "${BLUE}╚══════════════════════════════════════════════════════════════╝${NC}"
+    echo ""
+    echo -e "${YELLOW}USAGE${NC}"
+    echo "  paperkit <command> [options]"
+    echo ""
+    echo -e "${YELLOW}COMMANDS${NC}"
+    echo -e "  ${GREEN}init${NC}                 Initialize a new paperkit project"
+    echo -e "  ${GREEN}generate${NC} [--target]  Generate IDE files from .paperkit/ source"
+    echo -e "  ${GREEN}validate${NC}             Validate agent/workflow/tool schemas"
+    echo -e "  ${GREEN}version${NC}              Version management (show, set, bump)"
+    echo -e "  ${GREEN}latex${NC}                LaTeX tools (build, lint, open)"
+    echo -e "  ${GREEN}evidence${NC}             Extract evidence from PDFs"
+    echo -e "  ${GREEN}help${NC}                 Show this help message"
+    echo ""
+    echo -e "${YELLOW}GENERATE OPTIONS${NC}"
+    echo "  --target=copilot     GitHub Copilot agents only"
+    echo "  --target=codex       OpenAI Codex prompts only"
+    echo "  --target=all         All IDEs (default)"
+    echo "  --check              Check if files need updating"
+    echo ""
+    echo -e "${YELLOW}VERSION COMMANDS${NC}"
+    echo "  paperkit version                  Show current version"
+    echo "  paperkit version --info           Show full version info (JSON)"
+    echo "  paperkit version --set <version>  Set version (e.g., alpha-1.3.0)"
+    echo "  paperkit version --bump <part>    Bump version (major|minor|patch)"
+    echo "  paperkit version --build <value>  Add build metadata (+value)"
+    echo "  paperkit version --clear-build    Remove build metadata"
+    echo "  paperkit version --test           Run version system tests"
+    echo ""
+    echo -e "${YELLOW}LATEX COMMANDS${NC}"
+    echo "  paperkit latex build              Compile LaTeX document to PDF"
+    echo "  paperkit latex lint               Check LaTeX syntax"
+    echo "  paperkit latex open               Open built PDF in viewer"
+    echo ""
+    echo -e "${YELLOW}EVIDENCE COMMANDS${NC}"
+    echo "  paperkit evidence extract <pdf_dir> <out.md> [terms...]"
+    echo "                                    Extract quotes from PDFs"
+    echo ""
+    echo -e "${YELLOW}EXAMPLES${NC}"
+    echo -e "  ${BLUE}#${NC} Initialize a new project"
+    echo "  paperkit init"
+    echo ""
+    echo -e "  ${BLUE}#${NC} Regenerate IDE files"
+    echo "  paperkit generate"
+    echo "  paperkit generate --target=copilot"
+    echo ""
+    echo -e "  ${BLUE}#${NC} Manage versions"
+    echo "  paperkit version --bump patch"
+    echo "  paperkit version --build 45"
+    echo ""
+    echo -e "  ${BLUE}#${NC} Build documentation"
+    echo "  paperkit latex build"
+    echo "  paperkit latex open"
+    echo ""
+    echo -e "${BLUE}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
+    echo -e "For more information: ${GREEN}.paperkit/docs/${NC}"
+    echo ""
 }
 
 # Initialize project
@@ -252,12 +289,24 @@ generate_ide_files() {
 
 # LaTeX commands
 latex_usage() {
-    cat << EOF
-Usage:
-  paperkit latex build    Build LaTeX document
-  paperkit latex lint     Lint LaTeX sources
-  paperkit latex open     Open built PDF (if present)
-EOF
+    echo ""
+    echo -e "${BLUE}╔══════════════════════════════════════════════════════════════╗${NC}"
+    echo -e "${BLUE}║${NC}  ${YELLOW}PaperKit LaTeX Tools${NC}                                  ${BLUE}║${NC}"
+    echo -e "${BLUE}╚══════════════════════════════════════════════════════════════╝${NC}"
+    echo ""
+    echo -e "${YELLOW}USAGE${NC}"
+    echo "  paperkit latex <command>"
+    echo ""
+    echo -e "${YELLOW}COMMANDS${NC}"
+    echo -e "  ${GREEN}build${NC}    Compile LaTeX document to PDF"
+    echo -e "  ${GREEN}lint${NC}     Check LaTeX syntax and structure"
+    echo -e "  ${GREEN}open${NC}     Open built PDF in default viewer"
+    echo ""
+    echo -e "${YELLOW}EXAMPLES${NC}"
+    echo -e "  ${BLUE}#${NC} Build and open PDF"
+    echo "  paperkit latex build"
+    echo "  paperkit latex open"
+    echo ""
 }
 
 latex_command() {
@@ -311,10 +360,30 @@ latex_command() {
 
 # Evidence extraction commands
 evidence_usage() {
-    cat << EOF
-Usage:
-  paperkit evidence extract <pdf_dir> <output_md> [terms...]
-EOF
+    echo ""
+    echo -e "${BLUE}╔══════════════════════════════════════════════════════════════╗${NC}"
+    echo -e "${BLUE}║${NC}  ${YELLOW}PaperKit Evidence Extraction${NC}                         ${BLUE}║${NC}"
+    echo -e "${BLUE}╚══════════════════════════════════════════════════════════════╝${NC}"
+    echo ""
+    echo -e "${YELLOW}USAGE${NC}"
+    echo "  paperkit evidence extract <pdf_dir> <output.md> [terms...]"
+    echo ""
+    echo -e "${YELLOW}ARGUMENTS${NC}"
+    echo -e "  ${GREEN}<pdf_dir>${NC}     Directory containing PDF files"
+    echo -e "  ${GREEN}<output.md>${NC}   Output markdown file"
+    echo -e "  ${GREEN}[terms...]${NC}    Optional search terms to filter"
+    echo ""
+    echo -e "${YELLOW}DESCRIPTION${NC}"
+    echo "  Extract text evidence from PDF files based on search terms."
+    echo "  Useful for forensic audits and citation verification."
+    echo ""
+    echo -e "${YELLOW}EXAMPLES${NC}"
+    echo -e "  ${BLUE}#${NC} Extract all text from PDFs"
+    echo "  paperkit evidence extract ./pdfs/ evidence.md"
+    echo ""
+    echo -e "  ${BLUE}#${NC} Extract text containing specific terms"
+    echo "  paperkit evidence extract ./pdfs/ quotes.md \"color theory\" \"perception\""
+    echo ""
 }
 
 evidence_command() {
