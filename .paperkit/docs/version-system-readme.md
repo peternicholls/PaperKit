@@ -89,7 +89,7 @@ python3 ./.paperkit/tools/version-manager.py bump <major|minor|patch>
 The version system is integrated into:
 
 1. **`paperkit` CLI**: Main command-line tool reads from YAML config
-2. **`paperkit-bundle.sh`**: Bundle creator uses YAML version for naming
+2. **`.paperkit/tools/bundle.sh`**: Bundle creator uses YAML version for naming
 3. **CI/CD**: Can be used in automated release workflows
 
 ## Backwards Compatibility
@@ -118,7 +118,7 @@ python3 ./.paperkit/tools/version-manager.py bump minor
 # Output: paperkit version alpha-1.3.0
 
 # 3. Create bundle
-./paperkit-bundle.sh
+./.paperkit/tools/bundle.sh
 # Creates: paperkit-alpha-1.3.0.tar.gz
 ```
 

@@ -7,10 +7,11 @@
 set -e
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+PAPERKIT_ROOT="$(cd "${SCRIPT_DIR}/../.." && pwd)"
 
 # Get version from YAML config (get-version.sh handles VERSION file fallback if needed)
-if [ -f "$SCRIPT_DIR/.paperkit/tools/get-version.sh" ]; then
-    VERSION=$("$SCRIPT_DIR/.paperkit/tools/get-version.sh" 2>/dev/null || echo "unknown")
+if [ -f "${PAPERKIT_ROOT}/.paperkit/tools/get-version.sh" ]; then
+    VERSION=$("${PAPERKIT_ROOT}/.paperkit/tools/get-version.sh" 2>/dev/null || echo "unknown")
 else
     VERSION="unknown"
 fi
@@ -35,28 +36,23 @@ mkdir -p "$BUNDLE_DIR"
 # Core files to include in the bundle
 echo "Copying core files..."
 
+cd "$PAPERKIT_ROOT"
+
 # Installation scripts
 cp paperkit-install.sh "$BUNDLE_DIR/"
-cp paperkit-install-v2.sh "$BUNDLE_DIR/"
 cp paperkit-install.ps1 "$BUNDLE_DIR/"
 cp paperkit "$BUNDLE_DIR/"
-cp paperkit-generate.sh "$BUNDLE_DIR/"
-cp paperkit-generate.ps1 "$BUNDLE_DIR/"
-cp paperkit-validate.py "$BUNDLE_DIR/"
 chmod +x "$BUNDLE_DIR/paperkit"
 chmod +x "$BUNDLE_DIR/paperkit-install.sh"
-chmod +x "$BUNDLE_DIR/paperkit-install-v2.sh"
-chmod +x "$BUNDLE_DIR/paperkit-generate.sh"
 
 # Version and documentation
-cp VERSION "$BUNDLE_DIR/"
 cp AGENTS.md "$BUNDLE_DIR/"
 [ -f COPILOT.md ] && cp COPILOT.md "$BUNDLE_DIR/"
 [ -f README.md ] && cp README.md "$BUNDLE_DIR/"
 
 # Core directories
 echo "Copying directory structure..."
-cp -r .paper "$BUNDLE_DIR/"
+cp -r .paperkit "$BUNDLE_DIR/"
 cp -r .github "$BUNDLE_DIR/"
 cp -r .codex "$BUNDLE_DIR/"
 cp -r .copilot "$BUNDLE_DIR/" 2>/dev/null || true

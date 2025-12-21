@@ -1,12 +1,12 @@
 #!/bin/bash
 # PaperKit IDE Generator
-# Generates IDE-specific agent files from .paper/ source of truth
-# Usage: ./paperkit-generate.sh [--target=copilot|codex|all] [--check]
+# Generates IDE-specific agent files from .paperkit/ source of truth
+# Usage: ./.paperkit/tools/generate.sh [--target=copilot|codex|all] [--check]
 
 set -e
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-PAPERKIT_ROOT="${SCRIPT_DIR}"
+PAPERKIT_ROOT="$(cd "${SCRIPT_DIR}/../.." && pwd)"
 
 # Color codes
 RED='\033[0;31m'
@@ -240,10 +240,10 @@ main() {
         echo ""
         if ! $CHECK_ONLY; then
             info_msg "Generating documentation files..."
-            if [ -f "${PAPERKIT_ROOT}/paperkit-generate-docs.sh" ]; then
-                "${PAPERKIT_ROOT}/paperkit-generate-docs.sh" || warning_msg "Documentation generation had issues"
+            if [ -f "${PAPERKIT_ROOT}/.paperkit/tools/generate-docs.sh" ]; then
+                "${PAPERKIT_ROOT}/.paperkit/tools/generate-docs.sh" || warning_msg "Documentation generation had issues"
             else
-                warning_msg "paperkit-generate-docs.sh not found, skipping documentation generation"
+                warning_msg "generate-docs.sh not found, skipping documentation generation"
             fi
         fi
     fi
@@ -264,8 +264,8 @@ main() {
     
     # Generate .copilot/ configuration files
     if [ "$TARGET" = "all" ] || [ "$TARGET" = "copilot-config" ]; then
-        if [ -f "./paperkit-generate-copilot.sh" ]; then
-            ./paperkit-generate-copilot.sh || warning_msg ".copilot/ generation had issues"
+        if [ -f "${PAPERKIT_ROOT}/.paperkit/tools/generate-copilot.sh" ]; then
+            "${PAPERKIT_ROOT}/.paperkit/tools/generate-copilot.sh" || warning_msg ".copilot/ generation had issues"
         fi
     fi
 }
