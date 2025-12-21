@@ -29,9 +29,9 @@ show_version() {
 # Version command (supports flags for update/info)
 version_usage() {
     echo ""
-    echo -e "${BLUE}╔══════════════════════════════════════════════════════════════╗${NC}"
-    echo -e "${BLUE}║${NC}  ${YELLOW}PaperKit Version Management${NC}                          ${BLUE}║${NC}"
-    echo -e "${BLUE}╚══════════════════════════════════════════════════════════════╝${NC}"
+    echo -e "${BLUE}══════════════════════════════════════════════════════════════${NC}"
+    echo -e "${BLUE}${NC}  ${YELLOW}PaperKit Version Management${NC}"
+    echo -e "${BLUE}══════════════════════════════════════════════════════════════${NC}"
     echo ""
     echo -e "${YELLOW}USAGE${NC}"
     echo "  paperkit version [options]"
@@ -186,10 +186,10 @@ version_command() {
 # Show help
 show_help() {
     echo ""
-    echo -e "${BLUE}╔══════════════════════════════════════════════════════════════╗${NC}"
-    echo -e "${BLUE}║${NC}  ${YELLOW}PaperKit${NC} - Research Paper Assistant Kit              ${BLUE}║${NC}"
-    echo -e "${BLUE}║${NC}  Version: $VERSION                                     ${BLUE}║${NC}"
-    echo -e "${BLUE}╚══════════════════════════════════════════════════════════════╝${NC}"
+    echo -e "${BLUE}══════════════════════════════════════════════════════════════${NC}"
+    echo -e "${BLUE}${NC}  ${YELLOW}PaperKit${NC} - Research Paper Assistant Kit"
+    echo -e "${BLUE}${NC}  Version: $VERSION"
+    echo -e "${BLUE}══════════════════════════════════════════════════════════════${NC}"
     echo ""
     echo -e "${YELLOW}USAGE${NC}"
     echo "  paperkit <command> [options]"
@@ -290,9 +290,9 @@ generate_ide_files() {
 # LaTeX commands
 latex_usage() {
     echo ""
-    echo -e "${BLUE}╔══════════════════════════════════════════════════════════════╗${NC}"
-    echo -e "${BLUE}║${NC}  ${YELLOW}PaperKit LaTeX Tools${NC}                                  ${BLUE}║${NC}"
-    echo -e "${BLUE}╚══════════════════════════════════════════════════════════════╝${NC}"
+    echo -e "${BLUE}══════════════════════════════════════════════════════════════${NC}"
+    echo -e "${BLUE}${NC}  ${YELLOW}PaperKit LaTeX Tools${NC}"
+    echo -e "${BLUE}══════════════════════════════════════════════════════════════${NC}"
     echo ""
     echo -e "${YELLOW}USAGE${NC}"
     echo "  paperkit latex <command>"
@@ -361,9 +361,9 @@ latex_command() {
 # Evidence extraction commands
 evidence_usage() {
     echo ""
-    echo -e "${BLUE}╔══════════════════════════════════════════════════════════════╗${NC}"
-    echo -e "${BLUE}║${NC}  ${YELLOW}PaperKit Evidence Extraction${NC}                         ${BLUE}║${NC}"
-    echo -e "${BLUE}╚══════════════════════════════════════════════════════════════╝${NC}"
+    echo -e "${BLUE}══════════════════════════════════════════════════════════════${NC}"
+    echo -e "${BLUE}${NC}  ${YELLOW}PaperKit Evidence Extraction${NC}"
+    echo -e "${BLUE}══════════════════════════════════════════════════════════════${NC}"
     echo ""
     echo -e "${YELLOW}USAGE${NC}"
     echo "  paperkit evidence extract <pdf_dir> <output.md> [terms...]"
