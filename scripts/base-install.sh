@@ -354,8 +354,7 @@ run_post_install_setup() {
         
         # Note: The paperkit-install.sh expects interactive input
         # For now, we'll just notify the user to run it manually
-        rm -f "$temp_response"
-        trap - EXIT INT TERM  # Clear the trap after cleanup
+        # Trap handler will clean up temp file on function exit
         
         info_msg "Generating IDE integration files..."
         if [ ${#SELECTED_IDES[@]} -gt 0 ]; then
