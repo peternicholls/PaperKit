@@ -99,7 +99,18 @@ When updating the script:
 
 ## Version History
 
-- **v2.1.0** (Current)
+- **v2.2.0** (Current)
+  - Addressed all 23 code review comments from PR #13
+  - Added retry logic for network failures
+  - Enhanced validation and safety checks
+  - Auto-detection of git repository default branch
+  - WSL detection and improved platform messaging
+  - Conditional stash messaging
+  - Trap handlers for graceful interruption
+  - Removed dead code and deprecated commands
+  - Shellcheck compliance
+
+- **v2.1.0**
   - Added base installation to `~/paperkit`
   - Added update detection
   - Added backup functionality
