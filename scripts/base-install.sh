@@ -125,7 +125,8 @@ check_prerequisites() {
     
     # Python3 (recommended for tools) - Comment #3: Aligned to 3.8+
     if command -v python3 &> /dev/null; then
-        local py_version=$(python3 --version | cut -d' ' -f2)
+        local py_version
+        py_version=$(python3 --version | cut -d' ' -f2)
         success_msg "Python3: $py_version"
     else
         warning_msg "Python3 not found. Some tools may not work."
@@ -186,7 +187,8 @@ check_existing_installation() {
 
 # Create backup of existing installation with unique naming (Comment #20, #22)
 create_backup() {
-    local timestamp=$(date +%Y%m%d_%H%M%S)
+    local timestamp
+    timestamp=$(date +%Y%m%d_%H%M%S)
     
     # Use mktemp for guaranteed unique directory name
     # Try system temp directory if local mktemp fails
@@ -361,9 +363,10 @@ Both (recommended)
 None (core only)"
     
     # Remove --multi to prevent contradictory selections (Comment #18)
-    local selection=$(echo "$options" | fzf --header="Select IDE - ENTER to confirm" \
+    local selection
+    selection=$(echo "$options" | fzf --header="Select IDE - ENTER to confirm" \
         --preview="echo 'Selected: {}'" \
-        --height=~50% \
+        --height=50% \
         --reverse \
         --prompt="IDE> ")
     
