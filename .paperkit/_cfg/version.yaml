@@ -1,0 +1,23 @@
+version:
+  current: alpha-1.2.1
+  semver:
+    major: 1
+    minor: 2
+    patch: 1
+    prerelease: alpha
+    build: ""
+  title:
+    short: PaperKit
+    long: Research Paper Assistant
+  release:
+    date: "2025-12-21"
+    type: alpha
+  metadata:
+    buildDate: "2025-12-21"
+    lastUpdated: "2025-12-21"
+  compatibility:
+    minPythonVersion: "3.7"
+    minGitVersion: "2.0"
+  references:
+    releaseNotes: RELEASE-NOTES.md
+    changelog: CHANGELOG.md

@@ -4,7 +4,6 @@
 name: format-references
 displayName: Format References
 description: Format references in Harvard style
-version: 1.0.0
 path: .paperkit/tools/format-references.py
 requiresConsent: true
 

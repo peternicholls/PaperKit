@@ -4,7 +4,6 @@
 name: generate-ideas
 displayName: Generate Ideas
 description: Brainstorm ideas on a topic
-version: 1.0.0
 module: specialist
 category: brainstorm
 path: .paperkit/specialist/workflows/brainstorm/generate.yaml

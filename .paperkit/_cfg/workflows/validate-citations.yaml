@@ -10,7 +10,6 @@ description: >
   Checks for missing entries, incomplete fields, orphaned references,
   Harvard style compliance, and proper page numbers for all quotes.
   Validates that all academic papers are properly cited with complete references.
-version: 2.0.0
 module: core
 category: references
 path: .paperkit/core/workflows/references/validate-citations.yaml

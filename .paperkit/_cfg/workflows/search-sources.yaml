@@ -4,7 +4,6 @@
 name: search-sources
 displayName: Search Sources
 description: Find research sources on topic
-version: 1.0.0
 module: specialist
 category: librarian
 path: .paperkit/specialist/workflows/librarian/search.yaml

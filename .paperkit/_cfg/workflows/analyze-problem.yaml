@@ -4,7 +4,6 @@
 name: analyze-problem
 displayName: Analyze Problem
 description: Root cause analysis and solution options
-version: 1.0.0
 module: specialist
 category: problem-solving
 path: .paperkit/specialist/workflows/problem-solving/analyze.yaml

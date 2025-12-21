@@ -27,7 +27,6 @@ Each tool YAML file follows this structure:
 name: tool-name                 # Machine identifier (kebab-case)
 displayName: Tool Display Name  # Human-readable name
 description: What the tool does # Full description
-version: 1.0.0                  # Semantic version
 path: tools/tool-name.sh        # Path to executable
 requiresConsent: true           # Whether consent is required
 

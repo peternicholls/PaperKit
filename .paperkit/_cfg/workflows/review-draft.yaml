@@ -4,7 +4,6 @@
 name: review-draft
 displayName: Review Draft
 description: Tutor feedback on draft quality
-version: 1.0.0
 module: specialist
 category: tutor
 path: .paperkit/specialist/workflows/tutor/review.yaml

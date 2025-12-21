@@ -4,7 +4,6 @@
 name: outline
 displayName: Create Outline
 description: Design paper structure and create detailed outline
-version: 1.0.0
 module: core
 category: planning
 path: .paperkit/core/workflows/planning/outline.yaml

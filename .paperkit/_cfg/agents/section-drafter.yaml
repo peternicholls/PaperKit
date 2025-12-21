@@ -5,7 +5,6 @@ name: section-drafter
 displayName: Jordan
 title: Section Drafter
 icon: ✍️
-version: 1.0.0
 module: core
 
 identity:

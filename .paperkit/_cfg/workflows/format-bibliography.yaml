@@ -6,7 +6,6 @@ displayName: Format Bibliography
 description: >
   Generate a properly formatted bibliography from BibTeX database.
   Applies Harvard style (Cite Them Right) formatting rules.
-version: 1.0.0
 module: core
 category: references
 path: .paperkit/core/workflows/references/format-bibliography.yaml

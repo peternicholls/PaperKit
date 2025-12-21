@@ -1,0 +1,467 @@
+#!/bin/bash
+# -*- mode: sh -*-
+# vim: set filetype=sh :
+
+# PaperKit Developer Command Line Interface
+# Version: $VERSION
+# Development and maintenance commands (requires authorization)
+
+# Get version from YAML config, fallback to VERSION file for backwards compatibility
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+# Get version from YAML config (get-version.sh handles VERSION file fallback if needed)
+if [ -f "$SCRIPT_DIR/.paperkit/tools/get-version.sh" ]; then
+VERSION=$("$SCRIPT_DIR/.paperkit/tools/get-version.sh" 2>/dev/null || echo "unknown")
+else
+VERSION="unknown"
+fi
+
+# Get titles from YAML config
+if [ -f "$SCRIPT_DIR/.paperkit/tools/get-title.sh" ]; then
+TITLE_SHORT=$("$SCRIPT_DIR/.paperkit/tools/get-title.sh" short 2>/dev/null || echo "PaperKit")
+TITLE_LONG=$("$SCRIPT_DIR/.paperkit/tools/get-title.sh" long 2>/dev/null || echo "Research Paper Assistant")
+else
+TITLE_SHORT="PaperKit"
+TITLE_LONG="Research Paper Assistant"
+fi
+
+# Color codes
+BLUE='\033[0;34m'
+GREEN='\033[0;32m'
+RED='\033[0;31m'
+YELLOW='\033[1;33m'
+NC='\033[0m'
+
+# Authorized owners (add git config emails here)
+AUTHORIZED_OWNERS=(
+"nicholls@mac.com"
+)
+
+# Check if current user is authorized
+check_authorization() {
+local current_email
+current_email=$(git config user.email 2>/dev/null)
+
+if [ -z "$current_email" ]; then
+echo -e "${RED}Error: Git user.email not configured.${NC}"
+echo "Configure with: git config user.email 'your@email.com'"
+return 1
+fi
+
+for authorized in "${AUTHORIZED_OWNERS[@]}"; do
+if [ "$current_email" = "$authorized" ]; then
+return 0
+fi
+done
+
+echo -e "${RED}Error: Unauthorized user.${NC}"
+echo "Current git user: $current_email"
+echo "Authorized users: ${AUTHORIZED_OWNERS[*]}"
+echo ""
+echo "Only repository owners can run development commands."
+return 1
+}
+
+# Show version
+show_version() {
+echo "${YELLOW}${TITLE_SHORT}${NC} Developer Tools - version $VERSION"
+}
+
+# Main help
+show_help() {
+echo ""
+echo -e "${BLUE}════════════════════════════════════════════════════════════════════════════${NC}"
+echo ""
+echo -e "  ${YELLOW}${TITLE_SHORT}${NC} ${TITLE_LONG} Developer CLI. ${GREEN}Version${NC} $VERSION"
+echo ""
+echo -e "${BLUE}════════════════════════════════════════════════════════════════════════════${NC}"
+echo ""
+echo -e "${YELLOW}USAGE${NC}"
+echo "  paperkit-dev <command> [options]"
+echo ""
+echo -e "${YELLOW}DEVELOPER COMMANDS${NC}"
+echo -e "  ${GREEN}release${NC}                Create release tags and distribution bundles"
+echo -e "  ${GREEN}version${NC}                Manage version (bump, set, view)"
+echo -e "  ${GREEN}help${NC}                   Show this help message"
+echo ""
+echo -e "${YELLOW}AUTHORIZATION${NC}"
+echo "  Development commands require authorization via git user.email"
+echo "  Current user: $(git config user.email 2>/dev/null || echo 'not configured')"
+echo ""
+echo -e "${YELLOW}EXAMPLES${NC}"
+echo -e "  ${BLUE}#${NC} Create a new release"
+echo "  paperkit-dev release --full"
+echo ""
+echo -e "  ${BLUE}#${NC} Bump patch version"
+echo "  paperkit-dev version --bump patch"
+echo ""
+echo -e "  ${BLUE}#${NC} Set specific version"
+echo "  paperkit-dev version --set alpha-1.3.0"
+echo ""
+echo "For detailed help on a command, use: paperkit-dev <command> --help"
+echo ""
+}
+
+# Version command (supports flags for update/info)
+version_usage() {
+echo ""
+echo -e "${BLUE}════════════════════════════════════════════════════════════════════════════${NC}"
+echo ""
+echo -e "  ${YELLOW}${TITLE_SHORT}${NC} Version Management. ${GREEN}Current Version${NC} $VERSION"
+echo ""
+echo -e "${BLUE}════════════════════════════════════════════════════════════════════════════${NC}"
+echo ""
+echo -e "${YELLOW}USAGE${NC}"
+echo "  paperkit-dev version [options]"
+echo ""
+echo -e "${YELLOW}OPTIONS${NC}"
+echo -e "  ${GREEN}(no flags)${NC}             Show current version"
+echo -e "  ${GREEN}--get${NC}                  Show current version"
+echo -e "  ${GREEN}--info${NC}                 Show full version info (JSON)"
+echo -e "  ${GREEN}--set${NC} <version>        Set version (e.g., alpha-1.3.0 or 1.3.0+45)"
+echo -e "  ${GREEN}--bump${NC} <part>          Bump semver (major|minor|patch)"
+echo -e "  ${GREEN}--build${NC} <value>        Set build metadata (appends +value)"
+echo -e "  ${GREEN}--clear-build${NC}          Remove build metadata"
+echo -e "  ${GREEN}--test${NC}                 Run version system tests"
+echo ""
+echo -e "${YELLOW}AUTHORIZATION${NC}"
+echo "  Version modification commands (--set, --bump, --build) require authorization."
+echo ""
+echo -e "${YELLOW}EXAMPLES${NC}"
+echo -e "  ${BLUE}#${NC} Show current version"
+echo "  paperkit-dev version"
+echo ""
+echo -e "  ${BLUE}#${NC} Bump to next patch version"
+echo "  paperkit-dev version --bump patch"
+echo ""
+echo -e "  ${BLUE}#${NC} Set specific version with build metadata"
+echo "  paperkit-dev version --set 1.2.3+build.456"
+echo ""
+}
+
+version_command() {
+local action=""
+local setval=""
+local bumpval=""
+local buildval=""
+local clear_build=false
+local run_tests=false
+local needs_auth=false
+
+while [[ $# -gt 0 ]]; do
+case "$1" in
+--get)
+action="get"
+;;
+--info)
+action="info"
+;;
+--set)
+needs_auth=true
+shift
+setval="${1:-}"
+;;
+--bump)
+needs_auth=true
+shift
+bumpval="${1:-}"
+;;
+--build)
+needs_auth=true
+shift
+buildval="${1:-}"
+;;
+--clear-build)
+needs_auth=true
+clear_build=true
+;;
+--test)
+run_tests=true
+;;
+-h|--help)
+version_usage
+return 0
+;;
+*)
+# Ignore unknown args and continue
+;;
+esac
+shift || break
+done
+
+# Check authorization for modification operations
+if $needs_auth; then
+check_authorization || return 1
+fi
+
+# If no flags, just show version (no auth needed)
+if [[ -z "$action" && -z "$setval" && -z "$bumpval" && -z "$buildval" && "$clear_build" != true && "$run_tests" != true ]]; then
+show_version
+return 0
+fi
+
+local VM_SCRIPT="$SCRIPT_DIR/.paperkit/tools/version-manager.py"
+local PYTHON_BIN="python3"
+if [ -x "$SCRIPT_DIR/.venv/bin/python" ]; then
+PYTHON_BIN="$SCRIPT_DIR/.venv/bin/python"
+fi
+
+if [ ! -f "$VM_SCRIPT" ]; then
+echo -e "${RED}Error: version-manager.py not found.${NC}"
+return 1
+fi
+
+# Ensure PyYAML is available for update operations
+if ! "$PYTHON_BIN" -c "import yaml" 2>/dev/null; then
+echo -e "${YELLOW}PyYAML is required for version updates.${NC}"
+echo "Install: pip install pyyaml"
+return 1
+fi
+
+if [[ "$action" == "get" ]]; then
+show_version
+return 0
+fi
+
+if [[ "$action" == "info" ]]; then
+"$PYTHON_BIN" "$VM_SCRIPT" info
+return $?
+fi
+
+if [[ -n "$setval" ]]; then
+"$PYTHON_BIN" "$VM_SCRIPT" set "$setval"
+return $?
+fi
+
+if [[ -n "$bumpval" ]]; then
+if [[ "$bumpval" != "major" && "$bumpval" != "minor" && "$bumpval" != "patch" ]]; then
+echo -e "${RED}Error: --bump must be one of major|minor|patch.${NC}"
+return 1
+fi
+"$PYTHON_BIN" "$VM_SCRIPT" bump "$bumpval"
+return $?
+fi
+
+if [[ -n "$buildval" ]]; then
+local cur
+cur=$("$PYTHON_BIN" "$VM_SCRIPT" get 2>/dev/null || echo "")
+if [ -z "$cur" ] || [ "$cur" = "unknown" ]; then
+cur=$("$SCRIPT_DIR/.paperkit/tools/get-version.sh" 2>/dev/null || echo "unknown")
+fi
+# Strip existing +build if present
+local base_no_build="${cur%%+*}"
+"$PYTHON_BIN" "$VM_SCRIPT" set "${base_no_build}+${buildval}"
+return $?
+fi
+
+if $clear_build; then
+local cur
+cur=$("$PYTHON_BIN" "$VM_SCRIPT" get 2>/dev/null || echo "")
+if [ -z "$cur" ] || [ "$cur" = "unknown" ]; then
+cur=$("$SCRIPT_DIR/.paperkit/tools/get-version.sh" 2>/dev/null || echo "unknown")
+fi
+local base_no_build="${cur%%+*}"
+"$PYTHON_BIN" "$VM_SCRIPT" set "$base_no_build"
+return $?
+fi
+
+if $run_tests; then
+"$PYTHON_BIN" "$VM_SCRIPT" test
+return $?
+fi
+}
+
+# Release management
+release_usage() {
+echo ""
+echo -e "${BLUE}════════════════════════════════════════════════════════════════════════════${NC}"
+echo ""
+echo -e "  ${YELLOW}${TITLE_SHORT}${NC} Release Management"
+echo ""
+echo -e "${BLUE}════════════════════════════════════════════════════════════════════════════${NC}"
+echo ""
+echo -e "${YELLOW}USAGE${NC}"
+echo "  paperkit-dev release [options]"
+echo ""
+echo -e "${YELLOW}OPTIONS${NC}"
+echo -e "  ${GREEN}--tag${NC}                  Create and push git tag only"
+echo -e "  ${GREEN}--bundle${NC}               Create distribution bundle only"
+echo -e "  ${GREEN}--full${NC}                 Create tag + bundle + push (complete release)"
+echo -e "  ${GREEN}--dry-run${NC}              Show what would happen without making changes"
+echo ""
+echo -e "${YELLOW}AUTHORIZATION${NC}"
+echo "  Release commands require authorization."
+echo ""
+echo -e "${YELLOW}EXAMPLES${NC}"
+echo -e "  ${BLUE}#${NC} Complete release (recommended)"
+echo "  paperkit-dev release --full"
+echo ""
+echo -e "  ${BLUE}#${NC} Preview release actions"
+echo "  paperkit-dev release --full --dry-run"
+echo ""
+echo -e "  ${BLUE}#${NC} Create tag only"
+echo "  paperkit-dev release --tag"
+echo ""
+}
+
+release_command() {
+# Check authorization first
+check_authorization || return 1
+
+local do_tag=false
+local do_bundle=false
+local dry_run=false
+
+while [[ $# -gt 0 ]]; do
+case "$1" in
+--tag)
+do_tag=true
+;;
+--bundle)
+do_bundle=true
+;;
+--full)
+do_tag=true
+do_bundle=true
+;;
+--dry-run)
+dry_run=true
+;;
+-h|--help)
+release_usage
+return 0
+;;
+*)
+echo -e "${RED}Unknown option: $1${NC}"
+release_usage
+return 1
+;;
+esac
+shift
+done
+
+# If no flags, show usage
+if ! $do_tag && ! $do_bundle; then
+release_usage
+return 1
+fi
+
+# Get current version
+local CURRENT_VERSION
+CURRENT_VERSION=$("$SCRIPT_DIR/.paperkit/tools/get-version.sh" 2>/dev/null || echo "unknown")
+
+if [ "$CURRENT_VERSION" = "unknown" ]; then
+echo -e "${RED}Error: Unable to determine current version.${NC}"
+return 1
+fi
+
+echo ""
+echo -e "${BLUE}════════════════════════════════════════════════════════════════════════════${NC}"
+echo -e "  ${YELLOW}Release Management${NC}"
+echo -e "${BLUE}════════════════════════════════════════════════════════════════════════════${NC}"
+echo ""
+echo -e "${GREEN}Current Version:${NC} $CURRENT_VERSION"
+if $dry_run; then
+echo -e "${YELLOW}Mode: DRY RUN (no changes will be made)${NC}"
+fi
+echo ""
+
+# Create git tag
+if $do_tag; then
+echo -e "${YELLOW}Creating git tag: ${CURRENT_VERSION}${NC}"
+
+if $dry_run; then
+echo "  [dry-run] Would create annotated tag: $CURRENT_VERSION"
+echo "  [dry-run] Would push tag to origin"
+else
+# Check if tag already exists
+if git rev-parse "$CURRENT_VERSION" >/dev/null 2>&1; then
+echo -e "${RED}Error: Tag $CURRENT_VERSION already exists.${NC}"
+echo "Use 'paperkit-dev version --bump <part>' to create a new version first."
+return 1
+fi
+
+# Create annotated tag
+if git tag -a "$CURRENT_VERSION" -m "Release $CURRENT_VERSION"; then
+echo -e "${GREEN}✓${NC} Created tag: $CURRENT_VERSION"
+
+# Push tag to remote
+if git push origin "$CURRENT_VERSION"; then
+echo -e "${GREEN}✓${NC} Pushed tag to origin"
+else
+echo -e "${RED}Error: Failed to push tag to origin.${NC}"
+return 1
+fi
+else
+echo -e "${RED}Error: Failed to create tag.${NC}"
+return 1
+fi
+fi
+echo ""
+fi
+
+# Create distribution bundle
+if $do_bundle; then
+echo -e "${YELLOW}Creating distribution bundle${NC}"
+
+local BUNDLE_SCRIPT="$SCRIPT_DIR/.paperkit/tools/bundle.sh"
+
+if [ ! -f "$BUNDLE_SCRIPT" ]; then
+echo -e "${RED}Error: bundle.sh not found at $BUNDLE_SCRIPT${NC}"
+return 1
+fi
+
+if $dry_run; then
+echo "  [dry-run] Would run: $BUNDLE_SCRIPT"
+echo "  [dry-run] Would create: paperkit-${CURRENT_VERSION}.tar.gz"
+else
+if bash "$BUNDLE_SCRIPT"; then
+echo -e "${GREEN}✓${NC} Created distribution bundle"
+else
+echo -e "${RED}Error: Failed to create distribution bundle.${NC}"
+return 1
+fi
+fi
+echo ""
+fi
+
+# Summary
+echo -e "${GREEN}Release process complete!${NC}"
+echo ""
+
+if $do_bundle && ! $dry_run; then
+echo "Distribution bundle created:"
+echo "  paperkit-${CURRENT_VERSION}.tar.gz"
+echo ""
+fi
+
+if $do_tag && ! $dry_run; then
+echo "Next steps:"
+echo "  1. Go to GitHub releases page"
+echo "  2. Draft a new release from tag: ${CURRENT_VERSION}"
+echo "  3. Upload the distribution bundle"
+echo "  4. Publish the release"
+echo ""
+fi
+}
+
+# Main command dispatcher
+case "${1:-help}" in
+release)
+shift
+release_command "$@"
+;;
+version|--version|-v)
+shift
+version_command "$@"
+;;
+help|--help|-h|"")
+show_help
+;;
+*)
+echo -e "${RED}Unknown command: $1${NC}"
+echo ""
+show_help
+exit 1
+;;
+esac

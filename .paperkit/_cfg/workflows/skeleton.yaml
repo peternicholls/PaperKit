@@ -4,7 +4,6 @@
 name: skeleton
 displayName: Generate Skeleton
 description: Create LaTeX skeleton files for sections
-version: 1.0.0
 module: core
 category: planning
 path: .paperkit/core/workflows/planning/skeleton.yaml

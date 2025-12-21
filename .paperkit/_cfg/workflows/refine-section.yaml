@@ -4,7 +4,6 @@
 name: refine-section
 displayName: Refine Section
 description: Improve draft quality through iterative refinement
-version: 1.0.0
 module: core
 category: refinement
 path: .paperkit/core/workflows/refinement/refine-section.yaml

@@ -4,7 +4,6 @@
 name: write-section
 displayName: Write Section
 description: Draft a complete section with academic rigor
-version: 1.0.0
 module: core
 category: drafting
 path: .paperkit/core/workflows/drafting/write-section.yaml

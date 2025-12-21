@@ -1,9 +1,49 @@
 # PaperKit Installer for Windows
-# Version: alpha-1.0.0
 # Installs the Research Paper Assistant Kit into the current directory
 
 # Set error action preference
 $ErrorActionPreference = "Stop"
+
+# Get version and title from version.yaml
+$ScriptDir = Split-Path -Parent $MyInvocation.MyCommand.Path
+$VersionYamlPath = Join-Path $ScriptDir ".paperkit\_cfg\version.yaml"
+
+$Version = "unknown"
+$TitleShort = "PaperKit"
+$TitleLong = "Research Paper Assistant"
+
+if (Test-Path $VersionYamlPath) {
+    try {
+        # Try using Python with PyYAML
+        if (Get-Command python -ErrorAction SilentlyContinue) {
+            $VersionInfo = python -c @"
+import yaml
+try:
+    with open(r'$VersionYamlPath', 'r') as f:
+        data = yaml.safe_load(f)
+        version = data.get('version', {})
+        print(version.get('current', 'unknown'))
+        title = version.get('title', {})
+        print(title.get('short', 'PaperKit'))
+        print(title.get('long', 'Research Paper Assistant'))
+except:
+    print('unknown')
+    print('PaperKit')
+    print('Research Paper Assistant')
+"@ 2>$null
+            if ($VersionInfo) {
+                $Lines = $VersionInfo -split '\r?\n'
+                if ($Lines.Length -ge 3) {
+                    $Version = $Lines[0]
+                    $TitleShort = $Lines[1]
+                    $TitleLong = $Lines[2]
+                }
+            }
+        }
+    } catch {
+        # Fallback to defaults if any error
+    }
+}
 
 # Display banner
 Write-Host @"
@@ -12,8 +52,8 @@ Write-Host @"
 ║                                                   ║
 ║             📝 PaperKit Installer                 ║
 ║                                                   ║
-║    Research Paper Assistant Kit                   ║
-║    Version: alpha-1.0.0                           ║
+║    $($TitleLong.PadRight(47))║
+║    Version: $($Version.PadRight(37))║
 ║                                                   ║
 ╚═══════════════════════════════════════════════════╝
 

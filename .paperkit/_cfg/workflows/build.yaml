@@ -4,7 +4,6 @@
 name: build
 displayName: Build Document
 description: Compile LaTeX document to PDF
-version: 1.0.0
 module: core
 category: assembly
 path: .paper/core/workflows/assembly/build.yaml

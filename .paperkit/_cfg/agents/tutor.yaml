@@ -5,7 +5,6 @@ name: tutor
 displayName: Sage
 title: Review Tutor
 icon: 🎓
-version: 1.0.0
 module: specialist
 
 identity:

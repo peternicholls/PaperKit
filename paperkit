@@ -1,12 +1,27 @@
 #!/bin/bash
 
 # PaperKit Command Line Interface
-# Version: alpha-1.0.0
+# Version: $VERSION
 # Main entry point for paperkit commands
 
-# Get version from VERSION file, fallback to hardcoded if not found
+# Get version from YAML config, fallback to VERSION file for backwards compatibility
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-VERSION=$(cat "$SCRIPT_DIR/VERSION" 2>/dev/null || echo "alpha-1.0.0")
+
+# Get version from YAML config (get-version.sh handles VERSION file fallback if needed)
+if [ -f "$SCRIPT_DIR/.paperkit/tools/get-version.sh" ]; then
+    VERSION=$("$SCRIPT_DIR/.paperkit/tools/get-version.sh" 2>/dev/null || echo "unknown")
+else
+    VERSION="unknown"
+fi
+
+# Get titles from YAML config
+if [ -f "$SCRIPT_DIR/.paperkit/tools/get-title.sh" ]; then
+    TITLE_SHORT=$("$SCRIPT_DIR/.paperkit/tools/get-title.sh" short 2>/dev/null || echo "PaperKit")
+    TITLE_LONG=$("$SCRIPT_DIR/.paperkit/tools/get-title.sh" long 2>/dev/null || echo "Research Paper Assistant")
+else
+    TITLE_SHORT="PaperKit"
+    TITLE_LONG="Research Paper Assistant"
+fi
 
 # Color codes
 BLUE='\033[0;34m'
@@ -17,49 +32,166 @@ NC='\033[0m'
 
 # Show version
 show_version() {
-    echo "paperkit version $VERSION"
+    echo "${YELLOW}${TITLE_SHORT}${NC} - version $VERSION"
+}
+
+# Version command (supports flags for update/info)
+version_usage() {
+    echo ""
+    echo -e "${BLUE}════════════════════════════════════════════════════════════════════════════${NC}"
+    echo ""
+    echo -e "  ${YELLOW}${TITLE_SHORT}${NC} Version Information. ${GREEN}Current Version${NC} $VERSION"
+    echo ""
+    echo -e "${BLUE}════════════════════════════════════════════════════════════════════════════${NC}"
+    echo ""
+    echo -e "${YELLOW}USAGE${NC}"
+    echo "  paperkit version [options]"
+    echo ""
+    echo -e "${YELLOW}OPTIONS${NC}"
+    echo -e "  ${GREEN}(no flags)${NC}             Show current version"
+    echo -e "  ${GREEN}--info${NC}                 Show full version info (JSON)"
+    echo ""
+    echo -e "${YELLOW}VERSION MANAGEMENT${NC}"
+    echo "  To modify version numbers, use: paperkit-dev version --bump <part>"
+    echo "  See: paperkit-dev version --help"
+    echo ""
+    echo -e "${YELLOW}EXAMPLES${NC}"
+    echo -e "  ${BLUE}#${NC} Show current version"
+    echo "  paperkit version"
+    echo ""
+    echo -e "  ${BLUE}#${NC} Show full version details"
+    echo "  paperkit version --info"
+    echo ""
+}
+
+version_command() {
+    local action=""
+
+    while [[ $# -gt 0 ]]; do
+        case "$1" in
+            --info)
+                action="info"
+                ;;
+            -h|--help)
+                version_usage
+                return 0
+                ;;
+            --set|--bump|--build|--clear-build|--test)
+                echo -e "${YELLOW}Version modification commands have moved to paperkit-dev${NC}"
+                echo "Use: paperkit-dev version $1"
+                echo ""
+                return 1
+                ;;
+            *)
+                # Ignore unknown args and continue
+                ;;
+        esac
+        shift || break
+    done
+
+    # If no flags, just show version
+    if [[ -z "$action" ]]; then
+        show_version
+        return 0
+    fi
+
+    local VM_SCRIPT="$SCRIPT_DIR/.paperkit/tools/version-manager.py"
+    local PYTHON_BIN="python3"
+    if [ -x "$SCRIPT_DIR/.venv/bin/python" ]; then
+        PYTHON_BIN="$SCRIPT_DIR/.venv/bin/python"
+    fi
+
+    if [ ! -f "$VM_SCRIPT" ]; then
+        echo -e "${RED}Error: version-manager.py not found.${NC}"
+        return 1
+    fi
+
+    # Ensure PyYAML is available
+    if ! "$PYTHON_BIN" -c "import yaml" 2>/dev/null; then
+        echo -e "${YELLOW}PyYAML is required for version info.${NC}"
+        echo "Install: pip install pyyaml"
+        return 1
+    fi
+
+    if [[ "$action" == "info" ]]; then
+        "$PYTHON_BIN" "$VM_SCRIPT" info
+        return $?
+    fi
 }
 
 # Show help
 show_help() {
-    cat << EOF
-$(echo -e "${BLUE}PaperKit${NC}") - Research Paper Assistant Kit
+    echo ""
+    echo -e "${BLUE}════════════════════════════════════════════════════════════════════════════${NC}"
+    echo ""
+    echo -e "  ${YELLOW}${TITLE_SHORT}${NC} ${TITLE_LONG} CLI. ${GREEN}Version${NC} $VERSION"
+    echo ""
+    echo -e "${BLUE}════════════════════════════════════════════════════════════════════════════${NC}"
+    echo ""
+    echo -e "${YELLOW}USAGE${NC}"
+    echo "  paperkit <command> [options]"
+    echo "  paperkit <command> --help     Show command-specific help"
+    echo ""
+    echo -e "${YELLOW}COMMANDS${NC}"
+    echo -e "  ${GREEN}init${NC}                          Initialize a new paperkit project"
+    echo -e "  ${GREEN}generate${NC} [--target]           Generate IDE files from .paperkit/ source"
+    echo -e "  ${GREEN}validate${NC}                      Validate agent/workflow/tool schemas"
+    echo -e "  ${GREEN}version${NC}                       Show version information"
+    echo -e "  ${GREEN}latex${NC}                         LaTeX tools (build, lint, open)"
+    echo -e "  ${GREEN}evidence${NC}                      Extract evidence from PDFs"
+    echo -e "  ${GREEN}help${NC}                          Show this help message"
+    echo ""
+    echo -e "${YELLOW}DEVELOPER COMMANDS${NC}"
+    echo -e "  For version management and releases, use: ${GREEN}paperkit-dev${NC}"
+    echo "  See: paperkit-dev --help"
+    echo ""
+    echo -e "For more information: ${GREEN}.paperkit/docs/${NC}"
+    echo ""
+}
 
-Usage:
-  paperkit <command> [options]
-
-Commands:
-  init                 Initialize a new paperkit project in current directory
-  generate [--target]  Generate IDE files from .paperkit/ source of truth
-  validate             Validate agent/workflow/tool schemas
-  version              Show version information
-  help                 Show this help message
-
-Generate options:
-  --target=copilot     Generate GitHub Copilot agents only
-  --target=codex       Generate OpenAI Codex prompts only
-  --target=all         Generate for all IDEs (default)
-  --check              Check if files are up to date without generating
-
-Examples:
-  paperkit init                    # Initialize paperkit in current directory
-  paperkit generate                # Regenerate all IDE files
-  paperkit generate --target=copilot  # Regenerate Copilot agents only
-  paperkit generate --check        # Check if IDE files need updating
-  paperkit version                 # Show version
-  paperkit help                    # Show this help
-
-For more information, visit the documentation in .paperkit/docs/
-EOF
+# Initialize project help
+init_usage() {
+    echo ""
+    echo -e "${BLUE}════════════════════════════════════════════════════════════════════════════${NC}"
+    echo ""
+    echo -e "  ${YELLOW}${TITLE_SHORT}${NC} Initialization"
+    echo ""
+    echo -e "${BLUE}════════════════════════════════════════════════════════════════════════════${NC}"
+    echo ""
+    echo -e "${YELLOW}USAGE${NC}"
+    echo "  paperkit init"
+    echo ""
+    echo -e "${YELLOW}DESCRIPTION${NC}"
+    echo "  Initialize a new ${TITLE_SHORT} project in the current directory."
+    echo "  Sets up the required directory structure, configuration files,"
+    echo "  and dependencies for academic paper writing."
+    echo ""
+    echo -e "${YELLOW}WHAT IT DOES${NC}"
+    echo "  • Creates .paperkit/ directory structure"
+    echo "  • Sets up agent configurations"
+    echo "  • Initializes LaTeX document skeleton"
+    echo "  • Creates planning and output directories"
+    echo "  • Configures version control settings"
+    echo ""
+    echo -e "${YELLOW}EXAMPLES${NC}"
+    echo -e "  ${BLUE}#${NC} Initialize in current directory"
+    echo "  paperkit init"
+    echo ""
 }
 
 # Initialize project
 init_project() {
-    echo -e "${BLUE}Initializing PaperKit in current directory...${NC}"
+    # Check for help flag
+    if [[ "${1:-}" == "-h" ]] || [[ "${1:-}" == "--help" ]]; then
+        init_usage
+        return 0
+    fi
+    
+    echo -e "${BLUE}Initializing ${TITLE_SHORT} in current directory...${NC}"
     
     # Check if already initialized
     if [ -f "VERSION" ] && [ -d ".paper" ]; then
-        echo -e "${YELLOW}⚠ PaperKit appears to already be initialized here.${NC}"
+        echo -e "${YELLOW}⚠ ${TITLE_SHORT} appears to already be initialized here.${NC}"
         read -p "Reinitialize? (yes/no): " confirm
         if [[ ! "$confirm" =~ ^[Yy][Ee][Ss]$ ]]; then
             echo "Cancelled."
@@ -80,20 +212,230 @@ init_project() {
     fi
 }
 
+# Generate IDE files help
+generate_usage() {
+    echo ""
+    echo -e "${BLUE}════════════════════════════════════════════════════════════════════════════${NC}"
+    echo ""
+    echo -e "  ${YELLOW}${TITLE_SHORT}${NC} IDE File Generation"
+    echo ""
+    echo -e "${BLUE}════════════════════════════════════════════════════════════════════════════${NC}"
+    echo ""
+    echo -e "${YELLOW}USAGE${NC}"
+    echo "  paperkit generate [options]"
+    echo ""
+    echo -e "${YELLOW}OPTIONS${NC}"
+    echo -e "  ${GREEN}--target=copilot${NC}      Generate GitHub Copilot agents only"
+    echo -e "  ${GREEN}--target=codex${NC}        Generate OpenAI Codex prompts only"
+    echo -e "  ${GREEN}--target=all${NC}          Generate for all IDEs (default)"
+    echo -e "  ${GREEN}--check${NC}               Check if files need updating (dry run)"
+    echo ""
+    echo -e "${YELLOW}DESCRIPTION${NC}"
+    echo "  Generate IDE-specific files from the canonical .paperkit/ source."
+    echo "  This creates agent definitions for GitHub Copilot and/or OpenAI Codex"
+    echo "  based on the agent configurations in .paperkit/_cfg/"
+    echo ""
+    echo -e "${YELLOW}EXAMPLES${NC}"
+    echo -e "  ${BLUE}#${NC} Generate all IDE files"
+    echo "  paperkit generate"
+    echo ""
+    echo -e "  ${BLUE}#${NC} Generate only GitHub Copilot agents"
+    echo "  paperkit generate --target=copilot"
+    echo ""
+    echo -e "  ${BLUE}#${NC} Check what would be generated"
+    echo "  paperkit generate --check"
+    echo ""
+}
+
 # Generate IDE files
 generate_ide_files() {
+    # Check for help flag first
+    for arg in "$@"; do
+        if [[ "$arg" == "-h" ]] || [[ "$arg" == "--help" ]]; then
+            generate_usage
+            return 0
+        fi
+    done
+    
     SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
     
-    if [ -f "$SCRIPT_DIR/paperkit-generate.sh" ]; then
-        "$SCRIPT_DIR/paperkit-generate.sh" "$@"
+    if [ -f "$SCRIPT_DIR/.paperkit/tools/generate.sh" ]; then
+        "$SCRIPT_DIR/.paperkit/tools/generate.sh" "$@"
     else
-        echo -e "${RED}Error: paperkit-generate.sh not found.${NC}"
+        echo -e "${RED}Error: generate.sh not found.${NC}"
         exit 1
     fi
 }
 
+# LaTeX commands
+latex_usage() {
+    echo ""
+    echo -e "${BLUE}════════════════════════════════════════════════════════════════════════════${NC}"
+    echo ""
+    echo -e "  ${YELLOW}${TITLE_SHORT}${NC} LaTeX Tools"
+    echo ""
+    echo -e "${BLUE}════════════════════════════════════════════════════════════════════════════${NC}"
+    echo ""
+    echo -e "${YELLOW}USAGE${NC}"
+    echo "  paperkit latex <command>"
+    echo ""
+    echo -e "${YELLOW}COMMANDS${NC}"
+    echo -e "  ${GREEN}build${NC}    Compile LaTeX document to PDF"
+    echo -e "  ${GREEN}lint${NC}     Check LaTeX syntax and structure"
+    echo -e "  ${GREEN}open${NC}     Open built PDF in default viewer"
+    echo ""
+    echo -e "${YELLOW}EXAMPLES${NC}"
+    echo -e "  ${BLUE}#${NC} Build and open PDF"
+    echo "  paperkit latex build"
+    echo "  paperkit latex open"
+    echo ""
+}
+
+latex_command() {
+    local subcmd="${1:-}"
+    case "$subcmd" in
+        build)
+            if [ -f "$SCRIPT_DIR/.paperkit/tools/build-latex.sh" ]; then
+                "$SCRIPT_DIR/.paperkit/tools/build-latex.sh"
+            else
+                echo -e "${RED}Error: build-latex.sh not found.${NC}"
+                return 1
+            fi
+            ;;
+        lint)
+            if [ -f "$SCRIPT_DIR/.paperkit/tools/lint-latex.sh" ]; then
+                "$SCRIPT_DIR/.paperkit/tools/lint-latex.sh"
+            else
+                echo -e "${RED}Error: lint-latex.sh not found.${NC}"
+                return 1
+            fi
+            ;;
+        open)
+            # Try common output locations for PDF
+            local candidates=(
+                "$SCRIPT_DIR/open-agents/output-final/pdf/main.pdf"
+                "$SCRIPT_DIR/.paperkit/data/output-final/pdf/main.pdf"
+                "$SCRIPT_DIR/latex/main.pdf"
+            )
+            local pdf=""
+            for f in "${candidates[@]}"; do
+                if [ -f "$f" ]; then
+                    pdf="$f"
+                    break
+                fi
+            done
+            if [ -z "$pdf" ]; then
+                echo -e "${YELLOW}No PDF found. Run:${NC} paperkit latex build"
+                return 1
+            fi
+            if command -v open >/dev/null 2>&1; then
+                open "$pdf"
+            else
+                echo "$pdf"
+            fi
+            ;;
+        -h|--help|*)
+            latex_usage
+            ;;
+    esac
+}
+
+# Evidence extraction commands
+evidence_usage() {
+    echo ""
+    echo -e "${BLUE}════════════════════════════════════════════════════════════════════════════${NC}"
+    echo ""
+    echo -e "  ${YELLOW}${TITLE_SHORT}${NC} Evidence Extraction"
+    echo ""
+    echo -e "${BLUE}════════════════════════════════════════════════════════════════════════════${NC}"
+    echo ""
+    echo -e "${YELLOW}USAGE${NC}"
+    echo "  paperkit evidence extract <pdf_dir> <output.md> [terms...]"
+    echo ""
+    echo -e "${YELLOW}ARGUMENTS${NC}"
+    echo -e "  ${GREEN}<pdf_dir>${NC}     Directory containing PDF files"
+    echo -e "  ${GREEN}<output.md>${NC}   Output markdown file"
+    echo -e "  ${GREEN}[terms...]${NC}    Optional search terms to filter"
+    echo ""
+    echo -e "${YELLOW}DESCRIPTION${NC}"
+    echo "  Extract text evidence from PDF files based on search terms."
+    echo "  Useful for forensic audits and citation verification."
+    echo ""
+    echo -e "${YELLOW}EXAMPLES${NC}"
+    echo -e "  ${BLUE}#${NC} Extract all text from PDFs"
+    echo "  paperkit evidence extract ./pdfs/ evidence.md"
+    echo ""
+    echo -e "  ${BLUE}#${NC} Extract text containing specific terms"
+    echo "  paperkit evidence extract ./pdfs/ quotes.md \"color theory\" \"perception\""
+    echo ""
+}
+
+evidence_command() {
+    local subcmd="${1:-}"
+    shift || true
+    case "$subcmd" in
+        extract)
+            local pdf_dir="${1:-}"
+            local output_md="${2:-}"
+            shift 2 || true
+            if [ -z "$pdf_dir" ] || [ -z "$output_md" ]; then
+                echo -e "${YELLOW}Usage:${NC} paperkit evidence extract <pdf_dir> <output_md> [terms...]"
+                return 1
+            fi
+            if [ -f "$SCRIPT_DIR/.paperkit/tools/extract-evidence.sh" ]; then
+                "$SCRIPT_DIR/.paperkit/tools/extract-evidence.sh" "$pdf_dir" "$output_md" "$@"
+            else
+                echo -e "${RED}Error: extract-evidence.sh not found.${NC}"
+                return 1
+            fi
+            ;;
+        -h|--help|*)
+            evidence_usage
+            ;;
+    esac
+}
+
+# Validate schemas help
+validate_usage() {
+    echo ""
+    echo -e "${BLUE}════════════════════════════════════════════════════════════════════════════${NC}"
+    echo ""
+    echo -e "  ${YELLOW}${TITLE_SHORT}${NC} Schema Validation"
+    echo ""
+    echo -e "${BLUE}════════════════════════════════════════════════════════════════════════════${NC}"
+    echo ""
+    echo -e "${YELLOW}USAGE${NC}"
+    echo "  paperkit validate"
+    echo ""
+    echo -e "${YELLOW}DESCRIPTION${NC}"
+    echo "  Validate agent, workflow, and tool schema definitions."
+    echo "  Checks YAML structure, required fields, and JSON schema compliance."
+    echo ""
+    echo -e "${YELLOW}WHAT IT CHECKS${NC}"
+    echo "  • Agent definition files (.paperkit/core/agents/*.md)"
+    echo "  • Workflow definitions (.paperkit/_cfg/workflows/)"
+    echo "  • Tool definitions (.paperkit/_cfg/tools/)"
+    echo "  • Manifest files (agent-manifest.yaml, etc.)"
+    echo "  • JSON schema compliance"
+    echo ""
+    echo -e "${YELLOW}REQUIREMENTS${NC}"
+    echo "  For full validation, install Python dependencies:"
+    echo "    pip install pyyaml jsonschema"
+    echo ""
+    echo -e "${YELLOW}EXAMPLES${NC}"
+    echo -e "  ${BLUE}#${NC} Validate all schemas"
+    echo "  paperkit validate"
+    echo ""
+}
+
 # Validate schemas
 validate_schemas() {
+    # Check for help flag
+    if [[ "${1:-}" == "-h" ]] || [[ "${1:-}" == "--help" ]]; then
+        validate_usage
+        return 0
+    fi
+    
     SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
     
     # Check .paper directory exists
@@ -103,10 +445,10 @@ validate_schemas() {
     fi
     
     # Prefer Python validator if available and dependencies are met
-    if [ -f "$SCRIPT_DIR/paperkit-validate.py" ]; then
+    if [ -f "$SCRIPT_DIR/.paperkit/tools/validate.py" ]; then
         # Check if required Python packages are available
         if python3 -c "import yaml, jsonschema" 2>/dev/null; then
-            python3 "$SCRIPT_DIR/paperkit-validate.py" "$@"
+            python3 "$SCRIPT_DIR/.paperkit/tools/validate.py" "$@"
             return $?
         else
             echo -e "${YELLOW}Note: Install 'pyyaml' and 'jsonschema' for full schema validation:${NC}"
@@ -116,7 +458,7 @@ validate_schemas() {
     fi
     
     # Fallback to basic validation
-    echo -e "${BLUE}Validating PaperKit schemas (basic mode)...${NC}"
+    echo -e "${BLUE}Validating ${TITLE_SHORT} schemas (basic mode)...${NC}"
     local has_errors=false
     
     # Check for validation tools (prefer .paperkit/tools/, fall back to legacy)
@@ -158,20 +500,38 @@ validate_schemas() {
     fi
 }
 
+# Release command
 # Main command dispatcher
 case "${1:-help}" in
     init)
-        init_project
+        shift
+        init_project "$@"
         ;;
     generate)
         shift
         generate_ide_files "$@"
         ;;
     validate)
-        validate_schemas
+        shift
+        validate_schemas "$@"
+        ;;
+    latex)
+        shift
+        latex_command "$@"
+        ;;
+    evidence)
+        shift
+        evidence_command "$@"
+        ;;
+    release)
+        echo -e "${YELLOW}Release commands have moved to paperkit-dev${NC}"
+        echo "Use: paperkit-dev release --help"
+        echo ""
+        exit 1
         ;;
     version|--version|-v)
-        show_version
+        shift
+        version_command "$@"
         ;;
     help|--help|-h|"")
         show_help

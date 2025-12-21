@@ -1,7 +1,6 @@
 #!/bin/bash
 
-# PaperKit Installer v2
-# Version: 2.0.0
+# PaperKit Installer
 # Installs the Research Paper Assistant Kit with IDE selection
 
 set -e
@@ -18,22 +17,47 @@ BOLD='\033[1m'
 
 # Global variables
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-VERSION="2.0.0"
+
+# Get version and title from version.yaml
+if [ -f "${SCRIPT_DIR}/.paperkit/tools/get-version.sh" ]; then
+    VERSION=$("${SCRIPT_DIR}/.paperkit/tools/get-version.sh" 2>/dev/null || echo "unknown")
+else
+    VERSION="unknown"
+fi
+
+# Get title info from version.yaml using Python
+if command -v python3 >/dev/null 2>&1 && [ -f "${SCRIPT_DIR}/.paperkit/_cfg/version.yaml" ]; then
+    TITLE_INFO=$(python3 -c "
+import yaml
+try:
+    with open('${SCRIPT_DIR}/.paperkit/_cfg/version.yaml', 'r') as f:
+        data = yaml.safe_load(f)
+        title = data.get('version', {}).get('title', {})
+        print(title.get('short', 'PaperKit'))
+        print(title.get('long', 'Research Paper Assistant'))
+except:
+    print('PaperKit')
+    print('Research Paper Assistant')
+" 2>/dev/null)
+    TITLE_SHORT=$(echo "$TITLE_INFO" | sed -n '1p')
+    TITLE_LONG=$(echo "$TITLE_INFO" | sed -n '2p')
+else
+    TITLE_SHORT="PaperKit"
+    TITLE_LONG="Research Paper Assistant"
+fi
+
 SELECTED_IDES=()
 
 # Display banner
 show_banner() {
     echo -e "${CYAN}"
-    cat << "EOF"
-╔═══════════════════════════════════════════════════╗
-║                                                   ║
-║             📝 PaperKit Installer                 ║
-║                                                   ║
-║    Research Paper Assistant Kit v2.0.0            ║
-║    Source of Truth: .paper/                       ║
-║                                                   ║
-╚═══════════════════════════════════════════════════╝
-EOF
+    echo "╔═══════════════════════════════════════════════════╗"
+    echo "║                                                   ║"
+    echo "║             📝 PaperKit Installer                 ║"
+    echo "║                                                   ║"
+    printf "║    %-47s║\n" "${TITLE_LONG} ${VERSION}"
+    echo "║                                                   ║"
+    echo "╚═══════════════════════════════════════════════════╝"
     echo -e "${NC}"
 }
 
@@ -99,7 +123,7 @@ select_ides_menu() {
     echo "  ${CYAN}1)${NC} GitHub Copilot (VS Code chat modes)"
     echo "  ${CYAN}2)${NC} OpenAI Codex (prompt library)"
     echo "  ${CYAN}3)${NC} Both (recommended)"
-    echo "  ${CYAN}4)${NC} None (core .paper system only)"
+    echo "  ${CYAN}4)${NC} None (core .paperkit system only)"
     echo ""
     
     while true; do
@@ -277,22 +301,22 @@ setup_python_env() {
 create_core_structure() {
     info_msg "Creating core directory structure..."
     
-    # .paper structure (always created)
-    mkdir -p .paper/data/output-drafts/sections
-    mkdir -p .paper/data/output-drafts/outlines
-    mkdir -p .paper/data/output-refined/sections
-    mkdir -p .paper/data/output-refined/research
-    mkdir -p .paper/data/output-refined/references
-    mkdir -p .paper/data/output-final/pdf
-    mkdir -p .paper/core/agents
-    mkdir -p .paper/specialist/agents
-    mkdir -p .paper/_cfg/agents
-    mkdir -p .paper/_cfg/workflows
-    mkdir -p .paper/_cfg/tools
-    mkdir -p .paper/_cfg/guides
-    mkdir -p .paper/_cfg/schemas
-    mkdir -p .paper/_cfg/ides
-    mkdir -p .paper/docs
+    # .paperkit structure (always created)
+    mkdir -p .paperkit/data/output-drafts/sections
+    mkdir -p .paperkit/data/output-drafts/outlines
+    mkdir -p .paperkit/data/output-refined/sections
+    mkdir -p .paperkit/data/output-refined/research
+    mkdir -p .paperkit/data/output-refined/references
+    mkdir -p .paperkit/data/output-final/pdf
+    mkdir -p .paperkit/core/agents
+    mkdir -p .paperkit/specialist/agents
+    mkdir -p .paperkit/_cfg/agents
+    mkdir -p .paperkit/_cfg/workflows
+    mkdir -p .paperkit/_cfg/tools
+    mkdir -p .paperkit/_cfg/guides
+    mkdir -p .paperkit/_cfg/schemas
+    mkdir -p .paperkit/_cfg/ides
+    mkdir -p .paperkit/docs
     
     # LaTeX structure
     mkdir -p latex/sections
@@ -311,9 +335,9 @@ install_copilot() {
     
     mkdir -p .github/agents
     
-    # Generate agent files from .paper source
-    if [ -x "${SCRIPT_DIR}/paperkit-generate.sh" ]; then
-        "${SCRIPT_DIR}/paperkit-generate.sh" --target=copilot
+    # Generate agent files from .paperkit source
+    if [ -x "${SCRIPT_DIR}/.paperkit/tools/generate.sh" ]; then
+        "${SCRIPT_DIR}/.paperkit/tools/generate.sh" --target=copilot
     else
         warning_msg "Generator not found. Creating placeholder agents."
         
@@ -328,7 +352,7 @@ tools: ["changes","edit","fetch","problems","search","runSubagent","usages"]
 # Paper Architect
 
 <agent-activation CRITICAL="TRUE">
-1. LOAD the FULL agent file from @.paper/core/agents/paper-architect.md
+1. LOAD the FULL agent file from @.paperkit/core/agents/paper-architect.md
 2. Execute ALL activation steps
 3. Stay in character throughout
 </agent-activation>
@@ -358,9 +382,9 @@ install_codex() {
     
     mkdir -p .codex/prompts
     
-    # Generate prompt files from .paper source
-    if [ -x "${SCRIPT_DIR}/paperkit-generate.sh" ]; then
-        "${SCRIPT_DIR}/paperkit-generate.sh" --target=codex
+    # Generate prompt files from .paperkit source
+    if [ -x "${SCRIPT_DIR}/.paperkit/tools/generate.sh" ]; then
+        "${SCRIPT_DIR}/.paperkit/tools/generate.sh" --target=codex
     else
         warning_msg "Generator not found. Creating placeholder prompts."
         
@@ -372,7 +396,7 @@ Activate the **Paper Architect** persona from PaperKit.
 
 ## Instructions
 
-1. Load `.paper/core/agents/paper-architect.md`
+1. Load `.paperkit/core/agents/paper-architect.md`
 2. Follow all activation steps
 3. Present menu and wait for input
 EOFPROMPT
@@ -425,7 +449,7 @@ EOF
     echo -e "${NC}"
     
     info_msg "Installed components:"
-    echo "  • Core .paper/ structure"
+    echo "  • Core .paperkit/ structure"
     echo "  • LaTeX document structure"
     echo "  • Planning directory"
     
@@ -445,8 +469,8 @@ EOF
     echo ""
     
     if [ ${#SELECTED_IDES[@]} -gt 0 ]; then
-        info_msg "To regenerate IDE files after editing .paper/ agents:"
-        echo "  ./paperkit-generate.sh"
+        info_msg "To regenerate IDE files after editing .paperkit/ agents:"
+        echo "  ./paperkit generate"
     fi
 }
 
@@ -487,10 +511,10 @@ main() {
     if [ ${#SELECTED_IDES[@]} -gt 0 ]; then
         echo ""
         info_msg "Generating IDE integration files..."
-        if [ -f "./paperkit-generate.sh" ]; then
-            ./paperkit-generate.sh || warning_msg "Generation had issues but installation continues"
+        if [ -f "./.paperkit/tools/generate.sh" ]; then
+            ./.paperkit/tools/generate.sh || warning_msg "Generation had issues but installation continues"
         else
-            warning_msg "paperkit-generate.sh not found, skipping file generation"
+            warning_msg "generate.sh not found, skipping file generation"
         fi
     fi
     

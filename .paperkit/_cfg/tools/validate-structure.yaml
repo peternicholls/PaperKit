@@ -4,7 +4,6 @@
 name: validate-structure
 displayName: Validate Structure
 description: Validate paper structure
-version: 1.0.0
 path: .paperkit/tools/validate-structure.py
 requiresConsent: true
 

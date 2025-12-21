@@ -1,7 +1,6 @@
 # OpenAI Codex IDE Configuration
 
 ide: codex
-version: 1.0.0
 
 # Prompt discovery
 prompt_location: ".codex/prompts"
