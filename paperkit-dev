@@ -64,7 +64,7 @@ return 1
 
 # Show version
 show_version() {
-echo -e "${YELLOW}${TITLE_SHORT}${NC} ${GREEN}Version${NC} $VERSION"
+echo -e "${YELLOW}${TITLE_SHORT}${NC} ${GREEN}Current Version${NC} $VERSION"
 }
 
 # Main help
@@ -155,56 +155,72 @@ while [[ $# -gt 0 ]]; do
 case "$1" in
 --get)
 action="get"
-;;
---info)
-action="info"
-;;
---set)
-needs_auth=true
-set_requested=true
-shift
-setval="${1:-}"
-;;
---bump)
-needs_auth=true
-bump_requested=true
-shift
-bumpval="${1:-}"
-;;
---build)
-needs_auth=true
-build_requested=true
-shift
-buildval="${1:-}"
-;;
---clear-build)
-needs_auth=true
-clear_build=true
-;;
---test)
-run_tests=true
-;;
--h|--help)
-version_usage
-return 0
-;;
-*)
-# Ignore unknown args and continue
-;;
-esac
-shift || break
-done
+                shift
+                ;;
+            --info)
+                action="info"
+                shift
+                ;;
+            --set)
+                needs_auth=true
+                set_requested=true
+                if [[ -n "${2:-}" && ! "$2" =~ ^-- ]]; then
+                    setval="$2"
+                    shift 2
+                else
+                    shift
+                fi
+                ;;
+            --bump)
+                needs_auth=true
+                bump_requested=true
+                if [[ -n "${2:-}" && ! "$2" =~ ^-- ]]; then
+                    bumpval="$2"
+                    shift 2
+                else
+                    shift
+                fi
+                ;;
+            --build)
+                needs_auth=true
+                build_requested=true
+                if [[ -n "${2:-}" && ! "$2" =~ ^-- ]]; then
+                    buildval="$2"
+                    shift 2
+                else
+                    shift
+                fi
+                ;;
+            --clear-build)
+                needs_auth=true
+                clear_build=true
+                shift
+                ;;
+            --test)
+                run_tests=true
+                shift
+                ;;
+            -h|--help)
+                version_usage
+                return 0
+                ;;
+            *)
+                # Ignore unknown args and continue
+                shift
+                ;;
+        esac
+    done
 
-# Check authorization for modification operations
-if $needs_auth; then
-check_authorization || return 1
-fi
+    # Check authorization for modification operations
+    if $needs_auth; then
+        check_authorization || return 1
+    fi
 
-# If no flags, just show version (no auth needed)
-if [[ -z "$action" && -z "$setval" && -z "$bumpval" && -z "$buildval" && "$clear_build" != true && "$run_tests" != true ]]; then
-show_version
-return 0
-fi
+    # If no flags were requested, just show version (no auth needed)
+    if [[ -z "$action" ]] && ! $set_requested && ! $bump_requested && ! $build_requested && ! $clear_build && ! $run_tests; then
+        show_version
+        return 0
+    fi
 
 local VM_SCRIPT="$SCRIPT_DIR/.paperkit/tools/version-manager.py"
 local PYTHON_BIN="python3"
