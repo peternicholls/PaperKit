@@ -13,7 +13,7 @@ PaperKit is a **document-first, agentic workflow** for researching and writing *
 **One-line installation (recommended):**
 
 ```bash
-curl -sSL https://raw.githubusercontent.com/peternicholls/PaperKit/main/scripts/base-install.sh | bash
+curl -sSL https://raw.githubusercontent.com/peternicholls/PaperKit/master/scripts/base-install.sh | bash
 ```
 
 **Or clone and run locally:**
