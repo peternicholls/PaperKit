@@ -50,7 +50,7 @@ get_install_directory() {
     echo -e "  ${CYAN}2)${NC} Home directory: ${HOME}/paperkit"
     echo -e "  ${CYAN}3)${NC} Custom path (you specify)"
     echo ""
-    read -p "Selection [1]: " location_choice
+    read -p "Selection [1]: " location_choice </dev/tty
     location_choice=${location_choice:-1}
     
     case $location_choice in
@@ -62,7 +62,7 @@ get_install_directory() {
             ;;
         3)
             echo ""
-            read -p "Enter installation path: " custom_path
+            read -p "Enter installation path: " custom_path </dev/tty
             if [ -z "$custom_path" ]; then
                 error_exit "Installation path cannot be empty"
             fi
@@ -79,7 +79,7 @@ get_install_directory() {
     local parent_dir=$(dirname "$INSTALL_DIR")
     if [ ! -d "$parent_dir" ]; then
         warning_msg "Parent directory does not exist: $parent_dir"
-        read -p "Create it? [Y/n]: " create_parent
+        read -p "Create it? [Y/n]: " create_parent </dev/tty
         create_parent=${create_parent:-Y}
         if [[ "$create_parent" =~ ^[Yy]$ ]]; then
             mkdir -p "$parent_dir" || error_exit "Failed to create parent directory"
@@ -184,7 +184,7 @@ check_existing_installation() {
         echo -e "  ${CYAN}3)${NC} Cancel installation"
         echo ""
         
-        read -p "Selection [1]: " choice
+        read -p "Selection [1]: " choice </dev/tty
         choice=${choice:-1}
         
         case $choice in
@@ -243,7 +243,7 @@ update_installation() {
         echo "  cd $INSTALL_DIR"
         echo "  git stash pop"
         echo ""
-        read -p "Press Enter to continue with update..."
+        read -p "Press Enter to continue with update..." </dev/tty
     fi
     
     info_msg "Pulling latest changes..."
@@ -333,7 +333,7 @@ select_ides_menu() {
     echo ""
     
     while true; do
-        read -p "Selection [3]: " choice
+        read -p "Selection [3]: " choice </dev/tty
         choice=${choice:-3}
         
         case $choice in
