@@ -119,7 +119,7 @@ echo -e "  ${GREEN}(no flags)${NC}             Show current version"
 echo -e "  ${GREEN}--get${NC}                  Show current version"
 echo -e "  ${GREEN}--info${NC}                 Show full version info (JSON)"
 echo -e "  ${GREEN}--set${NC} <version>        Set version (e.g., alpha-1.3.0 or 1.3.0+45)"
-echo -e "  ${GREEN}--bump${NC} <part>          Bump semver (major|minor|patch)"
+echo -e "  ${GREEN}--bump${NC} <part>          Bump semver part: ${CYAN}major${NC}, ${CYAN}minor${NC}, or ${CYAN}patch${NC}"
 echo -e "  ${GREEN}--build${NC} <value>        Set build metadata (appends +value)"
 echo -e "  ${GREEN}--clear-build${NC}          Remove build metadata"
 echo -e "  ${GREEN}--test${NC}                 Run version system tests"
@@ -235,7 +235,15 @@ fi
 
 if [[ -n "$bumpval" ]]; then
 if [[ "$bumpval" != "major" && "$bumpval" != "minor" && "$bumpval" != "patch" ]]; then
-echo -e "${RED}Error: --bump must be one of major|minor|patch.${NC}"
+echo -e "${RED}Error: Invalid bump value '${bumpval}'${NC}"
+echo ""
+echo "Valid values for --bump:"
+echo -e "  ${CYAN}major${NC}  - Bump major version (e.g., 1.2.3 → 2.0.0)"
+echo -e "  ${CYAN}minor${NC}  - Bump minor version (e.g., 1.2.3 → 1.3.0)"
+echo -e "  ${CYAN}patch${NC}  - Bump patch version (e.g., 1.2.3 → 1.2.4)"
+echo ""
+echo "Usage: paperkit-dev version --bump <major|minor|patch>"
+echo "For more help: paperkit-dev version --help"
 return 1
 fi
 "$PYTHON_BIN" "$VM_SCRIPT" bump "$bumpval"
