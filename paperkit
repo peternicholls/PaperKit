@@ -51,9 +51,19 @@ version_usage() {
     echo -e "  ${GREEN}(no flags)${NC}             Show current version"
     echo -e "  ${GREEN}--info${NC}                 Show full version info (JSON)"
     echo ""
-    echo -e "${YELLOW}VERSION MANAGEMENT${NC}"
-    echo "  To modify version numbers, use: paperkit-dev version --bump <part>"
-    echo "  See: paperkit-dev version --help"
+    echo -e "${YELLOW}VERSION MANAGEMENT (Developer Only)${NC}"
+    echo ""
+    echo "  To modify version numbers, use the developer CLI:"
+    echo -e "    ${CYAN}./paperkit-dev version --bump <part>${NC}"
+    echo ""
+    echo "  Where <part> is: major, minor, or patch"
+    echo ""
+    echo "  Examples:"
+    echo -e "    ${CYAN}./paperkit-dev version --bump patch${NC}    # 1.2.3 → 1.2.4"
+    echo -e "    ${CYAN}./paperkit-dev version --set 2.0.0${NC}     # Set specific version"
+    echo ""
+    echo "  For full developer options:"
+    echo -e "    ${CYAN}./paperkit-dev version --help${NC}"
     echo ""
     echo -e "${YELLOW}EXAMPLES${NC}"
     echo -e "  ${BLUE}#${NC} Show current version"
@@ -77,8 +87,13 @@ version_command() {
                 return 0
                 ;;
             --set|--bump|--build|--clear-build|--test)
-                echo -e "${YELLOW}Version modification commands have moved to paperkit-dev${NC}"
-                echo "Use: paperkit-dev version $1"
+                echo -e "${YELLOW}⚠️  Version modification commands require developer access${NC}"
+                echo ""
+                echo "Use the developer CLI instead:"
+                echo -e "  ${CYAN}./paperkit-dev version $1${NC}"
+                echo ""
+                echo "For help:"
+                echo -e "  ${CYAN}./paperkit-dev version --help${NC}"
                 echo ""
                 return 1
                 ;;
