@@ -1,8 +1,8 @@
 #!/bin/bash
 
 # PaperKit Base Installation Script
-# Version: 2.1.0
-# Installs PaperKit to ~/paperkit with backup and update support
+# Version: 2.2.0
+# Installs PaperKit to specified directory
 
 set -e
 
@@ -17,8 +17,8 @@ NC='\033[0m'
 BOLD='\033[1m'
 
 # Global variables
-VERSION="2.1.0"
-INSTALL_DIR="${HOME}/paperkit"
+VERSION="2.2.0"
+INSTALL_DIR=""
 REPO_URL="https://github.com/peternicholls/PaperKit"
 BACKUP_DIR=""
 SELECTED_IDES=()
@@ -31,12 +31,65 @@ show_banner() {
 ║                                                   ║
 ║             📝 PaperKit Installer                 ║
 ║                                                   ║
-║    Research Paper Assistant Kit v2.1.0            ║
-║    Installing to ~/paperkit                       ║
+║    Research Paper Assistant Kit v2.2.0            ║
 ║                                                   ║
 ╚═══════════════════════════════════════════════════╝
 EOF
     echo -e "${NC}"
+}
+
+# Get installation directory from user
+get_install_directory() {
+    echo ""
+    echo -e "${BOLD}Installation Location${NC}"
+    echo ""
+    echo "Where would you like to install PaperKit?"
+    echo ""
+    echo -e "  ${CYAN}1)${NC} Current directory: $(pwd)"
+    echo -e "  ${CYAN}2)${NC} Home directory: ${HOME}/paperkit"
+    echo -e "  ${CYAN}3)${NC} Custom path (you specify)"
+    echo ""
+    read -p "Selection [1]: " location_choice
+    location_choice=${location_choice:-1}
+    
+    case $location_choice in
+        1)
+            INSTALL_DIR="$(pwd)/paperkit"
+            ;;
+        2)
+            INSTALL_DIR="${HOME}/paperkit"
+            ;;
+        3)
+            echo ""
+            read -p "Enter installation path: " custom_path
+            if [ -z "$custom_path" ]; then
+                error_exit "Installation path cannot be empty"
+            fi
+            # Expand ~ to home directory
+            custom_path="${custom_path/#\~/$HOME}"
+            INSTALL_DIR="$custom_path"
+            ;;
+        *)
+            error_exit "Invalid selection"
+            ;;
+    esac
+    
+    # Create parent directory if it doesn't exist
+    local parent_dir=$(dirname "$INSTALL_DIR")
+    if [ ! -d "$parent_dir" ]; then
+        warning_msg "Parent directory does not exist: $parent_dir"
+        read -p "Create it? [Y/n]: " create_parent
+        create_parent=${create_parent:-Y}
+        if [[ "$create_parent" =~ ^[Yy]$ ]]; then
+            mkdir -p "$parent_dir" || error_exit "Failed to create parent directory"
+        else
+            error_exit "Cannot proceed without parent directory"
+        fi
+    fi
+    
+    echo ""
+    info_msg "Installing to: ${INSTALL_DIR}"
+    echo ""
 }
 
 # Utility functions
@@ -188,7 +241,7 @@ update_installation() {
     fi
     
     info_msg "Pulling latest changes..."
-    if git pull origin main; then
+    if git pull origin master; then
         success_msg "Installation updated successfully"
         
         # Regenerate IDE files if needed
@@ -452,6 +505,9 @@ EOF
 # Main installation
 main() {
     show_banner
+    
+    # Get installation directory first
+    get_install_directory
     
     echo ""
     detect_platform
