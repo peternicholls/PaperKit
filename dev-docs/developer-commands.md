@@ -30,13 +30,27 @@ For system development and maintenance:
 
 ## Authorization System
 
-Developer commands require authorization to prevent unauthorized modifications.
+Developer commands use a **two-layer authorization approach** to prevent unauthorized modifications:
 
-### How Authorization Works
+### Layer 1: Local Authorization (Developer Convenience)
+
+Provides quick feedback and prevents accidental changes:
 
 1. **Git Email Verification**: The system checks your git user.email configuration
 2. **Authorized List**: Only emails in the `AUTHORIZED_OWNERS` array can run dev commands
 3. **Automatic Check**: Authorization is verified before any modification operation
+
+**Note**: This layer can be bypassed by editing the script, so it's not suitable for security enforcement.
+
+### Layer 2: Service-Side Authorization (Security Enforcement)
+
+When you push a tag to create a release, **GitHub Actions workflows** enforce authorization that cannot be bypassed:
+
+1. **Protected Environment**: The `release` environment requires approval from authorized reviewers
+2. **Cannot be Circumvented**: Even if local checks are bypassed, the release cannot complete without GitHub approval
+3. **Audit Trail**: All release approvals are logged in GitHub
+
+**See [Service-Side Authorization](service-side-authorization.md) for detailed setup instructions.**
 
 ### Configure Authorized Users
 
@@ -159,8 +173,26 @@ The separation between user and developer commands provides:
 3. **Clarity**: Clear distinction between everyday usage and system maintenance
 4. **Safety**: Dry-run modes available for all critical operations
 
+### Two-Layer Authorization
+
+PaperKit uses a **two-layer authorization approach**:
+
+1. **Local Authorization** (first line of defense)
+   - Checks in `./paperkit-dev` script
+   - Prevents accidental changes
+   - Can be bypassed by editing the script
+
+2. **Service-Side Authorization** (enforced by GitHub)
+   - GitHub Actions workflow with protected environments
+   - Requires approval from authorized reviewers
+   - **Cannot be bypassed** - ensures only authorized personnel can complete releases
+   - See [Service-Side Authorization](service-side-authorization.md) for setup details
+
+**Important**: While local checks can be circumvented, the service-side enforcement on GitHub ensures that only authorized users can actually publish releases, even if someone bypasses local checks.
+
 ## See Also
 
+- [Service-Side Authorization](service-side-authorization.md) - GitHub environment protection setup
 - [Release Workflow](release-workflow.md) - Complete release process
 - [Release Quick Start](release-quick-start.md) - Quick reference for releases
 - [Version System](../README.md) - Version management overview
