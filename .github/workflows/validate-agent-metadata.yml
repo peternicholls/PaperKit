@@ -1,0 +1,46 @@
+name: Validate Agent Metadata
+
+on:
+  push:
+    branches: [master, main]
+    paths:
+      - '.paperkit/_cfg/agents/**'
+      - '.paperkit/_cfg/schemas/agent-schema.json'
+      - '.paperkit/_cfg/agent-manifest.yaml'
+      - '.paperkit/tools/validate-agent-schema.py'
+  pull_request:
+    branches: [master, main]
+    paths:
+      - '.paperkit/_cfg/agents/**'
+      - '.paperkit/_cfg/schemas/agent-schema.json'
+      - '.paperkit/_cfg/agent-manifest.yaml'
+      - '.paperkit/tools/validate-agent-schema.py'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate-agents:
+    name: Validate Agent Definitions
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+      
+      - name: Validate agent schemas
+        run: |
+          python .paperkit/tools/validate-agent-schema.py --ci \
+            --schema .paperkit/_cfg/schemas/agent-schema.json \
+            --agents-dir .paperkit/_cfg/agents
