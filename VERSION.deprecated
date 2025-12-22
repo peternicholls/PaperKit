@@ -1,7 +1,0 @@
-alpha-1.2.0
-
-# DEPRECATED: This file is deprecated as of December 21, 2025
-# Version information has been migrated to .paperkit/_cfg/version.yaml
-# This file is maintained only for backwards compatibility
-# Use: ./paperkit version
-# See: .paperkit/docs/version-migration-guide.md
