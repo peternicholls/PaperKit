@@ -623,6 +623,11 @@ if gh release create "$CURRENT_VERSION" \
 --notes "$RELEASE_NOTES"; then
 echo -e "${GREEN}✓${NC} Created GitHub release"
 echo -e "${GREEN}✓${NC} Uploaded distribution bundle"
+
+# Clean up the bundle file after successful upload
+if rm "$BUNDLE_FILE" 2>/dev/null; then
+echo -e "${GREEN}✓${NC} Cleaned up local bundle file"
+fi
 else
 echo -e "${RED}Error: Failed to create GitHub release.${NC}"
 echo ""
@@ -646,15 +651,16 @@ fi
 echo -e "${GREEN}Release process complete!${NC}"
 echo ""
 
-if $do_bundle && ! $dry_run; then
+if $do_tag && $do_bundle && ! $dry_run; then
+echo "GitHub release: https://github.com/peternicholls/PaperKit/releases/tag/${CURRENT_VERSION}"
+echo ""
+elif $do_bundle && ! $dry_run; then
+# Only show bundle path if it still exists (wasn't cleaned up)
+if [ -f "$SCRIPT_DIR/paperkit-${CURRENT_VERSION}.tar.gz" ]; then
 echo "Distribution bundle created:"
 echo "  paperkit-${CURRENT_VERSION}.tar.gz"
 echo ""
 fi
-
-if $do_tag && $do_bundle && ! $dry_run; then
-echo "GitHub release: https://github.com/peternicholls/PaperKit/releases/tag/${CURRENT_VERSION}"
-echo ""
 fi
 }
 
