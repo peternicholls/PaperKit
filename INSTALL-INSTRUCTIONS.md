@@ -113,7 +113,7 @@ pip install --user -r requirements.txt
 If you installed PaperKit using the base installation script, updating is simple:
 
 ```bash
-curl -sSL https://raw.githubusercontent.com/peternicholls/PaperKit/main/scripts/base-install.sh | bash
+curl -sSL https://raw.githubusercontent.com/peternicholls/PaperKit/master/scripts/base-install.sh | bash
 ```
 
 The script will:
@@ -133,7 +133,7 @@ If you cloned the repository to a custom location:
 
 ```bash
 cd /path/to/your/PaperKit
-git pull origin main
+git pull origin master
 ./paperkit generate  # Regenerate IDE integration files
 ```
 
@@ -142,7 +142,7 @@ If you have local changes:
 ```bash
 cd /path/to/your/PaperKit
 git stash  # Save your changes
-git pull origin main
+git pull origin master
 git stash pop  # Restore your changes
 ./paperkit generate
 ```

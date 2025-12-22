@@ -12,10 +12,10 @@ The main installation script that installs PaperKit to `~/paperkit`.
 
 ```bash
 # Remote installation (recommended)
-curl -sSL https://raw.githubusercontent.com/peternicholls/PaperKit/main/scripts/base-install.sh | bash
+curl -sSL https://raw.githubusercontent.com/peternicholls/PaperKit/master/scripts/base-install.sh | bash
 
 # Or download and run locally
-wget https://raw.githubusercontent.com/peternicholls/PaperKit/main/scripts/base-install.sh
+wget https://raw.githubusercontent.com/peternicholls/PaperKit/master/scripts/base-install.sh
 chmod +x base-install.sh
 ./base-install.sh
 ```

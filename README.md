@@ -188,7 +188,7 @@ PaperKit enforces rigorous citation standards:
 Run the base installation script to install PaperKit to your home directory:
 
 ```bash
-curl -sSL https://raw.githubusercontent.com/peternicholls/PaperKit/main/scripts/base-install.sh | bash
+curl -sSL https://raw.githubusercontent.com/peternicholls/PaperKit/master/scripts/base-install.sh | bash
 ```
 
 This creates `~/paperkit` with the default configuration containing agents, workflows, and tools.

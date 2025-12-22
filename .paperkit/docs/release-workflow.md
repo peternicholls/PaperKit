@@ -302,7 +302,7 @@ git commit -m "Release alpha-1.3.0"
 
 # 6. Tag (manual)
 git tag -a alpha-1.3.0 -m "Release alpha-1.3.0"
-git push origin main alpha-1.3.0
+git push origin master alpha-1.3.0
 
 # 7. Upload bundle to GitHub releases
 ```
@@ -332,7 +332,7 @@ git commit -m "Release alpha-1.3.0"
 
 # 6. Tag
 git tag alpha-1.3.0
-git push origin main alpha-1.3.0
+git push origin master alpha-1.3.0
 
 # 7. Upload bundle to GitHub releases
 ```
