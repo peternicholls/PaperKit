@@ -619,7 +619,7 @@ See [CHANGELOG.md](https://github.com/peternicholls/PaperKit/blob/master/CHANGEL
 # Create release with bundle
 if gh release create "$CURRENT_VERSION" \
 "$BUNDLE_FILE" \
---title "PaperKit $CURRENT_VERSION" \
+--title "$CURRENT_VERSION" \
 --notes "$RELEASE_NOTES"; then
 echo -e "${GREEN}✓${NC} Created GitHub release"
 echo -e "${GREEN}✓${NC} Uploaded distribution bundle"
