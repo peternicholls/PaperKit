@@ -204,6 +204,18 @@ action="get"
                 version_usage
                 return 0
                 ;;
+            bump|set|build|major|minor|patch)
+                # Catch common mistake of omitting -- prefix
+                echo -e "${RED}Error: Invalid syntax - did you mean --${1}?${NC}"
+                echo ""
+                echo "Correct usage:"
+                echo -e "  ${CYAN}./paperkit-dev version --bump <major|minor|patch>${NC}"
+                echo -e "  ${CYAN}./paperkit-dev version --set <version>${NC}"
+                echo -e "  ${CYAN}./paperkit-dev version --build <metadata>${NC}"
+                echo ""
+                echo "For more help: paperkit-dev version --help"
+                return 1
+                ;;
             *)
                 # Ignore unknown args and continue
                 shift
