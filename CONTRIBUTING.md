@@ -123,9 +123,30 @@ python3 ./.paperkit/tools/validate-structure.py
 - Provide clear repro steps (for bugs) and concrete outcomes (for features).
 - Add logs/screenshots where helpful.
 
-## Versioning
-- Semantic versioning is used. See [VERSION](VERSION).
+## Versioning & Releases
+
+### Version Numbers
+- Semantic versioning is used (MAJOR.MINOR.PATCH).
 - Pre-release tags like `alpha-*` / `beta-*` may appear during development.
+- See [VERSION](.paperkit/_cfg/version.yaml) for current version.
+
+### Release Authorization
+
+**PaperKit uses two-layer authorization for releases:**
+
+1. **Local checks** in `./paperkit-dev` script (developer convenience)
+2. **Service-side enforcement** via GitHub Actions (security)
+
+**For Contributors:**
+- You can propose version bumps in PRs
+- Only authorized maintainers can create releases
+- All releases require approval via GitHub's protected environments
+
+**For Maintainers:**
+- See [dev-docs/service-side-authorization.md](dev-docs/service-side-authorization.md) for setup
+- See [dev-docs/setup-authorization.md](dev-docs/setup-authorization.md) for quick reference
+- Use `./paperkit-dev` for local version management
+- Releases require approval on GitHub (cannot be bypassed)
 
 ## Community Norms
 - Be respectful and constructive.

@@ -1,0 +1,180 @@
+name: Create Release
+
+on:
+  push:
+    tags:
+      - 'alpha-*'
+      - 'beta-*'
+      - 'v[0-9]+.[0-9]+.[0-9]+'
+      - 'v[0-9]+.[0-9]+.[0-9]+-*'
+      - 'v[0-9]+.[0-9]+.[0-9]+\+*'
+      - '[0-9]+.[0-9]+.[0-9]+'
+      - '[0-9]+.[0-9]+.[0-9]+-*'
+      - '[0-9]+.[0-9]+.[0-9]+\+*'
+
+permissions:
+  contents: write
+
+jobs:
+  create-release:
+    name: Create Release
+    runs-on: ubuntu-latest
+    environment:
+      name: release
+      url: https://github.com/${{ github.repository }}/releases/tag/${{ github.ref_name }}
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      
+      - name: Validate tag format
+        run: |
+          TAG="${{ github.ref_name }}"
+          echo "Creating release for tag: $TAG"
+          
+          # Define allowed tag patterns
+          PATTERN_SEMVER='^[0-9]+\.[0-9]+\.[0-9]+$'
+          PATTERN_V_PREFIX='^v[0-9]+\.[0-9]+\.[0-9]+$'
+          PATTERN_ALPHA='^alpha-[0-9]+\.[0-9]+\.[0-9]+$'
+          PATTERN_BETA='^beta-[0-9]+\.[0-9]+\.[0-9]+$'
+          PATTERN_WITH_BUILD='^[0-9]+\.[0-9]+\.[0-9]+\+[a-zA-Z0-9.-]+$'
+          PATTERN_PRERELEASE='^[0-9]+\.[0-9]+\.[0-9]+-[a-zA-Z0-9.-]+$'
+          
+          # Validate tag matches at least one pattern
+          if [[ "$TAG" =~ $PATTERN_SEMVER ]] || \
+             [[ "$TAG" =~ $PATTERN_V_PREFIX ]] || \
+             [[ "$TAG" =~ $PATTERN_ALPHA ]] || \
+             [[ "$TAG" =~ $PATTERN_BETA ]] || \
+             [[ "$TAG" =~ $PATTERN_WITH_BUILD ]] || \
+             [[ "$TAG" =~ $PATTERN_PRERELEASE ]]; then
+            echo "✓ Tag format is valid"
+          else
+            echo "Error: Invalid tag format: $TAG"
+            echo "Expected formats:"
+            echo "  - 1.2.3"
+            echo "  - v1.2.3"
+            echo "  - alpha-1.2.3"
+            echo "  - beta-1.2.3"
+            echo "  - 1.2.3+build.456"
+            echo "  - 1.2.3-rc.1"
+            exit 1
+          fi
+      
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          if [ -f requirements.txt ]; then
+            pip install -r requirements.txt
+          fi
+      
+      - name: Verify version consistency
+        run: |
+          TAG="${{ github.ref_name }}"
+          
+          # Get version from YAML config
+          if [ -f ".paperkit/tools/get-version.sh" ]; then
+            VERSION=$(./.paperkit/tools/get-version.sh 2>/dev/null || echo "unknown")
+            echo "Version from config: $VERSION"
+            echo "Tag name: $TAG"
+            
+            # Normalize versions for comparison (remove v prefix if present)
+            NORM_TAG="${TAG#v}"
+            NORM_VERSION="${VERSION#v}"
+            
+            if [ "$NORM_TAG" != "$NORM_VERSION" ]; then
+              echo "Warning: Tag ($TAG) does not match version in config ($VERSION)"
+              echo "This may be intentional for pre-release versions."
+            fi
+          else
+            echo "Warning: Could not verify version consistency"
+          fi
+      
+      - name: Create distribution bundle
+        run: |
+          # Run bundle creation script
+          bash ./.paperkit/tools/bundle.sh
+          
+          # Verify bundle was created and find it
+          TAG="${{ github.ref_name }}"
+          EXPECTED_BUNDLE="paperkit-${TAG}.tar.gz"
+          
+          # The bundle.sh script creates bundles with version from config
+          # Find the actual bundle file created (if any)
+          ACTUAL_BUNDLE=$(ls paperkit-*.tar.gz 2>/dev/null | head -1 || echo "")
+          
+          if [ -n "$ACTUAL_BUNDLE" ]; then
+            echo "Bundle found: $ACTUAL_BUNDLE"
+            
+            # Rename to match tag if different
+            if [ "$ACTUAL_BUNDLE" != "$EXPECTED_BUNDLE" ]; then
+              echo "Renaming bundle to match tag: $EXPECTED_BUNDLE"
+              mv "$ACTUAL_BUNDLE" "$EXPECTED_BUNDLE"
+            fi
+            
+            # Store bundle filename for later steps
+            echo "BUNDLE_FILE=$EXPECTED_BUNDLE" >> $GITHUB_ENV
+          else
+            echo "Error: No bundle file found after running bundle.sh"
+            exit 1
+          fi
+      
+      - name: Generate release notes
+        id: release_notes
+        run: |
+          TAG="${{ github.ref_name }}"
+          BUNDLE="${BUNDLE_FILE}"
+          # Extract directory name from bundle (remove .tar.gz)
+          DIR_NAME="${BUNDLE%.tar.gz}"
+          
+          # Create release notes
+          cat > release_notes.md <<EOF
+          Release $TAG
+          
+          ## Installation
+          
+          Download and extract the distribution bundle:
+          
+          \`\`\`bash
+          tar -xzf ${BUNDLE}
+          cd ${DIR_NAME}
+          ./paperkit init
+          \`\`\`
+          
+          ## What's Changed
+          
+          See [CHANGELOG.md](https://github.com/${{ github.repository }}/blob/master/CHANGELOG.md) for details.
+          
+          ## Documentation
+          
+          - [Installation Instructions](https://github.com/${{ github.repository }}/blob/master/INSTALL-INSTRUCTIONS.md)
+          - [Commands Reference](https://github.com/${{ github.repository }}/blob/master/Docs/COMMANDS.md)
+          - [Contributing Guidelines](https://github.com/${{ github.repository }}/blob/master/CONTRIBUTING.md)
+          EOF
+          
+          echo "Release notes generated"
+      
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: ${{ env.BUNDLE_FILE }}
+          body_path: release_notes.md
+          draft: false
+          prerelease: ${{ contains(github.ref_name, 'alpha') || contains(github.ref_name, 'beta') }}
+          generate_release_notes: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: Release Summary
+        run: |
+          echo "✓ Release created successfully!"
+          echo ""
+          echo "Release: ${{ github.ref_name }}"
+          echo "Bundle: ${{ env.BUNDLE_FILE }}"
+          echo "URL: https://github.com/${{ github.repository }}/releases/tag/${{ github.ref_name }}"

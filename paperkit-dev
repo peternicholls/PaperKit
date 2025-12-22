@@ -5,6 +5,17 @@
 # PaperKit Developer Command Line Interface
 # Version: $VERSION
 # Development and maintenance commands (requires authorization)
+#
+# AUTHORIZATION: Two-layer approach
+#   1. Local checks (this script) - prevents accidents, can be bypassed by editing
+#   2. Service-side enforcement (GitHub Actions) - cannot be bypassed
+#
+# This script provides local authorization checks for developer convenience.
+# However, the actual release process is enforced server-side by GitHub Actions
+# using protected environments. Even if these local checks are bypassed, releases
+# cannot be published without approval from authorized GitHub users.
+#
+# See dev-docs/service-side-authorization.md for setup details.
 
 # Get version from YAML config, fallback to VERSION file for backwards compatibility
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -33,8 +44,10 @@ YELLOW='\033[1;33m'
 NC='\033[0m'
 
 # Authorized owners (add git config emails here)
+# NOTE: This is a local check only. Service-side authorization is enforced by
+# GitHub Actions using protected environments. See dev-docs/service-side-authorization.md
 AUTHORIZED_OWNERS=(
-"nicholls@mac.com"
+    "nicholls@mac.com"
 )
 
 # Check if current user is authorized
@@ -85,8 +98,12 @@ echo -e "  ${GREEN}version${NC}                Manage version (bump, set, view)"
 echo -e "  ${GREEN}help${NC}                   Show this help message"
 echo ""
 echo -e "${YELLOW}AUTHORIZATION${NC}"
-echo "  Development commands require authorization via git user.email"
+echo "  Local checks: Based on git user.email (can be bypassed)"
+echo "  Service-side: GitHub Actions with protected environments (enforced)"
 echo "  Current user: $(git config user.email 2>/dev/null || echo 'not configured')"
+echo ""
+echo "  Note: Releases require approval on GitHub even if local checks pass."
+echo "  See: dev-docs/service-side-authorization.md"
 echo ""
 echo -e "${YELLOW}EXAMPLES${NC}"
 echo -e "  ${BLUE}#${NC} Create a new release"
