@@ -2,6 +2,8 @@
 
 This document explains how PaperKit assembles the final LaTeX document from modular components and compiles it to PDF.
 
+> **Quick Reference**: For a one-page overview, see [latex-assembly-quickref.txt](latex-assembly-quickref.txt)
+
 ## Table of Contents
 
 1. [Overview](#overview)
