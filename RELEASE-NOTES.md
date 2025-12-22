@@ -1,23 +1,14 @@
-# Release Notes - PaperKit alpha-1.3.2
+# Release Notes - PaperKit alpha-1.3.0
 
 **Release Date:** December 21, 2025
 
 ## Overview
 
-PaperKit alpha-1.3.2 adds intelligent safeguards to the release workflow. This patch release introduces uncommitted changes detection and interactive prompts to prevent accidental releases with incomplete work.
+PaperKit alpha-1.3.0 delivers critical quality-of-life improvements focused on developer experience and release automation. This release fixes terminal output formatting issues that affected readability and introduces fully automated GitHub release workflows.
 
 ## Key Features
 
-### �️ Smart Release Safeguards
-- **Uncommitted Changes Detection**: The release workflow now automatically detects and alerts you to uncommitted changes
-- **Interactive Options**: Three choices when changes are detected:
-  - **Commit and Proceed**: Provide a commit message, commit all changes, push, and release automatically
-  - **Ignore and Proceed**: Continue with release if you prefer manual commit handling
-  - **Cancel**: Stop the release process if you need more time
-- **Clear Status Display**: Shows which files have uncommitted changes before prompting
-- **Safe Defaults**: Defaults to canceling if no response is given
-
-### 🚀 Release Automation (from alpha-1.3.0)
+### 🚀 Release Automation
 - **Fully Automated Releases**: `./paperkit-dev release --full` now handles the entire release process
   - Creates and pushes git tags
   - Generates distribution bundles
@@ -26,7 +17,7 @@ PaperKit alpha-1.3.2 adds intelligent safeguards to the release workflow. This p
 - **GitHub CLI Integration**: Seamless integration with `gh` CLI for release management
 - **Smart Fallback**: Gracefully handles missing GitHub CLI with helpful manual instructions
 
-### 🎨 Terminal Output Improvements (from alpha-1.3.0)
+### 🎨 Terminal Output Improvements
 - **Fixed Color Rendering**: All ANSI color codes now display correctly
 - **24 Fixes Across Scripts**: Corrected missing `-e` flags in echo commands
   - `paperkit-dev` version display
@@ -36,12 +27,7 @@ PaperKit alpha-1.3.2 adds intelligent safeguards to the release workflow. This p
 
 ## Bug Fixes
 
-### Release Workflow Safety
-- **Uncommitted changes prevention**: Release workflow now checks for uncommitted changes and prevents accidental releases with incomplete work
-- **User-friendly prompts**: Clear, color-coded options with helpful descriptions when changes are detected
-- **Atomic release process**: Changes are committed, pushed, and released in sequence with proper error handling
-
-### Terminal Output Formatting (from alpha-1.3.0)
+### Terminal Output Formatting
 - **Fixed ANSI color codes** displaying as literal text (e.g., `\033[1;33m`) instead of formatted colors
 - **Corrected 24 echo commands** missing the `-e` flag required to interpret escape sequences
 - **Affected files:**
@@ -103,6 +89,6 @@ PaperKit is maintained by Peter Nicholls and contributors.
 
 ---
 
-**Version:** alpha-1.3.2  
+**Version:** alpha-1.3.0  
 **Release Channel:** Alpha  
 **Status:** Active Development

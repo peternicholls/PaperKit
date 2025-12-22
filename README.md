@@ -10,20 +10,21 @@ PaperKit is a **document-first, agentic workflow** for researching and writing *
 
 ## Quick Start
 
-**Fresh install (new clone)**
+**One-line installation (recommended):**
 
 ```bash
+curl -sSL https://raw.githubusercontent.com/peternicholls/PaperKit/main/scripts/base-install.sh | bash
+```
+
+**Or clone and run locally:**
+
+```bash
+git clone https://github.com/peternicholls/PaperKit.git
+cd PaperKit
 ./paperkit init
 ```
-- Interactive installer: pick IDE(s), generate IDE files, verify dependencies.
 
-**Regenerate derived files only**
-
-```bash
-./paperkit generate --check   # see what is out of date
-./paperkit generate           # regenerate Copilot+Codex files
-```
-- Use after editing `.paperkit/` sources to sync `.github/agents/` and `.codex/prompts/`.
+For detailed installation instructions, prerequisites, and platform-specific guidance, see [INSTALL-INSTRUCTIONS.md](INSTALL-INSTRUCTIONS.md).
 
 For all available commands, see [Commands Reference](Docs/COMMANDS.md)
 
