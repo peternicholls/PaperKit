@@ -70,7 +70,7 @@ This server-side enforcement cannot be bypassed, ensuring only authorized person
 ```yaml
 Environment: release
   Required reviewers:
-    - nicholls@mac.com (or GitHub username)
+    - [Add authorized GitHub usernames here]
   
   Wait timer: 0 minutes
   
