@@ -353,6 +353,8 @@ All commands use the `./paperkit` CLI. For detailed command documentation, see [
 
 ## LaTeX Structure
 
+For a comprehensive guide on how the final LaTeX document is assembled, see [Docs/LATEX-ASSEMBLY.md](Docs/LATEX-ASSEMBLY.md).
+
 ### Main Document
 
 `latex/main.tex`:
@@ -403,6 +405,8 @@ Your content here...
 ### Output
 PDF appears in: `open-agents/output-final/pdf/main.pdf`
 
+For detailed information on the LaTeX assembly process, including file structure, 3-pass compilation, and customization, see [Docs/LATEX-ASSEMBLY.md](Docs/LATEX-ASSEMBLY.md).
+
 
 ## Managing the System
 
@@ -444,7 +448,9 @@ PDF appears in: `open-agents/output-final/pdf/main.pdf`
 
 ### Documentation
 
-- **AGENTS.md** — Quick reference for all commands
+- **[Docs/COMMANDS.md](Docs/COMMANDS.md)** — Complete commands reference
+- **[Docs/LATEX-ASSEMBLY.md](Docs/LATEX-ASSEMBLY.md)** — How the final LaTeX document is assembled
+- **AGENTS.md** — Quick reference for all agents
 - **.paperkit/docs/github-copilot-instructions.md** — Copilot usage guide
 - **.paperkit/docs/codex-instructions.md** — Codex usage guide
 - **.paperkit/docs/legacy-agent-examples.md** — Example templates and patterns

@@ -56,10 +56,12 @@ For version modification commands, see [Developer Commands](developer-commands.m
 Compile academic papers, check LaTeX syntax, and preview PDF output. Build runs multiple passes for bibliography and cross-references.
 
 ```bash
-./paperkit latex build
-./paperkit latex lint
-./paperkit latex open
+./paperkit latex build                  # Compile PDF (3-pass with BibTeX)
+./paperkit latex lint                   # Check LaTeX syntax
+./paperkit latex open                   # Open compiled PDF
 ```
+
+For a comprehensive guide on how the LaTeX document is assembled from modular components, see [LATEX-ASSEMBLY.md](LATEX-ASSEMBLY.md).
 
 ## Evidence Extraction
 

@@ -1,0 +1,126 @@
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                    PaperKit LaTeX Assembly - Quick Reference                 │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+FILE STRUCTURE
+═══════════════════════════════════════════════════════════════════════════════
+
+latex/
+├── main.tex                  ← Entry point, assembles everything
+├── preamble.tex              ← Packages, document class, formatting
+├── metadata.tex              ← Title, author, abstract, keywords
+├── settings.tex              ← Custom settings, commands, styling
+├── sections/                 ← 12 content section files
+│   ├── 01_introduction.tex
+│   ├── 02_perceptual_foundations.tex
+│   ├── ...
+│   └── 12_conclusion.tex
+├── appendices/               ← 4 appendix files
+│   ├── A_presets.tex
+│   ├── B_notation.tex
+│   ├── C_examples.tex
+│   └── D_quick_reference.tex
+└── references/
+    └── references.bib        ← Bibliography database (BibTeX)
+
+ASSEMBLY FLOW
+═══════════════════════════════════════════════════════════════════════════════
+
+main.tex
+  ├─→ \input{preamble}        (packages, formatting)
+  ├─→ \input{settings}        (custom commands)
+  ├─→ \input{metadata}        (title, author, abstract)
+  │
+  ├─→ \begin{document}
+  ├─→ \maketitle              (title page)
+  ├─→ \abstracttext           (abstract)
+  ├─→ \keywords               (keywords)
+  ├─→ \tableofcontents        (auto-generated from sections)
+  │
+  ├─→ \chapter{...}           ┐
+  │   \input{sections/01_...} │
+  ├─→ \chapter{...}           │ Main content
+  │   \input{sections/02_...} │ (12 chapters)
+  │   ...                     ┘
+  │
+  ├─→ \appendix               ┐
+  ├─→ \chapter{...}           │
+  │   \input{appendices/A_...}│ Appendices
+  │   ...                     │ (4 appendices)
+  │                           ┘
+  ├─→ \printbibliography      (from references.bib)
+  └─→ \end{document}
+
+BUILD PROCESS (3-pass compilation)
+═══════════════════════════════════════════════════════════════════════════════
+
+Pass 1: pdflatex main.tex
+  ├─→ Creates: main.aux, main.log, main.toc
+  └─→ Collects: citation keys, labels
+
+Pass 2: bibtex main
+  ├─→ Reads: main.aux, references/references.bib
+  └─→ Creates: main.bbl, main.blg (formatted bibliography)
+
+Pass 3: pdflatex main.tex
+  ├─→ Incorporates: bibliography from main.bbl
+  └─→ Updates: cross-references, TOC
+
+Pass 4: pdflatex main.tex
+  ├─→ Resolves: all remaining cross-references
+  └─→ Creates: main.pdf (final output)
+
+Output → open-agents/output-final/pdf/main.pdf
+
+COMMANDS
+═══════════════════════════════════════════════════════════════════════════════
+
+./paperkit latex build        # Full 3-pass build + BibTeX
+./paperkit latex lint          # Check syntax before building
+./paperkit latex open          # Open the compiled PDF
+
+# Typical workflow
+./paperkit latex lint && ./paperkit latex build && ./paperkit latex open
+
+KEY CONCEPTS
+═══════════════════════════════════════════════════════════════════════════════
+
+\input{file}                   Include file inline (no formatting)
+\cite{key}                     Cite a reference (author-year style)
+\ref{label}, \cref{label}      Cross-reference sections/figures
+\label{name}                   Create a referenceable label
+\printbibliography             Generate bibliography from cited works
+
+CUSTOMIZATION POINTS
+═══════════════════════════════════════════════════════════════════════════════
+
+New Section      → Create latex/sections/XX_name.tex
+                 → Add \input{sections/XX_name} to main.tex
+
+New Citation     → Add entry to latex/references/references.bib
+                 → Use \cite{key} in any section
+
+Custom Commands  → Add to latex/settings.tex
+                   Example: \newcommand{\myabbrev}{My Abbreviation}
+
+Document Style   → Modify latex/preamble.tex (packages, geometry)
+                 → Modify latex/settings.tex (colors, formatting)
+
+TROUBLESHOOTING
+═══════════════════════════════════════════════════════════════════════════════
+
+"Citation undefined"         → Check references.bib for the key
+                             → Run ./paperkit latex lint
+
+"Unmatched braces"           → Run ./paperkit latex lint
+                             → Check for {, }, \begin{}, \end{}
+
+Build fails                  → Check latex/build.log
+                             → Look for error messages near line numbers
+
+Bibliography not appearing   → Ensure you've cited at least one reference
+                             → Check that bibtex step completed successfully
+
+═══════════════════════════════════════════════════════════════════════════════
+
+For detailed documentation, see: Docs/LATEX-ASSEMBLY.md
