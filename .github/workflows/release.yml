@@ -31,15 +31,31 @@ jobs:
           TAG="${{ github.ref_name }}"
           echo "Creating release for tag: $TAG"
           
-          # Validate tag format
-          if [[ ! "$TAG" =~ ^(alpha-|beta-|v)?[0-9]+\.[0-9]+\.[0-9]+(\+[a-zA-Z0-9.-]+)?(-[a-zA-Z0-9.-]+)?$ ]]; then
+          # Define allowed tag patterns
+          PATTERN_SEMVER='^[0-9]+\.[0-9]+\.[0-9]+$'
+          PATTERN_V_PREFIX='^v[0-9]+\.[0-9]+\.[0-9]+$'
+          PATTERN_ALPHA='^alpha-[0-9]+\.[0-9]+\.[0-9]+$'
+          PATTERN_BETA='^beta-[0-9]+\.[0-9]+\.[0-9]+$'
+          PATTERN_WITH_BUILD='^[0-9]+\.[0-9]+\.[0-9]+\+[a-zA-Z0-9.-]+$'
+          PATTERN_PRERELEASE='^[0-9]+\.[0-9]+\.[0-9]+-[a-zA-Z0-9.-]+$'
+          
+          # Validate tag matches at least one pattern
+          if [[ "$TAG" =~ $PATTERN_SEMVER ]] || \
+             [[ "$TAG" =~ $PATTERN_V_PREFIX ]] || \
+             [[ "$TAG" =~ $PATTERN_ALPHA ]] || \
+             [[ "$TAG" =~ $PATTERN_BETA ]] || \
+             [[ "$TAG" =~ $PATTERN_WITH_BUILD ]] || \
+             [[ "$TAG" =~ $PATTERN_PRERELEASE ]]; then
+            echo "✓ Tag format is valid"
+          else
             echo "Error: Invalid tag format: $TAG"
             echo "Expected formats:"
             echo "  - 1.2.3"
+            echo "  - v1.2.3"
             echo "  - alpha-1.2.3"
             echo "  - beta-1.2.3"
-            echo "  - v1.2.3"
             echo "  - 1.2.3+build.456"
+            echo "  - 1.2.3-rc.1"
             exit 1
           fi
       
@@ -82,34 +98,36 @@ jobs:
           # Run bundle creation script
           bash ./.paperkit/tools/bundle.sh
           
-          # Verify bundle was created
+          # Verify bundle was created and find it
           TAG="${{ github.ref_name }}"
-          BUNDLE_FILE="paperkit-${TAG}.tar.gz"
+          EXPECTED_BUNDLE="paperkit-${TAG}.tar.gz"
           
-          # The bundle.sh script creates bundles with the version from config
-          # We need to find the actual bundle file created
-          ACTUAL_BUNDLE=$(ls -1 paperkit-*.tar.gz | head -1)
-          
-          if [ -z "$ACTUAL_BUNDLE" ]; then
-            echo "Error: No bundle file found"
+          # The bundle.sh script creates bundles with version from config
+          # Find the actual bundle file created (if any)
+          if compgen -G "paperkit-*.tar.gz" > /dev/null; then
+            ACTUAL_BUNDLE=$(find . -maxdepth 1 -name "paperkit-*.tar.gz" -type f | head -1)
+            echo "Bundle found: $ACTUAL_BUNDLE"
+            
+            # Rename to match tag if different
+            if [ "$ACTUAL_BUNDLE" != "./$EXPECTED_BUNDLE" ]; then
+              echo "Renaming bundle to match tag: $EXPECTED_BUNDLE"
+              mv "$ACTUAL_BUNDLE" "$EXPECTED_BUNDLE"
+            fi
+            
+            # Store bundle filename for later steps
+            echo "BUNDLE_FILE=$EXPECTED_BUNDLE" >> $GITHUB_ENV
+          else
+            echo "Error: No bundle file found after running bundle.sh"
             exit 1
           fi
-          
-          echo "Bundle created: $ACTUAL_BUNDLE"
-          
-          # Rename to match tag if different
-          if [ "$ACTUAL_BUNDLE" != "$BUNDLE_FILE" ]; then
-            echo "Renaming bundle to match tag: $BUNDLE_FILE"
-            mv "$ACTUAL_BUNDLE" "$BUNDLE_FILE"
-          fi
-          
-          # Store bundle filename for later steps
-          echo "BUNDLE_FILE=$BUNDLE_FILE" >> $GITHUB_ENV
       
       - name: Generate release notes
         id: release_notes
         run: |
           TAG="${{ github.ref_name }}"
+          BUNDLE="${BUNDLE_FILE}"
+          # Extract directory name from bundle (remove .tar.gz)
+          DIR_NAME="${BUNDLE%.tar.gz}"
           
           # Create release notes
           cat > release_notes.md <<EOF
@@ -120,8 +138,8 @@ jobs:
           Download and extract the distribution bundle:
           
           \`\`\`bash
-          tar -xzf ${BUNDLE_FILE}
-          cd paperkit-$TAG
+          tar -xzf ${BUNDLE}
+          cd ${DIR_NAME}
           ./paperkit init
           \`\`\`
           

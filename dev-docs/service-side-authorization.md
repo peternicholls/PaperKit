@@ -27,8 +27,7 @@ This server-side enforcement cannot be bypassed, ensuring only authorized person
 ### Prerequisites
 
 - Repository admin access
-- GitHub Pro, Team, or Enterprise account (for private repos with protected environments)
-- Public repositories can use protected environments for free
+- GitHub account (environments are available on public repositories and all GitHub plans)
 
 ### Configuration Steps
 
