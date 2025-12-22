@@ -24,6 +24,19 @@ cd PaperKit
 ./paperkit init
 ```
 
+## ‼️ IMPORTANT Activate Your Agent System
+
+After installation, you **must** generate the IDE-specific agent files for your chosen environment:
+
+```bash
+./paperkit generate                       # Generate all IDE files
+# OR target specific IDE:
+./paperkit generate --target=copilot      # For GitHub Copilot (VS Code)
+./paperkit generate --target=codex        # For OpenAI Codex
+```
+
+**Without running this command, the agents will not be available in your IDE.** The `./paperkit init` command helps you select your IDE, but `./paperkit generate` actually creates the necessary agent files.
+
 For detailed installation instructions, prerequisites, and platform-specific guidance, see [INSTALL-INSTRUCTIONS.md](INSTALL-INSTRUCTIONS.md).
 
 For all available commands, see [Commands Reference](Docs/COMMANDS.md)
@@ -243,8 +256,9 @@ Developer commands require authorization via git user.email to prevent accidenta
 ### Typical Workflow
 
 ```bash
-# 1. Initialize
+# 1. Initialize and activate
 ./paperkit init                    # Set up IDE selection
+./paperkit generate                # Generate IDE-specific agent files (REQUIRED!)
 
 # 2. Plan (in your IDE, invoke agents)
 Paper Architect                    # Create outline
@@ -265,6 +279,12 @@ Reference Manager                  # Format bibliography
 
 ### Using with GitHub Copilot (VS Code)
 
+**First, ensure agents are generated:**
+```bash
+./paperkit generate --target=copilot
+```
+
+Then in VS Code:
 1. Open Copilot Chat (Cmd+Shift+I)
 2. Select agent from dropdown (e.g., `paper-architect`)
 3. Type your request: "Create an outline for my paper on color science"
@@ -272,6 +292,12 @@ Reference Manager                  # Format bibliography
 
 ### Using with OpenAI Codex
 
+**First, ensure prompts are generated:**
+```bash
+./paperkit generate --target=codex
+```
+
+Then in your editor:
 1. Create a new file or open existing
 2. Type `/paper-` to see available agents
 3. Select agent: `/paper-architect`
