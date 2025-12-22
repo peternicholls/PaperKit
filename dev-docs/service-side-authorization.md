@@ -4,6 +4,8 @@
 
 To prevent unauthorized releases, PaperKit uses GitHub's **Environment Protection Rules** to enforce authorization server-side. This ensures that even if someone bypasses the local authorization checks in `./paperkit-dev`, they cannot create an actual release without proper authorization.
 
+> **Quick Start**: For a condensed setup guide, see [setup-authorization.md](setup-authorization.md)
+
 ## How It Works
 
 ### Local Authorization (First Line of Defense)
