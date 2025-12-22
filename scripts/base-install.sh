@@ -1,7 +1,6 @@
 #!/bin/bash
 
 # PaperKit Base Installation Script
-# Version: 2.2.0
 # Installs PaperKit to specified directory
 
 set -e
@@ -17,7 +16,7 @@ NC='\033[0m'
 BOLD='\033[1m'
 
 # Global variables
-VERSION="2.2.0"
+VERSION="unknown"
 INSTALL_DIR=""
 REPO_URL="https://github.com/peternicholls/PaperKit"
 BACKUP_DIR=""
@@ -31,7 +30,9 @@ show_banner() {
 ║                                                   ║
 ║             📝 PaperKit Installer                 ║
 ║                                                   ║
-║    Research Paper Assistant Kit v2.2.0            ║
+EOF
+    printf "║    Research Paper Assistant Kit %-17s║\n" "v${VERSION}"
+    cat << "EOF"
 ║                                                   ║
 ╚═══════════════════════════════════════════════════╝
 EOF
@@ -97,6 +98,11 @@ error_exit() { echo -e "${RED}❌ Error: $1${NC}" >&2; exit 1; }
 success_msg() { echo -e "${GREEN}✓ $1${NC}"; }
 warning_msg() { echo -e "${YELLOW}⚠ $1${NC}"; }
 info_msg() { echo -e "${BLUE}ℹ $1${NC}"; }
+
+# Get version from GitHub repository
+get_version_from_github() {
+    VERSION=$(curl -sSL "https://raw.githubusercontent.com/peternicholls/PaperKit/master/.paperkit/tools/get-version.sh" 2>/dev/null | bash 2>/dev/null || echo "unknown")
+}
 
 # Check if fzf is available
 has_fzf() {
@@ -504,6 +510,9 @@ EOF
 
 # Main installation
 main() {
+    # Get version from GitHub first
+    get_version_from_github
+    
     show_banner
     
     # Get installation directory first
