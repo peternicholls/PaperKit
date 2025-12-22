@@ -5,9 +5,12 @@ on:
     tags:
       - 'alpha-*'
       - 'beta-*'
-      - 'v*'
+      - 'v[0-9]+.[0-9]+.[0-9]+'
+      - 'v[0-9]+.[0-9]+.[0-9]+-*'
+      - 'v[0-9]+.[0-9]+.[0-9]+\+*'
       - '[0-9]+.[0-9]+.[0-9]+'
       - '[0-9]+.[0-9]+.[0-9]+-*'
+      - '[0-9]+.[0-9]+.[0-9]+\+*'
 
 permissions:
   contents: write
@@ -104,12 +107,13 @@ jobs:
           
           # The bundle.sh script creates bundles with version from config
           # Find the actual bundle file created (if any)
-          if compgen -G "paperkit-*.tar.gz" > /dev/null; then
-            ACTUAL_BUNDLE=$(find . -maxdepth 1 -name "paperkit-*.tar.gz" -type f | head -1)
+          ACTUAL_BUNDLE=$(ls paperkit-*.tar.gz 2>/dev/null | head -1 || echo "")
+          
+          if [ -n "$ACTUAL_BUNDLE" ]; then
             echo "Bundle found: $ACTUAL_BUNDLE"
             
             # Rename to match tag if different
-            if [ "$ACTUAL_BUNDLE" != "./$EXPECTED_BUNDLE" ]; then
+            if [ "$ACTUAL_BUNDLE" != "$EXPECTED_BUNDLE" ]; then
               echo "Renaming bundle to match tag: $EXPECTED_BUNDLE"
               mv "$ACTUAL_BUNDLE" "$EXPECTED_BUNDLE"
             fi

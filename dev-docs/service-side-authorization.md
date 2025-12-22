@@ -27,7 +27,11 @@ This server-side enforcement cannot be bypassed, ensuring only authorized person
 ### Prerequisites
 
 - Repository admin access
-- GitHub account (environments are available on public repositories and all GitHub plans)
+- GitHub account with appropriate access:
+  - **Public repositories**: Required reviewers available on all GitHub plans (Free, Pro, Team, Enterprise)
+  - **Private repositories**: Required reviewers require GitHub Enterprise plan
+  
+> **Note**: Since PaperKit is a public repository, required reviewers are available without any paid plan.
 
 ### Configuration Steps
 
