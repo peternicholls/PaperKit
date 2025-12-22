@@ -78,7 +78,7 @@ git checkout main
 git merge test/regeneration-validation
 
 # Push to remote
-git push origin main
+git push origin master
 
 # Delete test branch
 git branch -d test/regeneration-validation

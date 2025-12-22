@@ -2,14 +2,14 @@ name: Validate Agent Metadata
 
 on:
   push:
-    branches: [master, main]
+    branches: [master]
     paths:
       - '.paperkit/_cfg/agents/**'
       - '.paperkit/_cfg/schemas/agent-schema.json'
       - '.paperkit/_cfg/agent-manifest.yaml'
       - '.paperkit/tools/validate-agent-schema.py'
   pull_request:
-    branches: [master, main]
+    branches: [master]
     paths:
       - '.paperkit/_cfg/agents/**'
       - '.paperkit/_cfg/schemas/agent-schema.json'

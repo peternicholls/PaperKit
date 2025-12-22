@@ -153,7 +153,7 @@ Each specification follows this structure:
 
 To propose changes to these specifications:
 
-1. Create a branch from main
+1. Create a branch from master
 2. Edit the relevant specification
 3. Submit PR with clear description of changes
 4. Request review from maintainers

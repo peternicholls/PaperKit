@@ -48,9 +48,9 @@ name: CI
 
 on:
   push:
-    branches: [main]
+    branches: [master]
   pull_request:
-    branches: [main]
+    branches: [master]
 
 jobs:
   lint:
@@ -494,7 +494,7 @@ def golden_test_dir():
 
 ## Success Criteria
 
-- [ ] CI runs on every PR and push to main
+- [ ] CI runs on every PR and push to master
 - [ ] Unit tests cover >80% of tool code
 - [ ] E2E tests validate complete workflows
 - [ ] LaTeX builds successfully in CI
