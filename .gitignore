@@ -19,7 +19,6 @@ paperkit-*.zip
 .codex/
 .copilot/
 .vscode/
-.github/
 COPILOT.md
 AGENTS.md
 .venv/ # install your own python env
