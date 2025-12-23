@@ -47,7 +47,6 @@ NC='\033[0m'
 # NOTE: This is a local check only. Service-side authorization is enforced by
 # GitHub Actions using protected environments. See dev-docs/service-side-authorization.md
 AUTHORIZED_OWNERS=(
-    "nicholls@mac.com"
 )
 
 # Check if current user is authorized
