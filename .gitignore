@@ -18,6 +18,7 @@ paperkit-*.zip
 # Generated files
 .codex/
 .copilot/
+.github/agents
 .vscode/
 COPILOT.md
 AGENTS.md
