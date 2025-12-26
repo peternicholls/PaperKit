@@ -2,6 +2,15 @@
 
 This directory contains specification documents for planned improvements to the PaperKit system. Each specification addresses a critical issue or enhancement identified during system review.
 
+## Integration Architecture
+
+**[AGENT-IMPROVEMENTS-ARCHITECTURE.md](AGENT-IMPROVEMENTS-ARCHITECTURE.md)** - Comprehensive architecture design for integrating all agent improvements into PaperKit. This document provides:
+
+- Layered architecture vision (Foundation → Security → Quality → Operations)
+- Component dependencies and integration patterns
+- Implementation phases with timelines
+- Success metrics and risk mitigation strategies
+
 ## Specifications Overview
 
 | ID | Title | Priority | Category | Effort |
