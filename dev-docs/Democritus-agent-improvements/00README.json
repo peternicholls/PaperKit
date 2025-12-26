@@ -1,0 +1,13 @@
+{
+   "sources" : [
+      {
+         "usage" : "toplevel",
+         "filename" : "democritus_main.tex"
+      }
+   ],
+   "spec_version" : 1,
+   "texlive_version" : "2025",
+   "process" : {
+      "compiler" : "pdflatex"
+   }
+}
