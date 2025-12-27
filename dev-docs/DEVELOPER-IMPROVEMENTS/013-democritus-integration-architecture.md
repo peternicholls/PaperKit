@@ -318,17 +318,21 @@ class MultiScaleResearchView:
     Navigate research at different granularities.
     
     DEMOCRITUS lesson: Local neighborhoods + global manifold.
-    Reference: 2512.07796.pdf, Figures 4, 7-8
+    Reference: 2512.07796.pdf
     
-    The paper shows both local causal neighborhoods (Figure 1 - Indus River)
-    and global manifolds (Figure 2 - UMAP projection of entire research space).
+    The paper demonstrates multi-scale visualization through several figures:
+    - Figure 1: Local causal neighborhood example (Indus River drought model)
+    - Figure 2: Global LCM as 2D UMAP manifold (Indus Valley civilization)
+    - Figure 4: Additional global manifold example showing research landscape
+    - Figures 7-8: Additional local neighborhood examples in other domains
     """
     
     def get_local_view(self, concept: str, hop_distance: int = 2) -> Dict:
         """
         Get local causal neighborhood around a concept.
         
-        Like DEMOCRITUS Figures 7-8: Local causal neighborhoods.
+        Implements local neighborhood visualization as shown in DEMOCRITUS
+        Figure 1 (Indus River example) and Figures 7-8 (domain-specific examples).
         
         Example for "transformer architecture":
         - 1-hop: attention mechanism, self-attention, positional encoding
@@ -353,7 +357,8 @@ class MultiScaleResearchView:
         """
         Get entire research landscape as 2D/3D manifold.
         
-        Like DEMOCRITUS Figure 4: Entire research landscape.
+        Implements global manifold visualization as shown in DEMOCRITUS
+        Figure 2 (Indus Valley UMAP) and Figure 4 (research landscape overview).
         Uses UMAP projection of embeddings.
         
         Returns:
