@@ -18,13 +18,14 @@ This directory contains specification documents for planned improvements to the 
 | [010](010-agent-governance.md) | Governance of Agent Updates | Medium | Operations | 34h |
 | [011](011-operational-suggestions.md) | Smaller/Operational Suggestions | Various | Operations | Varies |
 | [012](012-open-questions.md) | Open Questions | N/A | Planning | N/A |
+| [013](013-democritus-integration-architecture.md) | DEMOCRITUS-Inspired Agent Integration | High | Core Architecture | 80h |
 
-**Total Estimated Effort:** ~453 hours (excluding operational suggestions and open questions)
+**Total Estimated Effort:** ~533 hours (excluding operational suggestions and open questions)
 
 ### Effort by Category
 | Category | Specs | Total Hours |
 |----------|-------|-------------|
-| Core Architecture | 001, 002, 009 | 111h |
+| Core Architecture | 001, 002, 009, 013 | 191h |
 | Security & Safety | 003, 004 | 128h |
 | Quality Assurance | 005 | 48h |
 | Operations | 006, 010 | 80h |
@@ -41,6 +42,7 @@ This directory contains specification documents for planned improvements to the 
 - **003-consent-sandboxing** - Critical for user safety and trust
 - **004-security-governance** - Essential for production use
 - **005-testing-ci** - Enables confidence in changes
+- **013-democritus-integration** - Enhances research agents with DEMOCRITUS-inspired capabilities
 
 ### Medium Priority (Implement after high-priority items)
 - **006-observability** - Important for debugging and operations
@@ -56,6 +58,7 @@ This directory contains specification documents for planned improvements to the 
     └── 002-workflow-agent-contract
         └── 005-testing-ci (contract tests)
     └── 010-agent-governance
+    └── 013-democritus-integration (agent schema)
 
 003-consent-sandboxing
     └── 004-security-governance
@@ -69,7 +72,13 @@ This directory contains specification documents for planned improvements to the 
 006-observability
     └── 009-state-management (state logging)
 
+007-citation-validation
+    └── 013-democritus-integration (citation infrastructure)
+
 008-onboarding-docs (independent)
+
+013-democritus-integration
+    └── depends on: 001-agent-metadata, 002-workflow-agent-contract, 007-citation-validation
 ```
 
 ## Specification Template
