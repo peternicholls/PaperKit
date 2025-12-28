@@ -139,9 +139,41 @@ Each specification follows this structure:
 - 008-onboarding-docs
 - 009-state-management
 
+## 🤖 AGENT INSTRUCTIONS
+
+**IF YOU ARE AN AI AGENT (GitHub Copilot, Claude, GPT, etc.) WORKING ON PAPERKIT DEVELOPMENT:**
+
+⚠️ **This applies to development agents working ON PaperKit specs (001-013), NOT to paper-writing agents.**
+
+### MANDATORY: Read This First
+
+**Before doing ANYTHING, read:**
+```bash
+cat dev-docs/DEVELOPER-IMPROVEMENTS/agent-development-workflow.md
+```
+
+That file contains:
+- Complete tracking.yaml workflow
+- Examples for every scenario
+- What to update when
+- Anti-patterns to avoid
+
+### Quick Reference
+
+**Every work session must:**
+1. ✅ Read `tracking.yaml` BEFORE starting
+2. ✅ Update spec status (DRAFT → IN_PROGRESS → COMPLETE)
+3. ✅ Record actual hours and task progress
+4. ✅ Document decisions, blockers, next steps
+5. ✅ Update `current_context.last_work_date`
+
+**See [agent-development-workflow.md](agent-development-workflow.md) for detailed instructions.**
+
+---
+
 ## How to Use These Specs
 
-### 📋 Implementation Tracking
+### 📋 Implementation Tracking (For Humans)
 
 **IMPORTANT:** Always update [tracking.yaml](tracking.yaml) when:
 - Starting work on a spec
@@ -243,9 +275,11 @@ For questions about these specifications:
 | File | Purpose |
 |------|---------|
 | **[tracking.yaml](tracking.yaml)** | **Implementation progress tracking (READ THIS FIRST)** |
+| **[agent-development-workflow.md](agent-development-workflow.md)** | **Complete guide for AI agents working on specs** |
 | [001-IMPLEMENTATION-COMPLETE.md](001-IMPLEMENTATION-COMPLETE.md) | Detailed completion report for Spec 001 |
 | [012-open-questions.md](012-open-questions.md) | Open questions and decisions needed |
 | Individual spec files (001-013) | Detailed specifications for each improvement |
+| `.git/hooks/pre-commit` | Git hook reminder to update tracking.yaml |
 
 ---
 
