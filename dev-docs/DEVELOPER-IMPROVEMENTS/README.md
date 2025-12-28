@@ -4,7 +4,7 @@ This directory contains specification documents for planned improvements to the 
 
 ## 📊 Quick Status
 
-**Active Tracking:** See [tracking.yaml](tracking.yaml) for detailed implementation progress, context, and next steps.
+**Active Tracking:** FIRST READ [tracking.yaml](tracking.yaml) for detailed implementation progress, context, and next steps.
 
 **Current Status (as of 2025-12-28):**
 - ✅ Completed: 1/13 specs (Spec 001)
