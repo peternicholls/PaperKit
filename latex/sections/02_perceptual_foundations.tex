@@ -11,7 +11,7 @@
 \section{Perceptual Foundations}
 \label{sec:perceptual-foundations}
 
-The design of temporally coherent color progressions requires a rigorous foundation in perceptual color science. This section establishes three critical principles that underpin all subsequent design decisions: (1) color space is a Riemannian manifold, not a Euclidean vector space; (2) perceptual uniformity in three dimensions is mathematically impossible; and (3) temporal color perception differs fundamentally from spatial color perception. These are not engineering conveniences—they are empirical facts with cascading implications for how color journeys must be constructed.
+The design of temporally coherent color progressions requires a rigorous foundation in perceptual color science. This section establishes three principles that underpin subsequent design decisions: (1) perceptual color difference is well modeled by a Riemannian metric rather than a globally Euclidean geometry; (2) no single global three-dimensional Euclidean coordinate system can be perfectly perceptually uniform without introducing distortion; and (3) temporal color perception differs materially from spatial color perception. These are empirically supported constraints with direct implications for how color journeys should be constructed.
 
 % ------------------------------------------------------------------------------
 % 2.1 The Riemannian Structure of Color Space
@@ -21,7 +21,7 @@ The design of temporally coherent color progressions requires a rigorous foundat
 
 \subsubsection{Theoretical Framework}
 
-Recent comprehensive measurements of human color discrimination thresholds confirm that color space must be modeled as a \emph{Riemannian manifold}—a space that is locally Euclidean but globally curved \citep{hong2024}. This finding has profound implications for color interpolation and distance measurement.
+Recent comprehensive measurements of human color discrimination thresholds provide strong evidence that perceptual color difference is well modeled as a \emph{Riemannian manifold}—a space that is locally Euclidean but globally curved \citep{hong2024}. This has direct implications for color interpolation and distance measurement.
 
 In a Euclidean space, the shortest path between two points is a straight line, and distances can be computed using Pythagorean geometry. In a Riemannian manifold, the shortest path is a \emph{geodesic}—a curve that follows the intrinsic geometry of the space \citep{hong2024}. The perceptual distance between two colors corresponds to the geodesic distance: the accumulated perceptual thresholds along the path of minimal discrimination \citep{hong2024}.
 
@@ -51,7 +51,7 @@ This Riemannian framework has historical foundations extending to Schrödinger's
 For color journey construction, the Riemannian structure has three critical consequences:
 
 \begin{description}
-    \item[Linear interpolation in RGB is perceptually nonuniform] Interpolating between saturated blue $(0, 0, 255)$ and saturated yellow $(255, 255, 0)$ in sRGB produces a midpoint near $(127, 127, 127)$—a desaturated grey—because the straight line passes through the achromatic region. The perceptually smooth path would curve around the exterior of color space.
+    \item[Linear interpolation in RGB is perceptually nonuniform] Naïve component-wise interpolation in gamma-encoded sRGB between saturated blue $(0, 0, 255)$ and saturated yellow $(255, 255, 0)$ produces a midpoint near $(127, 127, 127)$—a desaturated grey—because the straight line passes through the achromatic region. The perceptually smooth path would curve around the exterior of color space.
     
     \item[Distance measurements require appropriate metrics] A $\Delta E$ of 10 in a highly saturated region may be perceptually equivalent to a $\Delta E$ of 5 in a near-neutral region if the underlying metric tensor differs. Hong et al.'s ellipse measurements \citep{hong2024} provide the data needed to construct position-dependent distance corrections.
     
@@ -74,7 +74,7 @@ The engine thus achieves a balance: acknowledging the Riemannian nature of color
 
 \subsubsection{Mathematical Statement}
 
-A fundamental result in perceptual color theory is that no single global 3D Euclidean coordinate system can make perceptual distance everywhere equal to Euclidean distance without distortion \citep{nolle2012}. Consequently, practical 3D colour spaces must either accept nonuniformity or treat distance as position-dependent (via a metric tensor). This is not a limitation of current measurement techniques—it is a mathematical constraint arising from the ``super-importance of hue'' first identified by Judd \citep[p.~11]{judd1940}.
+A fundamental result in perceptual color theory is that no single global 3D Euclidean coordinate system can make perceptual distance everywhere equal to Euclidean distance without distortion \citep{nolle2012}. Consequently, practical 3D color spaces must either accept nonuniformity or treat distance as position-dependent (via a metric tensor). This is not merely a limitation of current measurement techniques; it reflects a mathematical constraint closely related to the ``super-importance of hue'' first identified by Judd \citep[p.~11]{judd1940}.
 
 Nölle et al.\ \citeyearpar{nolle2012} provide a rigorous derivation. The perceptual distance around a constant-lightness, constant-saturation hue circle is given by the line integral:
 
@@ -96,14 +96,14 @@ In a Euclidean space, the circumference of a unit circle is $2\pi$. Color space 
 
 What does this mean physically? Consider walking around a hue circle at constant lightness and saturation, taking steps of one just-noticeable difference (JND). In a Euclidean space, you would return to your starting point after $2\pi r$ JND steps, where $r$ is the radius. In color space, you require $4\pi r$ steps—\emph{double} the expected number.
 
-This ``extra length'' cannot be accommodated in three-dimensional Euclidean geometry. It implies that color space has intrinsic curvature: the space is \emph{non-Euclidean} \citep{nolle2012,roberti2023}. Any attempt to embed color perception in a flat 3D coordinate system must introduce distortions—either uneven discrimination thresholds (as in CIELAB) or hue-dependent perceptual compression (as in HSV/HSL).
+This ``extra length'' cannot be represented without distortion in a single global three-dimensional Euclidean coordinate system. It implies that color space has intrinsic curvature: the space is \emph{non-Euclidean} \citep{nolle2012,roberti2023}. Any attempt to embed color perception in a flat 3D coordinate system must introduce distortions—either uneven discrimination thresholds (as in CIELAB) or hue-dependent perceptual compression (as in HSV/HSL).
 
 \subsubsection{Implications for Existing Color Spaces}
 
 This result explains why even carefully designed spaces like CIELAB exhibit perceptual nonuniformities \citep{kong2021}:
 
 \begin{itemize}
-    \item \textbf{CIELAB (1976):} Achieves approximate uniformity in spatial discrimination tasks but fails for temporal transitions. Kong \citeyearpar{kong2021} notes explicitly: ``CIELAB is not a useful space to predict the perception of dynamic colored light. Today, no color spaces are available that accurately predict the visibility of color differences over time'' \citep[p.~3]{kong2021}.
+    \item \textbf{CIELAB (1976):} Achieves approximate uniformity in spatial discrimination tasks but performs poorly as a predictor for temporal transitions. Kong \citeyearpar{kong2021} notes explicitly: ``CIELAB is not a useful space to predict the perception of dynamic colored light. Today, no color spaces are available that accurately predict the visibility of color differences over time'' \citep[p.~3]{kong2021}.
     
     \item \textbf{CAM16-UCS:} Improved spatial uniformity through adaptive chromatic transforms, but computational cost limits real-time use
     
@@ -145,7 +145,7 @@ Table~\ref{tab:color-space-comparison} synthesizes the trade-offs:
 
 \begin{table}[htbp]
 \centering
-\caption{Color space comparison for temporal color journey construction. \textit{Uniformity} refers to how closely Euclidean distances match perceived differences (assessed via gradient smoothness and discrimination threshold alignment); \textit{Cost} measures computational complexity; \textit{Stability} indicates behavior at gamut boundaries and extreme lightness values. OKLab achieves CAM16-level uniformity with CIELAB-level computational cost.}
+\caption{Color space comparison for temporal color journey construction. \textit{Uniformity} refers to how closely Euclidean distances match perceived differences (assessed via gradient smoothness and discrimination threshold alignment); \textit{Cost} measures computational complexity; \textit{Stability} indicates behavior at gamut boundaries and extreme lightness values. In practice, OKLab provides high-quality interpolation and gradients at low computational cost.}
 \label{tab:color-space-comparison}
 \begin{tabular}{lcccc}
 \toprule
@@ -224,15 +224,15 @@ Real implementations can encounter negative LMS values, particularly outside gam
 
 \paragraph{Computational Efficiency}
 
-The OKLab conversion is computationally trivial:
+The OKLab conversion is computationally lightweight:
 \begin{itemize}
     \item \textbf{Operations:} 18 multiplications, 12 additions, 3 cube roots per conversion
-    \item \textbf{Memory:} no heap allocations; all register operations
+    \item \textbf{Memory:} no heap allocations are required; the transform can be implemented as straight-line arithmetic plus a sign-preserving cube root
     \item \textbf{Parallelisation:} trivially vectorisable with SIMD instructions
     \item \textbf{Performance:} conversion overhead is negligible compared to palette generation logic
 \end{itemize}
 
-This efficiency enables real-time palette generation. The entire forward/inverse pipeline uses fixed, known constant matrices—no iterative solving, no conditionals, no special cases.
+This efficiency supports real-time palette generation. The forward and inverse pipelines use fixed constant matrices with no iterative solving; any necessary gamut handling is addressed separately (\S\ref{sec:gamut-problem}).
 
 \subsubsection{Cartesian vs.\ Cylindrical Coordinates (OKLCh)}
 
@@ -298,21 +298,43 @@ This asymmetry has direct implications for color journey design: transitions sho
 
 \subsubsection{Temporal Asymmetry in Color Channels}
 
-Beyond eye movement effects, the visual system exhibits channel-specific temporal sensitivities. Sekulovski et al.\ \citeyearpar{sekulovski2007} measured smoothness thresholds—the maximum color difference between successive frames that observers still perceive as smooth—for lightness, chroma, and hue changes:
+Beyond eye movement effects, the visual system exhibits channel-specific temporal sensitivities. Sekulovski et al.\ \citeyearpar{sekulovski2007} conducted a series of psychophysical experiments to quantify these differences, using a classical method to measure discrete color difference thresholds.
+
+\paragraph{Experimental Methodology}
+
+Sekulovski's team presented observers with discrete linear temporal color transitions in CIE LCh space, varying independently along three axes: lightness ($L$), chroma ($C$), and hue ($h$). For each condition, they measured the threshold step size (expressed in $\Delta E_{ab}$ units) at which observers could still perceive the transition as perceptually smooth. They systematically varied:
+
+\begin{itemize}
+    \item \textbf{Transition direction:} Three independent axes (lightness, chroma, hue)
+    \item \textbf{Frequency:} Multiple frame rates (5, 10, 20, 30, and 40 Hz)
+    \item \textbf{Base color:} Multiple starting colors with different chromaticity coordinates
+\end{itemize}
+
+Thresholds were analyzed using analysis of variance (ANOVA) with direction of change, frequency, and base color as fixed factors, and participant as a random factor \citep[pp.~113--114]{sekulovski2007}.
+
+\paragraph{The 10:1 Ratio: Statistical Findings}
+
+The ANOVA revealed a highly significant main effect of direction of change ($p < 0.01$) \citep[p.~113]{sekulovski2007}. Post hoc tests demonstrated that mean threshold values for lightness changes were approximately \textbf{10 times smaller} than those for chroma and hue changes \citep[p.~113]{sekulovski2007}. Quantitatively, this implies that to maintain comparable perceived smoothness, allowable step sizes in lightness should be about \emph{one tenth} the size of step sizes in chroma or hue (in $\Delta E_{ab}$ units), reflecting a strong temporal asymmetry across channels.
+
+Kong's later dissertation \citep[p.~3]{kong2021} summarizes the finding concisely:
 
 \begin{quote}
-``The visibility threshold of smoothness, i.e., the maximum color difference between two successive colors that is allowed in order to perceive a temporal color transition as smooth, is about ten times smaller for lightness changes than for chroma or hue changes in CIELAB'' \citep[p.~3]{kong2021}, citing \citet{sekulovski2007}.
+``The visibility threshold of smoothness, i.e., the maximum color difference between two successive colors that is allowed in order to perceive a temporal color transition as smooth, is about ten times smaller for lightness changes than for chroma or hue changes in CIELAB'' \citep[p.~3]{kong2021}.
 \end{quote}
 
-In other words, observers are approximately \textbf{10 times more sensitive} to temporal changes in lightness than to changes in chromatic attributes \citep{sekulovski2007}. This 10:1 asymmetry is a robust empirical finding, replicated across base colors and viewing conditions.
+Read operationally, the result indicates that lightness changes must be constrained much more tightly than chromatic changes for transitions to remain perceptually smooth.
 
-Importantly, Sekulovski et al.\ \citeyearpar{sekulovski2007} found that lightness thresholds are \emph{independent} of base chromaticity:
+In other words, observers are approximately \textbf{10 times more sensitive} to temporal changes in lightness than to changes in chromatic attributes. This 10:1 asymmetry is empirically robust, validated across multiple base colors and viewing frequencies by controlled experimental design and statistical analysis \citep[pp.~113--114]{sekulovski2007}.
+
+\paragraph{Independence Across Base Colors}
+
+Crucially, Sekulovski's ANOVA also revealed that lightness thresholds showed \emph{no significant interaction} with base color point, whereas chroma and hue thresholds did vary with base color \citep[p.~113]{sekulovski2007}. This finding is expressed as:
 
 \begin{quote}
-``No main effect of the base color point on the thresholds for lightness changes was found for the chromatic color points\ldots\ This shows independence of the thresholds to changes in chromaticity and dependence on lightness'' \citep{sekulovski2007}.
-\end{quote>
+``No main effect of the base color point on the thresholds for lightness changes was found for the chromatic color points\ldots\ This shows independence of the thresholds to changes in chromaticity and dependence on lightness'' \citep[p.~113]{sekulovski2007}.
+\end{quote}
 
-This independence simplifies calibration: a single temporal sensitivity ratio can be applied globally.
+This independence across base colors is critical for color journey design: a single 10:1 temporal sensitivity weighting can be applied globally, rather than requiring color-dependent corrections. The ratio is universal—holding whether the starting color is red, blue, green, or any intermediate hue.
 
 \subsubsection{Design Implications}
 
@@ -326,7 +348,7 @@ These findings directly inform the engine's velocity weighting scheme (\S\ref{se
     \item \textbf{Hue velocity weight:} $w_H \approx 1.5$ to $2.0$ is a design parameter requiring empirical validation
 \end{enumerate}
 
-The 10:1 ratio for $w_L : w_C$ is empirically validated \citep{sekulovski2007}. However, hue velocity weighting remains a \emph{design heuristic}; Sekulovski's data show hue and chroma thresholds are comparable but do not provide a precise ratio. Future work should employ psychometric methods (e.g., two-alternative forced-choice paradigms \citep{wang2022}) to measure hue temporal sensitivity rigorously.
+The 10:1 ratio for $w_L : w_C$ is empirically validated through Sekulovski's controlled psychophysical measurement and ANOVA analysis \citep[pp.~113--114]{sekulovski2007}. However, hue velocity weighting remains a \emph{design heuristic}; Sekulovski's data show hue and chroma thresholds are comparable in magnitude but do not provide a statistically precise ratio distinguishing them. Future work should employ psychometric methods (e.g., two-alternative forced-choice paradigms \citep{wang2022}) to measure hue temporal sensitivity rigorously and establish whether a hue-specific weighting factor can be justified beyond the baseline chroma sensitivity.
 
 % ------------------------------------------------------------------------------
 % 2.5 Summary: Perceptual Foundations Determine Engineering Constraints
@@ -334,12 +356,12 @@ The 10:1 ratio for $w_L : w_C$ is empirically validated \citep{sekulovski2007}. 
 \subsection{Summary: Perceptual Foundations Determine Engineering Constraints}
 \label{sec:perceptual-summary}
 
-The perceptual foundations established in this section impose four non-negotiable constraints on color journey construction:
+The perceptual foundations established in this section impose four practical constraints on color journey construction:
 
 \begin{enumerate}
     \item \textbf{Work in perceptually uniform space:} The Riemannian structure (\S\ref{sec:riemannian-color}) requires a coordinate system where Euclidean interpolation approximates perceptual geodesics. OKLab provides this approximation with minimal computational overhead (\S\ref{sec:oklab-implementation}).
     
-    \item \textbf{Accept imperfect uniformity:} The mathematical impossibility of perfect perceptual uniformity (\S\ref{sec:topology-impossibility}) means all design parameters must be empirically calibrated rather than geometrically derived. The 720\textdegree\ result explains why certain operations\textemdash{}particularly loop closure\textemdash{}require heuristic strategies.
+    \item \textbf{Accept imperfect uniformity:} The practical impossibility of perfect perceptual uniformity (\S\ref{sec:topology-impossibility}) means all design parameters must be empirically calibrated rather than geometrically derived. The 720\textdegree\ result helps explain why certain operations\textemdash{}particularly loop closure\textemdash{}benefit from heuristic strategies.
     
     \item \textbf{Weight lightness changes heavily:} The 10:1 temporal sensitivity ratio (\S\ref{sec:temporal-spatial}) requires lightness velocity to dominate perceptual speed calculations. Lightness changes must be controlled more tightly than chromatic changes to maintain perceived smoothness.
     
