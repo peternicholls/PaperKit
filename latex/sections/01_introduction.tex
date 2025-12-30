@@ -11,7 +11,7 @@
 \section{Motivation}
 \label{sec:motivation}
 
-Every domain that works with color---user interface design, data visualisation, generative art, interactive media---requires coherent color palettes. Despite its apparent simplicity, producing such palettes presents subtle challenges. Ad-hoc approaches---linear interpolation in RGB space or arbitrary selections from color wheels---frequently yield palettes with inconsistent perceptual spacing: some adjacent colors appear nearly identical while others jump dramatically.
+Every domain working with color—UI design, data visualisation, generative art—requires coherent palettes. Yet producing them is deceptively hard. Ad-hoc methods (RGB interpolation, color wheels) fail fundamentally: adjacent colors feel inconsistent, some nearly identical while others jump dramatically. This is not a cosmetic problem, it breaks user experience and data clarity.
 
 The fundamental problem is that commonly-used color spaces (sRGB, HSL, HSV) are not \emph{perceptually uniform}. Equal numerical steps do not correspond to equal perceived differences. A mathematically elegant gradient in RGB may appear uneven to the human eye, with certain hue regions changing faster than others.
 
