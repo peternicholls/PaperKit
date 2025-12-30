@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.12.13)  18 DEC 2025 03:27
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.12.13)  30 DEC 2025 17:16
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1254,24 +1254,15 @@ File: pgflibraryfadings.code.tex 2023-01-15 v3.1.10 (3.1.10)
 )))
 (/usr/local/texlive/2025/texmf-dist/tex/latex/tcolorbox/tcbposter.code.tex
 Library (tcolorbox): 'tcbposter.code.tex' version '6.4.1'
-))
+)) (/usr/local/texlive/2025/texmf-dist/tex/latex/listings/lstlang1.sty
+File: lstlang1.sty 2024/09/23 1.10c listings language file
+)
+(/usr/local/texlive/2025/texmf-dist/tex/latex/listings/lstlang1.sty
+File: lstlang1.sty 2024/09/23 1.10c listings language file
+)
 \c@theorem=\count480
-
-
-! LaTeX Error: Command \E already defined.
-               Or name \end... illegal, see p.192 of the manual.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.162 ...command{\E}[1]{\mathbb{E}\left[#1\right]}
-                                                  
-Your command was ignored.
-Type  I <command> <return>  to replace it with another command,
-or  <return>  to continue without it.
-
-) (./settings.tex
+)
+(./settings.tex
 (/usr/local/texlive/2025/texmf-dist/tex/latex/titlesec/titlesec.sty
 Package: titlesec 2025/01/04 v2.17 Sectioning titles
 \ttl@box=\box110
@@ -1505,13 +1496,17 @@ LaTeX Font Info:    External font `lmex10' loaded for size
 (Font)              <8> on input line 3.
 LaTeX Font Info:    External font `lmex10' loaded for size
 (Font)              <6> on input line 3.
-
+LaTeX Font Info:    Trying to load font information for TS1+lmr on input line 2
+2.
+ (/usr/local/texlive/2025/texmf-dist/tex/latex/lm/ts1lmr.fd
+File: ts1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
+)
 
 [3
 
-{/usr/local/texlive/2025/texmf-dist/fonts/enc/dvips/lm/lm-rm.enc}]
+{/usr/local/texlive/2025/texmf-dist/fonts/enc/dvips/lm/lm-ts1.enc}]
 
-[4]
+[4{/usr/local/texlive/2025/texmf-dist/fonts/enc/dvips/lm/lm-rm.enc}]
 
 [5]
 
@@ -1528,14 +1523,8 @@ Chapter 1.
 [8
 
 ]
-LaTeX Font Info:    Trying to load font information for TS1+lmr on input line 3
-7.
- (/usr/local/texlive/2025/texmf-dist/tex/latex/lm/ts1lmr.fd
-File: ts1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
-)
 
-[9{/usr/local/texlive/2025/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc}{/usr/lo
-cal/texlive/2025/texmf-dist/fonts/enc/dvips/lm/lm-ts1.enc}]
+[9{/usr/local/texlive/2025/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc}]
 Overfull \hbox (1.13408pt too wide) in paragraph at lines 86--87
 \T1/lmr/m/n/12 Palette gen-er-a-tion ap-proaches fall into three broad paradigm
 s, each with dis-tinct strengths
@@ -1560,29 +1549,97 @@ Chapter 2.
 [13
 
 ]
-LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <5> on input line 68.
+Overfull \hbox (17.2039pt too wide) in paragraph at lines 54--55
+[]\T1/lmr/m/n/12 Interpolating be-tween sat-
+ []
 
 
-[14{/usr/local/texlive/2025/texmf-dist/fonts/enc/dvips/lm/lm-mathex.enc}{/usr/l
-ocal/texlive/2025/texmf-dist/fonts/enc/dvips/lm/lm-mathsy.enc}]
 
-[15]
+[14{/usr/local/texlive/2025/texmf-dist/fonts/enc/dvips/lm/lm-mathsy.enc}]
 
-[16])
+[15{/usr/local/texlive/2025/texmf-dist/fonts/enc/dvips/lm/lm-mathex.enc}]
+
+[16]
+Overfull \hbox (4.87674pt too wide) in paragraph at lines 137--138
+[]\T1/lmr/bx/n/12 Computational ef-fi-ciency: \T1/lmr/m/n/12 Trans-for-ma-tions
+ must be fast enough for real-time palette
+ []
+
+
 
 [17]
+
+[18]
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <5> on input line 184.
+Package biblatex Info: Delimiter 'nameyeardelim' in context '' already defined,
+ overwriting on input line 219.
+
+
+[19]
+
+[20]
+
+[21]
+Runaway argument?
+{quote> 
+! Paragraph ended before \end  was complete.
+<to be read again> 
+                   \par 
+l.314 
+      
+I suspect you've forgotten a `}', causing me to apply this
+control sequence to too much text. How can we recover?
+My plan is to forget the whole thing and hope for the best.
+
+
+Overfull \hbox (4.03256pt too wide) in paragraph at lines 312--314
+\T1/lmr/m/n/12 thresh-olds to changes in chro-matic-ity and de-pen-dence on lig
+ht-ness'' ([]Sekulovski
+ []
+
+
+
+[22]
+Overfull \hbox (14.81302pt too wide) in paragraph at lines 337--338
+\T1/lmr/m/n/12 The per-cep-tual foun-da-tions es-tab-lished in this sec-tion im
+-pose four non-negotiable
+ []
+
+
+Overfull \hbox (10.64682pt too wide) in paragraph at lines 340--341
+[]\T1/lmr/bx/n/12 Work in per-cep-tu-ally uni-form space: \T1/lmr/m/n/12 The Ri
+e-man-nian struc-ture (�[][]2.1.1[][])
+ []
+
+
+
+[23]
+Overfull \hbox (20.91257pt too wide) in paragraph at lines 356--357
+[]\T1/lmr/m/n/12 JND thresh-olds, tem-po-ral sen-si-tiv-ity ra-tios, and domain
+-
+ []
+
+
+Overfull \hbox (2.4368pt too wide) in paragraph at lines 358--359
+\T1/lmr/m/n/12 curves, spline in-ter-po-la-tion, and geodesic ap-prox-i-ma-tion
+s in OK-Lab space
+ []
+
+
+Overfull \hbox (7.51488pt too wide) in paragraph at lines 360--361
+[]\T1/lmr/m/n/12 Position-dependent met-ric ten-sors in-form gamut map-
+ []
+
+)
+
+[24]
 Chapter 3.
 (./sections/03_journey_construction.tex
 
-[18
+[25
 
 ]
-Overfull \hbox (0.25555pt too wide) in paragraph at lines 62--63
-\T1/lmr/m/n/12 har-mony sys-tems (com-ple-men-tary, tri-adic, anal-o-gous) gen-
-er-ate geometrically-related hues
- []
-
 
 LaTeX Warning: Command \textdegree invalid in math mode on input line 78.
 
@@ -1594,31 +1651,30 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 
-[19]
-Underfull \vbox (badness 2591) has occurred while \output is active []
+[26]
 
+[27]
 
+[28]
 
-[20]
+[29])
 
-[21]
+[30]
 
-[22]
-Overfull \hbox (1.33101pt too wide) in paragraph at lines 184--185
-[]\T1/lmr/m/n/12 Arc-length pa-ram-e-ter-i-sa-tion en-sures that out-put swatch
-es are per-cep-tu-ally equidis-
- []
-
-)
-
-[23]
+[31]
 Chapter 4.
 (./sections/04_perceptual_constraints.tex
-Underfull \vbox (badness 2790) has occurred while \output is active []
+Overfull \hbox (5.24281pt too wide) in paragraph at lines 15--16
+\T1/lmr/m/n/12 This con-cept orig-i-nates from We-ber's and Fech-ner's foun-da-
+tional psy-chophysics
+ []
+
+
+Underfull \vbox (badness 1297) has occurred while \output is active []
 
 
 
-[24
+[32
 
 ]
 
@@ -1663,48 +1719,55 @@ Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 
 
 
-[25]
-Overfull \hbox (17.12167pt too wide) in paragraph at lines 79--80
-[]\T1/lmr/bx/n/12 Why 5.0? \T1/lmr/m/n/12 This value rep-re-sents the up-per bo
-und of ``com-fort-able'' color transitions---
- []
+[33]
 
+[34])
 
+[35]
 
-[26])
-
-[27]
+[36]
 Chapter 5.
 (./sections/05_style_controls.tex
 
-[28
+LaTeX Warning: Reference `sec:oklch' on page 37 undefined on input line 15.
+
+
+
+[37
 
 ]
 
-[29]
+[38]
 
-[30])
-Overfull \hbox (21.6993pt too wide) in paragraph at lines 169--57
-[]\T1/lmr/m/n/12 With all pa-ram-e-ters at de-fault val-ues, the en-gine pro-du
-ces sim-ple lin-ear interpolation---
+[39])
+
+[40]
+Chapter 6.
+(./sections/06_modes_of_operation.tex
+Overfull \hbox (1.65933pt too wide) in paragraph at lines 18--28
+ [] 
+ []
+
+
+Overfull \hbox (22.4632pt too wide) in paragraph at lines 47--48
+\T1/lmr/m/n/12 Categorical Mode op-ti-mizes for \T1/lmr/bx/n/12 max-i-mum dis-t
+in-guisha-bil-ity \T1/lmr/m/n/12 be-tween swatches,
  []
 
 
 
-[31]
-Chapter 6.
-(./sections/06_modes_of_operation.tex
-
-[32
+[41
 
 ]
 
-[33]
+[42]
 LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 1
 33.
  (/usr/local/texlive/2025/texmf-dist/tex/latex/lm/t1lmtt.fd
 File: t1lmtt.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
+
+[43]
 Underfull \hbox (badness 1527) in paragraph at lines 146--146
 []|\T1/lmr/m/n/12 Output for dis-crete cat-e-
  []
@@ -1714,19 +1777,23 @@ Underfull \hbox (badness 2393) in paragraph at lines 149--149
 []|\T1/lmr/m/n/12 Need mood palette from
  []
 
+)
 
-
-[34])
-
-[35]
+[44]
 Chapter 7.
 (./sections/07_loop_strategies.tex
+Underfull \vbox (badness 6032) has occurred while \output is active []
 
-[36
+
+
+[45
 
 ]
+Underfull \vbox (badness 1348) has occurred while \output is active []
 
-[37]
+
+
+[46]
 
 LaTeX Warning: Command \textdegree invalid in math mode on input line 107.
 
@@ -1735,95 +1802,125 @@ LaTeX Warning: Command \textdegree invalid in math mode on input line 107.
 
 
 
-[38])
-
-[39]
-Chapter 8.
-(./sections/08_gamut_management.tex
-Underfull \vbox (badness 1845) has occurred while \output is active []
-
-
-
-[40
-
-]
-
-[41]
-Underfull \vbox (badness 1728) has occurred while \output is active []
-
-
-
-[42])
-
-[43]
-Chapter 9.
-(./sections/09_variation_determinism.tex
-
-[44
-
-]
-Overfull \hbox (10.26237pt too wide) in paragraph at lines 82--83
-[]\T1/lmr/bx/n/12 Specified al-go-rithm \T1/lmr/m/n/12 --- Im-ple-men-ta-tion u
-ses doc-u-mented al-go-rithm (e.g., xoshiro256**
+[47]
+Overfull \hbox (1.62639pt too wide) in paragraph at lines 150--151
+[]\T1/lmr/m/n/12 This pre-vents dou-bled col-ors when loop-ing ex-ter-nally and
+ re-duces ar-ray length. 
  []
 
 
 
-[45])
+[48])
 
-[46]
-Chapter 10.
-(./sections/10_api_design.tex
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
-
-
-[47
-
-]
-
-[48]
-
-LaTeX Warning: Reference `sec:caller-responsibilities' on page 49 undefined on 
-input line 120.
+[49]
+Chapter 8.
+(./sections/08_gamut_management.tex
+Overfull \hbox (0.90298pt too wide) in paragraph at lines 12--13
+\T1/lmr/m/n/12 With path con-struc-tion, per-cep-tual con-straints, style con-t
+rols, and loop strate-
+ []
 
 
+Overfull \hbox (5.6972pt too wide) in paragraph at lines 25--26
+[]\T1/lmr/bx/n/12 Certain hue re-gions \T1/lmr/m/n/12 (cyan-blue, yellow-green)
+ are par-tic-u-larly con-strained 
+ []
 
-[49])
 
-[50]
-Chapter 11.
-(./sections/11_caller_responsibilities.tex
+Underfull \vbox (badness 1331) has occurred while \output is active []
 
-[51
+
+
+[50
 
 ]
+Overfull \hbox (7.17374pt too wide) in paragraph at lines 74--75
+[]\T1/lmr/m/n/12 The bi-nary search con-verges rapidly (typ-i-cally 10--15 it-e
+r-a-tions) be-cause chroma
+ []
+
+
+
+[51]
 
 [52])
 
 [53]
-Chapter 12.
-(./sections/12_conclusion.tex
+Chapter 9.
+(./sections/09_variation_determinism.tex
 
 [54
 
 ]
-Overfull \hbox (18.67929pt too wide) in paragraph at lines 46--47
-[]\T1/lmr/m/n/12 The per-cep-tual weights for ve-loc-ity cal-cu-la-tion (�[][]6
-.3[][]) are de-sign heuris-tics, not empirically-
+
+[55])
+
+[56]
+Chapter 10.
+(./sections/10_api_design.tex
+Overfull \hbox (11.00218pt too wide) in paragraph at lines 38--53
+ [] 
+ []
+
+
+Underfull \vbox (badness 3417) has occurred while \output is active []
+
+
+
+[57
+
+]
+Overfull \hbox (40.76317pt too wide) in paragraph at lines 86--98
+ [] 
  []
 
 
 
-[55]
-Overfull \hbox (18.32649pt too wide) in paragraph at lines 65--66
-[] []\T1/lmr/bx/n/12 Sym-me-try--Con-strained Op-ti-mi-sa-tion.[] \T1/lmr/m/n/1
-2 The cur-rent en-gine con-structs jour-neys through
+[58]
+
+LaTeX Warning: Reference `sec:caller-responsibilities' on page 59 undefined on 
+input line 120.
+
+
+Underfull \vbox (badness 1033) has occurred while \output is active []
+
+
+
+[59])
+
+[60]
+Chapter 11.
+(./sections/11_caller_responsibilities.tex
+
+[61
+
+]
+Overfull \hbox (1.92378pt too wide) in paragraph at lines 59--60
+[] []\T1/lmr/bx/n/12 Ap-pli-ca-tion Con-straints.[] \T1/lmr/m/n/12 Brand col-or
+s, cor-po-rate guide-lines, and domain-
+ []
+
+
+
+[62])
+
+[63]
+Chapter 12.
+(./sections/12_conclusion.tex
+
+[64
+
+]
+
+[65]
+Overfull \hbox (25.43997pt too wide) in paragraph at lines 65--66
+\T1/lmr/m/n/12 jour-neys through di-rect path spec-i-fi-ca-tion. Fu-ture work c
+ould ex-plore optimisation-
  []
 
 )
 
-[56]
+[66]
 Appendix A.
 (./appendices/A_presets.tex
 Underfull \hbox (badness 3439) in paragraph at lines 42--42
@@ -1857,54 +1954,66 @@ Underfull \hbox (badness 7064) in paragraph at lines 63--63
 
 
 
-[57
+[67
 
 ]
 LaTeX Font Info:    Font shape `T1/lmtt/bx/n' in size <12> not available
 (Font)              Font shape `T1/lmtt/b/n' tried instead on input line 76.
 
+Overfull \hbox (0.21292pt too wide) in paragraph at lines 76--77
+\T1/lmr/m/n/12 math-e-mat-i-cal pre-dictabil-ity is paramount. Zero in-ten-sity
+ means con-trol points
+ []
+
+
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 
-[58]
-Overfull \hbox (5.95863pt too wide) in paragraph at lines 80--81
-\T1/lmr/m/n/12 chors. The path swings through higher-chroma re-gions, pro-duc-i
-ng bold, attention-grabbing
+[68]
+
+[69]
+Overfull \hbox (5.01741pt too wide) in paragraph at lines 112--113
+[] []\T1/lmtt/b/n/12 diverging[] \T1/lmr/m/n/12 Jour-ney Mode with bal-anced pa
+-ram-e-ters, in-tended for two-anchor
+ []
+
+
+Overfull \hbox (2.8269pt too wide) in paragraph at lines 114--115
+[] []\T1/lmtt/b/n/12 sequential[] \T1/lmr/m/n/12 Op-ti-mized for or-dered data 
+(low-to-high, early-to-late). Smooth
  []
 
 
 
-[59]
-
-[60]
+[70]
 Underfull \hbox (badness 10000) in paragraph at lines 135--135
 []|\T1/lmr/m/n/12 High-energy, attention-
  []
 
 )
 
-[61]
+[71]
 Appendix B.
 (./appendices/B_notation.tex
-Overfull \hbox (16.51318pt too wide) in paragraph at lines 15--25
+Overfull \hbox (75.26257pt too wide) in paragraph at lines 15--25
  [] 
  []
 
 
-Underfull \vbox (badness 3525) has occurred while \output is active []
+Underfull \vbox (badness 3058) has occurred while \output is active []
 
 
 
-[62
+[72
 
 ]
-Overfull \hbox (39.49638pt too wide) in paragraph at lines 61--71
+Overfull \hbox (98.24577pt too wide) in paragraph at lines 61--71
  [] 
  []
 
 
-Overfull \hbox (1.85588pt too wide) in paragraph at lines 76--85
+Overfull \hbox (60.60527pt too wide) in paragraph at lines 76--85
  [] 
  []
 
@@ -1913,18 +2022,25 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 
-[63]
-Underfull \vbox (badness 1014) has occurred while \output is active []
+[73]
+
+[74]
+Overfull \hbox (5.19798pt too wide) in paragraph at lines 176--186
+ [] 
+ []
 
 
 
-[64]
+[75]
+Overfull \hbox (3.72346pt too wide) in paragraph at lines 275--286
+ [] 
+ []
 
-[65]
 
-[66])
 
-[67]
+[76])
+
+[77]
 Appendix C.
 (./appendices/C_examples.tex
 (/usr/local/texlive/2025/texmf-dist/tex/latex/listings/lstlang1.sty
@@ -1963,43 +2079,9 @@ If that doesn't work, type  X <return>  to quit.
 
 Package hyperref Info: bookmark level for unknown lstlisting defaults to 0 on i
 nput line 16.
-(/usr/local/texlive/2025/texmf-dist/tex/latex/listings/lstlang1.sty
-File: lstlang1.sty 2024/09/23 1.10c listings language file
-)
-(/usr/local/texlive/2025/texmf-dist/tex/latex/listings/lstlang2.sty
-File: lstlang2.sty 2024/09/23 1.10c listings language file
-)
-(/usr/local/texlive/2025/texmf-dist/tex/latex/listings/lstlang3.sty
-File: lstlang3.sty 2024/09/23 1.10c listings language file
-)
-
-! Package Listings Error: Couldn't load requested language.
-
-See the Listings package documentation for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.36 ...JavaScript,caption={Three-Anchor Journey}]
-                                                  
-The following languages weren't loadable:
-    ,javascript$
-This may cause errors in the sequel.
 
 
-! Package Listings Error: language javascript undefined.
-
-See the Listings package documentation for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.36 ...JavaScript,caption={Three-Anchor Journey}]
-                                                  
-The language is not loadable. Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-
-[68
+[78
 
 ] (/usr/local/texlive/2025/texmf-dist/tex/latex/listings/lstlang1.sty
 File: lstlang1.sty 2024/09/23 1.10c listings language file
@@ -2017,6 +2099,40 @@ See the Listings package documentation for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
+l.36 ...JavaScript,caption={Three-Anchor Journey}]
+                                                  
+The following languages weren't loadable:
+    ,javascript$
+This may cause errors in the sequel.
+
+
+! Package Listings Error: language javascript undefined.
+
+See the Listings package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.36 ...JavaScript,caption={Three-Anchor Journey}]
+                                                  
+The language is not loadable. Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+(/usr/local/texlive/2025/texmf-dist/tex/latex/listings/lstlang1.sty
+File: lstlang1.sty 2024/09/23 1.10c listings language file
+)
+(/usr/local/texlive/2025/texmf-dist/tex/latex/listings/lstlang2.sty
+File: lstlang2.sty 2024/09/23 1.10c listings language file
+)
+(/usr/local/texlive/2025/texmf-dist/tex/latex/listings/lstlang3.sty
+File: lstlang3.sty 2024/09/23 1.10c listings language file
+)
+
+! Package Listings Error: Couldn't load requested language.
+
+See the Listings package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
 l.53 ...pt,caption={Single-Anchor Mood Expansion}]
                                                   
 The following languages weren't loadable:
@@ -2071,7 +2187,7 @@ If that doesn't work, type  X <return>  to quit.
 
 
 
-[69] (/usr/local/texlive/2025/texmf-dist/tex/latex/listings/lstlang1.sty
+[79] (/usr/local/texlive/2025/texmf-dist/tex/latex/listings/lstlang1.sty
 File: lstlang1.sty 2024/09/23 1.10c listings language file
 )
 (/usr/local/texlive/2025/texmf-dist/tex/latex/listings/lstlang2.sty
@@ -2141,7 +2257,7 @@ If that doesn't work, type  X <return>  to quit.
 
 
 
-[70] (/usr/local/texlive/2025/texmf-dist/tex/latex/listings/lstlang1.sty
+[80] (/usr/local/texlive/2025/texmf-dist/tex/latex/listings/lstlang1.sty
 File: lstlang1.sty 2024/09/23 1.10c listings language file
 )
 (/usr/local/texlive/2025/texmf-dist/tex/latex/listings/lstlang2.sty
@@ -2211,7 +2327,7 @@ If that doesn't work, type  X <return>  to quit.
 
 
 
-[71] (/usr/local/texlive/2025/texmf-dist/tex/latex/listings/lstlang1.sty
+[81] (/usr/local/texlive/2025/texmf-dist/tex/latex/listings/lstlang1.sty
 File: lstlang1.sty 2024/09/23 1.10c listings language file
 )
 (/usr/local/texlive/2025/texmf-dist/tex/latex/listings/lstlang2.sty
@@ -2279,7 +2395,9 @@ l.183 ...={Phased Loop for Progressive Evolution}]
 The language is not loadable. Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
 
-(/usr/local/texlive/2025/texmf-dist/tex/latex/listings/lstlang1.sty
+
+
+[82] (/usr/local/texlive/2025/texmf-dist/tex/latex/listings/lstlang1.sty
 File: lstlang1.sty 2024/09/23 1.10c listings language file
 )
 (/usr/local/texlive/2025/texmf-dist/tex/latex/listings/lstlang2.sty
@@ -2313,9 +2431,7 @@ l.201 ...caption={Complete Configuration Example}]
 The language is not loadable. Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
 
-
-
-[72] (/usr/local/texlive/2025/texmf-dist/tex/latex/listings/lstlang1.sty
+(/usr/local/texlive/2025/texmf-dist/tex/latex/listings/lstlang1.sty
 File: lstlang1.sty 2024/09/23 1.10c listings language file
 )
 (/usr/local/texlive/2025/texmf-dist/tex/latex/listings/lstlang2.sty
@@ -2351,7 +2467,7 @@ If that doesn't work, type  X <return>  to quit.
 
 
 
-[73] (/usr/local/texlive/2025/texmf-dist/tex/latex/listings/lstlang1.sty
+[83] (/usr/local/texlive/2025/texmf-dist/tex/latex/listings/lstlang1.sty
 File: lstlang1.sty 2024/09/23 1.10c listings language file
 )
 (/usr/local/texlive/2025/texmf-dist/tex/latex/listings/lstlang2.sty
@@ -2381,47 +2497,47 @@ Type  H <return>  for immediate help.
  ...                                              
                                                   
 l.255 ...t,caption={Checking Quality Diagnostics}]
+                                                  
+The language is not loadable. Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+
+[84] (/usr/local/texlive/2025/texmf-dist/tex/latex/listings/lstlang1.sty
+File: lstlang1.sty 2024/09/23 1.10c listings language file
+)
+(/usr/local/texlive/2025/texmf-dist/tex/latex/listings/lstlang2.sty
+File: lstlang2.sty 2024/09/23 1.10c listings language file
+)
+(/usr/local/texlive/2025/texmf-dist/tex/latex/listings/lstlang3.sty
+File: lstlang3.sty 2024/09/23 1.10c listings language file
+)
+
+! Package Listings Error: Couldn't load requested language.
+
+See the Listings package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.282 ...cript,caption={Diverging Scale for Data}]
+                                                  
+The following languages weren't loadable:
+    ,javascript$
+This may cause errors in the sequel.
+
+
+! Package Listings Error: language javascript undefined.
+
+See the Listings package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.282 ...cript,caption={Diverging Scale for Data}]
                                                   
 The language is not loadable. Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
 
 (/usr/local/texlive/2025/texmf-dist/tex/latex/listings/lstlang1.sty
-File: lstlang1.sty 2024/09/23 1.10c listings language file
-)
-(/usr/local/texlive/2025/texmf-dist/tex/latex/listings/lstlang2.sty
-File: lstlang2.sty 2024/09/23 1.10c listings language file
-)
-(/usr/local/texlive/2025/texmf-dist/tex/latex/listings/lstlang3.sty
-File: lstlang3.sty 2024/09/23 1.10c listings language file
-)
-
-! Package Listings Error: Couldn't load requested language.
-
-See the Listings package documentation for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.282 ...cript,caption={Diverging Scale for Data}]
-                                                  
-The following languages weren't loadable:
-    ,javascript$
-This may cause errors in the sequel.
-
-
-! Package Listings Error: language javascript undefined.
-
-See the Listings package documentation for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.282 ...cript,caption={Diverging Scale for Data}]
-                                                  
-The language is not loadable. Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-
-[74] (/usr/local/texlive/2025/texmf-dist/tex/latex/listings/lstlang1.sty
 File: lstlang1.sty 2024/09/23 1.10c listings language file
 )
 (/usr/local/texlive/2025/texmf-dist/tex/latex/listings/lstlang2.sty
@@ -2491,11 +2607,18 @@ If that doesn't work, type  X <return>  to quit.
 
 
 
-[75])
+[85])
 
-[76]
+[86]
 Appendix D.
 (./appendices/D_quick_reference.tex
+
+LaTeX Warning: Reference `sec:oklab' on page 87 undefined on input line 13.
+
+
+LaTeX Warning: Reference `sec:oklch' on page 87 undefined on input line 14.
+
+
 Overfull \hbox (26.24466pt too wide) in paragraph at lines 9--37
  [][] 
  []
@@ -2518,11 +2641,11 @@ Underfull \hbox (badness 10000) in paragraph at lines 110--110
 LaTeX Warning: `h' float specifier changed to `ht'.
 
 
-Underfull \vbox (badness 3503) has occurred while \output is active []
+Underfull \vbox (badness 3417) has occurred while \output is active []
 
 
 
-[77
+[87
 
 ]
 
@@ -2561,19 +2684,121 @@ LaTeX Warning: `h' float specifier changed to `ht'.
 
 )
 
-[78]
+[88]
 
-[79]
+[89]
 
-[80]
+[90]
 
-[81
+! LaTeX Error: Unicode character γ (U+03B3)
+               not set up for use with LaTeX.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.100 \printbibliography[title={References}]
+                                            
+You may provide a definition with
+\DeclareUnicodeCharacter 
+
+
+! LaTeX Error: Unicode character β (U+03B2)
+               not set up for use with LaTeX.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.100 \printbibliography[title={References}]
+                                            
+You may provide a definition with
+\DeclareUnicodeCharacter 
+
+
+! LaTeX Error: Unicode character β (U+03B2)
+               not set up for use with LaTeX.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.100 \printbibliography[title={References}]
+                                            
+You may provide a definition with
+\DeclareUnicodeCharacter 
+
+
+! LaTeX Error: Unicode character γ (U+03B3)
+               not set up for use with LaTeX.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.100 \printbibliography[title={References}]
+                                            
+You may provide a definition with
+\DeclareUnicodeCharacter 
+
+
+! LaTeX Error: Unicode character β (U+03B2)
+               not set up for use with LaTeX.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.100 \printbibliography[title={References}]
+                                            
+You may provide a definition with
+\DeclareUnicodeCharacter 
+
+
+
+[91
 
 ]
+Overfull \hbox (7.38997pt too wide) in paragraph at lines 100--100
+\T1/lmr/m/it/12 Seminu-mer-i-cal Al-go-rithms\T1/lmr/m/n/12 . 3rd. Addison-Wesl
+ey. \T1/lmr/m/sc/12 isbn\T1/lmr/m/n/12 : 978-0-201-89684-
+ []
 
-[82]
 
-[83] (./main.aux)
+
+[92]
+Overfull \hbox (73.91374pt too wide) in paragraph at lines 100--100
+\T1/lmr/m/n/12 for pro-gram-mers. Ac-cessed: 2025-12-17. \T1/lmr/m/sc/12 url\T1
+/lmr/m/n/12 : [][]$\T1/lmtt/m/n/12 https : / / programmingdesignsystems .
+ []
+
+
+Overfull \hbox (17.58525pt too wide) in paragraph at lines 100--100
+\T1/lmr/m/it/12 arXiv:2502.04514\T1/lmr/m/n/12 . Method-olog-i-cal in-flu-ence:
+ symmetry-constrained search
+ []
+
+
+
+[93]
+
+[94]
+
+[95]
+
+! LaTeX Error: \begin{quote} on input line 311 ended by \end{document}.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.105 \end{document}
+                    
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+(./main.aux)
  ***********
 LaTeX2e <2024-11-01> patch level 2
 L3 programming layer <2025-01-18>
@@ -2582,20 +2807,37 @@ L3 programming layer <2025-01-18>
 
 LaTeX Warning: There were undefined references.
 
-Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: E1E5D551250AF6C6A767A36D1C80A641;24912.
+
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+
+
+Package rerunfilecheck Warning: File `main.out' has changed.
+(rerunfilecheck)                Rerun to get outlines right
+(rerunfilecheck)                or use package `bookmark'.
+
+Package rerunfilecheck Info: Checksums for `main.out':
+(rerunfilecheck)             Before: E8D3B6E0ABDEB6C303BC1CEB65511209;25290
+(rerunfilecheck)             After:  4CF91B07C92D8650907E9BC7B51F2CA0;25726.
+
+Package biblatex Warning: Please rerun LaTeX.
+(biblatex)                Page breaks have changed.
+
 Package logreq Info: Writing requests to 'main.run.xml'.
 \openout1 = `main.run.xml'.
 
- ) 
+ )
+(\end occurred inside a group at level 1)
+
+### semi simple group (level 1) entered at line 311 (\begingroup)
+### bottom level 
 Here is how much of TeX's memory you used:
- 45452 strings out of 473190
- 928590 string characters out of 5715799
- 1917188 words of memory out of 5000000
- 67327 multiletter control sequences out of 15000+600000
- 635563 words of font info for 93 fonts, out of 8000000 for 9000
+ 45998 strings out of 473190
+ 936565 string characters out of 5715799
+ 1925838 words of memory out of 5000000
+ 67806 multiletter control sequences out of 15000+600000
+ 660797 words of font info for 102 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 89i,14n,99p,1909b,2298s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 89i,14n,99p,1909b,2915s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
 pdfTeX warning (dest): name{Hfootnote.2} has been referenced but does not exist
 , replaced by a fixed one
@@ -2611,16 +2853,17 @@ usr/local/texlive/2025/texmf-dist/fonts/type1/public/lm/lmr12.pfb></usr/local/t
 exlive/2025/texmf-dist/fonts/type1/public/lm/lmr17.pfb></usr/local/texlive/2025
 /texmf-dist/fonts/type1/public/lm/lmr7.pfb></usr/local/texlive/2025/texmf-dist/
 fonts/type1/public/lm/lmr8.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/
-public/lm/lmri12.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/lm/
-lmsy10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/lm/lmsy8.pfb>
-</usr/local/texlive/2025/texmf-dist/fonts/type1/public/lm/lmtk10.pfb></usr/loca
-l/texlive/2025/texmf-dist/fonts/type1/public/lm/lmtt10.pfb></usr/local/texlive/
-2025/texmf-dist/fonts/type1/public/lm/lmtt12.pfb></usr/local/texlive/2025/texmf
--dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on main.pdf (84 pages, 582176 bytes).
+public/lm/lmri10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/lm/
+lmri12.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/lm/lmsy10.pfb
+></usr/local/texlive/2025/texmf-dist/fonts/type1/public/lm/lmsy8.pfb></usr/loca
+l/texlive/2025/texmf-dist/fonts/type1/public/lm/lmtk10.pfb></usr/local/texlive/
+2025/texmf-dist/fonts/type1/public/lm/lmtt10.pfb></usr/local/texlive/2025/texmf
+-dist/fonts/type1/public/lm/lmtt12.pfb></usr/local/texlive/2025/texmf-dist/font
+s/type1/public/amsfonts/symbols/msbm10.pfb>
+Output written on main.pdf (96 pages, 640020 bytes).
 PDF statistics:
- 1826 PDF objects out of 2073 (max. 8388607)
- 1656 compressed objects within 17 object streams
- 559 named destinations out of 1000 (max. 500000)
- 1205 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 2004 PDF objects out of 2073 (max. 8388607)
+ 1816 compressed objects within 19 object streams
+ 614 named destinations out of 1000 (max. 500000)
+ 1213 words of extra memory for PDF output out of 10000 (max. 10000000)
 
