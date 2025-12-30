@@ -1,0 +1,449 @@
+# PaperKit Developer Improvements - Implementation Tracking
+# Last Updated: 2025-12-28
+
+meta:
+  project: PaperKit Developer Improvements
+  total_specs: 13
+  completed_specs: 1
+  in_progress_specs: 0
+  total_estimated_effort_hours: 533
+  total_actual_effort_hours: 70
+  current_phase: "Foundation Phase"
+  active_branch: "Research-agent-improvements"
+
+# Specification Implementation Status
+specifications:
+  "001-agent-metadata":
+    title: "Incomplete/Fragmented Agent Metadata"
+    status: COMPLETE
+    priority: High
+    category: Core Architecture
+    estimated_hours: 21
+    actual_hours: 70
+    completion_date: "2025-12-14"
+    branch: "copilot/update-agent-metadata-plan"
+    progress:
+      original_scope:
+        - status: COMPLETE
+          description: "Agent YAML definitions created (10 agents)"
+        - status: COMPLETE
+          description: "JSON Schema validation implemented"
+        - status: COMPLETE
+          description: "CI validation workflow configured"
+        - status: COMPLETE
+          description: "Documentation completed"
+        - status: COMPLETE
+          description: "CSV format deprecated"
+
+      beyond_scope:
+        - status: COMPLETE
+          description: "Workflow schema and YAML migration (14 workflows)"
+        - status: COMPLETE
+          description: "Tool schema and YAML migration (6 tools)"
+        - status: COMPLETE
+          description: "Master manifest system created"
+        - status: COMPLETE
+          description: "Unified validation infrastructure"
+
+      deliverables:
+        - ".paperkit/_cfg/schemas/agent-schema.json"
+        - ".paperkit/_cfg/schemas/workflow-schema.json"
+        - ".paperkit/_cfg/schemas/tool-schema.json"
+        - ".paperkit/_cfg/agents/*.yaml (10 files)"
+        - ".paperkit/_cfg/workflows/*.yaml (14 files)"
+        - ".paperkit/_cfg/tools/*.yaml (6 files)"
+        - ".paperkit/_cfg/agent-manifest.yaml"
+        - ".paperkit/_cfg/workflow-manifest.yaml"
+        - ".paperkit/_cfg/tool-manifest.yaml"
+        - ".paperkit/_cfg/manifest.yaml"
+        - "open-agents/tools/validate-agent-schema.py"
+        - "open-agents/tools/validate-workflow-schema.py"
+        - "open-agents/tools/validate-tool-schema.py"
+        - "open-agents/tools/validate.py"
+        - ".github/workflows/validate-agent-metadata.yml"
+
+      impact:
+        unblocks: ["002-workflow-agent-contract", "010-agent-governance"]
+        enables:
+          [
+            "Spec 002 contract validation",
+            "Spec 005 CI integration",
+            "Spec 010 versioning",
+          ]
+
+      notes:
+        - "Implementation significantly exceeded original scope"
+        - "Created system-wide metadata infrastructure"
+        - "Laid groundwork for multiple future specs"
+        - "All validation passing, zero security issues"
+
+  "002-workflow-agent-contract":
+    title: "Workflow and Agent Linking Formal Contract"
+    status: DRAFT
+    priority: High
+    category: Core Architecture
+    estimated_hours: 40
+    actual_hours: 0
+    progress:
+      tasks:
+        - status: NOT_STARTED
+          description: "Define workflow-agent contract schema"
+        - status: NOT_STARTED
+          description: "Implement contract validation tool"
+        - status: NOT_STARTED
+          description: "Add contract checks to CI"
+        - status: NOT_STARTED
+          description: "Document contract requirements"
+
+      dependencies:
+        blocked_by: []
+        requires: ["001-agent-metadata (COMPLETE)"]
+
+      notes:
+        - "Spec 001 laid foundation with workflow schemas"
+        - "Workflow YAML files already include agent references"
+        - "Need to implement validation logic"
+
+  "003-consent-sandboxing":
+    title: "Consent and Sandboxing for Tool Execution"
+    status: DRAFT
+    priority: High
+    category: Security & Safety
+    estimated_hours: 60
+    actual_hours: 0
+    progress:
+      tasks:
+        - status: NOT_STARTED
+          description: "Design consent framework"
+        - status: NOT_STARTED
+          description: "Implement sandboxing for tool execution"
+        - status: NOT_STARTED
+          description: "Create consent UI/prompts"
+        - status: NOT_STARTED
+          description: "Add audit logging"
+
+      notes:
+        - "Critical for production deployment"
+        - "Should coordinate with 004-security-governance"
+
+  "004-security-governance":
+    title: "Security, Prompt-Safety, and Data Governance"
+    status: DRAFT
+    priority: High
+    category: Security & Safety
+    estimated_hours: 68
+    actual_hours: 0
+    progress:
+      tasks:
+        - status: NOT_STARTED
+          description: "Security audit of agent prompts"
+        - status: NOT_STARTED
+          description: "Implement prompt injection defenses"
+        - status: NOT_STARTED
+          description: "Data governance policies"
+        - status: NOT_STARTED
+          description: "Security documentation"
+
+  "005-testing-ci":
+    title: "Testing, CI, and Reproducibility"
+    status: DRAFT
+    priority: High
+    category: Quality Assurance
+    estimated_hours: 48
+    actual_hours: 0
+    progress:
+      tasks:
+        - status: NOT_STARTED
+          description: "Create test framework"
+        - status: NOT_STARTED
+          description: "Write unit tests for agents"
+        - status: NOT_STARTED
+          description: "Integration tests for workflows"
+        - status: NOT_STARTED
+          description: "CI/CD pipeline configuration"
+
+      notes:
+        - "Validation infrastructure from 001 can be leveraged"
+        - "CI workflow template already exists"
+
+  "006-observability":
+    title: "Observability, Telemetry, and UX Telemetry"
+    status: DRAFT
+    priority: Medium
+    category: Operations
+    estimated_hours: 46
+    actual_hours: 0
+    progress:
+      tasks:
+        - status: NOT_STARTED
+          description: "Design logging/telemetry system"
+        - status: NOT_STARTED
+          description: "Implement agent execution tracking"
+        - status: NOT_STARTED
+          description: "Create observability dashboard"
+
+  "007-citation-validation":
+    title: "Citation, Reference, and Data Validation"
+    status: DRAFT
+    priority: Medium
+    category: Academic Quality
+    estimated_hours: 44
+    actual_hours: 0
+    progress:
+      tasks:
+        - status: NOT_STARTED
+          description: "Harvard citation style validator"
+        - status: NOT_STARTED
+          description: "BibTeX validation"
+        - status: NOT_STARTED
+          description: "Citation completeness checks"
+
+  "008-onboarding-docs":
+    title: "Onboarding, Examples, and Developer Docs"
+    status: DRAFT
+    priority: Medium
+    category: Developer Experience
+    estimated_hours: 42
+    actual_hours: 0
+    progress:
+      tasks:
+        - status: NOT_STARTED
+          description: "Getting started guide"
+        - status: NOT_STARTED
+          description: "Tutorial examples"
+        - status: NOT_STARTED
+          description: "API documentation"
+
+  "009-state-management":
+    title: "State Management and Mode Persistence Risks"
+    status: DRAFT
+    priority: Medium
+    category: Core Architecture
+    estimated_hours: 50
+    actual_hours: 0
+    progress:
+      tasks:
+        - status: NOT_STARTED
+          description: "Design state management system"
+        - status: NOT_STARTED
+          description: "Implement persistence layer"
+        - status: NOT_STARTED
+          description: "Session recovery mechanism"
+
+  "010-agent-governance":
+    title: "Governance of Agent Updates"
+    status: DRAFT
+    priority: Medium
+    category: Operations
+    estimated_hours: 34
+    actual_hours: 0
+    progress:
+      tasks:
+        - status: NOT_STARTED
+          description: "Versioning strategy"
+        - status: NOT_STARTED
+          description: "Change management process"
+        - status: NOT_STARTED
+          description: "Deprecation policy"
+
+      notes:
+        - "Spec 001 established version field in agent schemas"
+        - "Foundation for versioning already in place"
+
+  "011-operational-suggestions":
+    title: "Smaller/Operational Suggestions"
+    status: DRAFT
+    priority: Various
+    category: Operations
+    estimated_hours: null
+    actual_hours: 0
+    notes:
+      - "Collection of smaller improvements"
+      - "Can be tackled incrementally"
+
+  "012-open-questions":
+    title: "Open Questions"
+    status: DRAFT
+    priority: N/A
+    category: Planning
+    estimated_hours: null
+    actual_hours: 0
+    notes:
+      - "Decision tracking document"
+      - "Not an implementation task"
+
+  "013-democritus-integration":
+    title: "DEMOCRITUS-Inspired Agent Integration"
+    status: DRAFT
+    priority: High
+    category: Core Architecture
+    estimated_hours: 80
+    actual_hours: 0
+    progress:
+      tasks:
+        - status: NOT_STARTED
+          description: "Design DEMOCRITUS integration architecture"
+        - status: NOT_STARTED
+          description: "Enhance research agents"
+        - status: NOT_STARTED
+          description: "Implement insight alignment"
+        - status: NOT_STARTED
+          description: "Integration testing"
+
+      dependencies:
+        requires:
+          [
+            "001-agent-metadata",
+            "002-workflow-agent-contract",
+            "007-citation-validation",
+          ]
+
+# Phase Planning
+phases:
+  foundation:
+    name: "Foundation Phase"
+    status: IN_PROGRESS
+    specs: ["001-agent-metadata", "002-workflow-agent-contract"]
+    estimated_weeks: 4
+    actual_weeks: 2
+    notes:
+      - "001 complete but exceeded scope significantly"
+      - "Ready to begin 002"
+
+  security:
+    name: "Security Phase"
+    status: NOT_STARTED
+    specs: ["003-consent-sandboxing", "004-security-governance"]
+    estimated_weeks: 4
+    dependencies: ["foundation"]
+
+  quality:
+    name: "Quality Phase"
+    status: NOT_STARTED
+    specs: ["005-testing-ci", "002-workflow-agent-contract"]
+    estimated_weeks: 4
+    dependencies: ["foundation"]
+
+  operations:
+    name: "Operations Phase"
+    status: NOT_STARTED
+    specs: ["006-observability", "010-agent-governance"]
+    estimated_weeks: 4
+    dependencies: ["quality"]
+
+  enhancement:
+    name: "Enhancement Phase"
+    status: NOT_STARTED
+    specs:
+      ["007-citation-validation", "008-onboarding-docs", "009-state-management"]
+    estimated_weeks: 4
+    dependencies: ["operations"]
+
+  advanced:
+    name: "Advanced Integration Phase"
+    status: NOT_STARTED
+    specs: ["013-democritus-integration"]
+    estimated_weeks: 4
+    dependencies: ["quality", "enhancement"]
+
+# Current Context
+current_context:
+  last_work_date: "2025-12-14"
+  days_since_last_work: 14
+  current_focus: "Spec 001 complete, evaluating next steps"
+  active_branch: "Research-agent-improvements"
+
+  recent_accomplishments:
+    - "Completed full migration to YAML metadata system"
+    - "Created 3 JSON schemas (agents, workflows, tools)"
+    - "Migrated 30 definitions to YAML (10 agents + 14 workflows + 6 tools)"
+    - "Established validation infrastructure"
+    - "Created master manifest system"
+
+  next_steps:
+    immediate:
+      - "Review and plan spec 002 implementation"
+      - "Consider starting spec 005 (testing) in parallel"
+      - "Evaluate priority of spec 013 (DEMOCRITUS integration)"
+
+    short_term:
+      - "Begin workflow-agent contract validation (002)"
+      - "Set up test framework (005)"
+      - "Document current system state"
+
+    long_term:
+      - "Complete Foundation Phase (002)"
+      - "Move to Security Phase (003, 004)"
+      - "Plan DEMOCRITUS integration (013)"
+
+  blockers: []
+
+  decisions_needed:
+    - "Prioritize 002 vs 005 for next implementation?"
+    - "Should 013 be elevated in priority?"
+    - "Resource allocation for Security Phase?"
+
+  technical_debt:
+    - "CSV format still exists (deprecated but not removed)"
+    - "Need to migrate existing tools to use YAML readers"
+    - "Agent generation scripts may need updating"
+
+# Additional Improvements (Beyond Specs)
+additional_improvements:
+  completed:
+    - name: "System-wide metadata infrastructure"
+      date: "2025-12-14"
+      description: "Extended agent metadata pattern to workflows and tools"
+      effort_hours: 49
+
+    - name: "Unified validation system"
+      date: "2025-12-14"
+      description: "Created validate.py entry point for all schemas"
+      effort_hours: 8
+
+    - name: "Master manifest system"
+      date: "2025-12-14"
+      description: "manifest.yaml tracking all system components"
+      effort_hours: 5
+
+  planned:
+    - name: "CSV removal"
+      description: "Complete removal of deprecated CSV files"
+      priority: Low
+      estimated_hours: 4
+
+    - name: "Tool migration to YAML readers"
+      description: "Update all tools to read from YAML instead of CSV"
+      priority: Medium
+      estimated_hours: 8
+
+    - name: "Documentation site"
+      description: "Generate static documentation from YAML metadata"
+      priority: Low
+      estimated_hours: 16
+
+# Resource Tracking
+resources:
+  developers: 1
+  capacity_percent: 50
+  hours_per_week: 20
+
+  velocity:
+    foundation_phase_weeks: 2
+    specs_completed: 1
+    average_hours_per_spec: 70
+
+# Notes and Learnings
+learnings:
+  - "Initial estimates (21h) significantly underestimated actual effort (70h)"
+  - "Expanding scope to create system-wide infrastructure was valuable"
+  - "YAML + JSON Schema approach working very well"
+  - "Validation infrastructure critical for confidence"
+  - "Documentation is essential when returning after breaks"
+
+recommendations:
+  - "Increase time estimates by 2-3x for similar specs"
+  - "Front-load planning and architecture work"
+  - "Maintain this tracking file religiously"
+  - "Regular commits with detailed messages"
+  - "Document decisions and context inline"

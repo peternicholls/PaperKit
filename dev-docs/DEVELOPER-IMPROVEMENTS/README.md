@@ -1,30 +1,48 @@
 # Developer Improvements
 
-This directory contains specification documents for planned improvements to the PaperKit system. Each specification addresses a critical issue or enhancement identified during system review.
+This directory contains specification documents for planned improvements to the PaperKit system.  Each specification addresses a critical issue or enhancement identified during system review.
+
+## 📊 Quick Status
+
+**Active Tracking:** FIRST READ [tracking.yaml](tracking.yaml) for detailed implementation progress, context, and next steps.
+
+**Current Status (as of 2025-12-28):**
+- ✅ Completed: 1/13 specs (Spec 001)
+- 🚧 In Progress: Foundation Phase
+- 📅 Days Since Last Work: 14
+- 🎯 Next Focus: Spec 002 (Workflow-Agent Contract)
+
+**Quick Stats:**
+- Estimated Total Effort: 533 hours
+- Actual Effort So Far: 70 hours (includes beyond-scope work)
+- Phase: Foundation (In Progress)
+- Active Branch: Research-agent-improvements
 
 ## Specifications Overview
 
-| ID | Title | Priority | Category | Effort |
-|----|-------|----------|----------|--------|
-| [001](001-agent-metadata.md) | Incomplete/Fragmented Agent Metadata | High | Core Architecture | 21h |
-| [002](002-workflow-agent-contract.md) | Workflow and Agent Linking Formal Contract | High | Core Architecture | 40h |
-| [003](003-consent-sandboxing.md) | Consent and Sandboxing for Tool Execution | High | Security & Safety | 60h |
-| [004](004-security-governance.md) | Security, Prompt-Safety, and Data Governance | High | Security & Safety | 68h |
-| [005](005-testing-ci.md) | Testing, CI, and Reproducibility | High | Quality Assurance | 48h |
-| [006](006-observability.md) | Observability, Telemetry, and UX Telemetry | Medium | Operations | 46h |
-| [007](007-citation-validation.md) | Citation, Reference, and Data Validation | Medium | Academic Quality | 44h |
-| [008](008-onboarding-docs.md) | Onboarding, Examples, and Developer Docs | Medium | Developer Experience | 42h |
-| [009](009-state-management.md) | State Management and Mode Persistence Risks | Medium | Core Architecture | 50h |
-| [010](010-agent-governance.md) | Governance of Agent Updates | Medium | Operations | 34h |
-| [011](011-operational-suggestions.md) | Smaller/Operational Suggestions | Various | Operations | Varies |
-| [012](012-open-questions.md) | Open Questions | N/A | Planning | N/A |
+| ID | Title | Priority | Category | Est/Actual | Status |
+|----|-------|----------|----------|------------|--------|
+| [001](001-agent-metadata.md) | Incomplete/Fragmented Agent Metadata | High | Core Architecture | 21h/70h ✅ | **COMPLETE** |
+| [002](002-workflow-agent-contract.md) | Workflow and Agent Linking Formal Contract | High | Core Architecture | 40h/0h | Draft |
+| [003](003-consent-sandboxing.md) | Consent and Sandboxing for Tool Execution | High | Security & Safety | 60h/0h | Draft |
+| [004](004-security-governance.md) | Security, Prompt-Safety, and Data Governance | High | Security & Safety | 68h/0h | Draft |
+| [005](005-testing-ci.md) | Testing, CI, and Reproducibility | High | Quality Assurance | 48h/0h | Draft |
+| [006](006-observability.md) | Observability, Telemetry, and UX Telemetry | Medium | Operations | 46h/0h | Draft |
+| [007](007-citation-validation.md) | Citation, Reference, and Data Validation | Medium | Academic Quality | 44h/0h | Draft |
+| [008](008-onboarding-docs.md) | Onboarding, Examples, and Developer Docs | Medium | Developer Experience | 42h/0h | Draft |
+| [009](009-state-management.md) | State Management and Mode Persistence Risks | Medium | Core Architecture | 50h/0h | Draft |
+| [010](010-agent-governance.md) | Governance of Agent Updates | Medium | Operations | 34h/0h | Draft |
+| [011](011-operational-suggestions.md) | Smaller/Operational Suggestions | Various | Operations | Varies | Draft |
+| [012](012-open-questions.md) | Open Questions | N/A | Planning | N/A | Draft |
+| [013](013-democritus-integration-architecture.md) | DEMOCRITUS-Inspired Agent Integration | High | Core Architecture | 80h/0h | Draft |
 
-**Total Estimated Effort:** ~453 hours (excluding operational suggestions and open questions)
+**Total Estimated Effort:** ~533 hours (excluding operational suggestions and open questions)  
+**Actual Effort to Date:** 70 hours (Spec 001 + beyond-scope work)
 
 ### Effort by Category
 | Category | Specs | Total Hours |
 |----------|-------|-------------|
-| Core Architecture | 001, 002, 009 | 111h |
+| Core Architecture | 001, 002, 009, 013 | 191h |
 | Security & Safety | 003, 004 | 128h |
 | Quality Assurance | 005 | 48h |
 | Operations | 006, 010 | 80h |
@@ -41,6 +59,7 @@ This directory contains specification documents for planned improvements to the 
 - **003-consent-sandboxing** - Critical for user safety and trust
 - **004-security-governance** - Essential for production use
 - **005-testing-ci** - Enables confidence in changes
+- **013-democritus-integration** - Enhances research agents with DEMOCRITUS-inspired capabilities
 
 ### Medium Priority (Implement after high-priority items)
 - **006-observability** - Important for debugging and operations
@@ -56,6 +75,7 @@ This directory contains specification documents for planned improvements to the 
     └── 002-workflow-agent-contract
         └── 005-testing-ci (contract tests)
     └── 010-agent-governance
+    └── 013-democritus-integration (agent schema)
 
 003-consent-sandboxing
     └── 004-security-governance
@@ -69,7 +89,13 @@ This directory contains specification documents for planned improvements to the 
 006-observability
     └── 009-state-management (state logging)
 
+007-citation-validation
+    └── 013-democritus-integration (citation infrastructure)
+
 008-onboarding-docs (independent)
+
+013-democritus-integration
+    └── depends on:  001-agent-metadata, 002-workflow-agent-contract, 007-citation-validation
 ```
 
 ## Specification Template
@@ -113,17 +139,70 @@ Each specification follows this structure:
 - 008-onboarding-docs
 - 009-state-management
 
+## 🤖 AGENT INSTRUCTIONS
+
+**IF YOU ARE AN AI AGENT (GitHub Copilot, Claude, GPT, etc.) WORKING ON PAPERKIT DEVELOPMENT:**
+
+⚠️ **This applies to development agents working ON PaperKit specs (001-013), NOT to paper-writing agents.**
+
+### MANDATORY: Read This First
+
+**Before doing ANYTHING, read:**
+```bash
+cat dev-docs/DEVELOPER-IMPROVEMENTS/agent-development-workflow.md
+```
+
+That file contains:
+- Complete tracking.yaml workflow
+- Examples for every scenario
+- What to update when
+- Anti-patterns to avoid
+
+### Quick Reference
+
+**Every work session must:**
+1. ✅ Read `tracking.yaml` BEFORE starting
+2. ✅ Update spec status (DRAFT → IN_PROGRESS → COMPLETE)
+3. ✅ Record actual hours and task progress
+4. ✅ Document decisions, blockers, next steps
+5. ✅ Update `current_context.last_work_date`
+
+**See [agent-development-workflow.md](agent-development-workflow.md) for detailed instructions.**
+
+---
+
 ## How to Use These Specs
+
+### 📋 Implementation Tracking (For Humans)
+
+**IMPORTANT:** Always update [tracking.yaml](tracking.yaml) when:
+- Starting work on a spec
+- Completing tasks or milestones
+- Making progress or encountering blockers
+- Adding work beyond spec scope
+- Taking breaks (record context for return)
+- Making key decisions
+
+The tracking file maintains:
+- Detailed task status for each spec
+- Actual vs estimated effort
+- Current context and next steps
+- Decisions needed and blockers
+- Learnings and recommendations
 
 ### For Implementation
 
-1. Read the specification thoroughly
-2. Review dependencies and ensure prerequisites are met
-3. Check open questions in [012-open-questions.md](012-open-questions.md)
-4. Create implementation branch
-5. Follow implementation steps
-6. Validate against success criteria
-7. Update spec status when complete
+1. **Check tracking.yaml for current status and context**
+2. Read the specification thoroughly
+3. Review dependencies and ensure prerequisites are met
+4. Check open questions in [012-open-questions.md](012-open-questions.md)
+5. **Update tracking.yaml: mark spec as IN_PROGRESS**
+6. Create implementation branch
+7. Follow implementation steps
+8. **Update tracking.yaml: record progress, actual hours, notes**
+9. Validate against success criteria
+10. **Update tracking.yaml: mark spec as COMPLETE**
+11. Update spec status when complete
 
 ### For Review
 
@@ -153,18 +232,56 @@ Each specification follows this structure:
 
 To propose changes to these specifications:
 
-1. Create a branch from master
-2. Edit the relevant specification
-3. Submit PR with clear description of changes
-4. Request review from maintainers
+1. **Update tracking.yaml** with your planned changes
+2. Create a branch from master
+3. Edit the relevant specification
+4. **Update tracking.yaml** with progress
+5. Submit PR with clear description of changes
+6. Request review from maintainers
+7. **Update tracking.yaml** when PR is merged
+
+## Returning After Time Away
+
+When returning to the project after days/weeks:
+
+1. **Read tracking.yaml first** - it contains:
+   - What was last worked on
+   - Current status of all specs
+   - Blockers and decisions needed
+   - Next steps and priorities
+   - Recent accomplishments and context
+
+2. Review recent commits and changes
+
+3. Check for updates to spec documents
+
+4. **Update tracking.yaml** with:
+   - New `last_work_date`
+   - Any context from your review
+   - Updated priorities or decisions
+
+This workflow prevents losing track of progress and context.
 
 ## Questions?
 
 For questions about these specifications:
-- Check [012-open-questions.md](012-open-questions.md) first
+- **Check [tracking.yaml](tracking.yaml)** for current context and decisions needed
+- Check [012-open-questions.md](012-open-questions.md) for documented questions
 - Open a discussion in the repository
 - Contact the maintainers
 
+## Key Files
+
+| File | Purpose |
+|------|---------|
+| **[tracking.yaml](tracking.yaml)** | **Implementation progress tracking (READ THIS FIRST)** |
+| **[agent-development-workflow.md](agent-development-workflow.md)** | **Complete guide for AI agents working on specs** |
+| [001-IMPLEMENTATION-COMPLETE.md](001-IMPLEMENTATION-COMPLETE.md) | Detailed completion report for Spec 001 |
+| [012-open-questions.md](012-open-questions.md) | Open questions and decisions needed |
+| Individual spec files (001-013) | Detailed specifications for each improvement |
+| `.git/hooks/pre-commit` | Git hook reminder to update tracking.yaml |
+
 ---
 
-*Last Updated: 2025-12-13*
+*Last Updated: 2025-12-28*  
+*Always check [tracking.yaml](tracking.yaml) for the most current status and context*
