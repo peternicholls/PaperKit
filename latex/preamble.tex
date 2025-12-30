@@ -49,13 +49,19 @@
 % ==============================================================================
 % Bibliography and Citations (Harvard style)
 % ==============================================================================
-\usepackage[backend=bibtex,style=authoryear,natbib=true]{biblatex}
+% Recommended by biblatex for correct quotation handling
+\usepackage{csquotes}
+
+% Use biber backend to avoid BibTeX line-wrapping issues in .bbl (e.g., long URLs)
+\usepackage[backend=biber,style=authoryear,natbib=true]{biblatex}
 \addbibresource{references/references.bib}
 \setlength\bibitemsep{1.5\itemsep}
 
 % ==============================================================================
 % Cross-references and Hyperlinks
 % ==============================================================================
+% Better URL line-breaking (especially in bibliography)
+\usepackage{xurl}
 \usepackage{hyperref}
 \hypersetup{
   colorlinks=true,
@@ -116,7 +122,6 @@
 % Algorithms and Code
 % ==============================================================================
 \usepackage{listings}
-\usepackage{xcolor}
 
 \lstset{
   basicstyle=\ttfamily\small,
@@ -130,6 +135,20 @@
   backgroundcolor=\color{white},
   captionpos=b,
   language=bash
+}
+
+% JavaScript language definition for listings -  should have C and C++ too
+\lstdefinelanguage{JavaScript}{%
+  morekeywords={const,let,var,function,return,if,else,for,while,do,switch,case,break,continue,new,class,extends,super,import,from,export,default,try,catch,finally,throw},%
+  keywordstyle=\color{blue}\bfseries, % strong keywords
+  sensitive=true,
+  comment=[l]{//},
+  morecomment=[s]{/*}{*/},
+  commentstyle=\color{gray},
+  stringstyle=\color{red},
+  morestring=[b]',
+  morestring=[b]",
+  morestring=[b]`,
 }
 
 % ==============================================================================

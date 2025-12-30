@@ -1,66 +1,15 @@
-This is BibTeX, Version 0.99d (TeX Live 2025)
-Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
-The top-level auxiliary file: main.aux
-The style file: biblatex.bst
-Reallocated glb_str_ptr (elt_size=4) to 20 items from 10.
-Reallocated global_strs (elt_size=200001) to 20 items from 10.
-Reallocated glb_str_end (elt_size=4) to 20 items from 10.
-Reallocated singl_function (elt_size=4) to 100 items from 50.
-Reallocated singl_function (elt_size=4) to 100 items from 50.
-Reallocated singl_function (elt_size=4) to 100 items from 50.
-Reallocated wiz_functions (elt_size=4) to 6000 items from 3000.
-Reallocated singl_function (elt_size=4) to 100 items from 50.
-Reallocated singl_function (elt_size=4) to 100 items from 50.
-Reallocated singl_function (elt_size=4) to 100 items from 50.
-Reallocated singl_function (elt_size=4) to 100 items from 50.
-Reallocated singl_function (elt_size=4) to 100 items from 50.
-Reallocated singl_function (elt_size=4) to 100 items from 50.
-Reallocated singl_function (elt_size=4) to 100 items from 50.
-Reallocated singl_function (elt_size=4) to 100 items from 50.
-Reallocated field_info (elt_size=4) to 10040 items from 5000.
-Database file #1: main-blx.bib
-Database file #2: references/references.bib
-Biblatex version: 3.20
-Reallocated wiz_functions (elt_size=4) to 9000 items from 6000.
-Reallocated singl_function (elt_size=4) to 100 items from 50.
-You've used 36 entries,
-            6402 wiz_defined-function locations,
-            1433 strings with 16879 characters,
-and the built_in function-call counts, 256851 in all, are:
-= -- 19935
-> -- 3795
-< -- 1212
-+ -- 6734
-- -- 1320
-* -- 18700
-:= -- 27470
-add.period$ -- 0
-call.type$ -- 36
-change.case$ -- 698
-chr.to.int$ -- 42
-cite$ -- 70
-duplicate$ -- 26918
-empty$ -- 23200
-format.name$ -- 2220
-if$ -- 52839
-int.to.chr$ -- 0
-int.to.str$ -- 90
-missing$ -- 0
-newline$ -- 1197
-num.names$ -- 1812
-pop$ -- 12491
-preamble$ -- 1
-purify$ -- 859
-quote$ -- 0
-skip$ -- 6909
-stack$ -- 0
-substring$ -- 35888
-swap$ -- 5779
-text.length$ -- 954
-text.prefix$ -- 35
-top$ -- 1
-type$ -- 1201
-warning$ -- 0
-while$ -- 3283
-width$ -- 0
-write$ -- 1162
+[0] Config.pm:308> INFO - This is Biber 2.20
+[0] Config.pm:311> INFO - Logfile is 'main.blg'
+[31] biber-darwin:340> INFO - === Tue Dec 30, 2025, 23:27:58
+[38] Biber.pm:420> INFO - Reading 'main.bcf'
+[79] Biber.pm:994> INFO - Found 35 citekeys in bib section 0
+[86] Biber.pm:4463> INFO - Processing section 0
+[91] Biber.pm:4654> INFO - Looking for bibtex file 'references/references.bib' for section 0
+[93] bibtex.pm:1713> INFO - LaTeX decoding ...
+[117] bibtex.pm:1519> INFO - Found BibTeX data source 'references/references.bib'
+[232] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'variable = shifted' with 'variable = non-ignorable'
+[232] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'normalization = NFD' with 'normalization = prenormalized'
+[232] Biber.pm:4283> INFO - Sorting list 'nyt/global//global/global/global' of type 'entry' with template 'nyt' and locale 'en-US'
+[232] Biber.pm:4289> INFO - No sort tailoring available for locale 'en-US'
+[250] bbl.pm:676> INFO - Writing 'main.bbl' with encoding 'UTF-8'
+[258] bbl.pm:779> INFO - Output to main.bbl

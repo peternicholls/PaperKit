@@ -3,8 +3,8 @@
 % Do not modify the above lines!
 %
 % This is an auxiliary file used by the 'biblatex' package.
-% This file may safely be deleted. It will be recreated as
-% required.
+% This file may safely be deleted. It will be recreated by
+% biber as required.
 %
 \begingroup
 \makeatletter
@@ -16,1231 +16,1420 @@
   {}
 \endgroup
 
-\datalist[entry]{nyt/global//global/global/global}
-  \entry{blackman2018}{article}{}{}
-    \name{author}{2}{}{%
-      {{hash=BD}{%
-         family={Blackman},
-         familyi={B\bibinitperiod},
-         given={David},
-         giveni={D\bibinitperiod},
-      }}%
-      {{hash=VS}{%
-         family={Vigna},
-         familyi={V\bibinitperiod},
-         given={Sebastiano},
-         giveni={S\bibinitperiod},
-      }}%
-    }
-    \strng{namehash}{BDVS1}
-    \strng{fullhash}{BDVS1}
-    \field{labelnamesource}{author}
-    \field{labeltitlesource}{title}
-    \field{labelyear}{2021}
-    \field{labeldatesource}{}
-    \field{sortinit}{B}
-    \field{sortinithash}{B}
-    \verb{doi}
-    \verb 10.1145/3460772
-    \endverb
-    \field{note}{Originally arXiv:1805.01407, 2018}
-    \field{number}{4}
-    \field{pages}{1\bibrangedash 32}
-    \field{title}{Scrambled linear pseudorandom number generators}
-    \field{volume}{47}
-    \field{journaltitle}{ACM Transactions on Mathematical Software}
-    \field{year}{2021}
-  \endentry
 
-  \entry{bloch2008}{book}{}{}
-    \name{author}{1}{}{%
-      {{hash=BJ}{%
-         family={Bloch},
-         familyi={B\bibinitperiod},
-         given={Joshua},
-         giveni={J\bibinitperiod},
-      }}%
-    }
-    \list{publisher}{1}{%
-      {Addison-Wesley}%
-    }
-    \strng{namehash}{BJ1}
-    \strng{fullhash}{BJ1}
-    \field{labelnamesource}{author}
-    \field{labeltitlesource}{title}
-    \field{labelyear}{2008}
-    \field{labeldatesource}{}
-    \field{sortinit}{B}
-    \field{sortinithash}{B}
-    \field{edition}{2nd}
-    \field{isbn}{978-0-321-35668-0}
-    \field{title}{Effective Java}
-    \field{year}{2008}
-  \endentry
-
-  \entry{braun2017}{article}{}{}
-    \name{author}{3}{}{%
-      {{hash=BDI}{%
-         family={Braun},
-         familyi={B\bibinitperiod},
-         given={Doris\bibnamedelima I.},
-         giveni={D\bibinitperiod\bibinitdelim I\bibinitperiod},
-      }}%
-      {{hash=SAC}{%
-         family={Sch{\"u}tz},
-         familyi={S\bibinitperiod},
-         given={Alexander\bibnamedelima C.},
-         giveni={A\bibinitperiod\bibinitdelim C\bibinitperiod},
-      }}%
-      {{hash=GKR}{%
-         family={Gegenfurtner},
-         familyi={G\bibinitperiod},
-         given={Karl\bibnamedelima R.},
-         giveni={K\bibinitperiod\bibinitdelim R\bibinitperiod},
-      }}%
-    }
-    \strng{namehash}{BDISACGKR1}
-    \strng{fullhash}{BDISACGKR1}
-    \field{labelnamesource}{author}
-    \field{labeltitlesource}{title}
-    \field{labelyear}{2017}
-    \field{labeldatesource}{}
-    \field{sortinit}{B}
-    \field{sortinithash}{B}
-    \verb{doi}
-    \verb 10.1016/j.visres.2017.05.008
-    \endverb
-    \field{pages}{57\bibrangedash 69}
-    \field{title}{Visual sensitivity for luminance and chromatic stimuli during
-  the execution of smooth pursuit and saccadic eye movements}
-    \field{volume}{136}
-    \field{journaltitle}{Vision Research}
-    \field{year}{2017}
-  \endentry
-
-  \entry{cie1976}{report}{}{}
-    \name{author}{1}{}{%
-      {{hash=C}{%
-         family={{CIE}},
-         familyi={C\bibinitperiod},
-      }}%
-    }
-    \strng{namehash}{C1}
-    \strng{fullhash}{C1}
-    \field{labelnamesource}{author}
-    \field{labeltitlesource}{title}
-    \field{labelyear}{1976}
-    \field{labeldatesource}{}
-    \field{sortinit}{C}
-    \field{sortinithash}{C}
-    \field{number}{15}
-    \field{title}{Recommendations on Uniform Color Spaces, Color-Difference
-  Equations, Psychometric Color Terms}
-    \list{institution}{1}{%
-      {Commission Internationale de l'{\'E}clairage}%
-    }
-    \field{type}{CIE Publication}
-    \field{year}{1976}
-  \endentry
-
-  \entry{cowan2001}{article}{}{}
-    \name{author}{1}{}{%
-      {{hash=CN}{%
-         family={Cowan},
-         familyi={C\bibinitperiod},
-         given={Nelson},
-         giveni={N\bibinitperiod},
-      }}%
-    }
-    \strng{namehash}{CN1}
-    \strng{fullhash}{CN1}
-    \field{labelnamesource}{author}
-    \field{labeltitlesource}{title}
-    \field{labelyear}{2001}
-    \field{labeldatesource}{}
-    \field{sortinit}{C}
-    \field{sortinithash}{C}
-    \verb{doi}
-    \verb 10.1017/S0140525X01003922
-    \endverb
-    \field{number}{1}
-    \field{pages}{87\bibrangedash 114}
-    \field{title}{The magical number 4 in short-term memory: A reconsideration
-  of mental storage capacity}
-    \field{volume}{24}
-    \field{journaltitle}{Behavioral and Brain Sciences}
-    \field{year}{2001}
-  \endentry
-
-  \entry{fairchild2013}{book}{}{}
-    \name{author}{1}{}{%
-      {{hash=FMD}{%
-         family={Fairchild},
-         familyi={F\bibinitperiod},
-         given={Mark\bibnamedelima D.},
-         giveni={M\bibinitperiod\bibinitdelim D\bibinitperiod},
-      }}%
-    }
-    \list{publisher}{1}{%
-      {Wiley}%
-    }
-    \strng{namehash}{FMD1}
-    \strng{fullhash}{FMD1}
-    \field{labelnamesource}{author}
-    \field{labeltitlesource}{title}
-    \field{labelyear}{2013}
-    \field{labeldatesource}{}
-    \field{sortinit}{F}
-    \field{sortinithash}{F}
-    \field{edition}{3rd}
-    \field{isbn}{978-1-119-96703-3}
-    \field{title}{Color Appearance Models}
-    \field{year}{2013}
-  \endentry
-
-  \entry{farin2002}{book}{}{}
-    \name{author}{1}{}{%
-      {{hash=FG}{%
-         family={Farin},
-         familyi={F\bibinitperiod},
-         given={Gerald},
-         giveni={G\bibinitperiod},
-      }}%
-    }
-    \list{publisher}{1}{%
-      {Morgan Kaufmann}%
-    }
-    \strng{namehash}{FG1}
-    \strng{fullhash}{FG1}
-    \field{labelnamesource}{author}
-    \field{labeltitlesource}{title}
-    \field{labelyear}{2002}
-    \field{labeldatesource}{}
-    \field{sortinit}{F}
-    \field{sortinithash}{F}
-    \field{edition}{5th}
-    \field{isbn}{978-1-55860-737-8}
-    \field{title}{Curves and Surfaces for {CAGD}: A Practical Guide}
-    \field{year}{2002}
-  \endentry
-
-  \entry{fechner1860}{book}{}{}
-    \name{author}{1}{}{%
-      {{hash=FGT}{%
-         family={Fechner},
-         familyi={F\bibinitperiod},
-         given={Gustav\bibnamedelima Theodor},
-         giveni={G\bibinitperiod\bibinitdelim T\bibinitperiod},
-      }}%
-    }
-    \list{publisher}{1}{%
-      {Breitkopf und Härtel}%
-    }
-    \strng{namehash}{FGT1}
-    \strng{fullhash}{FGT1}
-    \field{labelnamesource}{author}
-    \field{labeltitlesource}{title}
-    \field{labelyear}{1860}
-    \field{labeldatesource}{}
-    \field{sortinit}{F}
-    \field{sortinithash}{F}
-    \field{note}{English translation consulted. Established psychophysics as
-  quantitative science with the fundamental formula (dγ = K dβ/β) and
-  measurement formula (γ = k log β/b), founding the mathematical framework
-  for perceptual measurement that underlies all color metrics from Schrödinger
-  (1920) to modern CIELab and OKLab.}
-    \field{title}{Elemente der Psychophysik}
-    \field{volume}{2}
-    \list{location}{1}{%
-      {Leipzig}%
-    }
-    \field{year}{1860}
-  \endentry
-
-  \entry{gamma1994}{book}{}{}
-    \name{author}{4}{}{%
-      {{hash=GE}{%
-         family={Gamma},
-         familyi={G\bibinitperiod},
-         given={Erich},
-         giveni={E\bibinitperiod},
-      }}%
-      {{hash=HR}{%
-         family={Helm},
-         familyi={H\bibinitperiod},
-         given={Richard},
-         giveni={R\bibinitperiod},
-      }}%
-      {{hash=JR}{%
-         family={Johnson},
-         familyi={J\bibinitperiod},
-         given={Ralph},
-         giveni={R\bibinitperiod},
-      }}%
-      {{hash=VJ}{%
-         family={Vlissides},
-         familyi={V\bibinitperiod},
-         given={John},
-         giveni={J\bibinitperiod},
-      }}%
-    }
-    \list{publisher}{1}{%
-      {Addison-Wesley}%
-    }
-    \strng{namehash}{GE+1}
-    \strng{fullhash}{GEHRJRVJ1}
-    \field{labelnamesource}{author}
-    \field{labeltitlesource}{title}
-    \field{labelyear}{1994}
-    \field{labeldatesource}{}
-    \field{sortinit}{G}
-    \field{sortinithash}{G}
-    \field{isbn}{978-0-201-63361-0}
-    \field{title}{Design Patterns: Elements of Reusable Object-Oriented
-  Software}
-    \field{year}{1994}
-  \endentry
-
-  \entry{hong2024}{article}{}{}
-    \name{author}{8}{}{%
-      {{hash=HF}{%
-         family={Hong},
-         familyi={H\bibinitperiod},
-         given={Fangfang},
-         giveni={F\bibinitperiod},
-      }}%
-      {{hash=BR}{%
-         family={Bouhassira},
-         familyi={B\bibinitperiod},
-         given={Ruby},
-         giveni={R\bibinitperiod},
-      }}%
-      {{hash=CJ}{%
-         family={Chow},
-         familyi={C\bibinitperiod},
-         given={Jason},
-         giveni={J\bibinitperiod},
-      }}%
-      {{hash=SC}{%
-         family={Sanders},
-         familyi={S\bibinitperiod},
-         given={Craig},
-         giveni={C\bibinitperiod},
-      }}%
-      {{hash=SM}{%
-         family={Shvartsman},
-         familyi={S\bibinitperiod},
-         given={Michael},
-         giveni={M\bibinitperiod},
-      }}%
-      {{hash=GP}{%
-         family={Guan},
-         familyi={G\bibinitperiod},
-         given={Phillip},
-         giveni={P\bibinitperiod},
-      }}%
-      {{hash=WAH}{%
-         family={Williams},
-         familyi={W\bibinitperiod},
-         given={Alex\bibnamedelima H.},
-         giveni={A\bibinitperiod\bibinitdelim H\bibinitperiod},
-      }}%
-      {{hash=BDH}{%
-         family={Brainard},
-         familyi={B\bibinitperiod},
-         given={David\bibnamedelima H.},
-         giveni={D\bibinitperiod\bibinitdelim H\bibinitperiod},
-      }}%
-    }
-    \strng{namehash}{HF+1}
-    \strng{fullhash}{HFBRCJSCSMGPWAHBDH1}
-    \field{labelnamesource}{author}
-    \field{labeltitlesource}{title}
-    \field{labelyear}{2024}
-    \field{labeldatesource}{}
-    \field{sortinit}{H}
-    \field{sortinithash}{H}
-    \verb{doi}
-    \verb 10.7554/eLife.108943
-    \endverb
-    \field{note}{Bayesian Wishart Process Psychophysical Model (WPPM); ~6000
-  trials per participant; Riemannian manifold framework; comprehensive
-  isoluminant plane characterization}
-    \field{pages}{RP108943}
-    \field{title}{Comprehensive characterization of human color discrimination
-  thresholds}
-    \verb{url}
-    \verb https://elifesciences.org/reviewed-preprints/108943
-    \endverb
-    \field{volume}{13}
-    \field{journaltitle}{eLife}
-    \field{year}{2024}
-  \endentry
-
-  \entry{hunt2004}{book}{}{}
-    \name{author}{1}{}{%
-      {{hash=HRWG}{%
-         family={Hunt},
-         familyi={H\bibinitperiod},
-         given={R.\bibnamedelima W.\bibnamedelima G.},
-         giveni={R\bibinitperiod\bibinitdelim W\bibinitperiod\bibinitdelim
-  G\bibinitperiod},
-      }}%
-    }
-    \list{publisher}{1}{%
-      {Wiley}%
-    }
-    \strng{namehash}{HRWG1}
-    \strng{fullhash}{HRWG1}
-    \field{labelnamesource}{author}
-    \field{labeltitlesource}{title}
-    \field{labelyear}{2004}
-    \field{labeldatesource}{}
-    \field{sortinit}{H}
-    \field{sortinithash}{H}
-    \field{edition}{6th}
-    \field{isbn}{978-0-470-02425-6}
-    \field{title}{The Reproduction of Colour}
-    \field{year}{2004}
-  \endentry
-
-  \entry{itten1961}{book}{}{}
-    \name{author}{1}{}{%
-      {{hash=IJ}{%
-         family={Itten},
-         familyi={I\bibinitperiod},
-         given={Johannes},
-         giveni={J\bibinitperiod},
-      }}%
-    }
-    \list{publisher}{1}{%
-      {Reinhold Publishing}%
-    }
-    \strng{namehash}{IJ1}
-    \strng{fullhash}{IJ1}
-    \field{labelnamesource}{author}
-    \field{labeltitlesource}{title}
-    \field{labelyear}{1961}
-    \field{labeldatesource}{}
-    \field{sortinit}{I}
-    \field{sortinithash}{I}
-    \field{note}{Revised edition 1973}
-    \field{title}{The Art of Color: The Subjective Experience and Objective
-  Rationale of Color}
-    \field{year}{1961}
-  \endentry
-
-  \entry{judd1940}{article}{}{}
-    \name{author}{1}{}{%
-      {{hash=JDB}{%
-         family={Judd},
-         familyi={J\bibinitperiod},
-         given={Deane\bibnamedelima B.},
-         giveni={D\bibinitperiod\bibinitdelim B\bibinitperiod},
-      }}%
-    }
-    \strng{namehash}{JDB1}
-    \strng{fullhash}{JDB1}
-    \field{labelnamesource}{author}
-    \field{labeltitlesource}{title}
-    \field{labelyear}{1940}
-    \field{labeldatesource}{}
-    \field{sortinit}{J}
-    \field{sortinithash}{J}
-    \verb{doi}
-    \verb 10.1364/JOSA.30.000002
-    \endverb
-    \field{note}{Established the concept of ``super-importance of hue'' in
-  perceptual color space, foundational to understanding the 720° topology
-  requirement}
-    \field{number}{1}
-    \field{pages}{2\bibrangedash 32}
-    \field{title}{Hue saturation and lightness of surface colors with chromatic
-  illumination}
-    \field{volume}{30}
-    \field{journaltitle}{Journal of the Optical Society of America}
-    \field{year}{1940}
-  \endentry
-
-  \entry{kamermans2023}{misc}{}{}
-    \name{author}{1}{}{%
-      {{hash=KM}{%
-         family={Kamermans},
-         familyi={K\bibinitperiod},
-         given={Mike},
-         giveni={M\bibinitperiod},
-      }}%
-    }
-    \strng{namehash}{KM1}
-    \strng{fullhash}{KM1}
-    \field{labelnamesource}{author}
-    \field{labeltitlesource}{title}
-    \field{labelyear}{2023}
-    \field{labeldatesource}{}
-    \field{sortinit}{K}
-    \field{sortinithash}{K}
-    \field{howpublished}{Online}
-    \field{note}{Comprehensive treatment of arc-length parameterisation in
-  \S14. Accessed: 2025-12-17}
-    \field{title}{A Primer on {B}{\'e}zier Curves}
-    \verb{url}
-    \verb https://pomax.github.io/bezierinfo/
-    \endverb
-    \field{year}{2023}
-  \endentry
-
-  \entry{knuth1997}{book}{}{}
-    \name{author}{1}{}{%
-      {{hash=KDE}{%
-         family={Knuth},
-         familyi={K\bibinitperiod},
-         given={Donald\bibnamedelima E.},
-         giveni={D\bibinitperiod\bibinitdelim E\bibinitperiod},
-      }}%
-    }
-    \list{publisher}{1}{%
-      {Addison-Wesley}%
-    }
-    \strng{namehash}{KDE1}
-    \strng{fullhash}{KDE1}
-    \field{labelnamesource}{author}
-    \field{labeltitlesource}{title}
-    \field{labelyear}{1997}
-    \field{labeldatesource}{}
-    \field{sortinit}{K}
-    \field{sortinithash}{K}
-    \field{edition}{3rd}
-    \field{isbn}{978-0-201-89684-8}
-    \field{title}{The Art of Computer Programming, Volume 2: Seminumerical
-  Algorithms}
-    \field{year}{1997}
-  \endentry
-
-  \entry{kong2021}{thesis}{}{}
-    \name{author}{1}{}{%
-      {{hash=KX}{%
-         family={Kong},
-         familyi={K\bibinitperiod},
-         given={Xieyuan},
-         giveni={X\bibinitperiod},
-      }}%
-    }
-    \strng{namehash}{KX1}
-    \strng{fullhash}{KX1}
-    \field{labelnamesource}{author}
-    \field{labeltitlesource}{title}
-    \field{labelyear}{2021}
-    \field{labeldatesource}{}
-    \field{sortinit}{K}
-    \field{sortinithash}{K}
-    \verb{doi}
-    \verb 10.6100/IR591533
-    \endverb
-    \field{note}{\textbf{Critical finding:} ``CIELAB\ldots\ is not a useful
-  space to predict the perception of dynamic colored light. Today, no color
-  spaces are available that accurately predict the visibility of color
-  differences over time'' (Section 5.3, p.~530). Confirms Sekulovski's 10:1
-  asymmetry: ``The threshold for L* was found to be approximately 10 times
-  smaller than for the chromaticity indices a* and b*.'' Full dissertation on
-  temporal color perception.}
-    \field{title}{Modeling the temporal behavior of human color vision}
-    \list{location}{1}{%
-      {Eindhoven, Netherlands}%
-    }
-    \list{institution}{1}{%
-      {Eindhoven University of Technology}%
-    }
-    \field{type}{phdthesis}
-    \field{year}{2021}
-  \endentry
-
-  \entry{levien2018arclength}{misc}{}{}
-    \name{author}{1}{}{%
-      {{hash=LR}{%
-         family={Levien},
-         familyi={L\bibinitperiod},
-         given={Raph},
-         giveni={R\bibinitperiod},
-      }}%
-    }
-    \strng{namehash}{LR1}
-    \strng{fullhash}{LR1}
-    \field{labelnamesource}{author}
-    \field{labeltitlesource}{title}
-    \field{labelyear}{2018}
-    \field{labeldatesource}{}
-    \field{sortinit}{L}
-    \field{sortinithash}{L}
-    \field{howpublished}{Online}
-    \field{note}{Practical algorithms for Bézier arc-length computation.
-  Accessed: 2025-12-17}
-    \field{title}{How long is that {B}{\'e}zier?}
-    \verb{url}
-    \verb https://raphlinus.github.io/curves/2018/12/28/bezier-arclength.html
-    \endverb
-    \field{year}{2018}
-  \endentry
-
-  \entry{levien2021oklab}{misc}{}{}
-    \name{author}{1}{}{%
-      {{hash=LR}{%
-         family={Levien},
-         familyi={L\bibinitperiod},
-         given={Raph},
-         giveni={R\bibinitperiod},
-      }}%
-    }
-    \strng{namehash}{LR1}
-    \strng{fullhash}{LR1}
-    \field{labelnamesource}{author}
-    \field{labeltitlesource}{title}
-    \field{labelyear}{2021}
-    \field{labeldatesource}{}
-    \field{sortinit}{L}
-    \field{sortinithash}{L}
-    \field{howpublished}{Online}
-    \field{note}{Independent validation of OKLab perceptual uniformity claims.
-  Accessed: 2025-12-17}
-    \field{title}{An interactive review of {O}klab}
-    \verb{url}
-    \verb https://raphlinus.github.io/color/2021/01/18/oklab-critique.html
-    \endverb
-    \field{year}{2021}
-  \endentry
-
-  \entry{liu2013palette}{inproceedings}{}{}
-    \name{author}{4}{}{%
-      {{hash=LY}{%
-         family={Liu},
-         familyi={L\bibinitperiod},
-         given={Yuzhen},
-         giveni={Y\bibinitperiod},
-      }}%
-      {{hash=COD}{%
-         family={Cohen-Or},
-         familyi={C\bibinithyphendelim O\bibinitperiod},
-         given={Daniel},
-         giveni={D\bibinitperiod},
-      }}%
-      {{hash=SO}{%
-         family={Sorkine},
-         familyi={S\bibinitperiod},
-         given={Olga},
-         giveni={O\bibinitperiod},
-      }}%
-      {{hash=GY}{%
-         family={Gingold},
-         familyi={G\bibinitperiod},
-         given={Yaron},
-         giveni={Y\bibinitperiod},
-      }}%
-    }
-    \strng{namehash}{LY+1}
-    \strng{fullhash}{LYCODSOGY1}
-    \field{labelnamesource}{author}
-    \field{labeltitlesource}{title}
-    \field{labelyear}{2013}
-    \field{labeldatesource}{}
-    \field{sortinit}{L}
-    \field{sortinithash}{L}
-    \field{booktitle}{IEEE Transactions on Visualization and Computer Graphics}
-    \verb{doi}
-    \verb 10.1109/TVCG.2012.155
-    \endverb
-    \field{note}{Data-driven approach; contrast with our deterministic path
-  method}
-    \field{number}{6}
-    \field{pages}{978\bibrangedash 989}
-    \field{title}{Image-driven harmonious color palette generation}
-    \field{volume}{19}
-    \field{year}{2013}
-  \endentry
-
-  \entry{luo2001}{article}{}{}
-    \name{author}{3}{}{%
-      {{hash=LMR}{%
-         family={Luo},
-         familyi={L\bibinitperiod},
-         given={Ming\bibnamedelima Ronnier},
-         giveni={M\bibinitperiod\bibinitdelim R\bibinitperiod},
-      }}%
-      {{hash=CG}{%
-         family={Cui},
-         familyi={C\bibinitperiod},
-         given={Guihua},
-         giveni={G\bibinitperiod},
-      }}%
-      {{hash=RB}{%
-         family={Rigg},
-         familyi={R\bibinitperiod},
-         given={Bryan},
-         giveni={B\bibinitperiod},
-      }}%
-    }
-    \strng{namehash}{LMRCGRB1}
-    \strng{fullhash}{LMRCGRB1}
-    \field{labelnamesource}{author}
-    \field{labeltitlesource}{title}
-    \field{labelyear}{2001}
-    \field{labeldatesource}{}
-    \field{sortinit}{L}
-    \field{sortinithash}{L}
-    \verb{doi}
-    \verb 10.1002/col.1049
-    \endverb
-    \field{number}{5}
-    \field{pages}{340\bibrangedash 350}
-    \field{title}{The development of the {CIE} 2000 colour-difference formula:
-  {CIEDE2000}}
-    \field{volume}{26}
-    \field{journaltitle}{Color Research \& Application}
-    \field{year}{2001}
-  \endentry
-
-  \entry{programmingdesignsystems2017}{misc}{}{}
-    \name{author}{1}{}{%
-      {{hash=MR}{%
-         family={Madsen},
-         familyi={M\bibinitperiod},
-         given={Rune},
-         giveni={R\bibinitperiod},
-      }}%
-    }
-    \strng{namehash}{MR1}
-    \strng{fullhash}{MR1}
-    \field{labelnamesource}{author}
-    \field{labeltitlesource}{title}
-    \field{labelyear}{2017}
-    \field{labeldatesource}{}
-    \field{sortinit}{M}
-    \field{sortinithash}{M}
-    \field{howpublished}{Online}
-    \field{note}{Accessible introduction to perceptual uniformity for
-  programmers. Accessed: 2025-12-17}
-    \field{title}{Programming Design Systems: Perceptually Uniform Color
-  Spaces}
-    \verb{url}
-    \verb https://programmingdesignsystems.com/color/perceptually-uniform-color
-    \verb -spaces/
-    \endverb
-    \field{year}{2017}
-  \endentry
-
-  \entry{mahy1994}{article}{}{}
-    \name{author}{3}{}{%
-      {{hash=MM}{%
-         family={Mahy},
-         familyi={M\bibinitperiod},
-         given={Marc},
-         giveni={M\bibinitperiod},
-      }}%
-      {{hash=VEL}{%
-         family={Van\bibnamedelima Eycken},
-         familyi={V\bibinitperiod\bibinitdelim E\bibinitperiod},
-         given={Luc},
-         giveni={L\bibinitperiod},
-      }}%
-      {{hash=OA}{%
-         family={Oosterlinck},
-         familyi={O\bibinitperiod},
-         given={Andr{\'e}},
-         giveni={A\bibinitperiod},
-      }}%
-    }
-    \strng{namehash}{MMVELOA1}
-    \strng{fullhash}{MMVELOA1}
-    \field{labelnamesource}{author}
-    \field{labeltitlesource}{title}
-    \field{labelyear}{1994}
-    \field{labeldatesource}{}
-    \field{sortinit}{M}
-    \field{sortinithash}{M}
-    \verb{doi}
-    \verb 10.1002/col.5080190207
-    \endverb
-    \field{number}{2}
-    \field{pages}{105\bibrangedash 121}
-    \field{title}{Evaluation of uniform color spaces developed after the
-  adoption of {CIELAB} and {CIELUV}}
-    \field{volume}{19}
-    \field{journaltitle}{Color Research \& Application}
-    \field{year}{1994}
-  \endentry
-
-  \entry{moosbauer2025}{article}{}{}
-    \name{author}{2}{}{%
-      {{hash=MJ}{%
-         family={Moosbauer},
-         familyi={M\bibinitperiod},
-         given={Jakob},
-         giveni={J\bibinitperiod},
-      }}%
-      {{hash=PMJ}{%
-         family={Poole},
-         familyi={P\bibinitperiod},
-         given={Michael\bibnamedelima J.},
-         giveni={M\bibinitperiod\bibinitdelim J\bibinitperiod},
-      }}%
-    }
-    \strng{namehash}{MJPMJ1}
-    \strng{fullhash}{MJPMJ1}
-    \field{labelnamesource}{author}
-    \field{labeltitlesource}{title}
-    \field{labelyear}{2025}
-    \field{labeldatesource}{}
-    \field{sortinit}{M}
-    \field{sortinithash}{M}
-    \field{note}{Methodological influence: symmetry-constrained search reduces
-  optimisation complexity}
-    \field{title}{Flip Graphs with Symmetry and New Matrix Multiplication
-  Schemes}
-    \field{journaltitle}{arXiv preprint arXiv:2502.04514}
-    \field{year}{2025}
-  \endentry
-
-  \entry{morovic2008}{book}{}{}
-    \name{author}{1}{}{%
-      {{hash=MJ}{%
-         family={Morovi{\v{c}}},
-         familyi={M\bibinitperiod},
-         given={J{\'a}n},
-         giveni={J\bibinitperiod},
-      }}%
-    }
-    \list{publisher}{1}{%
-      {Wiley}%
-    }
-    \strng{namehash}{MJ1}
-    \strng{fullhash}{MJ1}
-    \field{labelnamesource}{author}
-    \field{labeltitlesource}{title}
-    \field{labelyear}{2008}
-    \field{labeldatesource}{}
-    \field{sortinit}{M}
-    \field{sortinithash}{M}
-    \field{isbn}{978-0-470-03032-5}
-    \field{title}{Color Gamut Mapping}
-    \field{year}{2008}
-  \endentry
-
-  \entry{nolle2012}{unpublished}{}{}
-    \name{author}{3}{}{%
-      {{hash=NM}{%
-         family={Nölle},
-         familyi={N\bibinitperiod},
-         given={Michael},
-         giveni={M\bibinitperiod},
-      }}%
-      {{hash=SM}{%
-         family={Suda},
-         familyi={S\bibinitperiod},
-         given={Martin},
-         giveni={M\bibinitperiod},
-      }}%
-      {{hash=BW}{%
-         family={Boxleitner},
-         familyi={B\bibinitperiod},
-         given={Winfried},
-         giveni={W\bibinitperiod},
-      }}%
-    }
-    \strng{namehash}{NMSMBW1}
-    \strng{fullhash}{NMSMBW1}
-    \field{labelnamesource}{author}
-    \field{labeltitlesource}{title}
-    \field{labelyear}{2012}
-    \field{labeldatesource}{}
-    \field{sortinit}{N}
-    \field{sortinithash}{N}
-    \field{note}{ResearchGate preprint. Key finding: Perceptual hue circle
-  requires 720-degree circumference (4pi) in embedding space, validating
-  Möbius topology.}
-    \field{title}{H2SI -- A new perceptual colour space}
-    \verb{url}
-    \verb https://www.researchgate.net/publication/259265578_H2SI_-_A_new_perce
-    \verb ptual_colour_space
-    \endverb
-    \field{year}{2012}
-  \endentry
-
-  \entry{ottosson2020}{misc}{}{}
-    \name{author}{1}{}{%
-      {{hash=OB}{%
-         family={Ottosson},
-         familyi={O\bibinitperiod},
-         given={Bj{\"o}rn},
-         giveni={B\bibinitperiod},
-      }}%
-    }
-    \strng{namehash}{OB1}
-    \strng{fullhash}{OB1}
-    \field{labelnamesource}{author}
-    \field{labeltitlesource}{title}
-    \field{labelyear}{2020}
-    \field{labeldatesource}{}
-    \field{sortinit}{O}
-    \field{sortinithash}{O}
-    \field{howpublished}{Online}
-    \field{note}{Accessed: 2025-12-17}
-    \field{title}{A perceptual color space for image processing}
-    \verb{url}
-    \verb https://bottosson.github.io/posts/oklab/
-    \endverb
-    \field{year}{2020}
-  \endentry
-
-  \entry{piegl1997}{book}{}{}
-    \name{author}{2}{}{%
-      {{hash=PL}{%
-         family={Piegl},
-         familyi={P\bibinitperiod},
-         given={Les},
-         giveni={L\bibinitperiod},
-      }}%
-      {{hash=TW}{%
-         family={Tiller},
-         familyi={T\bibinitperiod},
-         given={Wayne},
-         giveni={W\bibinitperiod},
-      }}%
-    }
-    \list{publisher}{1}{%
-      {Springer}%
-    }
-    \strng{namehash}{PLTW1}
-    \strng{fullhash}{PLTW1}
-    \field{labelnamesource}{author}
-    \field{labeltitlesource}{title}
-    \field{labelyear}{1997}
-    \field{labeldatesource}{}
-    \field{sortinit}{P}
-    \field{sortinithash}{P}
-    \field{edition}{2nd}
-    \field{isbn}{978-3-540-61545-3}
-    \field{title}{The {NURBS} Book}
-    \field{year}{1997}
-  \endentry
-
-  \entry{poynton2012}{book}{}{}
-    \name{author}{1}{}{%
-      {{hash=PC}{%
-         family={Poynton},
-         familyi={P\bibinitperiod},
-         given={Charles},
-         giveni={C\bibinitperiod},
-      }}%
-    }
-    \list{publisher}{1}{%
-      {Morgan Kaufmann}%
-    }
-    \strng{namehash}{PC1}
-    \strng{fullhash}{PC1}
-    \field{labelnamesource}{author}
-    \field{labeltitlesource}{title}
-    \field{labelyear}{2012}
-    \field{labeldatesource}{}
-    \field{sortinit}{P}
-    \field{sortinithash}{P}
-    \field{edition}{2nd}
-    \field{isbn}{978-0-12-391926-7}
-    \field{title}{Digital Video and {HD}: Algorithms and Interfaces}
-    \field{year}{2012}
-  \endentry
-
-  \entry{roberti2023}{article}{}{}
-    \name{author}{2}{}{%
-      {{hash=RV}{%
-         family={Roberti},
-         familyi={R\bibinitperiod},
-         given={Valentina},
-         giveni={V\bibinitperiod},
-      }}%
-      {{hash=PG}{%
-         family={Peruzzi},
-         familyi={P\bibinitperiod},
-         given={Giulio},
-         giveni={G\bibinitperiod},
-      }}%
-    }
-    \strng{namehash}{RVPG1}
-    \strng{fullhash}{RVPG1}
-    \field{labelnamesource}{author}
-    \field{labeltitlesource}{title}
-    \field{labelyear}{2023}
-    \field{labeldatesource}{}
-    \field{sortinit}{R}
-    \field{sortinithash}{R}
-    \verb{doi}
-    \verb 10.1007/s00407-023-00317-x
-    \endverb
-    \field{note}{Comprehensive analysis of Schrödinger's (1920) Riemannian
-  color metric and its improvements over Helmholtz's original formulation.
-  Critical foundation for understanding perceptual color space geometry and
-  geodesic paths in color inversion applications.}
-    \field{pages}{305\bibrangedash 335}
-    \field{title}{The {H}elmholtz legacy in color metrics: {S}chr\"{o}dinger's
-  color theory}
-    \field{volume}{77}
-    \field{journaltitle}{Archive for History of Exact Sciences}
-    \field{year}{2023}
-  \endentry
-
-  \entry{safdar2017}{article}{}{}
-    \name{author}{4}{}{%
-      {{hash=SM}{%
-         family={Safdar},
-         familyi={S\bibinitperiod},
-         given={Muhammad},
-         giveni={M\bibinitperiod},
-      }}%
-      {{hash=CG}{%
-         family={Cui},
-         familyi={C\bibinitperiod},
-         given={Guihua},
-         giveni={G\bibinitperiod},
-      }}%
-      {{hash=KYJ}{%
-         family={Kim},
-         familyi={K\bibinitperiod},
-         given={Youn\bibnamedelima Jin},
-         giveni={Y\bibinitperiod\bibinitdelim J\bibinitperiod},
-      }}%
-      {{hash=LMR}{%
-         family={Luo},
-         familyi={L\bibinitperiod},
-         given={Ming\bibnamedelima Ronnier},
-         giveni={M\bibinitperiod\bibinitdelim R\bibinitperiod},
-      }}%
-    }
-    \strng{namehash}{SM+1}
-    \strng{fullhash}{SMCGKYJLMR1}
-    \field{labelnamesource}{author}
-    \field{labeltitlesource}{title}
-    \field{labelyear}{2017}
-    \field{labeldatesource}{}
-    \field{sortinit}{S}
-    \field{sortinithash}{S}
-    \verb{doi}
-    \verb 10.1364/OE.25.015131
-    \endverb
-    \field{number}{13}
-    \field{pages}{15131\bibrangedash 15151}
-    \field{title}{Perceptually uniform color space for image signals including
-  high dynamic range and wide gamut}
-    \field{volume}{25}
-    \field{journaltitle}{Optics Express}
-    \field{year}{2017}
-  \endentry
-
-  \entry{sekulovski2007}{inproceedings}{}{}
-    \name{author}{4}{}{%
-      {{hash=SD}{%
-         family={Sekulovski},
-         familyi={S\bibinitperiod},
-         given={Dragan},
-         giveni={D\bibinitperiod},
-      }}%
-      {{hash=VIM}{%
-         family={Vogels},
-         familyi={V\bibinitperiod},
-         given={Ingrid\bibnamedelima M.},
-         giveni={I\bibinitperiod\bibinitdelim M\bibinitperiod},
-      }}%
-      {{hash=BMV}{%
-         family={Beurden},
-         familyi={B\bibinitperiod},
-         given={Mark\bibnamedelima Van},
-         giveni={M\bibinitperiod\bibinitdelim V\bibinitperiod},
-      }}%
-      {{hash=CR}{%
-         family={Clout},
-         familyi={C\bibinitperiod},
-         given={Richard},
-         giveni={R\bibinitperiod},
-      }}%
-    }
-    \list{publisher}{2}{%
-      {Society for Imaging Science}%
-      {Technology}%
-    }
-    \strng{namehash}{SD+1}
-    \strng{fullhash}{SDVIMBMVCR1}
-    \field{labelnamesource}{author}
-    \field{labeltitlesource}{title}
-    \field{labelyear}{2007}
-    \field{labeldatesource}{}
-    \field{sortinit}{S}
-    \field{sortinithash}{S}
-    \field{booktitle}{Proceedings of the 15th Color and Imaging Conference}
-    \verb{doi}
-    \verb 10.2352/CIC.2007.15.1.art00021
-    \endverb
-    \field{note}{Philips Research; \textbf{Critical finding:} smoothness
-  threshold is approximately 10 times smaller for luminance than for chroma/hue
-  changes in CIELAB. Introduces \textit{Delta-E-ab per second} metric for
-  temporal color transitions.}
-    \field{pages}{112\bibrangedash 117}
-    \field{title}{Smoothness and Flicker Perception of Temporal Color
-  Transitions}
-    \list{location}{1}{%
-      {Albuquerque, NM}%
-    }
-    \field{year}{2007}
-  \endentry
-
-  \entry{stone2014}{article}{}{}
-    \name{author}{3}{}{%
-      {{hash=SMC}{%
-         family={Stone},
-         familyi={S\bibinitperiod},
-         given={Maureen\bibnamedelima C.},
-         giveni={M\bibinitperiod\bibinitdelim C\bibinitperiod},
-      }}%
-      {{hash=SDA}{%
-         family={Szafir},
-         familyi={S\bibinitperiod},
-         given={Danielle\bibnamedelima Albers},
-         giveni={D\bibinitperiod\bibinitdelim A\bibinitperiod},
-      }}%
-      {{hash=SV}{%
-         family={Setlur},
-         familyi={S\bibinitperiod},
-         given={Vidya},
-         giveni={V\bibinitperiod},
-      }}%
-    }
-    \strng{namehash}{SMCSDASV1}
-    \strng{fullhash}{SMCSDASV1}
-    \field{labelnamesource}{author}
-    \field{labeltitlesource}{title}
-    \field{labelyear}{2014}
-    \field{labeldatesource}{}
-    \field{sortinit}{S}
-    \field{sortinithash}{S}
-    \field{note}{Broader context on perceptual colour issues in digital tools}
-    \field{number}{1}
-    \field{pages}{228\bibrangedash 233}
-    \field{title}{An engineering model for color difference as a function of
-  size}
-    \field{volume}{2014}
-    \field{journaltitle}{Color and Imaging Conference}
-    \field{year}{2014}
-  \endentry
-
-  \entry{colorjs2025}{misc}{}{}
-    \name{author}{2}{}{%
-      {{hash=VL}{%
-         family={Verou},
-         familyi={V\bibinitperiod},
-         given={Lea},
-         giveni={L\bibinitperiod},
-      }}%
-      {{hash=LC}{%
-         family={Lilley},
-         familyi={L\bibinitperiod},
-         given={Chris},
-         giveni={C\bibinitperiod},
-      }}%
-    }
-    \strng{namehash}{VLLC1}
-    \strng{fullhash}{VLLC1}
-    \field{labelnamesource}{author}
-    \field{labeltitlesource}{title}
-    \field{labelyear}{2024}
-    \field{labeldatesource}{}
-    \field{sortinit}{V}
-    \field{sortinithash}{V}
-    \field{howpublished}{Online}
-    \field{note}{Reference implementation of CSS gamut mapping algorithm.
-  Accessed: 2025-12-17}
-    \field{title}{Color.js: Gamut Mapping Documentation}
-    \verb{url}
-    \verb https://colorjs.io/docs/gamut-mapping.html
-    \endverb
-    \field{year}{2024}
-  \endentry
-
-  \entry{csscolor4}{report}{}{}
-    \name{author}{1}{}{%
-      {{hash=W}{%
-         family={{W3C CSS Working Group}},
-         familyi={W\bibinitperiod},
-      }}%
-    }
-    \strng{namehash}{W1}
-    \strng{fullhash}{W1}
-    \field{labelnamesource}{author}
-    \field{labeltitlesource}{title}
-    \field{labelyear}{2022}
-    \field{labeldatesource}{}
-    \field{sortinit}{W}
-    \field{sortinithash}{W}
-    \field{note}{Accessed: 2025-12-17}
-    \field{title}{{CSS Color Module Level 4}}
-    \verb{url}
-    \verb https://www.w3.org/TR/css-color-4/
-    \endverb
-    \list{institution}{1}{%
-      {World Wide Web Consortium (W3C)}%
-    }
-    \field{type}{W3C Candidate Recommendation}
-    \field{year}{2022}
-  \endentry
-
-  \entry{wang2022}{article}{}{}
-    \name{author}{5}{}{%
-      {{hash=WC}{%
-         family={Wang},
-         familyi={W\bibinitperiod},
-         given={Chen},
-         giveni={C\bibinitperiod},
-      }}%
-      {{hash=ZSH}{%
-         family={Zhang},
-         familyi={Z\bibinitperiod},
-         given={Song-Hai},
-         giveni={S\bibinithyphendelim H\bibinitperiod},
-      }}%
-      {{hash=ZY}{%
-         family={Zhang},
-         familyi={Z\bibinitperiod},
-         given={Yizhuo},
-         giveni={Y\bibinitperiod},
-      }}%
-      {{hash=ZS}{%
-         family={Zollmann},
-         familyi={Z\bibinitperiod},
-         given={Stefanie},
-         giveni={S\bibinitperiod},
-      }}%
-      {{hash=HSM}{%
-         family={Hu},
-         familyi={H\bibinitperiod},
-         given={Shi-Min},
-         giveni={S\bibinithyphendelim M\bibinitperiod},
-      }}%
-    }
-    \strng{namehash}{WC+1}
-    \strng{fullhash}{WCZSHZYZSHSM1}
-    \field{labelnamesource}{author}
-    \field{labeltitlesource}{title}
-    \field{labelyear}{2022}
-    \field{labeldatesource}{}
-    \field{sortinit}{W}
-    \field{sortinithash}{W}
-    \verb{doi}
-    \verb 10.1109/TVCG.2022.3150489
-    \endverb
-    \field{note}{Psychometric methodology: 2AFC design, PSE framework,
-  detection thresholds.}
-    \field{number}{5}
-    \field{pages}{2199\bibrangedash 2209}
-    \field{title}{On rotation gains within and beyond perceptual limitations
-  for seated {VR}}
-    \field{volume}{28}
-    \field{journaltitle}{IEEE Transactions on Visualization and Computer
-  Graphics}
-    \field{year}{2022}
-  \endentry
-\enddatalist
+\refsection{0}
+  \datalist[entry]{nyt/global//global/global/global}
+    \entry{blackman2018}{article}{}{}
+      \name{author}{2}{}{%
+        {{un=0,uniquepart=base,hash=d8be2316c4a9e6bb6c7c43d6e8f1008b}{%
+           family={Blackman},
+           familyi={B\bibinitperiod},
+           given={David},
+           giveni={D\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=fb3b77ad742e7c12096b67272f1cf7e5}{%
+           family={Vigna},
+           familyi={V\bibinitperiod},
+           given={Sebastiano},
+           giveni={S\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{52ee14e9903b0fdbf7ec66f58a52af32}
+      \strng{fullhash}{52ee14e9903b0fdbf7ec66f58a52af32}
+      \strng{fullhashraw}{52ee14e9903b0fdbf7ec66f58a52af32}
+      \strng{bibnamehash}{52ee14e9903b0fdbf7ec66f58a52af32}
+      \strng{authorbibnamehash}{52ee14e9903b0fdbf7ec66f58a52af32}
+      \strng{authornamehash}{52ee14e9903b0fdbf7ec66f58a52af32}
+      \strng{authorfullhash}{52ee14e9903b0fdbf7ec66f58a52af32}
+      \strng{authorfullhashraw}{52ee14e9903b0fdbf7ec66f58a52af32}
+      \field{sortinit}{B}
+      \field{sortinithash}{d7095fff47cda75ca2589920aae98399}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{ACM Transactions on Mathematical Software}
+      \field{number}{4}
+      \field{title}{Scrambled linear pseudorandom number generators}
+      \field{volume}{47}
+      \field{year}{2021}
+      \field{pages}{1\bibrangedash 32}
+      \range{pages}{32}
+      \verb{doi}
+      \verb 10.1145/3460772
+      \endverb
+    \endentry
+    \entry{bloch2008}{book}{}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=577c9b87d02f133dc6423f84705048f8}{%
+           family={Bloch},
+           familyi={B\bibinitperiod},
+           given={Joshua},
+           giveni={J\bibinitperiod},
+           givenun=0}}%
+      }
+      \list{publisher}{1}{%
+        {Addison-Wesley}%
+      }
+      \strng{namehash}{577c9b87d02f133dc6423f84705048f8}
+      \strng{fullhash}{577c9b87d02f133dc6423f84705048f8}
+      \strng{fullhashraw}{577c9b87d02f133dc6423f84705048f8}
+      \strng{bibnamehash}{577c9b87d02f133dc6423f84705048f8}
+      \strng{authorbibnamehash}{577c9b87d02f133dc6423f84705048f8}
+      \strng{authornamehash}{577c9b87d02f133dc6423f84705048f8}
+      \strng{authorfullhash}{577c9b87d02f133dc6423f84705048f8}
+      \strng{authorfullhashraw}{577c9b87d02f133dc6423f84705048f8}
+      \field{sortinit}{B}
+      \field{sortinithash}{d7095fff47cda75ca2589920aae98399}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{edition}{2nd}
+      \field{isbn}{978-0-321-35668-0}
+      \field{title}{Effective Java}
+      \field{year}{2008}
+    \endentry
+    \entry{braun2017}{article}{}{}
+      \name{author}{3}{}{%
+        {{un=0,uniquepart=base,hash=c483cead06166a5ced1650f2d00565b9}{%
+           family={Braun},
+           familyi={B\bibinitperiod},
+           given={Doris\bibnamedelima I.},
+           giveni={D\bibinitperiod\bibinitdelim I\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=62c0d5a7ee2463807f4e85d839a897d1}{%
+           family={Schütz},
+           familyi={S\bibinitperiod},
+           given={Alexander\bibnamedelima C.},
+           giveni={A\bibinitperiod\bibinitdelim C\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=6193cbf51bbf48f59f72bd2a39ffdb1d}{%
+           family={Gegenfurtner},
+           familyi={G\bibinitperiod},
+           given={Karl\bibnamedelima R.},
+           giveni={K\bibinitperiod\bibinitdelim R\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{18733592ebcf36ca7858df76acf7283a}
+      \strng{fullhash}{18733592ebcf36ca7858df76acf7283a}
+      \strng{fullhashraw}{18733592ebcf36ca7858df76acf7283a}
+      \strng{bibnamehash}{18733592ebcf36ca7858df76acf7283a}
+      \strng{authorbibnamehash}{18733592ebcf36ca7858df76acf7283a}
+      \strng{authornamehash}{18733592ebcf36ca7858df76acf7283a}
+      \strng{authorfullhash}{18733592ebcf36ca7858df76acf7283a}
+      \strng{authorfullhashraw}{18733592ebcf36ca7858df76acf7283a}
+      \field{sortinit}{B}
+      \field{sortinithash}{d7095fff47cda75ca2589920aae98399}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Vision Research}
+      \field{title}{Visual sensitivity for luminance and chromatic stimuli during the execution of smooth pursuit and saccadic eye movements}
+      \field{volume}{136}
+      \field{year}{2017}
+      \field{pages}{57\bibrangedash 69}
+      \range{pages}{13}
+      \verb{doi}
+      \verb 10.1016/j.visres.2017.05.008
+      \endverb
+    \endentry
+    \entry{bujack2022}{article}{}{}
+      \name{author}{5}{}{%
+        {{un=0,uniquepart=base,hash=17fe03e4bd7862179b2845475c522aaa}{%
+           family={Bujack},
+           familyi={B\bibinitperiod},
+           given={Roxana},
+           giveni={R\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=7746b5de476f81bc98f7c0c2d0c1f836}{%
+           family={Teti},
+           familyi={T\bibinitperiod},
+           given={Emily},
+           giveni={E\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=ad85f0f3909dd570a2e5470777b090bb}{%
+           family={Miller},
+           familyi={M\bibinitperiod},
+           given={Jonah},
+           giveni={J\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=6c4997019336327a6cdd0b1795a26275}{%
+           family={Caffrey},
+           familyi={C\bibinitperiod},
+           given={Elektra},
+           giveni={E\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=809405ec8c7a9a767d67e98f646052c0}{%
+           family={Turton},
+           familyi={T\bibinitperiod},
+           given={Terece\bibnamedelima L.},
+           giveni={T\bibinitperiod\bibinitdelim L\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{073ad0f4df5e909b493e8c1742155ed4}
+      \strng{fullhash}{9706510961fbb5176d0a3be64d7249ca}
+      \strng{fullhashraw}{9706510961fbb5176d0a3be64d7249ca}
+      \strng{bibnamehash}{073ad0f4df5e909b493e8c1742155ed4}
+      \strng{authorbibnamehash}{073ad0f4df5e909b493e8c1742155ed4}
+      \strng{authornamehash}{073ad0f4df5e909b493e8c1742155ed4}
+      \strng{authorfullhash}{9706510961fbb5176d0a3be64d7249ca}
+      \strng{authorfullhashraw}{9706510961fbb5176d0a3be64d7249ca}
+      \field{sortinit}{B}
+      \field{sortinithash}{d7095fff47cda75ca2589920aae98399}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Proceedings of the National Academy of Sciences of the United States of America}
+      \field{number}{18}
+      \field{title}{The non-Riemannian nature of perceptual color space}
+      \field{volume}{119}
+      \field{year}{2022}
+      \field{pages}{e2119753119}
+      \range{pages}{-1}
+      \verb{doi}
+      \verb 10.1073/pnas.2119753119
+      \endverb
+      \verb{urlraw}
+      \verb https://pubmed.ncbi.nlm.nih.gov/35486695/
+      \endverb
+      \verb{url}
+      \verb https://pubmed.ncbi.nlm.nih.gov/35486695/
+      \endverb
+    \endentry
+    \entry{cie1976}{report}{}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=cc2c63d38b7c949739bf9af714add2c0}{%
+           family={{CIE}},
+           familyi={C\bibinitperiod}}}%
+      }
+      \list{institution}{1}{%
+        {Commission Internationale de l'Éclairage}%
+      }
+      \strng{namehash}{cc2c63d38b7c949739bf9af714add2c0}
+      \strng{fullhash}{cc2c63d38b7c949739bf9af714add2c0}
+      \strng{fullhashraw}{cc2c63d38b7c949739bf9af714add2c0}
+      \strng{bibnamehash}{cc2c63d38b7c949739bf9af714add2c0}
+      \strng{authorbibnamehash}{cc2c63d38b7c949739bf9af714add2c0}
+      \strng{authornamehash}{cc2c63d38b7c949739bf9af714add2c0}
+      \strng{authorfullhash}{cc2c63d38b7c949739bf9af714add2c0}
+      \strng{authorfullhashraw}{cc2c63d38b7c949739bf9af714add2c0}
+      \field{sortinit}{C}
+      \field{sortinithash}{4d103a86280481745c9c897c925753c0}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{number}{15}
+      \field{title}{Recommendations on Uniform Color Spaces, Color-Difference Equations, Psychometric Color Terms}
+      \field{type}{CIE Publication}
+      \field{year}{1976}
+    \endentry
+    \entry{cowan2001}{article}{}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=48e09c307747472c424dcc6ffd53405f}{%
+           family={Cowan},
+           familyi={C\bibinitperiod},
+           given={Nelson},
+           giveni={N\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{48e09c307747472c424dcc6ffd53405f}
+      \strng{fullhash}{48e09c307747472c424dcc6ffd53405f}
+      \strng{fullhashraw}{48e09c307747472c424dcc6ffd53405f}
+      \strng{bibnamehash}{48e09c307747472c424dcc6ffd53405f}
+      \strng{authorbibnamehash}{48e09c307747472c424dcc6ffd53405f}
+      \strng{authornamehash}{48e09c307747472c424dcc6ffd53405f}
+      \strng{authorfullhash}{48e09c307747472c424dcc6ffd53405f}
+      \strng{authorfullhashraw}{48e09c307747472c424dcc6ffd53405f}
+      \field{sortinit}{C}
+      \field{sortinithash}{4d103a86280481745c9c897c925753c0}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Behavioral and Brain Sciences}
+      \field{number}{1}
+      \field{title}{The magical number 4 in short-term memory: A reconsideration of mental storage capacity}
+      \field{volume}{24}
+      \field{year}{2001}
+      \field{pages}{87\bibrangedash 114}
+      \range{pages}{28}
+      \verb{doi}
+      \verb 10.1017/S0140525X01003922
+      \endverb
+    \endentry
+    \entry{fairchild2013}{book}{}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=0b7f674c99087c7aea1f73abac36b47f}{%
+           family={Fairchild},
+           familyi={F\bibinitperiod},
+           given={Mark\bibnamedelima D.},
+           giveni={M\bibinitperiod\bibinitdelim D\bibinitperiod},
+           givenun=0}}%
+      }
+      \list{publisher}{1}{%
+        {Wiley}%
+      }
+      \strng{namehash}{0b7f674c99087c7aea1f73abac36b47f}
+      \strng{fullhash}{0b7f674c99087c7aea1f73abac36b47f}
+      \strng{fullhashraw}{0b7f674c99087c7aea1f73abac36b47f}
+      \strng{bibnamehash}{0b7f674c99087c7aea1f73abac36b47f}
+      \strng{authorbibnamehash}{0b7f674c99087c7aea1f73abac36b47f}
+      \strng{authornamehash}{0b7f674c99087c7aea1f73abac36b47f}
+      \strng{authorfullhash}{0b7f674c99087c7aea1f73abac36b47f}
+      \strng{authorfullhashraw}{0b7f674c99087c7aea1f73abac36b47f}
+      \field{sortinit}{F}
+      \field{sortinithash}{2638baaa20439f1b5a8f80c6c08a13b4}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{edition}{3rd}
+      \field{isbn}{978-1-119-96703-3}
+      \field{title}{Color Appearance Models}
+      \field{year}{2013}
+    \endentry
+    \entry{farin2002}{book}{}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=56fa1c9ea58607d54edffd55ef286457}{%
+           family={Farin},
+           familyi={F\bibinitperiod},
+           given={Gerald},
+           giveni={G\bibinitperiod},
+           givenun=0}}%
+      }
+      \list{publisher}{1}{%
+        {Morgan Kaufmann}%
+      }
+      \strng{namehash}{56fa1c9ea58607d54edffd55ef286457}
+      \strng{fullhash}{56fa1c9ea58607d54edffd55ef286457}
+      \strng{fullhashraw}{56fa1c9ea58607d54edffd55ef286457}
+      \strng{bibnamehash}{56fa1c9ea58607d54edffd55ef286457}
+      \strng{authorbibnamehash}{56fa1c9ea58607d54edffd55ef286457}
+      \strng{authornamehash}{56fa1c9ea58607d54edffd55ef286457}
+      \strng{authorfullhash}{56fa1c9ea58607d54edffd55ef286457}
+      \strng{authorfullhashraw}{56fa1c9ea58607d54edffd55ef286457}
+      \field{sortinit}{F}
+      \field{sortinithash}{2638baaa20439f1b5a8f80c6c08a13b4}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{edition}{5th}
+      \field{isbn}{978-1-55860-737-8}
+      \field{title}{Curves and Surfaces for {CAGD}: A Practical Guide}
+      \field{year}{2002}
+    \endentry
+    \entry{gamma1994}{book}{}{}
+      \name{author}{4}{}{%
+        {{un=0,uniquepart=base,hash=abd927bf30d6566be0ac66a66e893fdd}{%
+           family={Gamma},
+           familyi={G\bibinitperiod},
+           given={Erich},
+           giveni={E\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=233f891813bda0f3920985f97a4a7554}{%
+           family={Helm},
+           familyi={H\bibinitperiod},
+           given={Richard},
+           giveni={R\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=fd79e5e249b219ff553fc2d811104d78}{%
+           family={Johnson},
+           familyi={J\bibinitperiod},
+           given={Ralph},
+           giveni={R\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=e032589f0b9a38804483ab7cf5ccad7f}{%
+           family={Vlissides},
+           familyi={V\bibinitperiod},
+           given={John},
+           giveni={J\bibinitperiod},
+           givenun=0}}%
+      }
+      \list{publisher}{1}{%
+        {Addison-Wesley}%
+      }
+      \strng{namehash}{4d2492409a24d4ed208ae6670cb91945}
+      \strng{fullhash}{5cb4a6d7baf30d11bae6682eca698b4f}
+      \strng{fullhashraw}{5cb4a6d7baf30d11bae6682eca698b4f}
+      \strng{bibnamehash}{4d2492409a24d4ed208ae6670cb91945}
+      \strng{authorbibnamehash}{4d2492409a24d4ed208ae6670cb91945}
+      \strng{authornamehash}{4d2492409a24d4ed208ae6670cb91945}
+      \strng{authorfullhash}{5cb4a6d7baf30d11bae6682eca698b4f}
+      \strng{authorfullhashraw}{5cb4a6d7baf30d11bae6682eca698b4f}
+      \field{sortinit}{G}
+      \field{sortinithash}{32d67eca0634bf53703493fb1090a2e8}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{isbn}{978-0-201-63361-0}
+      \field{title}{Design Patterns: Elements of Reusable Object-Oriented Software}
+      \field{year}{1994}
+    \endentry
+    \entry{hong2024}{article}{}{}
+      \name{author}{8}{}{%
+        {{un=0,uniquepart=base,hash=a398f7f82942964810c75bef93c879e5}{%
+           family={Hong},
+           familyi={H\bibinitperiod},
+           given={Fangfang},
+           giveni={F\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=42ac3c4d0fe2792f4fdaae357b3216ba}{%
+           family={Bouhassira},
+           familyi={B\bibinitperiod},
+           given={Ruby},
+           giveni={R\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=1b2d015ba993edb85dbce40ef0881a7e}{%
+           family={Chow},
+           familyi={C\bibinitperiod},
+           given={Jason},
+           giveni={J\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=b3ad10ac67b4a9b6ad3d252f7389eb80}{%
+           family={Sanders},
+           familyi={S\bibinitperiod},
+           given={Craig},
+           giveni={C\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=3c504b272eb4298b1a5ccf10760a5da4}{%
+           family={Shvartsman},
+           familyi={S\bibinitperiod},
+           given={Michael},
+           giveni={M\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=d90fb02330ab7b9401ce4413daeab2d9}{%
+           family={Guan},
+           familyi={G\bibinitperiod},
+           given={Phillip},
+           giveni={P\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=e00e0aeac982247569031d6b19ea6a8f}{%
+           family={Williams},
+           familyi={W\bibinitperiod},
+           given={Alex\bibnamedelima H.},
+           giveni={A\bibinitperiod\bibinitdelim H\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=61ef2e09a31993155b87dd6df2488ae0}{%
+           family={Brainard},
+           familyi={B\bibinitperiod},
+           given={David\bibnamedelima H.},
+           giveni={D\bibinitperiod\bibinitdelim H\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{95deff427b457700bb349f2d138a64ae}
+      \strng{fullhash}{fd151ac6c1b14134dcfd1db6e7ce028a}
+      \strng{fullhashraw}{fd151ac6c1b14134dcfd1db6e7ce028a}
+      \strng{bibnamehash}{95deff427b457700bb349f2d138a64ae}
+      \strng{authorbibnamehash}{95deff427b457700bb349f2d138a64ae}
+      \strng{authornamehash}{95deff427b457700bb349f2d138a64ae}
+      \strng{authorfullhash}{fd151ac6c1b14134dcfd1db6e7ce028a}
+      \strng{authorfullhashraw}{fd151ac6c1b14134dcfd1db6e7ce028a}
+      \field{sortinit}{H}
+      \field{sortinithash}{23a3aa7c24e56cfa16945d55545109b5}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{eLife}
+      \field{title}{Comprehensive characterization of human color discrimination thresholds}
+      \field{volume}{13}
+      \field{year}{2024}
+      \field{pages}{RP108943}
+      \range{pages}{-1}
+      \verb{doi}
+      \verb 10.7554/eLife.108943
+      \endverb
+      \verb{urlraw}
+      \verb https://elifesciences.org/reviewed-preprints/108943
+      \endverb
+      \verb{url}
+      \verb https://elifesciences.org/reviewed-preprints/108943
+      \endverb
+    \endentry
+    \entry{hunt2004}{book}{}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=5373c447bd2a81022e0d81b017a21894}{%
+           family={Hunt},
+           familyi={H\bibinitperiod},
+           given={R.\bibnamedelimi W.\bibnamedelimi G.},
+           giveni={R\bibinitperiod\bibinitdelim W\bibinitperiod\bibinitdelim G\bibinitperiod},
+           givenun=0}}%
+      }
+      \list{publisher}{1}{%
+        {Wiley}%
+      }
+      \strng{namehash}{5373c447bd2a81022e0d81b017a21894}
+      \strng{fullhash}{5373c447bd2a81022e0d81b017a21894}
+      \strng{fullhashraw}{5373c447bd2a81022e0d81b017a21894}
+      \strng{bibnamehash}{5373c447bd2a81022e0d81b017a21894}
+      \strng{authorbibnamehash}{5373c447bd2a81022e0d81b017a21894}
+      \strng{authornamehash}{5373c447bd2a81022e0d81b017a21894}
+      \strng{authorfullhash}{5373c447bd2a81022e0d81b017a21894}
+      \strng{authorfullhashraw}{5373c447bd2a81022e0d81b017a21894}
+      \field{sortinit}{H}
+      \field{sortinithash}{23a3aa7c24e56cfa16945d55545109b5}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{edition}{6th}
+      \field{isbn}{978-0-470-02425-6}
+      \field{title}{The Reproduction of Colour}
+      \field{year}{2004}
+    \endentry
+    \entry{itten1961}{book}{}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=4e6b83571429607a3f03215378b9ed42}{%
+           family={Itten},
+           familyi={I\bibinitperiod},
+           given={Johannes},
+           giveni={J\bibinitperiod},
+           givenun=0}}%
+      }
+      \list{publisher}{1}{%
+        {Reinhold Publishing}%
+      }
+      \strng{namehash}{4e6b83571429607a3f03215378b9ed42}
+      \strng{fullhash}{4e6b83571429607a3f03215378b9ed42}
+      \strng{fullhashraw}{4e6b83571429607a3f03215378b9ed42}
+      \strng{bibnamehash}{4e6b83571429607a3f03215378b9ed42}
+      \strng{authorbibnamehash}{4e6b83571429607a3f03215378b9ed42}
+      \strng{authornamehash}{4e6b83571429607a3f03215378b9ed42}
+      \strng{authorfullhash}{4e6b83571429607a3f03215378b9ed42}
+      \strng{authorfullhashraw}{4e6b83571429607a3f03215378b9ed42}
+      \field{sortinit}{I}
+      \field{sortinithash}{8d291c51ee89b6cd86bf5379f0b151d8}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{The Art of Color: The Subjective Experience and Objective Rationale of Color}
+      \field{year}{1961}
+    \endentry
+    \entry{judd1940}{article}{}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=3f68e48c692606586b6a0e6bdba33923}{%
+           family={Judd},
+           familyi={J\bibinitperiod},
+           given={Deane\bibnamedelima B.},
+           giveni={D\bibinitperiod\bibinitdelim B\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{3f68e48c692606586b6a0e6bdba33923}
+      \strng{fullhash}{3f68e48c692606586b6a0e6bdba33923}
+      \strng{fullhashraw}{3f68e48c692606586b6a0e6bdba33923}
+      \strng{bibnamehash}{3f68e48c692606586b6a0e6bdba33923}
+      \strng{authorbibnamehash}{3f68e48c692606586b6a0e6bdba33923}
+      \strng{authornamehash}{3f68e48c692606586b6a0e6bdba33923}
+      \strng{authorfullhash}{3f68e48c692606586b6a0e6bdba33923}
+      \strng{authorfullhashraw}{3f68e48c692606586b6a0e6bdba33923}
+      \field{sortinit}{J}
+      \field{sortinithash}{b2f54a9081ace9966a7cb9413811edb4}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Journal of the Optical Society of America}
+      \field{number}{1}
+      \field{title}{Hue saturation and lightness of surface colors with chromatic illumination}
+      \field{volume}{30}
+      \field{year}{1940}
+      \field{pages}{2\bibrangedash 32}
+      \range{pages}{31}
+      \verb{doi}
+      \verb 10.1364/JOSA.30.000002
+      \endverb
+    \endentry
+    \entry{kamermans2023}{misc}{}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=6a22e36b6f88db90f58788e0cf77b205}{%
+           family={Kamermans},
+           familyi={K\bibinitperiod},
+           given={Mike},
+           giveni={M\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{6a22e36b6f88db90f58788e0cf77b205}
+      \strng{fullhash}{6a22e36b6f88db90f58788e0cf77b205}
+      \strng{fullhashraw}{6a22e36b6f88db90f58788e0cf77b205}
+      \strng{bibnamehash}{6a22e36b6f88db90f58788e0cf77b205}
+      \strng{authorbibnamehash}{6a22e36b6f88db90f58788e0cf77b205}
+      \strng{authornamehash}{6a22e36b6f88db90f58788e0cf77b205}
+      \strng{authorfullhash}{6a22e36b6f88db90f58788e0cf77b205}
+      \strng{authorfullhashraw}{6a22e36b6f88db90f58788e0cf77b205}
+      \field{sortinit}{K}
+      \field{sortinithash}{c02bf6bff1c488450c352b40f5d853ab}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{Online}
+      \field{note}{Accessed: 2025-12-17}
+      \field{title}{A Primer on {B}ézier Curves}
+      \field{year}{2023}
+      \verb{urlraw}
+      \verb https://pomax.github.io/bezierinfo/
+      \endverb
+      \verb{url}
+      \verb https://pomax.github.io/bezierinfo/
+      \endverb
+    \endentry
+    \entry{knuth1997}{book}{}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=ec08e6f01da5f3814f28a70c89c64656}{%
+           family={Knuth},
+           familyi={K\bibinitperiod},
+           given={Donald\bibnamedelima E.},
+           giveni={D\bibinitperiod\bibinitdelim E\bibinitperiod},
+           givenun=0}}%
+      }
+      \list{publisher}{1}{%
+        {Addison-Wesley}%
+      }
+      \strng{namehash}{ec08e6f01da5f3814f28a70c89c64656}
+      \strng{fullhash}{ec08e6f01da5f3814f28a70c89c64656}
+      \strng{fullhashraw}{ec08e6f01da5f3814f28a70c89c64656}
+      \strng{bibnamehash}{ec08e6f01da5f3814f28a70c89c64656}
+      \strng{authorbibnamehash}{ec08e6f01da5f3814f28a70c89c64656}
+      \strng{authornamehash}{ec08e6f01da5f3814f28a70c89c64656}
+      \strng{authorfullhash}{ec08e6f01da5f3814f28a70c89c64656}
+      \strng{authorfullhashraw}{ec08e6f01da5f3814f28a70c89c64656}
+      \field{sortinit}{K}
+      \field{sortinithash}{c02bf6bff1c488450c352b40f5d853ab}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{edition}{3rd}
+      \field{isbn}{978-0-201-89684-8}
+      \field{title}{The Art of Computer Programming, Volume 2: Seminumerical Algorithms}
+      \field{year}{1997}
+    \endentry
+    \entry{kong2021}{thesis}{}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=02cf3cf8a268aeaa9e2f3bbede26289f}{%
+           family={Kong},
+           familyi={K\bibinitperiod},
+           given={Xieyuan},
+           giveni={X\bibinitperiod},
+           givenun=0}}%
+      }
+      \list{institution}{1}{%
+        {Eindhoven University of Technology}%
+      }
+      \list{location}{1}{%
+        {Eindhoven, Netherlands}%
+      }
+      \strng{namehash}{02cf3cf8a268aeaa9e2f3bbede26289f}
+      \strng{fullhash}{02cf3cf8a268aeaa9e2f3bbede26289f}
+      \strng{fullhashraw}{02cf3cf8a268aeaa9e2f3bbede26289f}
+      \strng{bibnamehash}{02cf3cf8a268aeaa9e2f3bbede26289f}
+      \strng{authorbibnamehash}{02cf3cf8a268aeaa9e2f3bbede26289f}
+      \strng{authornamehash}{02cf3cf8a268aeaa9e2f3bbede26289f}
+      \strng{authorfullhash}{02cf3cf8a268aeaa9e2f3bbede26289f}
+      \strng{authorfullhashraw}{02cf3cf8a268aeaa9e2f3bbede26289f}
+      \field{sortinit}{K}
+      \field{sortinithash}{c02bf6bff1c488450c352b40f5d853ab}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Modeling the temporal behavior of human color vision}
+      \field{type}{phdthesis}
+      \field{year}{2021}
+      \verb{doi}
+      \verb 10.6100/IR591533
+      \endverb
+    \endentry
+    \entry{levien2018arclength}{misc}{}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=39a9d5c853f725b294caf1d3ab18cab4}{%
+           family={Levien},
+           familyi={L\bibinitperiod},
+           given={Raph},
+           giveni={R\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{39a9d5c853f725b294caf1d3ab18cab4}
+      \strng{fullhash}{39a9d5c853f725b294caf1d3ab18cab4}
+      \strng{fullhashraw}{39a9d5c853f725b294caf1d3ab18cab4}
+      \strng{bibnamehash}{39a9d5c853f725b294caf1d3ab18cab4}
+      \strng{authorbibnamehash}{39a9d5c853f725b294caf1d3ab18cab4}
+      \strng{authornamehash}{39a9d5c853f725b294caf1d3ab18cab4}
+      \strng{authorfullhash}{39a9d5c853f725b294caf1d3ab18cab4}
+      \strng{authorfullhashraw}{39a9d5c853f725b294caf1d3ab18cab4}
+      \field{extraname}{1}
+      \field{sortinit}{L}
+      \field{sortinithash}{7c47d417cecb1f4bd38d1825c427a61a}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{Online}
+      \field{note}{Accessed: 2025-12-17}
+      \field{title}{How long is that {B}ézier?}
+      \field{year}{2018}
+      \verb{urlraw}
+      \verb https://raphlinus.github.io/curves/2018/12/28/bezier-arclength.html
+      \endverb
+      \verb{url}
+      \verb https://raphlinus.github.io/curves/2018/12/28/bezier-arclength.html
+      \endverb
+    \endentry
+    \entry{levien2021oklab}{misc}{}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=39a9d5c853f725b294caf1d3ab18cab4}{%
+           family={Levien},
+           familyi={L\bibinitperiod},
+           given={Raph},
+           giveni={R\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{39a9d5c853f725b294caf1d3ab18cab4}
+      \strng{fullhash}{39a9d5c853f725b294caf1d3ab18cab4}
+      \strng{fullhashraw}{39a9d5c853f725b294caf1d3ab18cab4}
+      \strng{bibnamehash}{39a9d5c853f725b294caf1d3ab18cab4}
+      \strng{authorbibnamehash}{39a9d5c853f725b294caf1d3ab18cab4}
+      \strng{authornamehash}{39a9d5c853f725b294caf1d3ab18cab4}
+      \strng{authorfullhash}{39a9d5c853f725b294caf1d3ab18cab4}
+      \strng{authorfullhashraw}{39a9d5c853f725b294caf1d3ab18cab4}
+      \field{extraname}{2}
+      \field{sortinit}{L}
+      \field{sortinithash}{7c47d417cecb1f4bd38d1825c427a61a}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{Online}
+      \field{note}{Accessed: 2025-12-17}
+      \field{title}{An interactive review of {O}klab}
+      \field{year}{2021}
+      \verb{urlraw}
+      \verb https://raphlinus.github.io/color/2021/01/18/oklab-critique.html
+      \endverb
+      \verb{url}
+      \verb https://raphlinus.github.io/color/2021/01/18/oklab-critique.html
+      \endverb
+    \endentry
+    \entry{liu2013palette}{inproceedings}{}{}
+      \name{author}{4}{}{%
+        {{un=0,uniquepart=base,hash=390ad7d1a324a693922090e7c43994e6}{%
+           family={Liu},
+           familyi={L\bibinitperiod},
+           given={Yuzhen},
+           giveni={Y\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=cdf44d78713bc27a81394749a9d8bbdc}{%
+           family={Cohen-Or},
+           familyi={C\bibinithyphendelim O\bibinitperiod},
+           given={Daniel},
+           giveni={D\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=b165e4f6b8dc08ce48f08c32433c2aaa}{%
+           family={Sorkine},
+           familyi={S\bibinitperiod},
+           given={Olga},
+           giveni={O\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=c9591db26144968e827e8486e86ccc4a}{%
+           family={Gingold},
+           familyi={G\bibinitperiod},
+           given={Yaron},
+           giveni={Y\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{1f255ac8ea5e32ae5d7d416873713cf2}
+      \strng{fullhash}{ccd40d053a29ef3067653992989c354f}
+      \strng{fullhashraw}{ccd40d053a29ef3067653992989c354f}
+      \strng{bibnamehash}{1f255ac8ea5e32ae5d7d416873713cf2}
+      \strng{authorbibnamehash}{1f255ac8ea5e32ae5d7d416873713cf2}
+      \strng{authornamehash}{1f255ac8ea5e32ae5d7d416873713cf2}
+      \strng{authorfullhash}{ccd40d053a29ef3067653992989c354f}
+      \strng{authorfullhashraw}{ccd40d053a29ef3067653992989c354f}
+      \field{sortinit}{L}
+      \field{sortinithash}{7c47d417cecb1f4bd38d1825c427a61a}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{IEEE Transactions on Visualization and Computer Graphics}
+      \field{number}{6}
+      \field{title}{Image-driven harmonious color palette generation}
+      \field{volume}{19}
+      \field{year}{2013}
+      \field{pages}{978\bibrangedash 989}
+      \range{pages}{12}
+      \verb{doi}
+      \verb 10.1109/TVCG.2012.155
+      \endverb
+    \endentry
+    \entry{luo2001}{article}{}{}
+      \name{author}{3}{}{%
+        {{un=0,uniquepart=base,hash=4dbedae0e97b97bc7126c9d006bad2e9}{%
+           family={Luo},
+           familyi={L\bibinitperiod},
+           given={Ming\bibnamedelima Ronnier},
+           giveni={M\bibinitperiod\bibinitdelim R\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=1046998588d2243cde8aa9e1b7055709}{%
+           family={Cui},
+           familyi={C\bibinitperiod},
+           given={Guihua},
+           giveni={G\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=68eba21b94156edc3822186fd152312a}{%
+           family={Rigg},
+           familyi={R\bibinitperiod},
+           given={Bryan},
+           giveni={B\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{54792dbba2d39788c7e2eee393599381}
+      \strng{fullhash}{54792dbba2d39788c7e2eee393599381}
+      \strng{fullhashraw}{54792dbba2d39788c7e2eee393599381}
+      \strng{bibnamehash}{54792dbba2d39788c7e2eee393599381}
+      \strng{authorbibnamehash}{54792dbba2d39788c7e2eee393599381}
+      \strng{authornamehash}{54792dbba2d39788c7e2eee393599381}
+      \strng{authorfullhash}{54792dbba2d39788c7e2eee393599381}
+      \strng{authorfullhashraw}{54792dbba2d39788c7e2eee393599381}
+      \field{sortinit}{L}
+      \field{sortinithash}{7c47d417cecb1f4bd38d1825c427a61a}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Color Research \& Application}
+      \field{number}{5}
+      \field{title}{The development of the {CIE} 2000 colour-difference formula: {CIEDE2000}}
+      \field{volume}{26}
+      \field{year}{2001}
+      \field{pages}{340\bibrangedash 350}
+      \range{pages}{11}
+      \verb{doi}
+      \verb 10.1002/col.1049
+      \endverb
+    \endentry
+    \entry{programmingdesignsystems2017}{misc}{}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=36d75749a18acaea6ea2dfd148d35fa6}{%
+           family={Madsen},
+           familyi={M\bibinitperiod},
+           given={Rune},
+           giveni={R\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{36d75749a18acaea6ea2dfd148d35fa6}
+      \strng{fullhash}{36d75749a18acaea6ea2dfd148d35fa6}
+      \strng{fullhashraw}{36d75749a18acaea6ea2dfd148d35fa6}
+      \strng{bibnamehash}{36d75749a18acaea6ea2dfd148d35fa6}
+      \strng{authorbibnamehash}{36d75749a18acaea6ea2dfd148d35fa6}
+      \strng{authornamehash}{36d75749a18acaea6ea2dfd148d35fa6}
+      \strng{authorfullhash}{36d75749a18acaea6ea2dfd148d35fa6}
+      \strng{authorfullhashraw}{36d75749a18acaea6ea2dfd148d35fa6}
+      \field{sortinit}{M}
+      \field{sortinithash}{4625c616857f13d17ce56f7d4f97d451}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{Online}
+      \field{note}{Accessed: 2025-12-17}
+      \field{title}{Programming Design Systems: Perceptually Uniform Color Spaces}
+      \field{year}{2017}
+      \verb{urlraw}
+      \verb https://programmingdesignsystems.com/color/perceptually-uniform-color-spaces/
+      \endverb
+      \verb{url}
+      \verb https://programmingdesignsystems.com/color/perceptually-uniform-color-spaces/
+      \endverb
+    \endentry
+    \entry{mahy1994}{article}{}{}
+      \name{author}{3}{}{%
+        {{un=0,uniquepart=base,hash=8618304e9a1ed10f5c44074b8f592729}{%
+           family={Mahy},
+           familyi={M\bibinitperiod},
+           given={Marc},
+           giveni={M\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=5868f82298c698db6e7249c1b16b1d6c}{%
+           family={Van\bibnamedelima Eycken},
+           familyi={V\bibinitperiod\bibinitdelim E\bibinitperiod},
+           given={Luc},
+           giveni={L\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=4b5589bab610ad1e68e802b014a536fa}{%
+           family={Oosterlinck},
+           familyi={O\bibinitperiod},
+           given={André},
+           giveni={A\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{e1208f0f9b38687a9451935bc2145609}
+      \strng{fullhash}{e1208f0f9b38687a9451935bc2145609}
+      \strng{fullhashraw}{e1208f0f9b38687a9451935bc2145609}
+      \strng{bibnamehash}{e1208f0f9b38687a9451935bc2145609}
+      \strng{authorbibnamehash}{e1208f0f9b38687a9451935bc2145609}
+      \strng{authornamehash}{e1208f0f9b38687a9451935bc2145609}
+      \strng{authorfullhash}{e1208f0f9b38687a9451935bc2145609}
+      \strng{authorfullhashraw}{e1208f0f9b38687a9451935bc2145609}
+      \field{sortinit}{M}
+      \field{sortinithash}{4625c616857f13d17ce56f7d4f97d451}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Color Research \& Application}
+      \field{number}{2}
+      \field{title}{Evaluation of uniform color spaces developed after the adoption of {CIELAB} and {CIELUV}}
+      \field{volume}{19}
+      \field{year}{1994}
+      \field{pages}{105\bibrangedash 121}
+      \range{pages}{17}
+      \verb{doi}
+      \verb 10.1002/col.5080190207
+      \endverb
+    \endentry
+    \entry{moosbauer2025}{article}{}{}
+      \name{author}{2}{}{%
+        {{un=0,uniquepart=base,hash=82f02493696a0f0319516e7a71a0a2f1}{%
+           family={Moosbauer},
+           familyi={M\bibinitperiod},
+           given={Jakob},
+           giveni={J\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=4b00aa7ef72c644fdc2dddc5909fa3c9}{%
+           family={Poole},
+           familyi={P\bibinitperiod},
+           given={Michael\bibnamedelima J.},
+           giveni={M\bibinitperiod\bibinitdelim J\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{e1db6b1dd1bc1e28348c55c4a7bafcee}
+      \strng{fullhash}{e1db6b1dd1bc1e28348c55c4a7bafcee}
+      \strng{fullhashraw}{e1db6b1dd1bc1e28348c55c4a7bafcee}
+      \strng{bibnamehash}{e1db6b1dd1bc1e28348c55c4a7bafcee}
+      \strng{authorbibnamehash}{e1db6b1dd1bc1e28348c55c4a7bafcee}
+      \strng{authornamehash}{e1db6b1dd1bc1e28348c55c4a7bafcee}
+      \strng{authorfullhash}{e1db6b1dd1bc1e28348c55c4a7bafcee}
+      \strng{authorfullhashraw}{e1db6b1dd1bc1e28348c55c4a7bafcee}
+      \field{sortinit}{M}
+      \field{sortinithash}{4625c616857f13d17ce56f7d4f97d451}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{arXiv preprint arXiv:2502.04514}
+      \field{title}{Flip Graphs with Symmetry and New Matrix Multiplication Schemes}
+      \field{year}{2025}
+    \endentry
+    \entry{morovic2008}{book}{}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=24a357fe602de1f552bd0cf54bb71dca}{%
+           family={Morovič},
+           familyi={M\bibinitperiod},
+           given={Ján},
+           giveni={J\bibinitperiod},
+           givenun=0}}%
+      }
+      \list{publisher}{1}{%
+        {Wiley}%
+      }
+      \strng{namehash}{24a357fe602de1f552bd0cf54bb71dca}
+      \strng{fullhash}{24a357fe602de1f552bd0cf54bb71dca}
+      \strng{fullhashraw}{24a357fe602de1f552bd0cf54bb71dca}
+      \strng{bibnamehash}{24a357fe602de1f552bd0cf54bb71dca}
+      \strng{authorbibnamehash}{24a357fe602de1f552bd0cf54bb71dca}
+      \strng{authornamehash}{24a357fe602de1f552bd0cf54bb71dca}
+      \strng{authorfullhash}{24a357fe602de1f552bd0cf54bb71dca}
+      \strng{authorfullhashraw}{24a357fe602de1f552bd0cf54bb71dca}
+      \field{sortinit}{M}
+      \field{sortinithash}{4625c616857f13d17ce56f7d4f97d451}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{isbn}{978-0-470-03032-5}
+      \field{title}{Color Gamut Mapping}
+      \field{year}{2008}
+    \endentry
+    \entry{nolle2012}{inproceedings}{}{}
+      \name{author}{3}{}{%
+        {{un=0,uniquepart=base,hash=cef1bf0151be4e88b0cb7bd875f57a98}{%
+           family={Nölle},
+           familyi={N\bibinitperiod},
+           given={Michael},
+           giveni={M\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=9d174cbf45d8dee7742a94554ef5b689}{%
+           family={Suda},
+           familyi={S\bibinitperiod},
+           given={Martin},
+           giveni={M\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=5015af6c06b9e95a8c5b0e3de8caa7f7}{%
+           family={Boxleitner},
+           familyi={B\bibinitperiod},
+           given={Winfried},
+           giveni={W\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{21115fc96fac28dd6aaba249105fe798}
+      \strng{fullhash}{21115fc96fac28dd6aaba249105fe798}
+      \strng{fullhashraw}{21115fc96fac28dd6aaba249105fe798}
+      \strng{bibnamehash}{21115fc96fac28dd6aaba249105fe798}
+      \strng{authorbibnamehash}{21115fc96fac28dd6aaba249105fe798}
+      \strng{authornamehash}{21115fc96fac28dd6aaba249105fe798}
+      \strng{authorfullhash}{21115fc96fac28dd6aaba249105fe798}
+      \strng{authorfullhashraw}{21115fc96fac28dd6aaba249105fe798}
+      \field{sortinit}{N}
+      \field{sortinithash}{22369a73d5f88983a108b63f07f37084}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{DSP 2013}
+      \field{isbn}{978-1-4673-5807-1}
+      \field{title}{H2SI - A New Perceptual Colour Space}
+      \field{year}{2013}
+      \verb{urlraw}
+      \verb https://publications.ait.ac.at/en/publications/h2si-a-new-perceptual-colour-space-10/
+      \endverb
+      \verb{url}
+      \verb https://publications.ait.ac.at/en/publications/h2si-a-new-perceptual-colour-space-10/
+      \endverb
+    \endentry
+    \entry{ottosson2020}{misc}{}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=9d2c33bd9dc86dcbb8ed09c04d3a0559}{%
+           family={Ottosson},
+           familyi={O\bibinitperiod},
+           given={Björn},
+           giveni={B\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{9d2c33bd9dc86dcbb8ed09c04d3a0559}
+      \strng{fullhash}{9d2c33bd9dc86dcbb8ed09c04d3a0559}
+      \strng{fullhashraw}{9d2c33bd9dc86dcbb8ed09c04d3a0559}
+      \strng{bibnamehash}{9d2c33bd9dc86dcbb8ed09c04d3a0559}
+      \strng{authorbibnamehash}{9d2c33bd9dc86dcbb8ed09c04d3a0559}
+      \strng{authornamehash}{9d2c33bd9dc86dcbb8ed09c04d3a0559}
+      \strng{authorfullhash}{9d2c33bd9dc86dcbb8ed09c04d3a0559}
+      \strng{authorfullhashraw}{9d2c33bd9dc86dcbb8ed09c04d3a0559}
+      \field{sortinit}{O}
+      \field{sortinithash}{2cd7140a07aea5341f9e2771efe90aae}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{Online}
+      \field{note}{Accessed: 2025-12-17}
+      \field{title}{A perceptual color space for image processing}
+      \field{year}{2020}
+      \verb{urlraw}
+      \verb https://bottosson.github.io/posts/oklab/
+      \endverb
+      \verb{url}
+      \verb https://bottosson.github.io/posts/oklab/
+      \endverb
+    \endentry
+    \entry{piegl1997}{book}{}{}
+      \name{author}{2}{}{%
+        {{un=0,uniquepart=base,hash=3eaf67b9798d8cccc04b5a4802005b5b}{%
+           family={Piegl},
+           familyi={P\bibinitperiod},
+           given={Les},
+           giveni={L\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=e0d912e18543fb8f2e878705ffa608f5}{%
+           family={Tiller},
+           familyi={T\bibinitperiod},
+           given={Wayne},
+           giveni={W\bibinitperiod},
+           givenun=0}}%
+      }
+      \list{publisher}{1}{%
+        {Springer}%
+      }
+      \strng{namehash}{01e7e051514a3b20ca461c88cc1c1352}
+      \strng{fullhash}{01e7e051514a3b20ca461c88cc1c1352}
+      \strng{fullhashraw}{01e7e051514a3b20ca461c88cc1c1352}
+      \strng{bibnamehash}{01e7e051514a3b20ca461c88cc1c1352}
+      \strng{authorbibnamehash}{01e7e051514a3b20ca461c88cc1c1352}
+      \strng{authornamehash}{01e7e051514a3b20ca461c88cc1c1352}
+      \strng{authorfullhash}{01e7e051514a3b20ca461c88cc1c1352}
+      \strng{authorfullhashraw}{01e7e051514a3b20ca461c88cc1c1352}
+      \field{sortinit}{P}
+      \field{sortinithash}{ff3bcf24f47321b42cb156c2cc8a8422}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{edition}{2nd}
+      \field{isbn}{978-3-540-61545-3}
+      \field{title}{The {NURBS} Book}
+      \field{year}{1997}
+    \endentry
+    \entry{poynton2012}{book}{}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=4923a9a8649227ca7e33d63718733e1b}{%
+           family={Poynton},
+           familyi={P\bibinitperiod},
+           given={Charles},
+           giveni={C\bibinitperiod},
+           givenun=0}}%
+      }
+      \list{publisher}{1}{%
+        {Morgan Kaufmann}%
+      }
+      \strng{namehash}{4923a9a8649227ca7e33d63718733e1b}
+      \strng{fullhash}{4923a9a8649227ca7e33d63718733e1b}
+      \strng{fullhashraw}{4923a9a8649227ca7e33d63718733e1b}
+      \strng{bibnamehash}{4923a9a8649227ca7e33d63718733e1b}
+      \strng{authorbibnamehash}{4923a9a8649227ca7e33d63718733e1b}
+      \strng{authornamehash}{4923a9a8649227ca7e33d63718733e1b}
+      \strng{authorfullhash}{4923a9a8649227ca7e33d63718733e1b}
+      \strng{authorfullhashraw}{4923a9a8649227ca7e33d63718733e1b}
+      \field{sortinit}{P}
+      \field{sortinithash}{ff3bcf24f47321b42cb156c2cc8a8422}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{edition}{2nd}
+      \field{isbn}{978-0-12-391926-7}
+      \field{title}{Digital Video and {HD}: Algorithms and Interfaces}
+      \field{year}{2012}
+    \endentry
+    \entry{roberti2023}{article}{}{}
+      \name{author}{2}{}{%
+        {{un=0,uniquepart=base,hash=6036a919a79307555a5dd8fe118394bf}{%
+           family={Roberti},
+           familyi={R\bibinitperiod},
+           given={Valentina},
+           giveni={V\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=01d50665f4f4c215056ca0dd9a240de0}{%
+           family={Peruzzi},
+           familyi={P\bibinitperiod},
+           given={Giulio},
+           giveni={G\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{9d082ec08796509564e42088423cfa0e}
+      \strng{fullhash}{9d082ec08796509564e42088423cfa0e}
+      \strng{fullhashraw}{9d082ec08796509564e42088423cfa0e}
+      \strng{bibnamehash}{9d082ec08796509564e42088423cfa0e}
+      \strng{authorbibnamehash}{9d082ec08796509564e42088423cfa0e}
+      \strng{authornamehash}{9d082ec08796509564e42088423cfa0e}
+      \strng{authorfullhash}{9d082ec08796509564e42088423cfa0e}
+      \strng{authorfullhashraw}{9d082ec08796509564e42088423cfa0e}
+      \field{sortinit}{R}
+      \field{sortinithash}{5e1c39a9d46ffb6bebd8f801023a9486}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Archive for History of Exact Sciences}
+      \field{title}{The {H}elmholtz legacy in color metrics: {S}chrödinger's color theory}
+      \field{volume}{77}
+      \field{year}{2023}
+      \field{pages}{305\bibrangedash 335}
+      \range{pages}{31}
+      \verb{doi}
+      \verb 10.1007/s00407-023-00317-x
+      \endverb
+    \endentry
+    \entry{safdar2017}{article}{}{}
+      \name{author}{4}{}{%
+        {{un=0,uniquepart=base,hash=d592be8b505bdc1b3565803bc9d58167}{%
+           family={Safdar},
+           familyi={S\bibinitperiod},
+           given={Muhammad},
+           giveni={M\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=1046998588d2243cde8aa9e1b7055709}{%
+           family={Cui},
+           familyi={C\bibinitperiod},
+           given={Guihua},
+           giveni={G\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=0fa96908a5bcb34485303bc724759233}{%
+           family={Kim},
+           familyi={K\bibinitperiod},
+           given={Youn\bibnamedelima Jin},
+           giveni={Y\bibinitperiod\bibinitdelim J\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=4dbedae0e97b97bc7126c9d006bad2e9}{%
+           family={Luo},
+           familyi={L\bibinitperiod},
+           given={Ming\bibnamedelima Ronnier},
+           giveni={M\bibinitperiod\bibinitdelim R\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{1fd052f2a7f9c54e789e2e3655a07fe1}
+      \strng{fullhash}{baf96b2a18904d0cca042845861bbe98}
+      \strng{fullhashraw}{baf96b2a18904d0cca042845861bbe98}
+      \strng{bibnamehash}{1fd052f2a7f9c54e789e2e3655a07fe1}
+      \strng{authorbibnamehash}{1fd052f2a7f9c54e789e2e3655a07fe1}
+      \strng{authornamehash}{1fd052f2a7f9c54e789e2e3655a07fe1}
+      \strng{authorfullhash}{baf96b2a18904d0cca042845861bbe98}
+      \strng{authorfullhashraw}{baf96b2a18904d0cca042845861bbe98}
+      \field{sortinit}{S}
+      \field{sortinithash}{b164b07b29984b41daf1e85279fbc5ab}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Optics Express}
+      \field{number}{13}
+      \field{title}{Perceptually uniform color space for image signals including high dynamic range and wide gamut}
+      \field{volume}{25}
+      \field{year}{2017}
+      \field{pages}{15131\bibrangedash 15151}
+      \range{pages}{21}
+      \verb{doi}
+      \verb 10.1364/OE.25.015131
+      \endverb
+    \endentry
+    \entry{sekulovski2007}{inproceedings}{}{}
+      \name{author}{4}{}{%
+        {{un=0,uniquepart=base,hash=453360e018e74e9f8531f8f8adebb479}{%
+           family={Sekulovski},
+           familyi={S\bibinitperiod},
+           given={Dragan},
+           giveni={D\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=9900996aed12f59cbd9ea3d487759110}{%
+           family={Vogels},
+           familyi={V\bibinitperiod},
+           given={Ingrid\bibnamedelima M.},
+           giveni={I\bibinitperiod\bibinitdelim M\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=579d8ac972011c71adba7054f4f30049}{%
+           family={Beurden},
+           familyi={B\bibinitperiod},
+           given={Mark\bibnamedelima Van},
+           giveni={M\bibinitperiod\bibinitdelim V\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=7c5bca035fb9cb76909d86a0ea7a610f}{%
+           family={Clout},
+           familyi={C\bibinitperiod},
+           given={Richard},
+           giveni={R\bibinitperiod},
+           givenun=0}}%
+      }
+      \list{location}{1}{%
+        {Albuquerque, NM}%
+      }
+      \list{publisher}{2}{%
+        {Society for Imaging Science}%
+        {Technology}%
+      }
+      \strng{namehash}{c369cb3a0111b15ec071773d4a91b9e3}
+      \strng{fullhash}{897dfc83d03302d312bbd6e7b5f876d1}
+      \strng{fullhashraw}{897dfc83d03302d312bbd6e7b5f876d1}
+      \strng{bibnamehash}{c369cb3a0111b15ec071773d4a91b9e3}
+      \strng{authorbibnamehash}{c369cb3a0111b15ec071773d4a91b9e3}
+      \strng{authornamehash}{c369cb3a0111b15ec071773d4a91b9e3}
+      \strng{authorfullhash}{897dfc83d03302d312bbd6e7b5f876d1}
+      \strng{authorfullhashraw}{897dfc83d03302d312bbd6e7b5f876d1}
+      \field{sortinit}{S}
+      \field{sortinithash}{b164b07b29984b41daf1e85279fbc5ab}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Proceedings of the 15th Color and Imaging Conference}
+      \field{title}{Smoothness and Flicker Perception of Temporal Color Transitions}
+      \field{year}{2007}
+      \field{pages}{112\bibrangedash 117}
+      \range{pages}{6}
+      \verb{doi}
+      \verb 10.2352/CIC.2007.15.1.art00021
+      \endverb
+    \endentry
+    \entry{stone2014}{article}{}{}
+      \name{author}{3}{}{%
+        {{un=0,uniquepart=base,hash=22f6be85d75ff3f2616d06ba26f1074a}{%
+           family={Stone},
+           familyi={S\bibinitperiod},
+           given={Maureen\bibnamedelima C.},
+           giveni={M\bibinitperiod\bibinitdelim C\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=7f0d827f83a17a32632ec2079623ed0c}{%
+           family={Szafir},
+           familyi={S\bibinitperiod},
+           given={Danielle\bibnamedelima Albers},
+           giveni={D\bibinitperiod\bibinitdelim A\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=59e19fafb747f63ccfd46fbc90530514}{%
+           family={Setlur},
+           familyi={S\bibinitperiod},
+           given={Vidya},
+           giveni={V\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{0b9b033774634b4849f947f02234a549}
+      \strng{fullhash}{0b9b033774634b4849f947f02234a549}
+      \strng{fullhashraw}{0b9b033774634b4849f947f02234a549}
+      \strng{bibnamehash}{0b9b033774634b4849f947f02234a549}
+      \strng{authorbibnamehash}{0b9b033774634b4849f947f02234a549}
+      \strng{authornamehash}{0b9b033774634b4849f947f02234a549}
+      \strng{authorfullhash}{0b9b033774634b4849f947f02234a549}
+      \strng{authorfullhashraw}{0b9b033774634b4849f947f02234a549}
+      \field{sortinit}{S}
+      \field{sortinithash}{b164b07b29984b41daf1e85279fbc5ab}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Color and Imaging Conference}
+      \field{number}{1}
+      \field{title}{An engineering model for color difference as a function of size}
+      \field{volume}{2014}
+      \field{year}{2014}
+      \field{pages}{228\bibrangedash 233}
+      \range{pages}{6}
+    \endentry
+    \entry{colorjs2025}{misc}{}{}
+      \name{author}{2}{}{%
+        {{un=0,uniquepart=base,hash=85b3406f401e98a7e63bc7132661428a}{%
+           family={Verou},
+           familyi={V\bibinitperiod},
+           given={Lea},
+           giveni={L\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=428937d423e481439984806d44c62fe0}{%
+           family={Lilley},
+           familyi={L\bibinitperiod},
+           given={Chris},
+           giveni={C\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{2aae3dd9786514a014f370d9938eae5d}
+      \strng{fullhash}{2aae3dd9786514a014f370d9938eae5d}
+      \strng{fullhashraw}{2aae3dd9786514a014f370d9938eae5d}
+      \strng{bibnamehash}{2aae3dd9786514a014f370d9938eae5d}
+      \strng{authorbibnamehash}{2aae3dd9786514a014f370d9938eae5d}
+      \strng{authornamehash}{2aae3dd9786514a014f370d9938eae5d}
+      \strng{authorfullhash}{2aae3dd9786514a014f370d9938eae5d}
+      \strng{authorfullhashraw}{2aae3dd9786514a014f370d9938eae5d}
+      \field{sortinit}{V}
+      \field{sortinithash}{afb52128e5b4dc4b843768c0113d673b}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{Online}
+      \field{note}{Accessed: 2025-12-17}
+      \field{title}{Color.js: Gamut Mapping Documentation}
+      \field{year}{2024}
+      \verb{urlraw}
+      \verb https://colorjs.io/docs/gamut-mapping.html
+      \endverb
+      \verb{url}
+      \verb https://colorjs.io/docs/gamut-mapping.html
+      \endverb
+    \endentry
+    \entry{csscolor4}{report}{}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=d6d82742840a9c9b6b1e5ce5217572aa}{%
+           family={{W3C CSS Working Group}},
+           familyi={W\bibinitperiod}}}%
+      }
+      \list{institution}{1}{%
+        {World Wide Web Consortium (W3C)}%
+      }
+      \strng{namehash}{d6d82742840a9c9b6b1e5ce5217572aa}
+      \strng{fullhash}{d6d82742840a9c9b6b1e5ce5217572aa}
+      \strng{fullhashraw}{d6d82742840a9c9b6b1e5ce5217572aa}
+      \strng{bibnamehash}{d6d82742840a9c9b6b1e5ce5217572aa}
+      \strng{authorbibnamehash}{d6d82742840a9c9b6b1e5ce5217572aa}
+      \strng{authornamehash}{d6d82742840a9c9b6b1e5ce5217572aa}
+      \strng{authorfullhash}{d6d82742840a9c9b6b1e5ce5217572aa}
+      \strng{authorfullhashraw}{d6d82742840a9c9b6b1e5ce5217572aa}
+      \field{sortinit}{W}
+      \field{sortinithash}{4315d78024d0cea9b57a0c6f0e35ed0d}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{note}{Accessed: 2025-12-17}
+      \field{title}{{CSS Color Module Level 4}}
+      \field{type}{W3C Candidate Recommendation}
+      \field{year}{2022}
+      \verb{urlraw}
+      \verb https://www.w3.org/TR/css-color-4/
+      \endverb
+      \verb{url}
+      \verb https://www.w3.org/TR/css-color-4/
+      \endverb
+    \endentry
+    \entry{wang2022}{article}{}{}
+      \name{author}{5}{}{%
+        {{un=0,uniquepart=base,hash=147b8560865739e558b0631402b38ee6}{%
+           family={Wang},
+           familyi={W\bibinitperiod},
+           given={Chen},
+           giveni={C\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=2cdb01c53ea53be516c5cce7627df584}{%
+           family={Zhang},
+           familyi={Z\bibinitperiod},
+           given={Song-Hai},
+           giveni={S\bibinithyphendelim H\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=58424dd37d55a961bbd948a7ec5303cf}{%
+           family={Zhang},
+           familyi={Z\bibinitperiod},
+           given={Yizhuo},
+           giveni={Y\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=1557b0fdcc6b5f310f3cfe62a27b2266}{%
+           family={Zollmann},
+           familyi={Z\bibinitperiod},
+           given={Stefanie},
+           giveni={S\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=afab500d2408e1897d292c1678561465}{%
+           family={Hu},
+           familyi={H\bibinitperiod},
+           given={Shi-Min},
+           giveni={S\bibinithyphendelim M\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{3378da0ffdb86443690f76803f4fb1ea}
+      \strng{fullhash}{8293063263220d83e32b70655ae16c8e}
+      \strng{fullhashraw}{8293063263220d83e32b70655ae16c8e}
+      \strng{bibnamehash}{3378da0ffdb86443690f76803f4fb1ea}
+      \strng{authorbibnamehash}{3378da0ffdb86443690f76803f4fb1ea}
+      \strng{authornamehash}{3378da0ffdb86443690f76803f4fb1ea}
+      \strng{authorfullhash}{8293063263220d83e32b70655ae16c8e}
+      \strng{authorfullhashraw}{8293063263220d83e32b70655ae16c8e}
+      \field{sortinit}{W}
+      \field{sortinithash}{4315d78024d0cea9b57a0c6f0e35ed0d}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{IEEE Transactions on Visualization and Computer Graphics}
+      \field{number}{5}
+      \field{title}{On rotation gains within and beyond perceptual limitations for seated {VR}}
+      \field{volume}{28}
+      \field{year}{2022}
+      \field{pages}{2199\bibrangedash 2209}
+      \range{pages}{11}
+      \verb{doi}
+      \verb 10.1109/TVCG.2022.3150489
+      \endverb
+    \endentry
+  \enddatalist
+\endrefsection
 \endinput
+
