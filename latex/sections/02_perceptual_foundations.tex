@@ -25,7 +25,18 @@ Recent comprehensive measurements of human color discrimination thresholds confi
 
 In a Euclidean space, the shortest path between two points is a straight line, and distances can be computed using Pythagorean geometry. In a Riemannian manifold, the shortest path is a \emph{geodesic}—a curve that follows the intrinsic geometry of the space \citep{hong2024}. The perceptual distance between two colors corresponds to the geodesic distance: the accumulated perceptual thresholds along the path of minimal discrimination \citep{hong2024}.
 
-Hong et al.\ \citeyearpar{hong2024} characterized this structure empirically through approximately 6,000 discrimination threshold trials per participant, mapping elliptical contours of equal perceptual distance across color space. Their findings reveal systematic patterns:
+Hong et al.\ \citeyearpar{hong2024} characterized this structure empirically through approximately 6,000 discrimination threshold trials per participant, mapping elliptical contours of equal perceptual distance across color space.
+
+\paragraph{The Metric Tensor}
+
+In practice, discrimination varies with location in color space. This can be modeled by a position-dependent \emph{metric tensor} $g(\mathbf{x})$ that defines local perceptual distance via the line element:
+
+\begin{equation}
+ds^2 = d\mathbf{x}^\top g(\mathbf{x})\, d\mathbf{x}
+\label{eq:line-element}
+\end{equation}
+
+\noindent where $\mathbf{x}$ represents coordinates in color space and $ds$ is the local perceptual distance. Distances along specific directions (e.g., hue at fixed lightness and chroma) follow from the corresponding components of $g$ integrated along a path. Hong et al.'s findings reveal systematic patterns in the metric tensor components:
 
 \begin{enumerate}
     \item \textbf{Radial orientation:} Major axes of threshold ellipses are consistently oriented toward the achromatic center \citep{hong2024}
@@ -44,7 +55,7 @@ For color journey construction, the Riemannian structure has three critical cons
     
     \item[Distance measurements require appropriate metrics] A $\Delta E$ of 10 in a highly saturated region may be perceptually equivalent to a $\Delta E$ of 5 in a near-neutral region if the underlying metric tensor differs. Hong et al.'s ellipse measurements \citep{hong2024} provide the data needed to construct position-dependent distance corrections.
     
-    \item[Gamut mapping must follow geodesics] When projecting out-of-gamut colors to displayable coordinates, the projection should follow perceptual geodesics rather than straight lines in RGB (\S\ref{sec:gamut-management}). Hong et al.'s finding that discrimination ellipses orient radially toward the achromatic center \citep{hong2024} justifies reducing saturation (moving toward achromatic) as the perceptually minimal modification.
+    \item[Gamut mapping must follow geodesics] When projecting out-of-gamut colors to displayable coordinates, the projection should follow perceptual geodesics rather than straight lines in RGB (\S\ref{sec:gamut-correction}). Hong et al.'s finding that discrimination ellipses orient radially toward the achromatic center \citep{hong2024} justifies reducing saturation (moving toward achromatic) as the perceptually minimal modification.
 \end{description}
 
 \subsubsection{Computational Approximation}
@@ -63,7 +74,7 @@ The engine thus achieves a balance: acknowledging the Riemannian nature of color
 
 \subsubsection{Mathematical Statement}
 
-A fundamental result in perceptual color theory is that no three-dimensional Euclidean space can achieve perfect perceptual uniformity \citep{nolle2012}. This is not a limitation of current measurement techniques—it is a topological impossibility arising from the ``super-importance of hue'' first identified by Judd \citep[p.~11]{judd1940}.
+A fundamental result in perceptual color theory is that no single global 3D Euclidean coordinate system can make perceptual distance everywhere equal to Euclidean distance without distortion \citep{nolle2012}. Consequently, practical 3D colour spaces must either accept nonuniformity or treat distance as position-dependent (via a metric tensor). This is not a limitation of current measurement techniques—it is a mathematical constraint arising from the ``super-importance of hue'' first identified by Judd \citep[p.~11]{judd1940}.
 
 Nölle et al.\ \citeyearpar{nolle2012} provide a rigorous derivation. The perceptual distance around a constant-lightness, constant-saturation hue circle is given by the line integral:
 
@@ -105,7 +116,9 @@ The engine adopts OKLab as a pragmatic compromise: a space that \emph{minimizes}
 
 \subsubsection{Connection to Möbius Loop Topology}
 
-The 720° result has a surprising implication for loop closure strategies (\S\ref{sec:loop-strategies}). A Möbius strip—a surface with a single half-twist—also requires traversing 720° to return to the original orientation \citep{nolle2012}. This topological coincidence suggests that Möbius-like operations (chromatic inversion with lightness continuity) may align with the intrinsic geometry of color space. The mathematical grounding for this connection is explored in detail in \S\ref{sec:mobius-mathematical}.
+The 720° result has a surprising implication for loop closure strategies (\S\ref{sec:loop-open}--\ref{sec:loop-phased}). A Möbius strip—a surface with a single half-twist—also requires traversing 720° to return to the original orientation \citep{nolle2012}. This topological coincidence—both requiring 720° for closure—suggests that Möbius-like operations (chromatic inversion with lightness continuity) may align with the intrinsic geometry of color space, though the precise mathematical relationship remains to be formalized.
+
+\emph{Important caveat:} This connection should be understood as a \emph{design heuristic and analogy} rather than a formally derived theorem. The metric circumference result and perceptual nonuniformity are distinct phenomena from orientation reversal in a Möbius strip. The Möbius strategy (\S\ref{sec:loop-mobius}) exploits this structural parallel heuristically to achieve smooth loop closure.
 
 Having established both the Riemannian curvature (\S\ref{sec:riemannian-color}) and the topological impossibility of perfect uniformity (\S\ref{sec:topology-impossibility}), we now face a practical engineering question: which color space provides the best computational approximation? The answer lies in strategic compromise rather than theoretical perfection.
 
@@ -203,16 +216,20 @@ The transformation matrices are \citep{ottosson2020}:
 
 These values are standardized in CSS Color Level 4 \citep{csscolor4} and match the reference implementation.
 
-Each step models aspects of human vision: $M_1$ approximates L, M, S cone responses; the cube root models nonlinear perceptual compression—a principle dating to Fechner's seminal psychophysical work \citep{fechner1860} and refined through modern understanding of cone response functions \citep{ottosson2020}; $M_2$ extracts lightness as a weighted average and opponent-color signals as cone differences.
+Each step models aspects of human vision: $M_1$ approximates L, M, S cone responses; the cube root models nonlinear perceptual compression—a principle dating to Fechner's seminal psychophysical work (as discussed in \citealt{fairchild2013}, Chapter~3) and refined through modern understanding of cone response functions \citep{ottosson2020}; $M_2$ extracts lightness as a weighted average and opponent-color signals as cone differences.
+
+\paragraph{Sign-Preserving Cube Root}
+
+Real implementations can encounter negative LMS values, particularly outside gamut or due to numerical precision at extreme parameter values. The engine uses the \emph{standard sign-preserving cube root} as specified in the OKLab reference implementation: $\text{cbrt}(x) = \text{sgn}(x) \cdot |x|^{1/3}$. This ensures continuity across the achromatic axis and avoids internal inconsistencies when discussing gamut and unbounded behaviour.
 
 \paragraph{Computational Efficiency}
 
 The OKLab conversion is computationally trivial:
 \begin{itemize}
-    \item \textbf{Per conversion:} approximately 50--100 CPU cycles
-    \item \textbf{Operations:} 18 multiplications, 12 additions, 3 cube roots
-    \item \textbf{Memory:} no allocations; all register operations
-    \item \textbf{Parallelisation:} trivially vectorisable with SIMD
+    \item \textbf{Operations:} 18 multiplications, 12 additions, 3 cube roots per conversion
+    \item \textbf{Memory:} no heap allocations; all register operations
+    \item \textbf{Parallelisation:} trivially vectorisable with SIMD instructions
+    \item \textbf{Performance:} conversion overhead is negligible compared to palette generation logic
 \end{itemize}
 
 This efficiency enables real-time palette generation. The entire forward/inverse pipeline uses fixed, known constant matrices—no iterative solving, no conditionals, no special cases.
@@ -236,7 +253,7 @@ The conversion is straightforward:
 The engine uses both representations internally:
 \begin{itemize}
     \item \textbf{Cartesian (OKLab)} for distance calculations, linear interpolation, and Bézier curve construction
-    \item \textbf{Cylindrical (OKLCh)} for hue-related operations such as warmth bias (\S\ref{sec:warmth-bias}), complementary color calculation (\S\ref{sec:mobius-loop}), and palette mode presets (\S\ref{sec:palette-modes})
+    \item \textbf{Cylindrical (OKLCh)} for hue-related operations such as warmth bias (\S\ref{sec:temperature}), complementary color calculation (\S\ref{sec:loop-mobius}), and palette mode operation (\S\ref{sec:categorical-mode})
 \end{itemize}
 
 This separation allows clean reasoning about lightness dynamics (along $L$) versus chromatic dynamics (in the $a$–$b$ plane or around $h$).
@@ -255,7 +272,7 @@ The choice of OKLab has cascading implications for color journey design:
     \item \textbf{Hue interpolation is stable:} Unlike HSV, where interpolating across the 0°/360° boundary causes discontinuities, OKLab's Cartesian representation avoids such artifacts.
 \end{enumerate}
 
-Because OKLab is unbounded—it can represent colors outside any physical display gamut—the engine must include explicit gamut mapping (\S\ref{sec:gamut-management}).
+Because OKLab is unbounded—it can represent colors outside any physical display gamut—the engine must include explicit gamut mapping (\S\ref{sec:gamut-problem}).
 
 While OKLab provides spatial perceptual uniformity, color journey design introduces a temporal dimension. As we will see, the human visual system processes color changes over time differently from spatial color differences—a distinction with profound implications for velocity constraints.
 
@@ -299,7 +316,9 @@ This independence simplifies calibration: a single temporal sensitivity ratio ca
 
 \subsubsection{Design Implications}
 
-These findings directly inform the engine's velocity weighting scheme (\S\ref{sec:velocity-weights}):
+We model temporal smoothness as a weighted path-length constraint in OKLab/OKLCh, where weights approximate relative JND sensitivity per channel under transition viewing. The channel weights are chosen so that visually dominant changes (notably in lightness) are penalised more strongly than less salient changes.
+
+These findings directly inform the engine's velocity weighting scheme (\S\ref{sec:perceptual-velocity}):
 
 \begin{enumerate}
     \item \textbf{Lightness velocity weight:} $w_L = 10.0$ reflects the heightened temporal sensitivity \citep{sekulovski2007}
@@ -308,3 +327,37 @@ These findings directly inform the engine's velocity weighting scheme (\S\ref{se
 \end{enumerate}
 
 The 10:1 ratio for $w_L : w_C$ is empirically validated \citep{sekulovski2007}. However, hue velocity weighting remains a \emph{design heuristic}; Sekulovski's data show hue and chroma thresholds are comparable but do not provide a precise ratio. Future work should employ psychometric methods (e.g., two-alternative forced-choice paradigms \citep{wang2022}) to measure hue temporal sensitivity rigorously.
+
+% ------------------------------------------------------------------------------
+% 2.5 Summary: Perceptual Foundations Determine Engineering Constraints
+% ------------------------------------------------------------------------------
+\subsection{Summary: Perceptual Foundations Determine Engineering Constraints}
+\label{sec:perceptual-summary}
+
+The perceptual foundations established in this section impose four non-negotiable constraints on color journey construction:
+
+\begin{enumerate}
+    \item \textbf{Work in perceptually uniform space:} The Riemannian structure (\S\ref{sec:riemannian-color}) requires a coordinate system where Euclidean interpolation approximates perceptual geodesics. OKLab provides this approximation with minimal computational overhead (\S\ref{sec:oklab-implementation}).
+    
+    \item \textbf{Accept imperfect uniformity:} The mathematical impossibility of perfect perceptual uniformity (\S\ref{sec:topology-impossibility}) means all design parameters must be empirically calibrated rather than geometrically derived. The 720\textdegree\ result explains why certain operations\textemdash{}particularly loop closure\textemdash{}require heuristic strategies.
+    
+    \item \textbf{Weight lightness changes heavily:} The 10:1 temporal sensitivity ratio (\S\ref{sec:temporal-spatial}) requires lightness velocity to dominate perceptual speed calculations. Lightness changes must be controlled more tightly than chromatic changes to maintain perceived smoothness.
+    
+    \item \textbf{Optimize for smooth viewing:} Enhanced chromatic sensitivity during pursuit eye movements (\S\ref{sec:temporal-spatial}) favors gradual, continuous transitions over abrupt changes. The engine prioritizes perceptual continuity over geometric optimality.
+\end{enumerate}
+
+\paragraph{Implications for Journey Construction}
+
+These perceptual constraints translate directly into algorithmic requirements:
+
+\begin{description}
+    \item[Tunable parameters:] Minimum step size $\Delta_{\min}$, maximum step size $\Delta_{\max}$, channel weights $(w_L, w_C, w_H)$, and transition scaling factors all operate in OKLab perceptual units.
+    
+    \item[Calibration strategy:] JND thresholds, temporal sensitivity ratios, and domain-specific viewing conditions determine default parameter values. User preferences can override defaults while maintaining perceptual validity.
+    
+    \item[Geometric machinery:] The Riemannian structure justifies using Bézier curves, spline interpolation, and geodesic approximations in OKLab space (\S\ref{sec:bezier}). Straight lines in OKLab approximate perceptually smooth paths.
+    
+    \item[Gamut management:] Position-dependent metric tensors inform gamut mapping strategies: projection toward the achromatic center follows the intrinsic geometry revealed by discrimination threshold ellipses (\S\ref{sec:gamut-correction}).
+\end{description}
+
+With these perceptual foundations established, we now turn to the geometric and algorithmic machinery for constructing color paths that respect these constraints. Section~\ref{sec:journey-metaphor} develops the computational framework for generating perceptually smooth color progressions within the perceptual space defined here.
