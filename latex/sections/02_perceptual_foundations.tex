@@ -298,21 +298,41 @@ This asymmetry has direct implications for color journey design: transitions sho
 
 \subsubsection{Temporal Asymmetry in Color Channels}
 
-Beyond eye movement effects, the visual system exhibits channel-specific temporal sensitivities. Sekulovski et al.\ \citeyearpar{sekulovski2007} measured smoothness thresholds—the maximum color difference between successive frames that observers still perceive as smooth—for lightness, chroma, and hue changes:
+Beyond eye movement effects, the visual system exhibits channel-specific temporal sensitivities. Sekulovski et al.\ \citeyearpar{sekulovski2007} conducted a series of psychophysical experiments to quantify these differences, using a classical method to measure discrete color difference thresholds.
+
+\paragraph{Experimental Methodology}
+
+Sekulovski's team presented observers with discrete linear temporal color transitions in CIE LCh space, varying independently along three axes: lightness ($L$), chroma ($C$), and hue ($h$). For each condition, they measured the threshold step size (expressed in $\Delta E_{ab}$ units) at which observers could still perceive the transition as perceptually smooth. They systematically varied:
+
+\begin{itemize}
+    \item \textbf{Transition direction:} Three independent axes (lightness, chroma, hue)
+    \item \textbf{Frequency:} Multiple frame rates (5, 10, 20, 30, and 40 Hz)
+    \item \textbf{Base color:} Multiple starting colors with different chromaticity coordinates
+\end{itemize}
+
+Thresholds were analyzed using analysis of variance (ANOVA) with direction of change, frequency, and base color as fixed factors, and participant as a random factor \citep[pp.~113--114]{sekulovski2007}.
+
+\paragraph{The 10:1 Ratio: Statistical Findings}
+
+The ANOVA revealed a highly significant main effect of direction of change ($p < 0.01$) \citep[p.~113]{sekulovski2007}. Post hoc tests demonstrated that mean threshold values for lightness changes were approximately \textbf{10 times smaller} than those for chroma and hue changes \citep[p.~113]{sekulovski2007}. Quantitatively, this means observers perceive a 10-unit step in lightness (in $\Delta E_{ab}$ space) as equally smooth as a 1-unit step in chroma or hue—reflecting a 10:1 ratio of temporal sensitivity.
+
+Kong's later dissertation \citep[p.~3]{kong2021} summarizes the finding concisely:
 
 \begin{quote}
-``The visibility threshold of smoothness, i.e., the maximum color difference between two successive colors that is allowed in order to perceive a temporal color transition as smooth, is about ten times smaller for lightness changes than for chroma or hue changes in CIELAB'' \citep[p.~3]{kong2021}, citing \citet{sekulovski2007}.
+``The visibility threshold of smoothness, i.e., the maximum color difference between two successive colors that is allowed in order to perceive a temporal color transition as smooth, is about ten times smaller for lightness changes than for chroma or hue changes in CIELAB'' \citep[p.~3]{kong2021}.
 \end{quote}
 
-In other words, observers are approximately \textbf{10 times more sensitive} to temporal changes in lightness than to changes in chromatic attributes \citep{sekulovski2007}. This 10:1 asymmetry is a robust empirical finding, replicated across base colors and viewing conditions.
+In other words, observers are approximately \textbf{10 times more sensitive} to temporal changes in lightness than to changes in chromatic attributes. This 10:1 asymmetry is empirically robust, validated across multiple base colors and viewing frequencies by controlled experimental design and statistical analysis \citep[pp.~113--114]{sekulovski2007}.
 
-Importantly, Sekulovski et al.\ \citeyearpar{sekulovski2007} found that lightness thresholds are \emph{independent} of base chromaticity:
+\paragraph{Independence Across Base Colors}
+
+Crucially, Sekulovski's ANOVA also revealed that lightness thresholds showed \emph{no significant interaction} with base color point, whereas chroma and hue thresholds did vary with base color \citep[p.~113]{sekulovski2007}. This finding is expressed as:
 
 \begin{quote}
-``No main effect of the base color point on the thresholds for lightness changes was found for the chromatic color points\ldots\ This shows independence of the thresholds to changes in chromaticity and dependence on lightness'' \citep{sekulovski2007}.
-\end{quote>
+``No main effect of the base color point on the thresholds for lightness changes was found for the chromatic color points\ldots\ This shows independence of the thresholds to changes in chromaticity and dependence on lightness'' \citep[p.~113]{sekulovski2007}.
+\end{quote}
 
-This independence simplifies calibration: a single temporal sensitivity ratio can be applied globally.
+This independence across base colors is critical for color journey design: a single 10:1 temporal sensitivity weighting can be applied globally, rather than requiring color-dependent corrections. The ratio is universal—holding whether the starting color is red, blue, green, or any intermediate hue.
 
 \subsubsection{Design Implications}
 
@@ -326,7 +346,7 @@ These findings directly inform the engine's velocity weighting scheme (\S\ref{se
     \item \textbf{Hue velocity weight:} $w_H \approx 1.5$ to $2.0$ is a design parameter requiring empirical validation
 \end{enumerate}
 
-The 10:1 ratio for $w_L : w_C$ is empirically validated \citep{sekulovski2007}. However, hue velocity weighting remains a \emph{design heuristic}; Sekulovski's data show hue and chroma thresholds are comparable but do not provide a precise ratio. Future work should employ psychometric methods (e.g., two-alternative forced-choice paradigms \citep{wang2022}) to measure hue temporal sensitivity rigorously.
+The 10:1 ratio for $w_L : w_C$ is empirically validated through Sekulovski's controlled psychophysical measurement and ANOVA analysis \citep[pp.~113--114]{sekulovski2007}. However, hue velocity weighting remains a \emph{design heuristic}; Sekulovski's data show hue and chroma thresholds are comparable in magnitude but do not provide a statistically precise ratio distinguishing them. Future work should employ psychometric methods (e.g., two-alternative forced-choice paradigms \citep{wang2022}) to measure hue temporal sensitivity rigorously and establish whether a hue-specific weighting factor can be justified beyond the baseline chroma sensitivity.
 
 % ------------------------------------------------------------------------------
 % 2.5 Summary: Perceptual Foundations Determine Engineering Constraints
