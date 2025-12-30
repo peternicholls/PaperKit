@@ -100,7 +100,7 @@ This ``extra length'' cannot be represented without distortion in a single globa
 
 \subsubsection{Implications for Existing Color Spaces}
 
-This result explains why even carefully designed spaces like CIELAB exhibit perceptual nonuniformities \citep{kong2021}:
+This result helps explain why even carefully designed spaces like CIELAB exhibit perceptual nonuniformities \citep{kong2021}:
 
 \begin{itemize}
     \item \textbf{CIELAB (1976):} Achieves approximate uniformity in spatial discrimination tasks but performs poorly as a predictor for temporal transitions. Kong \citeyearpar{kong2021} notes explicitly: ``CIELAB is not a useful space to predict the perception of dynamic colored light. Today, no color spaces are available that accurately predict the visibility of color differences over time'' \citep[p.~3]{kong2021}.
@@ -190,7 +190,7 @@ The transformation from sRGB to OKLab follows a fixed matrix pipeline:
 \begin{enumerate}
     \item \textbf{Linearize sRGB:} Remove gamma encoding to obtain linear RGB values
     \item \textbf{RGB to LMS:} Apply matrix $M_1$ to approximate L, M, S cone responses
-    \item \textbf{Nonlinear compression:} Apply cube root $(l', m', s') = (l^{1/3}, m^{1/3}, s^{1/3})$
+    \item \textbf{Nonlinear compression:} Apply a sign-preserving cube root to obtain $(l', m', s') = (\text{cbrt}(l), \text{cbrt}(m), \text{cbrt}(s))$
     \item \textbf{LMS to Lab:} Apply matrix $M_2$ to obtain final $(L, a, b)$
 \end{enumerate}
 
