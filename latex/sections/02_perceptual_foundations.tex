@@ -23,7 +23,7 @@ The design of temporally coherent color progressions rests on a rigorous foundat
 
 Recent comprehensive measurements of human color discrimination thresholds provide strong evidence that perceptual color difference is well modeled as a \emph{Riemannian manifold}—a space that is locally Euclidean but globally curved \citep{hong2024}. This has direct implications for color interpolation and distance measurement.
 
-In a Euclidean space, the shortest path between two points is a straight line, and distances can be computed using Pythagorean geometry. In a Riemannian manifold, the shortest path is a \emph{geodesic}—a curve that follows the intrinsic geometry of the space \citep{hong2024}. The perceptual distance between two colors corresponds to the geodesic distance: the accumulated perceptual thresholds along the path of minimal discrimination \citep{hong2024}.
+In a Euclidean space, the shortest path between two points is a straight line, and distances can be computed using Pythagorean geometry. In a Riemannian manifold, the shortest path is a \emph{geodesic}—a curve that follows the intrinsic geometry of the space \citep{hong2024}. Perceptual difference can be usefully approximated by the geodesic distance implied by the local discrimination metric, particularly in the small-step regime relevant to smooth transitions \citep{hong2024}.
 
 Hong et al.\ \citeyearpar{hong2024} characterized this structure empirically through approximately 6,000 discrimination threshold trials per participant, mapping elliptical contours of equal perceptual distance across color space.
 
@@ -62,6 +62,10 @@ For color journey construction, the Riemannian structure has three critical cons
 
 True geodesic computation in a Riemannian manifold requires solving differential equations or variational problems—computationally expensive for real-time applications. The engine adopts a pragmatic approach: work in a color space where \emph{Euclidean straight lines approximate geodesics sufficiently well}. This is the definition of perceptual uniformity.
 
+\paragraph{Caveat on Global Structure and Suprathreshold Perception}
+
+While a Riemannian metric is an effective model of \emph{local} discrimination structure, evidence suggests that suprathreshold dissimilarity judgements may be nonadditive (for example exhibiting diminishing returns for large separations). Accordingly, we treat metric-based distance as a practical local approximation for constructing smooth paths with bounded per-step changes, and we present global distance modelling as an open area for further empirical refinement.
+
 Modern perceptually uniform color spaces (OKLab, CAM16-UCS) are designed such that Euclidean distance $\Delta E$ in the coordinate representation approximates geodesic distance in the underlying perceptual manifold \citep{ottosson2020,safdar2017}. The approximation is not perfect—local curvature remains \citep{hong2024}—but the error is small enough for practical interpolation tasks.
 
 The engine thus achieves a balance: acknowledging the Riemannian nature of color space theoretically while exploiting Euclidean approximations computationally. All subsequent design parameters ($\Delta_{\min}$, $\Delta_{\max}$, velocity weights) are interpreted as \emph{locally Euclidean} values in OKLab coordinates.
@@ -83,14 +87,14 @@ Nölle et al.\ \citeyearpar{nolle2012} provide a rigorous derivation. The percep
     \label{eq:hue-circumference}
 \end{equation}
 
-\noindent where $g_{HH}$ is the \emph{metric tensor component}—a function that encodes how perceptual distance accumulates along the hue dimension at saturation level $S$. In Euclidean space, $g_{HH}$ would be constant; in color space, its variation creates the observed curvature. Empirical measurements of color discrimination thresholds yield \citep{nolle2012}:
+\noindent where $g_{HH}$ is the \emph{metric tensor component} governing infinitesimal displacement in the hue direction at saturation level $S$ (and, in the most general case, may also depend on hue angle $H$). In a Euclidean polar coordinate system, $g_{HH}=r^2$ is constant for fixed radius; in perceptual color geometry the effective $g_{HH}$ differs, yielding a non-Euclidean circumference. Nölle et al.'s derivation gives \citep{nolle2012}:
 
 \begin{equation}
-    U(S=1) \approx 12.65 \approx 4\pi
+    U(S=1) \approx 4\sqrt{10} \approx 12.65 \approx 4\pi = 12.57
     \label{eq:720-result}
 \end{equation}
 
-In a Euclidean space, the circumference of a unit circle is $2\pi$. Color space requires approximately \emph{twice} this value—the hue circle has an effective ``circumference'' of 720° rather than 360° \citep{nolle2012}.
+In a Euclidean space, the circumference of a unit circle is $2\pi$. Here the effective circumference is about $4\pi$ (more precisely $4\sqrt{10}$, i.e., $\approx 2.01\times 2\pi$), so the hue circle behaves as if it had an effective ``circumference'' of roughly 720° rather than 360° \citep{nolle2012}.
 
 \subsubsection{Physical Interpretation}
 
@@ -189,7 +193,7 @@ The transformation from sRGB to OKLab follows a fixed matrix pipeline:
 
 \begin{enumerate}
     \item \textbf{Linearize sRGB:} Remove gamma encoding to obtain linear RGB values
-    \item \textbf{RGB to LMS:} Apply matrix $M_1$ to approximate L, M, S cone responses
+    \item \textbf{Linear sRGB to LMS-like:} Apply matrix $M_1$ to map linear sRGB into an LMS-like space (numerically fitted; not identical to physiological cone LMS)
     \item \textbf{Nonlinear compression:} Apply a sign-preserving cube root to obtain $(l', m', s') = (\text{cbrt}(l), \text{cbrt}(m), \text{cbrt}(s))$
     \item \textbf{LMS to Lab:} Apply matrix $M_2$ to obtain final $(L, a, b)$
 \end{enumerate}
@@ -198,9 +202,9 @@ The transformation matrices are \citep{ottosson2020}:
 
 \begin{equation}
     M_1 = \begin{pmatrix}
-    0.8189330101 & 0.3618667424 & -0.1288597137 \\
-    0.0329845436 & 0.9293118715 & 0.0361456387 \\
-    0.0482003018 & 0.2643662691 & 0.6338517070
+    0.4122214708 & 0.5363325363 & 0.0514459929 \\
+    0.2119034982 & 0.6806995451 & 0.1073969566 \\
+    0.0883024619 & 0.2817188376 & 0.6299787005
     \end{pmatrix}
     \label{eq:oklab-m1}
 \end{equation}
@@ -216,7 +220,7 @@ The transformation matrices are \citep{ottosson2020}:
 
 These values are standardized in CSS Color Level 4 \citep{csscolor4} and match the reference implementation.
 
-Each step models aspects of human vision: $M_1$ approximates L, M, S cone responses; the cube root models nonlinear perceptual compression—a principle dating to Fechner's seminal psychophysical work (as discussed in \citealt{fairchild2013}, Chapter~3) and refined through modern understanding of cone response functions \citep{ottosson2020}; $M_2$ extracts lightness as a weighted average and opponent-color signals as cone differences.
+Each step models aspects of human vision: $M_1$ maps linear sRGB into an LMS-like response space fitted to color appearance data (so it is cone-inspired rather than a direct physiological LMS model); the cube root models nonlinear perceptual compression—a principle dating to Fechner's seminal psychophysical work (as discussed in \citealt{fairchild2013}, Chapter~3) and refined through modern understanding of cone response functions \citep{ottosson2020}; $M_2$ extracts lightness as a weighted average and opponent-color signals as cone differences.
 
 \paragraph{Sign-Preserving Cube Root}
 
@@ -334,7 +338,7 @@ Crucially, Sekulovski's ANOVA also revealed that lightness thresholds showed \em
 ``No main effect of the base color point on the thresholds for lightness changes was found for the chromatic color points\ldots\ This shows independence of the thresholds to changes in chromaticity and dependence on lightness'' \citep[p.~113]{sekulovski2007}.
 \end{quote}
 
-This independence across base colors is critical for color journey design: a single 10:1 temporal sensitivity weighting can be applied globally, rather than requiring color-dependent corrections. The ratio is universal—holding whether the starting color is red, blue, green, or any intermediate hue.
+This independence across base colors is critical for color journey design: a single 10:1 temporal sensitivity weighting can be applied globally, rather than requiring color-dependent corrections. Within the tested conditions, the ratio appears stable across base colors, and we adopt it as a working default while retaining calibration as future work.
 
 \subsubsection{Design Implications}
 
@@ -367,6 +371,8 @@ The perceptual foundations established in this section impose four practical con
     
     \item \textbf{Optimize for smooth viewing:} Enhanced chromatic sensitivity during pursuit eye movements (\S\ref{sec:temporal-spatial}) favors gradual, continuous transitions over abrupt changes. The engine prioritizes perceptual continuity over geometric optimality.
 \end{enumerate}
+
+Where perceptual science remains unsettled (for example, suprathreshold distance additivity and hue-specific temporal weighting), we treat current choices as principled defaults and explicitly welcome future empirical updates.
 
 \paragraph{Implications for Journey Construction}
 
