@@ -38,4 +38,7 @@ open-agents/source/reference-materials/tech-docs-from-exisiting-software-repo/
 *.toc
 *.lof
 *.lot
-*.fls
+*.fidx
+main-blx.bib
+main.run.xml
+*.bcf
