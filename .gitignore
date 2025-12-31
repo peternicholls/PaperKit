@@ -42,3 +42,5 @@ open-agents/source/reference-materials/tech-docs-from-exisiting-software-repo/
 main-blx.bib
 main.run.xml
 *.bcf
+build_report.md
+latex/main.bcf

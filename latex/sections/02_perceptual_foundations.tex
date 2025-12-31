@@ -1,9 +1,10 @@
 % ==============================================================================
 % Section 2: Perceptual Foundations
 % ==============================================================================
-% VERSION: 3 (Refined - 30 Dec 2025)
-% Research Integration: Hong (2024), Nölle (2012), Braun (2017), Sekulovski (2007)
-% Refinement: Implemented tutor feedback - citation page numbers, transitions, definitions
+% VERSION: 4 (Refined - 31 Dec 2025)
+% Research Integration: Hong (2025), Nölle (2013), Braun (2017), Sekulovski (2007)
+% Refinement: Implemented tutor feedback - citation page numbers, transitions, definitions,
+% citation hygine and provenance
 % Target Length: 3,000–3,500 words
 % Dependencies: None (foundational section)
 % ==============================================================================
@@ -21,11 +22,11 @@ The design of temporally coherent color progressions rests on a rigorous foundat
 
 \subsection{Theoretical Framework}
 
-Recent comprehensive measurements of human color discrimination thresholds provide strong evidence that perceptual color difference is well modeled as a \emph{Riemannian manifold}, a space that is locally Euclidean but globally curved \citep{hong2024}. This has direct implications for color interpolation and distance measurement.
+Recent comprehensive measurements of human color discrimination thresholds provide strong evidence that perceptual color difference is well modeled as a \emph{Riemannian manifold}, a space that is locally Euclidean but globally curved \citep{hong2025}. This has direct implications for color interpolation and distance measurement.
 
-In a Euclidean space, the shortest path between two points is a straight line, and distances can be computed using Pythagorean geometry. In a Riemannian manifold, the shortest path is a \emph{geodesic}, a curve that follows the intrinsic geometry of the space \citep{hong2024}. Perceptual difference can be usefully approximated by the geodesic distance implied by the local discrimination metric, particularly in the small-step regime relevant to smooth transitions \citep{hong2024}.
+In a Euclidean space, the shortest path between two points is a straight line, and distances can be computed using Pythagorean geometry. In a Riemannian manifold, the shortest path is a \emph{geodesic}, a curve that follows the intrinsic geometry of the space \citep{hong2025}. Perceptual difference can be usefully approximated by the geodesic distance implied by the local discrimination metric, particularly in the small-step regime relevant to smooth transitions \citep{hong2025}.
 
-Hong et al.\ \citeyearpar{hong2024} characterized this structure empirically through approximately 6,000 discrimination threshold trials per participant, mapping elliptical contours of equal perceptual distance across color space.\footnote{Hong et al.'s study employed the Bayesian Wishart Process Psychophysical Model (WPPM) within a Riemannian manifold framework, providing comprehensive characterization of the isoluminant plane through extensive empirical measurement.}
+Hong et al.\ \citeyearpar{hong2025} characterized this structure empirically through approximately 6,000 discrimination threshold trials per participant, mapping elliptical contours of equal perceptual distance across color space.\footnote{Hong et al.'s study employed the Bayesian Wishart Process Psychophysical Model (WPPM) within a Riemannian manifold framework, providing comprehensive characterization of the isoluminant plane through extensive empirical measurement.}
 
 \subsubsection*{The metric tensor}
 
@@ -39,7 +40,7 @@ ds^2 = d\mathbf{x}^\top g(\mathbf{x})\, d\mathbf{x}
 \noindent where $\mathbf{x}$ represents coordinates in color space and $ds$ is the local perceptual distance. Distances along specific directions (e.g., hue at fixed lightness and chroma) follow from the corresponding components of $g$ integrated along a path. Hong et al.'s findings reveal systematic patterns in the metric tensor components:
 
 \begin{enumerate}
-    \item \textbf{Radial orientation:} Major axes of threshold ellipses are consistently oriented toward the achromatic center \citep{hong2024}
+    \item \textbf{Radial orientation:} Major axes of threshold ellipses are consistently oriented toward the achromatic center \citep{hong2025}
     \item \textbf{Lightness compression:} Thresholds are smaller along the lightness dimension than along chromatic axes
     \item \textbf{Geodesic curvature:} Perceptually optimal paths between distant colors are curved, not straight, in standard colorimetric coordinates
 \end{enumerate}
@@ -53,7 +54,7 @@ For color journey construction, the Riemannian structure has three critical cons
 \begin{description}
     \item[Linear interpolation in RGB is perceptually nonuniform] Naïve component-wise interpolation in gamma-encoded sRGB between saturated blue $(0, 0, 255)$ and saturated yellow $(255, 255, 0)$ produces a midpoint near $(127, 127, 127)$, a desaturated grey, because the straight line passes through the achromatic region. The perceptually smooth path would curve around the exterior of color space.
     
-    \item[Distance measurements require appropriate metrics] A $\Delta E$ of 10 in a highly saturated region may be perceptually equivalent to a $\Delta E$ of 5 in a near-neutral region if the underlying metric tensor differs. Hong et al.'s ellipse measurements \citep{hong2024} provide the data needed to construct position-dependent distance corrections.
+    \item[Distance measurements require appropriate metrics] A $\Delta E$ of 10 in a highly saturated region may be perceptually equivalent to a $\Delta E$ of 5 in a near-neutral region if the underlying metric tensor differs. Hong et al.'s ellipse measurements \citep{hong2025} provide the data needed to construct position-dependent distance corrections.
 
 % \begin{figure}[htbp]
 % \centering
@@ -66,7 +67,7 @@ For color journey construction, the Riemannian structure has three critical cons
 % \label{fig:metric-ellipses}
 % \end{figure}
     
-    \item[Gamut mapping must follow geodesics] When projecting out-of-gamut colors to displayable coordinates, the projection should follow perceptual geodesics rather than straight lines in RGB (\S\ref{sec:gamut-correction}). Hong et al.'s finding that discrimination ellipses orient radially toward the achromatic center \citep{hong2024} justifies reducing saturation (moving toward achromatic) as the perceptually minimal modification.
+    \item[Gamut mapping must follow geodesics] When projecting out-of-gamut colors to displayable coordinates, the projection should follow perceptual geodesics rather than straight lines in RGB (\S\ref{sec:gamut-correction}). Hong et al.'s finding that discrimination ellipses orient radially toward the achromatic center \citep{hong2025} justifies reducing saturation (moving toward achromatic) as the perceptually minimal modification.
 \end{description}
 
 \subsection{Computational Approximation}
@@ -77,7 +78,7 @@ True geodesic computation in a Riemannian manifold requires solving differential
 
 While a Riemannian metric is an effective model of \emph{local} discrimination structure, evidence suggests that suprathreshold dissimilarity judgements may be nonadditive (for example exhibiting diminishing returns for large separations) \citep{bujack2022}.\footnote{Bujack et al.~argue that many perceptual color metrics are valid primarily for small differences, with large color differences exhibiting nonadditive behavior under psychophysical testing—a departure from strict Riemannian geometry.} Accordingly, we treat metric-based distance as a practical local approximation for constructing smooth paths with bounded per-step changes, and we present global distance modelling as an open area for further empirical refinement.
 
-Modern perceptually uniform color spaces (OKLab, CAM16-UCS) are designed such that Euclidean distance $\Delta E$ in the coordinate representation approximates geodesic distance in the underlying perceptual manifold \citep{ottosson2020,safdar2017}. The approximation is not perfect, local curvature remains \citep{hong2024}, but the error is small enough for practical interpolation tasks.
+Modern perceptually uniform color spaces (OKLab, CAM16-UCS) are designed such that Euclidean distance $\Delta E$ in the coordinate representation approximates geodesic distance in the underlying perceptual manifold \citep{ottosson2020,safdar2017}. The approximation is not perfect, local curvature remains \citep{hong2025}, but the error is small enough for practical interpolation tasks.
 
 The engine thus achieves a balance: acknowledging the Riemannian nature of color space theoretically while exploiting Euclidean approximations computationally. All subsequent constraints and optimization objectives ($\Delta_{\min}$, $\Delta_{\max}$, velocity weights) are interpreted as \emph{locally Euclidean} values in OKLab units and are intended to operate in the small-step regime.
 
@@ -89,7 +90,7 @@ The engine thus achieves a balance: acknowledging the Riemannian nature of color
 
 \subsection{Mathematical Statement}
 
-A fundamental result in perceptual color theory is that no single global 3D Euclidean coordinate system can make perceptual distance everywhere equal to Euclidean distance without distortion \citep[p.~2]{nolle2012}. Consequently, practical 3D color spaces must either accept nonuniformity or treat distance as position-dependent (via a metric tensor). This is not merely a limitation of current measurement techniques; it reflects a mathematical constraint closely related to the ``super-importance of hue'' first identified by Judd \citep[p.~11]{judd1940}.\footnote{Judd's concept of the ``super-importance of hue'' established that hue differences contribute disproportionately to perceived color difference in ways that cannot be captured by simple Euclidean geometry, foundational to understanding the 720\textdegree~topology requirement \citep{nolle2012}.}
+A fundamental result in perceptual color theory is that no single global 3D Euclidean coordinate system can make perceptual distance everywhere equal to Euclidean distance without distortion \citep[p.~2]{nolle2013h2si_ms}. Consequently, practical 3D color spaces must either accept nonuniformity or treat distance as position-dependent (via a metric tensor). This is not merely a limitation of current measurement techniques; it reflects a mathematical constraint closely related to the ``super-importance of hue'' first identified by Judd \citep[p.~11]{judd1940}.\footnote{Judd's concept of the ``super-importance of hue'' established that hue differences contribute disproportionately to perceived color difference in ways that cannot be captured by simple Euclidean geometry, foundational to understanding the 720\textdegree~topology requirement \citep{nolle2012}.}
 
 Nölle et al.\ \citeyearpar{nolle2012} provide a derivation within their proposed H2SI geometry.\footnote{Nölle et al.'s work was presented at DSP 2013 (1--3 July 2013) as peer-reviewed conference proceedings, where they discuss Judd's ``super-importance of hue'' and derive an effective hue-circle circumference of roughly $4\pi$ (720\textdegree) under their proposed metric.} They define a saturation-dependent circumference term $s_2(S)$ for a constant-lightness, constant-saturation hue circle as:
 
@@ -98,14 +99,14 @@ Nölle et al.\ \citeyearpar{nolle2012} provide a derivation within their propose
     \label{eq:hue-circumference}
 \end{equation}
 
-\noindent where $S$ denotes saturation in the H2SI construction and $s_2(S)$ is the circumference term (in the authors' metric units) \citep[p.~9, Eq.~(3.10)]{nolle2012}. This expression is the H2SI specialization of the more general hue-arc-length integral implied by Eq.~\ref{eq:line-element}, i.e., integrating the appropriate metric component along a constant-$L$, constant-$S$ hue path. They then compare this circumference to the corresponding radial distance from a saturated point toward the neutral axis, yielding the ratio \citep[p.~9, Eq.~(3.11)]{nolle2012}:
+\noindent where $S$ denotes saturation in the H2SI construction and $s_2(S)$ is the circumference term (in the authors' metric units) \citep[p.~9, Eq.~(3.10)]{nolle2013h2si_ms}. This expression is the H2SI specialization of the more general hue-arc-length integral implied by Eq.~\ref{eq:line-element}, i.e., integrating the appropriate metric component along a constant-$L$, constant-$S$ hue path. They then compare this circumference to the corresponding radial distance from a saturated point toward the neutral axis, yielding the ratio \citep[p.~9, Eq.~(3.11)]{nolle2013h2si_ms}:
 
 \begin{equation}
     \frac{s_2(S=1)}{s_1} = 4\sqrt{10} \approx 12.65 \approx 4\pi\; (=720^\circ)
     \label{eq:720-result}
 \end{equation}
 
-In a Euclidean space, the circumference of a unit circle of radius $r$ is $2\pi r$. Here the derived ratio is approximately $4\pi$, i.e., about $2.01\times 2\pi$, motivating the informal statement that the hue circle behaves as if it had an effective ``circumference'' of roughly 720° rather than 360° \citep[p.~3]{nolle2012}.
+In a Euclidean space, the circumference of a unit circle of radius $r$ is $2\pi r$. Here the derived ratio is approximately $4\pi$, i.e., about $2.01\times 2\pi$, motivating the informal statement that the hue circle behaves as if it had an effective ``circumference'' of roughly 720° rather than 360° \citep[p.~3]{nolle2013h2si_ms}.
 
 \subsection{Physical Interpretation}
 
@@ -115,10 +116,10 @@ This ``extra length'' cannot be represented without distortion in a single globa
 
 \subsection{Implications for Existing Color Spaces}
 
-This result helps explain why even carefully designed spaces like CIELAB exhibit perceptual nonuniformities \citep{kong2021}:\footnote{Kong's dissertation provides comprehensive evidence that CIELAB, while effective for spatial discrimination tasks, fails for temporal color perception: ``CIELAB is not a useful space to predict the perception of dynamic colored light. Today, no color spaces are available that accurately predict the visibility of color differences over time'' (Section~5.3, p.~530). Kong also confirms Sekulovski's 10:1 asymmetry: ``The threshold for L* was found to be approximately 10 times smaller than for the chromaticity indices a* and b*.''}
+This result helps explain why even carefully designed spaces like CIELAB exhibit perceptual nonuniformities \citep[p.~530]{kong2021}:\footnote{Kong's dissertation provides comprehensive evidence that CIELAB, while effective for spatial discrimination tasks, fails for temporal color perception: ``CIELAB is not a useful space to predict the perception of dynamic colored light. Today, no color spaces are available that accurately predict the visibility of color differences over time''. For the primary experimental basis of the 10:1 temporal asymmetry, see Sekulovski et al.~\citep[p.~113]{sekulovski2007}.}
 
 \begin{itemize}
-    \item \textbf{CIELAB (1976):} Achieves approximate uniformity in spatial discrimination tasks but performs poorly as a predictor for temporal transitions. Kong \citeyearpar{kong2021} notes explicitly: ``CIELAB is not a useful space to predict the perception of dynamic colored light. Today, no color spaces are available that accurately predict the visibility of color differences over time'' \citep[p.~3]{kong2021}.
+    \item \textbf{CIELAB (1976):} Achieves approximate uniformity in spatial discrimination tasks but performs poorly as a predictor for temporal transitions; Kong argues it is not suitable for dynamic colored light and that no available color space accurately predicts the visibility of temporal differences \citep[p.~3]{kong2021}.
     
     \item \textbf{CAM16-UCS:} Improved spatial uniformity through adaptive chromatic transforms, but computational cost limits real-time use
     
@@ -277,12 +278,12 @@ The engine uses both representations internally:
 
 This separation allows clean reasoning about lightness dynamics (along $L$) versus chromatic dynamics (in the $a$–$b$ plane or around $h$).
 
-\\subsection{Implications for Journey Construction}
+\subsection{Implications for Journey Construction}
 
 The choice of OKLab has direct implications for color journey design:
 
 \begin{enumerate}
-    \item \textbf{Linear interpolation produces smooth gradients:} A straight line between two colors in OKLab coordinates produces a perceptually smooth transition, unlike RGB, where perceptual step size varies substantially across the interpolation. Figure~\ref{fig:interp-comparison} illustrates this by comparing the perceptual distance between adjacent samples under linear RGB versus linear OKLab interpolation.
+  \item \textbf{Linear interpolation produces smooth gradients:} A straight line between two colors in OKLab coordinates produces a perceptually smooth transition, unlike RGB, where perceptual step size varies substantially across the interpolation. Figure~\ref{fig:interp-comparison} illustrates this by comparing the perceptual distance between adjacent samples under linear RGB versus linear OKLab interpolation. The key failure mode is that linear RGB paths can traverse the achromatic region, producing grey midpoints and uneven perceptual steps, which motivates expressing constraints in OKLab units and enforcing them per step in the small-step regime.
     
     \item \textbf{Distance calculations are meaningful:} Constraints like $\Delta_{\min}$ and $\Delta_{\max}$ correspond to actual perceived differences, enabling principled constraint enforcement.
     
@@ -298,7 +299,7 @@ The choice of OKLab has direct implications for color journey design:
 }{%
   \fbox{\parbox{0.95\linewidth}{\centering\vspace{0.75em}Figure placeholder: interpolation comparison (linear RGB vs linear OKLab)\vspace{0.75em}}}%
 }
-\caption{Perceptual distance between adjacent colors under linear interpolation. Linear RGB interpolation produces highly nonuniform perceptual steps, whereas linear interpolation in OKLab yields substantially more uniform step distances (lower mean and reduced variation), supporting OKLab as a practical approximation for perceptually smooth journeys.}
+\caption{Perceptual step size between adjacent samples under linear interpolation. In linear sRGB, step size varies widely and can pass through desaturated midpoints, while in OKLab it is lower and more consistent. This supports OKLab as a practical basis for smooth color journeys.}
 \label{fig:interp-comparison}
 \end{figure}
 
@@ -346,11 +347,7 @@ Thresholds were analyzed using analysis of variance (ANOVA) with direction of ch
 
 The ANOVA revealed a highly significant main effect of direction of change ($p < 0.01$) \citep[p.~113]{sekulovski2007}. Post hoc tests demonstrated that mean threshold values for lightness changes were approximately \textbf{10 times smaller} than those for chroma and hue changes \citep[p.~113]{sekulovski2007}. Quantitatively, this implies that to maintain comparable perceived smoothness, allowable step sizes in lightness should be about \emph{one tenth} the size of step sizes in chroma or hue (in $\Delta E_{ab}$ units), reflecting a strong temporal asymmetry across channels.
 
-Kong's later dissertation \citep[p.~3]{kong2021} summarizes the finding concisely:
-
-\begin{quote}
-``The visibility threshold of smoothness, i.e., the maximum color difference between two successive colors that is allowed in order to perceive a temporal color transition as smooth, is about ten times smaller for lightness changes than for chroma or hue changes in CIELAB'' \citep[p.~3]{kong2021}.
-\end{quote}
+Kong's later dissertation \citep[p.~3]{kong2021} summarizes this result, describing the smoothness visibility threshold as about ten times smaller for lightness changes than for chroma or hue changes in CIELAB.
 
 Read operationally, the result indicates that lightness changes must be constrained much more tightly than chromatic changes for transitions to remain perceptually smooth.
 

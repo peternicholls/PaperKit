@@ -912,12 +912,12 @@ Kong, X. (2021) *Modeling the Temporal Behavior of Human Color Vision for Lighti
 | Current Source | Replacement Source | Rationale |
 |----------------|-------------------|-----------|
 | Kong (textbook framing) | **Byrne & Hilbert (2020)** | General foundations (§1.1–1.3) |
-| Kong (discrimination) | **Hong et al. (2024)** | Modern psychophysics benchmark (§3.1–3.2) |
+| Kong (discrimination) | **Hong et al. (2025)** | Modern psychophysics benchmark (§3.1–3.2) |
 | Kong (Riemannian theory) | **Bujack et al. (2022)** | Critical caveat on supra-threshold (§3.3–3.4) |
 
 **New Opening:**
 
-> "Color science concerns the process of color vision and those features of the environment that affect the colors that we see and how we see them, drawing on optics, psychology, neuroscience, neurology, ophthalmology, and biology (Byrne and Hilbert, 2020). Recent comprehensive measurements of human color discrimination thresholds provide strong evidence that perceptual color difference is well modeled as a Riemannian manifold (Hong et al., 2024)..."
+> "Color science concerns the process of color vision and those features of the environment that affect the colors that we see and how we see them, drawing on optics, psychology, neuroscience, neurology, ophthalmology, and biology (Byrne and Hilbert, 2020). Recent comprehensive measurements of human color discrimination thresholds provide strong evidence that perceptual color difference is well modeled as a Riemannian manifold (Hong et al., 2025)..."
 
 ---
 
@@ -989,8 +989,8 @@ Kong, X. (2021) *Modeling the Temporal Behavior of Human Color Vision for Lighti
 
 ## NEXT STEPS (FOR USER)
 
-1. **Verify Kong Extraction:** Locate and extract Kong (2020) §X on temporal CIELAB non-uniformity ✅ COMPLETE
-2. **Confirm Sekulovski 10:1 Ratio:** Cross-check numerical values in Figure 2 or cite Braun et al. (2017) explicitly ✅ COMPLETE
+1. **Verify Kong Extraction:** Locate and extract Kong (2020) §X on temporal CIELAB non-uniformity | ✅ COMPLETE
+2. **Confirm Sekulovski 10:1 Ratio:** Cross-check numerical values in Figure 2 or cite Braun et al. (2017) explicitly | ✅ COMPLETE
 3. **Apply Rebalancing:** Edit §2.1–§2.3 opening paragraphs using provided quotes
 4. **Update Citations:** Ensure all Byrne & Hilbert, Gao et al., Hong et al., Sekulovski references are in `references.bib`
 
@@ -998,3 +998,65 @@ Kong, X. (2021) *Modeling the Temporal Behavior of Human Color Vision for Lighti
 
 **Forensic Audit Complete.**  
 **Ellis (Research Librarian) — 31 December 2025**
+
+---
+
+## FOOTNOTES
+
+Yep, that “tab” write up is exactly the right kind of move: it turns Chapter 2’s opening from “Kong as the de facto textbook” into a properly triangulated foundation, with Kong kept for what it’s genuinely strong at (temporal / dynamic lighting). 
+
+What to watch for:
+
+### 1. The new source allocation is academically healthier
+
+The mapping in your extraction (Byrne & Hilbert for foundations, Gao for CAT/von Kries maths, Hong for discrimination thresholds, Sekulovski for smoothness vs flicker, Kong for temporal non-uniformity) is coherent and defendable.
+
+It also fixes a common examiner irritation: a thesis being used as the backbone for “basic field intro” when there are standard references available.
+
+### 2. Two credibility “edges” to manage
+
+A. Hong “2024” might actually be 2025 (check your bib metadata) | ✅ CHECKED
+
+~~Your extracted PDF header reads like a reviewed preprint with Nov 2025 dating. If your bib says 2024, you risk looking sloppy even if the science is right. Make the bib match what you actually have in hand (year + venue + DOI + version if it’s a preprint). This is the kind of thing supervisors mark down fast.~~
+
+B. Nölle / H2SI as a ResearchGate preprint
+
+Using it is fine, but treat it as preprint evidence, not a settled “proof that ends the argument.” In prose: “Nölle et al. (preprint) propose…” rather than “Nölle et al. prove…” unless you can anchor the claim in something peer reviewed, or you’ve checked whether there’s a later journal version.
+
+### 3. What to change in the Chapter 2 opening, conceptually
+
+Your opening should do three jobs, in this order:
+
+1.	Physics → perception gap
+Use Byrne & Hilbert for the clean “SPD × SSR is not enough” motivation (and to define SPD/SSR without Kong).
+
+2.	Why we need perceptual spaces (and what they can and cannot claim)
+Bring in Hong for local discrimination structure (threshold ellipses / metric tensor framing), but immediately constrain it to the local regime.
+
+3.	A deliberate caveat about global distance
+Use Bujack to explicitly say “suprathreshold dissimilarity can violate additivity,” and then state your paper’s stance: you’re designing bounded step transitions, not claiming a globally correct geometry of perceived dissimilarity.
+
+That makes your later choices feel “careful and honest,” not “sweeping and brittle.”
+
+### 4. A couple of wording traps to avoid (even if technically defensible)
+- Avoid “strong evidence that perceptual colour space is Riemannian.”
+    Prefer “can be well modelled locally as Riemannian (near threshold)” with an explicit scope boundary.
+
+- Avoid implying the 720 degree / Möbius idea is “settled.”
+    Frame it as “motivated by…” and “consistent with…” unless you’ve got multiple independent sources converging.
+
+### 5. Practical bib and citation hygiene (so this doesn’t regress later)
+- Use a consistent key scheme: byrne_hilbert2020, gao2020_vonkries, hong2025_wppm, sekulovski2007_smoothness, kong2021_temporal, bujack2022_nonriemannian.
+
+- For anything that’s a preprint: include note = {preprint} and a stable URL/DOI if available.
+
+- If you quote, keep it rare and purposeful. Most of Chapter 2 should be paraphrase + citation, otherwise it reads like an annotated bibliography.
+
+### 6. What I’d ask you to double check next (fast wins)
+- Confirm the exact numeric basis for the “10:1” claim (your own extraction even flags it as potentially coming from a figure or a different source). Don’t let a single spicy ratio sit there unsupported.
+
+- Confirm Hong’s publication status/year so you don’t accidentally cite it as a 2024 journal paper when it’s a 2025 reviewed preprint.
+
+---
+
+## REVIEW
