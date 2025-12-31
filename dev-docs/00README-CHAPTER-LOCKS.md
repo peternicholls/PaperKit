@@ -8,6 +8,7 @@ This directory contains the infrastructure for locking chapters and maintaining 
 
 | Chapter | Title | Tag | Snapshot | Locked Date |
 |---------|-------|-----|----------|-------------|
+| **Front Matter** | Abstract, Metadata, Spelling Note | `paper-v0.3-frontmatter-signedoff` | [PDF](../open-agents/output-final/snapshots/paper-v0.3-frontmatter-signedoff_20251231.pdf) | 31 Dec 2025 |
 | **Chapter 2** | Perceptual Foundations | `paper-v0.2-ch2-signedoff` | [PDF](../open-agents/output-final/snapshots/paper-v0.2-ch2-signedoff_20241230.pdf) | 30 Dec 2025 |
 
 ---
@@ -224,9 +225,13 @@ ls -lh open-agents/output-final/snapshots/
 |------|-------|----------|
 | 30 Dec 2025 | Chapter 2 locked | Tag: `paper-v0.2-ch2-signedoff` |
 | 30 Dec 2025 | PDF snapshot | `paper-v0.2-ch2-signedoff_20241230.pdf` |
-| 30 Dec 2025 | Lock system document
-**Not this:**
-- Figure appears without pries
+| 30 Dec 2025 | Lock system documented | This file and supporting docs |
+| 31 Dec 2025 | Front matter locked | Tag: `paper-v0.3-frontmatter-signedoff` |
+| 31 Dec 2025 | Front matter snapshot | `paper-v0.3-frontmatter-signedoff_20251231.pdf` |
+
+---
+
+## 🚀 Future Roadmap
 
 - [ ] Chapter 3 draft (follow style template)
 - [ ] Chapter 3 review
@@ -238,6 +243,6 @@ ls -lh open-agents/output-final/snapshots/
 
 ---
 
-**Last Updated:** 30 Dec 2025  
+**Last Updated:** 31 Dec 2025  
 **Maintained by:** Paper Architect agent  
 **Status:** System operational, Chapter 2 locked ✅
