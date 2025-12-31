@@ -153,6 +153,7 @@ show_help() {
     echo -e "  ${GREEN}validate${NC}                      Validate agent/workflow/tool schemas"
     echo -e "  ${GREEN}version${NC}                       Show version information"
     echo -e "  ${GREEN}latex${NC}                         LaTeX tools (build, lint, open)"
+    echo -e "  ${GREEN}lock${NC}                          Lock chapter/section from conceptual edits"
     echo -e "  ${GREEN}evidence${NC}                      Extract evidence from PDFs"
     echo -e "  ${GREEN}help${NC}                          Show this help message"
     echo ""
@@ -533,6 +534,10 @@ case "${1:-help}" in
     latex)
         shift
         latex_command "$@"
+        ;;
+    lock)
+        shift
+        "$SCRIPT_DIR/.paperkit/tools/lock-chapter.sh" "$@"
         ;;
     evidence)
         shift

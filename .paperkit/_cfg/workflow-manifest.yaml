@@ -104,6 +104,15 @@ workflows:
     description: Compile LaTeX document to PDF
     status: active
 
+  # Core Governance Workflows
+  - name: lock-chapter
+    module: core
+    category: governance
+    path: .paperkit/_cfg/workflows/lock-chapter.yaml
+    displayName: Lock Chapter
+    description: Sign off and lock a chapter or section from further conceptual edits
+    status: active
+
   # Specialist Workflows
   - name: generate-ideas
     module: specialist
@@ -138,10 +147,10 @@ workflows:
     status: active
 
 statistics:
-  totalWorkflows: 14
-  coreWorkflows: 10
+  totalWorkflows: 15
+  coreWorkflows: 11
   specialistWorkflows: 4
-  activeWorkflows: 14
+  activeWorkflows: 15
   deprecatedWorkflows: 0
 
 categories:
@@ -152,6 +161,7 @@ categories:
     - refinement
     - references
     - assembly
+    - governance
   specialist:
     - brainstorm
     - problem-solving

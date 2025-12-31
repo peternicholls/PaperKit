@@ -1,0 +1,118 @@
+# Lock Chapter Workflow Definition
+# Part of PaperKit Core Workflows
+
+name: lock-chapter
+displayName: Lock Chapter
+description: Sign off and lock a chapter or section from further conceptual edits
+module: core
+category: governance
+path: .paperkit/core/workflows/governance/lock-chapter.yaml
+
+agents:
+  - paper-architect
+  - quality-refiner
+
+steps:
+  - name: pre-lock-validation
+    description: Verify chapter meets quality standards before locking
+    checks:
+      - all-citations-have-page-numbers
+      - all-sections-have-transitions
+      - builds-without-errors
+      - no-orphaned-subsections
+      - maximum-three-heading-levels
+  
+  - name: create-git-commit
+    description: Commit the final state of the chapter
+    
+  - name: create-annotated-tag
+    description: Create git tag marking the locked state
+    format: "paper-v{major}.{minor}-{target}-signedoff"
+    
+  - name: create-snapshot
+    description: Generate PDF snapshot of locked state
+    
+  - name: update-documentation
+    description: Update lock index and create lock summary
+
+inputSchema:
+  type: object
+  required:
+    - target
+    - targetType
+  properties:
+    target:
+      type: string
+      description: What to lock (e.g., "ch2", "frontmatter", "ch3")
+      examples:
+        - "ch2"
+        - "frontmatter"
+        - "ch12"
+    targetType:
+      type: string
+      description: Type of content being locked
+      enum:
+        - chapter
+        - frontmatter
+        - appendix
+        - section
+    title:
+      type: string
+      description: Human-readable title of locked content
+      examples:
+        - "Perceptual Foundations"
+        - "Abstract, Metadata, Spelling Note"
+    versionMajor:
+      type: number
+      description: Major version number
+      default: 0
+    versionMinor:
+      type: number
+      description: Minor version number (auto-incremented)
+    filePaths:
+      type: array
+      description: Files being locked
+      items:
+        type: string
+      examples:
+        - ["latex/sections/02_perceptual_foundations.tex"]
+        - ["latex/metadata.tex", "latex/main.tex"]
+
+outputSchema:
+  type: object
+  properties:
+    tag:
+      type: string
+      description: Git tag created
+    snapshotPath:
+      type: string
+      description: Path to PDF snapshot
+    summaryPath:
+      type: string
+      description: Path to lock summary document
+    success:
+      type: boolean
+      description: Whether lock succeeded
+
+lockPolicy:
+  permitted:
+    - Typo corrections
+    - LaTeX formatting fixes
+    - Build error resolution
+    - Reference formatting
+  prohibited:
+    - Conceptual changes
+    - Content additions/removals
+    - Structural modifications
+    - Substantive rewording
+  unlockRequires:
+    - Documented rationale
+    - Approval from Paper Architect
+    - New revision tag
+
+exampleUsage:
+  - "Lock Chapter 2 (Perceptual Foundations)"
+  - "Lock front matter"
+  - "Sign off Chapter 3"
+
+owner: core-team
