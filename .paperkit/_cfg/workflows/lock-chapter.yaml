@@ -21,17 +21,17 @@ steps:
       - builds-without-errors
       - no-orphaned-subsections
       - maximum-three-heading-levels
-  
+
   - name: create-git-commit
     description: Commit the final state of the chapter
-    
+
   - name: create-annotated-tag
     description: Create git tag marking the locked state
     format: "paper-v{major}.{minor}-{target}-signedoff"
-    
+
   - name: create-snapshot
     description: Generate PDF snapshot of locked state
-    
+
   - name: update-documentation
     description: Update lock index and create lock summary
 

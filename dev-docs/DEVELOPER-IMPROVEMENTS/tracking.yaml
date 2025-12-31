@@ -406,6 +406,11 @@ additional_improvements:
       description: "manifest.yaml tracking all system components"
       effort_hours: 5
 
+    - name: "Paper Locking system"
+      date: "2025-12-14"
+      description: "Defined lock-chapter tool and workflow in YAML"
+      effort_hours: 8
+
   planned:
     - name: "CSV removal"
       description: "Complete removal of deprecated CSV files"
