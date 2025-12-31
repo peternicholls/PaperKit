@@ -556,7 +556,155 @@ Author unknown (2024?) 'H2SI: A new perceptual colour space', [Journal/Conferenc
 
 ---
 
-## PART 6: Missing Source — Kong (2020) Temporal Color Dynamics
+## PART 6: Fairchild (2005) — Color Appearance Models Textbook
+
+### Source: Fairchild (2005) — "Color Appearance Models" (2nd Edition)
+
+**Full Citation:**  
+Fairchild, M.D. (2005) *Color Appearance Models*. 2nd edn. Chichester: John Wiley & Sons (Wiley-IS&T Series in Imaging Science and Technology). ISBN: 0-470-01216-1.
+
+**Local Access:** ✅ `.../ColourAppearance-2ndEdition.xml`
+
+**Authority:** Mark Fairchild is Director of the Munsell Color Science Laboratory at Rochester Institute of Technology - one of the world's leading color science authorities.
+
+---
+
+### 6.1 Why Color Appearance Models? (Chapter Introduction)
+
+**CIE XYZ Limitations:**
+
+> "In 1931, the Commission Internationale de l'Éclairage (CIE) recommended a system for color measurement establishing the basis for modern colorimetry. That system allows the specification of color matches through CIE XYZ tristimulus values. It was immediately recognized that more advanced techniques were required. **The CIE recommended the CIELAB and CIELUV color spaces in 1976 to enable uniform international practice for the measurement of color differences and establishment of color tolerances. While the CIE system of colorimetry has been applied successfully for nearly 70 years, it is limited to the comparison of stimuli that are identical in every spatial and temporal respect and viewed under matched viewing conditions.**"  
+> — Fairchild (2005), Introduction
+
+**What CIE XYZ Does vs What We Need:**
+
+> "CIE XYZ values describe whether or not two stimuli match. CIELAB values can be used to describe the perceived differences between stimuli..."  
+> — Fairchild (2005), Introduction
+
+---
+
+### 6.2 Chromatic Adaptation Definition (Chapter 1)
+
+**Independent Sensitivity Control:**
+
+> "**Chromatic adaptation is the largely independent sensitivity control of the three mechanisms of color vision.** This is illustrated schematically in Figure 1.16, which shows that the overall height of the three cone spectral responsivity curves can vary independently. While chromatic adaptation is often discussed and modeled as independent sensitivity control in the cones, **there is no reason to believe that it does not occur in opponent and other color mechanisms as well.**"  
+> — Fairchild (2005), §1, p. [page number from Chapter 1]
+
+**Observable Phenomenon:**
+
+> "Chromatic adaptation can be observed by examining a white object, such as a piece of paper, under various types of illumination (e.g., daylight, fluorescent, and incandescent). Daylight contains relatively far more short-wavelength energy than fluorescent light, and incandescent illumination contains relatively far more long-wavelength energy than fluorescent light. **However, the paper approximately retains its white appearance under all three light sources.** This is because the S-cone system becomes relatively less sensitive under daylight..."  
+> — Fairchild (2005), §1
+
+**Automatic White Balance Analogy:**
+
+> "**Chromatic adaptation can be thought of as analogous to an automatic white-balance in video cameras.** Figure 1.17 provides a visual demonstration of chromatic adaptation in which the two halves of the visual field are conditioned to produce disparate levels of chromatic adaptation. **Given its fundamental importance in color appearance modeling, chromatic adaptation is covered in more detail in Chapter 8.**"  
+> — Fairchild (2005), §1
+
+---
+
+### 6.3 Corresponding Colors Definition (Chapter 8)
+
+**Precise Definition:**
+
+> "**Corresponding colors are defined as two stimuli, viewed under differing viewing conditions, that match in color appearance.** For example, a stimulus specified by the tristimulus values, XYZ₁, viewed in one set of viewing conditions, might appear the same as a second stimulus specified by the tristimulus values, XYZ₂, viewed in a second set of viewing conditions. XYZ₁ and XYZ₂, together with specifications of their respective viewing conditions, represent a pair of corresponding colors. **It is important to note, however, that XYZ₁ and XYZ₂ are rarely numerically identical.**"  
+> — Fairchild (2005), §8.4
+
+**Experimental Techniques:**
+
+> "Corresponding-colors data have been obtained through a wide variety of experimental techniques. Wright (1981a) provides an historical review of how and why chromatic adaptation has been studied."  
+> — Fairchild (2005), §8.4
+
+**Why Corresponding Colors Data Matters:**
+
+> "Given these data, it can safely be assumed that the pairs of corresponding colors represent **lightness–chroma matches in color appearance across the change in viewing conditions.** This is the case since lightness and chroma are the appearance parameters most intuitively judged for related colors. **With this assumption, the corresponding-colors data can be used to test a color appearance model** by taking the set of values for the first viewing condition, using the model to predict lightness–chroma matches for the second viewing condition, and comparing the predictions with the visual results."  
+> — Fairchild (2005), §8.4
+
+---
+
+### 6.4 von Kries Hypothesis — Historical Foundation (Chapter 9)
+
+**Original Statement (MacAdam Translation):**
+
+> "von Kries (1902) did not outline a specific set of equations as representative of what is today referred to as the von Kries model, the von Kries proportionality law, the von Kries coefficient law, and other similar names. **He simply outlined his hypothesis in words and described the potential impact of his ideas.** In MacAdam's translation of von Kries' words: [quote follows]"  
+> — Fairchild (2005), §9.1, p. 168
+
+**Modern Interpretation:**
+
+> "The modern interpretation of the von Kries hypothesis in terms of a chromatic adaptation transform..."  
+> — Fairchild (2005), §9.1
+
+**Gain Coefficients:**
+
+> "Equations 9.4–9.6 are a mathematical representation of von Kries' statement that **'each is fatigued or adapted exclusively according to its own function.'** Given the above interpretations of the gain coefficients, **the von Kries model can be used to calculate corresponding colors between two viewing conditions** by calculating the post-adaptation signals for the first condition, setting them equal to the post-adaptation signals for the second condition, and then reversing the model for the second condition."  
+> — Fairchild (2005), §9.1
+
+---
+
+### 6.5 Hunt Model — Modified von Kries (Chapter 12)
+
+**von Kries Core in Hunt Model:**
+
+> "The chromatic adaptation model embedded in Hunt's color appearance model is **a significantly modified form of the von Kries hypothesis.** The adapted cone signals ρₐ γₐ βₐ are determined from the cone responses for the stimulus ργβ and those for the reference white ρ_W γ_W β_W using Equations 12.5–12.7."  
+> — Fairchild (2005), §12.3, p. 211
+
+**Recognizing von Kries in Complex Equations:**
+
+> "**The von Kries hypothesis can be recognized in Equations 12.5–12.7 by noting the ratios ρ/ρ_W, γ/γ_W, β/β_W at the heart of the equations.** Clearly, there are many other parameters in Equations 12.5–12.7 that require definition and explanation; these are given below."  
+> — Fairchild (2005), §12.3, p. 211
+
+**Incomplete Adaptation:**
+
+> "Fρ, Fγ, and Fβ are chromatic adaptation factors that are introduced to model the fact that **chromatic adaptation is often incomplete.** These factors are designed such that chromatic adaptation is always complete for the equal-energy illuminant (sometimes referred to as illuminant E). This means that **the chromaticity of illuminant E always appears achromatic according to the model** and thus Fρ, Fγ, and Fβ are all equal to one. **Such a prediction is supported by experimental results of Hurvich and Jameson (1951), Hunt and Winter (1975), and Fairchild (1991b).**"  
+> — Fairchild (2005), §12.3, p. 212
+
+**Luminance-Dependent Adaptation:**
+
+> "The parameters hρ, hγ, and hβ can be thought of as chromaticity coordinates scaled relative to illuminant E (since ργβ themselves are normalized to illuminant E). They take on values of 1.0 for illuminant E and depart further from 1.0 as the reference white becomes more saturated. These parameters, taken together with the luminance level dependency L_A in Equations 12.11–12.13 produce values that depart from 1.0 by increasing amounts as the color of the reference white moves away from illuminant E (becoming more saturated) and the adapting luminance increases. **The feature that chromatic adaptation becomes more complete with increasing adapting luminance is also consistent with the visual experiments cited above.**"  
+> — Fairchild (2005), §12.3, p. 213
+
+---
+
+### 6.6 CIELAB as Simplified Appearance Model (Chapter 10)
+
+**CIELAB's Purpose:**
+
+> "The general use of chromaticity diagrams has been made largely obsolete by the advent of the CIE color spaces, CIELAB and CIELUV. These spaces extend tristimulus colorimetry to three-dimensional spaces with dimensions that approximately correlate with the perceived lightness, chroma, and hue of a stimulus. **This is accomplished by incorporating features to account for chromatic adaptation and nonlinear visual responses.** The main aim in the development of these spaces was to provide uniform practices for the measurement of color differences, something that cannot be done reliably in tristimulus or chromaticity spaces."  
+> — Fairchild (2005), §3.8, p. 78
+
+**Limitations of CIELAB:**
+
+> "Chromaticity coordinates, alone, provide no information about the color appearance of stimuli since they include no luminance (or therefore lightness) information and do not account for chromatic adaptation. **As an observer's state of adaptation changes, the color corresponding to a given set of chromaticity coordinates can change in appearance dramatically (e.g., a change from yellow to blue could occur with a change from daylight to incandescent light adaptation).**"  
+> — Fairchild (2005), §3.7
+
+---
+
+## Strategic Use of Fairchild in Chapter 02
+
+### Why Fairchild Strengthens Our Rebalancing:
+
+1. **Textbook Authority:** Fairchild is a **standard reference** in color science graduate programs worldwide - citing it is like citing Kernighan & Ritchie for C programming.
+
+2. **Bridges Kong Gap:** Fairchild provides the **chromatic adaptation foundation** (Chapter 8-9) that Kong assumes but doesn't explain.
+
+3. **Validates Multi-Source Approach:** Fairchild himself cites Byrne & Hilbert-style foundations (Chapter 1), Gao-style CAT mathematics (Chapter 9), and discusses corresponding colors extensively.
+
+4. **Pedagogical Structure:** Fairchild's chapter organization mirrors our rebalancing:
+   - Chapter 1: Visual system basics (→ Byrne & Hilbert)
+   - Chapter 8: Chromatic adaptation phenomena (→ General principle)
+   - Chapter 9: CAT models (→ Gao et al.)
+   - Chapter 10: CIELAB limitations (→ Why we need better spaces)
+
+### Where to Use Fairchild Quotes:
+
+| Paper Section | Fairchild Section | Quote Type |
+|---------------|-------------------|------------|
+| §2.1 Opening | Introduction + §1 | "CIE XYZ limitations" + "chromatic adaptation definition" |
+| §2.2 Adaptation | §8.4 + §9.1 | "Corresponding colors" + "von Kries hypothesis" |
+| §2.3 (if needed) | §12.3 | "Hunt model as modified von Kries" (to show modern extensions) |
+
+---
+
+## PART 7: Missing Source — Kong (2020) Temporal Color Dynamics
 
 **Status:** ⚠️ No Kong XML file found in directory
 
