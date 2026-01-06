@@ -1,0 +1,29 @@
+Agent Schema Validation
+======================================================================
+
+Validating 11 agent(s)...
+
+✓ brainstorm                VALID
+✓ latex-assembler           VALID
+✓ librarian                 VALID
+✗ orchestrator              INVALID
+  [root] 'identity' is a required property
+  [root] 'path' is a required property
+  [root] Additional properties are not allowed ('decisionSchema', 'instructions', 'schemaVersion', 'status' were unexpected)
+
+✓ paper-architect           VALID
+✓ problem-solver            VALID
+✓ quality-refiner           VALID
+✓ reference-manager         VALID
+✓ research-consolidator     VALID
+✓ section-drafter           VALID
+✓ tutor                     VALID
+======================================================================
+
+Validation Summary:
+  Total agents:   11
+  Valid:          10
+  Invalid:        1
+  Total errors:   3
+
+⚠️  Validation failed with 1 invalid agent(s)
