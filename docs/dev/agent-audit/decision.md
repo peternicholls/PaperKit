@@ -1,76 +1,52 @@
 # Agent System Unification Decision
 
 Generated: 2026-01-06
+Updated: 2026-01-06
 
 ## Decision
 
-**Canonical Agent Definition System**: Markdown files with YAML frontmatter at `.paperkit/{core,specialist}/agents/*.md`
+**Canonical Design** — Two-file split:
 
-**YAML files at `.paperkit/_cfg/agents/*.yaml`**: Retained as supplementary metadata index (NOT deprecated)
+1. **`.paperkit/_cfg/agents/*.yaml`** = Schema-validated **metadata ONLY**
+   - Contains all fields defined in `agent-schema.json`
+   - Machine-readable, validated by CI
+   - `path` field points to the corresponding MD file
+
+2. **`.paperkit/{core,specialist}/agents/*.md`** = **Prompt/instructions content**
+   - Contains the agent's behavioural instructions
+   - Referenced by `path` field in the YAML file
+   - Used by runtime/loaders to activate the agent persona
 
 ## Rationale
 
-### Evidence from Repository
+### Schema Design
 
-1. **Schema Design**:
-   - `agent-schema.json` path regex: `^\\.paperkit/(core|specialist)/agents/[a-z][a-z0-9-]*\\.md$`
-   - This explicitly expects MD files, not YAML
+The `agent-schema.json` defines what metadata belongs in YAML files:
+- Required: `name`, `displayName`, `title`, `icon`, `identity`, `module`, `path`
+- Optional: `version`, `capabilities`, `constraints`, `principles`, `inputSchema`, `outputSchema`, `examplePrompts`, `owner`
+- `additionalProperties: false` — No extra keys allowed
 
-2. **Runtime Loader**:
-   - `generate.sh` reads from `.paperkit/{core,specialist}/agents/*.md`
-   - Generated IDE files reference the MD locations
+The `path` property has a regex pattern that expects `.paperkit/(core|specialist)/agents/*.md` files.
 
-3. **Existing Pattern**:
-   - All 11 MD agent files have YAML frontmatter with schema-compliant metadata
-   - The `orchestrator.md` file is fully compliant with the schema
-   - MD files contain both metadata AND operational instructions
+### Why This Split?
 
-4. **YAML Files Purpose**:
-   - Each YAML file has a `path` property pointing to the corresponding MD file
-   - They provide a machine-readable index without parsing frontmatter
-   - Used by CI validation workflow
+1. **Separation of concerns**: Metadata (structured, validatable) vs. Instructions (prose, prompts)
+2. **CI validation**: YAML files can be schema-validated without parsing markdown
+3. **Runtime loading**: MD files contain the actual agent behavior loaded at runtime
+4. **No duplication**: Metadata lives in YAML, instructions live in MD
 
-### Why Not Retire YAML Files?
+### What Changed
 
-1. **They serve a purpose**: Quick lookup of agent metadata without parsing MD
-2. **CI workflow uses them**: `validate-agent-metadata.yml` validates the YAML files
-3. **Manifest references them**: `agent-manifest.yaml` points to YAML files
-4. **No duplication of instructions**: YAML files don't contain operational prompts
+1. **orchestrator.yaml**: Now contains ONLY schema-compliant metadata (no `instructions`, `decisionSchema`, etc.)
+2. **orchestrator.md**: Now contains ONLY the agent's behavioral instructions (no YAML frontmatter)
+3. **Validation**: Both `validate-agent-schema.py` and `check-agents.py` verify the system integrity
 
-### The Real Problem
+## Implementation Status
 
-The issue isn't that YAML files exist—it's that:
-1. `orchestrator.yaml` is non-compliant with the schema
-2. `validate.py` has hardcoded wrong paths (`.paper/` instead of `.paperkit/`)
-3. orchestrator is missing from `agent-manifest.yaml`
-
-## Implementation Plan
-
-### Phase 1: Fix Schema Compliance
-- [ ] Update `orchestrator.yaml` to be schema-compliant
-- [ ] Verify all YAML files pass validation
-
-### Phase 2: Fix Validation Scripts
-- [ ] Update `validate.py` to use `.paperkit/` paths
-
-### Phase 3: Update Manifest
-- [ ] Add orchestrator to `agent-manifest.yaml`
-
-### Phase 4: Add Unified Check
-- [ ] Create `tools/check-agents.sh` that:
-  - Validates all YAML files against schema
-  - Validates all MD frontmatter against schema
-  - Checks for name mismatches
-  - Ensures path references exist
-  - Detects duplicate agent names
-
-### Phase 5: Documentation
-- [ ] Create "How agents are structured" guide
-
-## Compatibility Layer
-
-**Not needed.** The dual system is intentional:
-- MD files = canonical definitions (metadata + instructions)
-- YAML files = supplementary metadata index
-
-Both should reference the same MD paths and pass schema validation.
+- [x] `orchestrator.yaml` is schema-compliant
+- [x] `orchestrator.md` contains behavioral instructions
+- [x] All 11 agent YAML files pass validation
+- [x] All 11 agent MD files exist and are referenced correctly
+- [x] `validate.py` uses correct `.paperkit/` paths
+- [x] `check-agents.py` provides unified validation
+- [x] CI workflow runs both validation checks

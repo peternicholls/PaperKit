@@ -6,15 +6,15 @@ This document explains the PaperKit agent system structure and how the dual-file
 
 PaperKit uses a dual-file approach for agent definitions:
 
-1. **YAML Metadata Files** (`.paperkit/_cfg/agents/*.yaml`) - Machine-readable metadata index
-2. **Markdown Agent Files** (`.paperkit/{core,specialist}/agents/*.md`) - Full agent definitions with operational instructions
+1. **YAML Metadata Files** (`.paperkit/_cfg/agents/*.yaml`) - Schema-validated metadata **ONLY**
+2. **Markdown Agent Files** (`.paperkit/{core,specialist}/agents/*.md`) - Behavioural instructions and prompts
 
 ## Directory Structure
 
 ```
 .paperkit/
 ├── _cfg/
-│   ├── agents/                    # YAML metadata files
+│   ├── agents/                    # YAML metadata files (schema-validated)
 │   │   ├── orchestrator.yaml
 │   │   ├── paper-architect.yaml
 │   │   └── ...
@@ -22,12 +22,12 @@ PaperKit uses a dual-file approach for agent definitions:
 │   │   └── agent-schema.json      # JSON Schema for validation
 │   └── agent-manifest.yaml        # Index of all agents
 ├── core/
-│   └── agents/                    # Core agent definitions (MD)
+│   └── agents/                    # Core agent instructions (MD)
 │       ├── orchestrator.md
 │       ├── paper-architect.md
 │       └── ...
 └── specialist/
-    └── agents/                    # Specialist agent definitions (MD)
+    └── agents/                    # Specialist agent instructions (MD)
         ├── brainstorm.md
         ├── tutor.md
         └── ...
@@ -37,20 +37,27 @@ PaperKit uses a dual-file approach for agent definitions:
 
 Location: `.paperkit/_cfg/agents/`
 
-These files contain structured metadata about each agent, including:
+These files contain **metadata only** — no instructions or prompts. They are validated against `agent-schema.json`.
+
+### Required Fields
 
 - `name` - Machine identifier (kebab-case)
 - `displayName` - Human persona name
 - `title` - Functional title
 - `icon` - Emoji representation
 - `module` - Either "core" or "specialist"
-- `identity` - Role, description, and communication style
-- `capabilities` - What the agent can do
-- `constraints` - Limitations and boundaries
-- `principles` - Guiding behaviors
-- `inputSchema` / `outputSchema` - Expected data formats
-- `examplePrompts` - Usage examples
-- `path` - Reference to the MD file
+- `identity` - Object with `role` and `description`
+- `path` - Reference to the MD file (must match pattern)
+
+### Optional Fields
+
+- `version` - Semantic version (e.g., "1.0.0")
+- `capabilities` - Array of strings
+- `constraints` - Array of strings
+- `principles` - Array of strings
+- `inputSchema` / `outputSchema` - JSON Schema objects
+- `examplePrompts` - Array of example prompt strings
+- `owner` - Maintainer name
 
 ### Example YAML File
 
@@ -71,11 +78,9 @@ identity:
 capabilities:
   - Design comprehensive paper structures
   - Create hierarchical section organization
-  - Generate LaTeX scaffolding
 
 constraints:
   - Cannot start writing content (delegates to Section Drafter)
-  - Requires clear paper scope before structuring
 
 path: .paperkit/core/agents/paper-architect.md
 ```
@@ -84,23 +89,27 @@ path: .paperkit/core/agents/paper-architect.md
 
 Location: `.paperkit/{core,specialist}/agents/`
 
-These files contain the full agent definition with:
+These files contain the **behavioural instructions** for the agent:
 
-1. YAML frontmatter (optional but recommended)
-2. Operational instructions, prompts, and persona details
-3. Menu systems and workflows
+- Agent persona and role description
+- How the agent should respond
+- Specific rules and tie-break logic
+- Output format requirements
+- Menu systems and workflows (if applicable)
+
+**Important**: MD files should NOT duplicate the YAML metadata. They contain only the instructions/prompts that define the agent's behavior.
 
 The runtime (`generate.sh`) reads from these files to generate IDE-specific agent files.
 
-### Why Both?
+## Why This Split?
 
-| Feature | YAML Files | MD Files |
+| Concern | YAML Files | MD Files |
 |---------|------------|----------|
-| Schema validation | ✅ Primary | Optional frontmatter |
-| Machine-readable metadata | ✅ Easy to parse | Requires frontmatter extraction |
-| Operational instructions | ❌ None | ✅ Full agent prompts |
-| IDE generation source | ❌ Metadata only | ✅ Used by generate.sh |
-| CI validation | ✅ Primary target | Secondary |
+| Schema validation | ✅ Validated by CI | Not validated |
+| Structured metadata | ✅ Easy to parse | N/A |
+| Agent instructions | ❌ None | ✅ Full prompts |
+| IDE generation | Metadata reference | ✅ Used by generate.sh |
+| Runtime loading | Metadata lookup | ✅ Behavior source |
 
 ## Validation
 
@@ -129,12 +138,12 @@ python .paperkit/tools/check-agents.py --ci
 
 1. **Determine module**: `core` (paper writing) or `specialist` (support)
 
-2. **Create the MD file**:
+2. **Create the MD file** with instructions:
    ```
    .paperkit/{core|specialist}/agents/{agent-name}.md
    ```
 
-3. **Create the YAML metadata file**:
+3. **Create the YAML metadata file** (schema-compliant):
    ```
    .paperkit/_cfg/agents/{agent-name}.yaml
    ```
