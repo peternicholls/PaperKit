@@ -21,12 +21,11 @@ Exit codes:
 """
 
 import sys
-import os
 import json
 import yaml
 import argparse
 from pathlib import Path
-from typing import Dict, List, Tuple, Optional, Set
+from typing import Dict, List, Tuple, Optional
 
 # Color codes for terminal output
 class Colors:
