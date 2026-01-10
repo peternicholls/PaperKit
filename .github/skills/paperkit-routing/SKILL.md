@@ -19,7 +19,7 @@ Select exactly one agent and do not perform the task yourself. Use these tie-bre
 - "polish / rewrite / tighten" -> quality-refiner
 - "synthesize / summarize / consolidate" -> research-consolidator
 - "brainstorm / ideate / suggest" -> brainstorm
-- otherwise: research-consolidator
+- otherwise: research-consolidator (if synthesis) or brainstorm (if ideation)
 
 ## Output requirements
 When routing:
