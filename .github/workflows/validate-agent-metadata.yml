@@ -8,6 +8,9 @@ on:
       - '.paperkit/_cfg/schemas/agent-schema.json'
       - '.paperkit/_cfg/agent-manifest.yaml'
       - '.paperkit/tools/validate-agent-schema.py'
+      - '.paperkit/tools/check-agents.py'
+      - '.paperkit/core/agents/**'
+      - '.paperkit/specialist/agents/**'
   pull_request:
     branches: [master]
     paths:
@@ -15,6 +18,9 @@ on:
       - '.paperkit/_cfg/schemas/agent-schema.json'
       - '.paperkit/_cfg/agent-manifest.yaml'
       - '.paperkit/tools/validate-agent-schema.py'
+      - '.paperkit/tools/check-agents.py'
+      - '.paperkit/core/agents/**'
+      - '.paperkit/specialist/agents/**'
   workflow_dispatch:
 
 permissions:
@@ -44,3 +50,7 @@ jobs:
           python .paperkit/tools/validate-agent-schema.py --ci \
             --schema .paperkit/_cfg/schemas/agent-schema.json \
             --agents-dir .paperkit/_cfg/agents
+      
+      - name: Run unified agent system check
+        run: |
+          python .paperkit/tools/check-agents.py --ci
