@@ -17,7 +17,9 @@ Select exactly one agent and do not perform the task yourself. Use these tie-bre
 - "outline / structure / argument flow" -> paper-architect
 - "draft section / write introduction/methods/related work" -> section-drafter
 - "polish / rewrite / tighten" -> quality-refiner
-- otherwise: research-consolidator (if synthesis) or brainstorm (if ideation)
+- "synthesize / summarize / consolidate" -> research-consolidator
+- "brainstorm / ideate / suggest" -> brainstorm
+- otherwise: research-consolidator
 
 ## Output requirements
 When routing:
