@@ -3,16 +3,71 @@
 
 meta:
   project: PaperKit Developer Improvements
-  total_specs: 13
+  total_specs: 14
   completed_specs: 1
-  in_progress_specs: 0
-  total_estimated_effort_hours: 533
-  total_actual_effort_hours: 70
+  in_progress_specs: 1
+  total_estimated_effort_hours: 569
+  total_actual_effort_hours: 73
   current_phase: "Foundation Phase"
-  active_branch: "Research-agent-improvements"
+  active_branch: "001-agent-system-upgrade"
 
 # Specification Implementation Status
 specifications:
+  "001-agent-system-upgrade":
+    title: "Agent System Consolidation and Skills Framework"
+    status: IN_PROGRESS
+    priority: High
+    category: Core Architecture
+    estimated_hours: 36
+    actual_hours: 3
+    start_date: "2025-12-28"
+    branch: "001-agent-system-upgrade"
+    progress:
+      phase_1:
+        name: "System Consolidation"
+        status: COMPLETE
+        tasks_completed: 10
+        tasks_total: 10
+        completion_date: "2025-12-28"
+        deliverables:
+          - "docs/dev/PATHS.md (canonical path reference)"
+          - ".paperkit/tools/migrate-agent-format.py (migration tool)"
+          - ".paperkit/tools/measure-duplication.py (baseline metrics)"
+          - ".paperkit/data/duplication-baseline.md (22.7% duplication)"
+          - "Updated validation scripts (.paper/ → .paperkit/)"
+          - "Fixed workflow schema violations"
+        
+      phase_2:
+        name: "Skills Framework Implementation"
+        status: NOT_STARTED
+        tasks_total: 8
+      
+      phase_3:
+        name: "Agent Refactoring"
+        status: NOT_STARTED
+        tasks_total: 7
+      
+      phase_4:
+        name: "Testing and Documentation"
+        status: NOT_STARTED
+        tasks_total: 5
+      
+      phase_5:
+        name: "Validation and Deployment"
+        status: NOT_STARTED
+        tasks_total: 3
+
+      current_status:
+        - "Phase 1 complete - all validation passing"
+        - "Baseline duplication: 22.7% (target: <10%)"
+        - "14 skill candidates identified"
+        - "All .paper/ paths migrated to .paperkit/"
+        
+      next_actions:
+        - "Begin Phase 2: Create skills/ directory structure"
+        - "Implement shared skill modules"
+        - "Refactor agents to use skills"
+
   "001-agent-metadata":
     title: "Incomplete/Fragmented Agent Metadata"
     status: COMPLETE
@@ -348,40 +403,39 @@ phases:
 
 # Current Context
 current_context:
-  last_work_date: "2025-12-14"
-  days_since_last_work: 14
-  current_focus: "Spec 001 complete, evaluating next steps"
-  active_branch: "Research-agent-improvements"
+  last_work_date: "2025-12-28"
+  days_since_last_work: 0
+  current_focus: "Spec 001-agent-system-upgrade Phase 1 complete"
+  active_branch: "001-agent-system-upgrade"
 
   recent_accomplishments:
-    - "Completed full migration to YAML metadata system"
-    - "Created 3 JSON schemas (agents, workflows, tools)"
-    - "Migrated 30 definitions to YAML (10 agents + 14 workflows + 6 tools)"
-    - "Established validation infrastructure"
-    - "Created master manifest system"
+    - "Completed Phase 1: System Consolidation (10/10 tasks)"
+    - "Created PATHS.md canonical reference"
+    - "Fixed all .paper/ → .paperkit/ path issues"
+    - "Generated baseline duplication metrics (22.7%)"
+    - "Created migration tooling for future format changes"
 
   next_steps:
     immediate:
-      - "Review and plan spec 002 implementation"
-      - "Consider starting spec 005 (testing) in parallel"
-      - "Evaluate priority of spec 013 (DEMOCRITUS integration)"
+      - "Commit Phase 1 changes in logical batches"
+      - "Begin Phase 2: Skills framework implementation"
+      - "Create .paperkit/skills/ directory structure"
 
     short_term:
-      - "Begin workflow-agent contract validation (002)"
-      - "Set up test framework (005)"
-      - "Document current system state"
+      - "Implement shared skill modules (8 tasks)"
+      - "Refactor agents to use skills (7 tasks)"
+      - "Achieve <10% duplication target"
 
     long_term:
-      - "Complete Foundation Phase (002)"
-      - "Move to Security Phase (003, 004)"
-      - "Plan DEMOCRITUS integration (013)"
+      - "Complete remaining phases (Testing, Deployment)"
+      - "Begin spec 002 (workflow-agent contract)"
+      - "Evaluate spec 005 (testing) integration"
 
   blockers: []
 
   decisions_needed:
-    - "Prioritize 002 vs 005 for next implementation?"
-    - "Should 013 be elevated in priority?"
-    - "Resource allocation for Security Phase?"
+    - "Approve Phase 1 commits before proceeding?"
+    - "Phase 2 timeline and resource allocation?"
 
   technical_debt:
     - "CSV format still exists (deprecated but not removed)"
