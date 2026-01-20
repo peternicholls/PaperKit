@@ -1,0 +1,103 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "skill-frontmatter-schema.json",
+    "title": "Agent Skill Frontmatter Schema",
+    "description": "JSON Schema for validating SKILL.md YAML frontmatter per agentskills.io specification",
+    "type": "object",
+    "required": [
+        "name",
+        "description"
+    ],
+    "properties": {
+        "name": {
+            "type": "string",
+            "description": "Unique skill identifier. Must match parent directory name.",
+            "minLength": 1,
+            "maxLength": 64,
+            "pattern": "^[a-z][a-z0-9]*(-[a-z0-9]+)*$",
+            "examples": [
+                "humanizer",
+                "academic-writing",
+                "latex-best-practices"
+            ]
+        },
+        "description": {
+            "type": "string",
+            "description": "What the skill does AND when to use it. Should include trigger keywords.",
+            "minLength": 1,
+            "maxLength": 1024,
+            "examples": [
+                "Remove signs of AI-generated writing from text. Use when editing or reviewing text to make it sound more natural and human-written.",
+                "Format academic citations in Harvard style. Use when creating bibliographies, citing sources, or formatting references."
+            ]
+        },
+        "license": {
+            "type": "string",
+            "description": "License name or reference to bundled LICENSE file",
+            "examples": [
+                "Apache-2.0",
+                "MIT",
+                "Proprietary. LICENSE.txt has complete terms"
+            ]
+        },
+        "compatibility": {
+            "type": "string",
+            "description": "Environment requirements (intended product, system packages, network access)",
+            "minLength": 1,
+            "maxLength": 500,
+            "examples": [
+                "Designed for Claude Code (or similar products)",
+                "Requires git, docker, jq, and access to the internet"
+            ]
+        },
+        "allowed-tools": {
+            "type": "string",
+            "description": "Space-delimited list of pre-approved tools (experimental)",
+            "pattern": "^[A-Za-z][A-Za-z0-9():\\*\\- ]*$",
+            "examples": [
+                "Read Write Edit",
+                "Bash(git:*) Bash(jq:*) Read",
+                "Read Write Edit Grep Glob AskUserQuestion"
+            ]
+        },
+        "metadata": {
+            "type": "object",
+            "description": "Arbitrary key-value pairs for additional properties",
+            "additionalProperties": {
+                "type": "string"
+            },
+            "examples": [
+                {
+                    "author": "core-team",
+                    "version": "1.0.0"
+                },
+                {
+                    "author": "community",
+                    "version": "2.1.1",
+                    "category": "writing"
+                }
+            ]
+        }
+    },
+    "additionalProperties": false,
+    "examples": [
+        {
+            "name": "humanizer",
+            "description": "Remove signs of AI-generated writing from text. Use when editing or reviewing text to make it sound more natural and human-written.",
+            "metadata": {
+                "author": "core-team",
+                "version": "2.1.1"
+            },
+            "allowed-tools": "Read Write Edit Grep Glob"
+        },
+        {
+            "name": "academic-writing",
+            "description": "Guide for writing academic papers with proper structure, citations, and formal tone. Use when drafting academic content, research papers, or formal reports.",
+            "license": "Apache-2.0",
+            "metadata": {
+                "author": "core-team",
+                "version": "1.0.0"
+            }
+        }
+    ]
+}

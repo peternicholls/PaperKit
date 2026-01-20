@@ -1,0 +1,220 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "https://paperkit.dev/schemas/skill-schema.json",
+    "title": "PaperKit Skill Definition Schema",
+    "description": "JSON Schema for validating PaperKit skill definitions",
+    "type": "object",
+    "required": [
+        "name",
+        "displayName",
+        "description",
+        "version",
+        "type",
+        "steps",
+        "inputSchema",
+        "outputSchema"
+    ],
+    "properties": {
+        "name": {
+            "type": "string",
+            "description": "Machine identifier (kebab-case)",
+            "pattern": "^[a-z][a-z0-9-]*$"
+        },
+        "displayName": {
+            "type": "string",
+            "description": "Human-readable skill name"
+        },
+        "description": {
+            "type": "string",
+            "description": "What the skill does"
+        },
+        "version": {
+            "type": "string",
+            "description": "Semantic version",
+            "pattern": "^\\d+\\.\\d+\\.\\d+$"
+        },
+        "type": {
+            "type": "string",
+            "description": "Skill composition type",
+            "enum": [
+                "atomic",
+                "composite",
+                "conditional"
+            ]
+        },
+        "prerequisites": {
+            "type": "array",
+            "description": "Required skills or tools before execution",
+            "items": {
+                "type": "object",
+                "required": [
+                    "type",
+                    "name"
+                ],
+                "properties": {
+                    "type": {
+                        "type": "string",
+                        "enum": [
+                            "skill",
+                            "tool"
+                        ]
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "version": {
+                        "type": "string",
+                        "description": "Semver constraint (e.g., >=1.0.0)"
+                    }
+                }
+            }
+        },
+        "steps": {
+            "type": "array",
+            "description": "Ordered execution steps",
+            "minItems": 1,
+            "items": {
+                "$ref": "#/definitions/skillStep"
+            }
+        },
+        "inputSchema": {
+            "type": "object",
+            "description": "JSON Schema for required inputs",
+            "properties": {
+                "type": {
+                    "type": "string"
+                },
+                "properties": {
+                    "type": "object"
+                },
+                "required": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                }
+            }
+        },
+        "outputSchema": {
+            "type": "object",
+            "description": "JSON Schema for guaranteed outputs",
+            "properties": {
+                "type": {
+                    "type": "string"
+                },
+                "properties": {
+                    "type": "object"
+                },
+                "required": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                }
+            }
+        },
+        "timeout": {
+            "type": "integer",
+            "description": "Maximum execution time in milliseconds",
+            "minimum": 1000,
+            "maximum": 300000,
+            "default": 60000
+        },
+        "retryPolicy": {
+            "type": "object",
+            "description": "Retry behavior on failure",
+            "properties": {
+                "maxRetries": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 5,
+                    "default": 0
+                },
+                "backoffMs": {
+                    "type": "integer",
+                    "minimum": 100,
+                    "maximum": 10000,
+                    "default": 1000
+                },
+                "retryableErrors": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                }
+            }
+        },
+        "metadata": {
+            "type": "object",
+            "description": "Additional metadata",
+            "properties": {
+                "author": {
+                    "type": "string"
+                },
+                "tags": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "category": {
+                    "type": "string"
+                }
+            }
+        }
+    },
+    "definitions": {
+        "skillStep": {
+            "type": "object",
+            "required": [
+                "action",
+                "agent",
+                "inputs",
+                "outputs"
+            ],
+            "properties": {
+                "action": {
+                    "type": "string",
+                    "description": "Step identifier"
+                },
+                "agent": {
+                    "type": "string",
+                    "description": "Agent to execute this step"
+                },
+                "inputs": {
+                    "type": "array",
+                    "description": "Input variable names",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "outputs": {
+                    "type": "array",
+                    "description": "Output variable names",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "condition": {
+                    "type": "string",
+                    "description": "Conditional expression (for conditional skills)"
+                },
+                "onError": {
+                    "type": "string",
+                    "description": "Error handling strategy",
+                    "enum": [
+                        "fail",
+                        "skip",
+                        "retry"
+                    ],
+                    "default": "fail"
+                },
+                "tool": {
+                    "type": "string",
+                    "description": "Optional tool to invoke"
+                }
+            }
+        }
+    },
+    "additionalProperties": false
+}
