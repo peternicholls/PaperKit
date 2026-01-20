@@ -72,6 +72,7 @@ specs/001-agent-system-upgrade/
 │   ├── schemas/
 │   │   ├── agent-schema.json   # Existing
 │   │   ├── skill-schema.json   # NEW
+│   │   ├── consent-schema.json # NEW
 │   │   └── metrics-schema.json # NEW
 │   ├── routing.registry.yaml   # Enhanced with confidence thresholds
 │   └── consent.registry.yaml   # NEW: Tool consent preferences

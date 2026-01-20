@@ -302,9 +302,9 @@
 **Relationships**:
 - **Belongs to** Tool (N:1)
 
-**Storage**: 
-- Session: In-memory (cleared on exit)
-- Persistent: `.paperkit/_cfg/consent.registry.yaml`
+**Storage**: `.paperkit/_cfg/consent.registry.yaml`
+- Session consents: In-memory (cleared on exit)
+- Persistent consents: Appended to consent.registry.yaml
 
 ---
 
