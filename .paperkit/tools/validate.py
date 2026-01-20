@@ -3,7 +3,7 @@
 PaperKit Schema Validator
 
 Validates agent, workflow, and tool YAML definitions against their
-JSON schemas in .paper/_cfg/schemas/.
+JSON schemas in .paperkit/_cfg/schemas/.
 
 Usage:
     python3 paperkit-validate.py [--verbose] [--fix-missing]
@@ -154,7 +154,11 @@ def validate_against_schema(data: Dict, schema: Dict, file_name: str, verbose: b
 
 
 def validate_agents(project_root: Path, verbose: bool = False) -> Tuple[int, int]:
-    """Validate all agent definitions. Returns (passed, failed) counts."""
+    """Validate all agent definitions. Returns (passed, failed) counts.
+    
+    Agent metadata is stored in YAML files in .paperkit/_cfg/agents/,
+    NOT in frontmatter within MD files.
+    """
     import yaml
     
     schema_path = project_root / ".paperkit/_cfg/schemas/agent-schema.json"
@@ -170,35 +174,31 @@ def validate_agents(project_root: Path, verbose: bool = False) -> Tuple[int, int
     passed = 0
     failed = 0
     
-    # Check both core and specialist agents
-    agent_dirs = [
-        project_root / ".paperkit/core/agents",
-        project_root / ".paperkit/specialist/agents"
-    ]
+    # Agent metadata is in YAML files (not MD frontmatter)
+    agents_dir = project_root / ".paperkit/_cfg/agents"
     
-    for agent_dir in agent_dirs:
-        if not agent_dir.is_dir():
+    if not agents_dir.is_dir():
+        print(color("Cannot validate agents: agents directory not found", Colors.YELLOW))
+        return 0, 0
+    
+    for agent_file in sorted(agents_dir.glob("*.yaml")):
+        data = load_yaml_file(agent_file)
+        
+        if data is None:
+            print(color(f"✗ {agent_file.name}: Failed to load", Colors.RED))
+            failed += 1
             continue
         
-        for agent_file in agent_dir.glob("*.md"):
-            # Extract YAML frontmatter
-            data = extract_yaml_frontmatter(agent_file)
-            
-            if data is None:
-                print(color(f"⚠ {agent_file.name}: No YAML frontmatter found", Colors.YELLOW))
-                failed += 1
-                continue
-            
-            errors = validate_against_schema(data, schema, agent_file.name, verbose)
-            
-            if errors:
-                print(color(f"✗ {agent_file.name}", Colors.RED))
-                for err in errors:
-                    print(color(err, Colors.RED))
-                failed += 1
-            else:
-                print(color(f"✓ {agent_file.name}", Colors.GREEN))
-                passed += 1
+        errors = validate_against_schema(data, schema, agent_file.name, verbose)
+        
+        if errors:
+            print(color(f"✗ {agent_file.name}", Colors.RED))
+            for err in errors:
+                print(color(err, Colors.RED))
+            failed += 1
+        else:
+            print(color(f"✓ {agent_file.name}", Colors.GREEN))
+            passed += 1
     
     return passed, failed
 
@@ -434,7 +434,7 @@ def main():
     # Find project root
     project_root = find_project_root()
     if not project_root:
-        print(color("Error: Could not find PaperKit project root (.paper/ directory)", Colors.RED))
+        print(color("Error: Could not find PaperKit project root (.paperkit/ directory)", Colors.RED))
         print("Make sure you're running from within a PaperKit project.")
         sys.exit(2)
     

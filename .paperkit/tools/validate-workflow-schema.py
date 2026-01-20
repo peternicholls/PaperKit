@@ -107,8 +107,8 @@ def main():
     parser.add_argument('--workflow', help='Validate specific workflow only')
     parser.add_argument('--verbose', action='store_true', help='Show detailed information')
     parser.add_argument('--ci', action='store_true', help='CI mode: exit with error on failure')
-    parser.add_argument('--schema', help='Path to JSON Schema file (default: .paper/_cfg/schemas/workflow-schema.json)')
-    parser.add_argument('--workflows-dir', help='Path to workflows directory (default: .paper/_cfg/workflows)')
+    parser.add_argument('--schema', help='Path to JSON Schema file (default: .paperkit/_cfg/schemas/workflow-schema.json)')
+    parser.add_argument('--workflows-dir', help='Path to workflows directory (default: .paperkit/_cfg/workflows)')
     args = parser.parse_args()
     
     # Paths - support environment variables and command-line overrides
@@ -118,13 +118,13 @@ def main():
         schema_path = Path(args.schema)
     else:
         schema_path = Path(os.getenv('PAPERKIT_WORKFLOW_SCHEMA_PATH', 
-                                     repo_root / ".paper" / "_cfg" / "schemas" / "workflow-schema.json"))
+                                     repo_root / ".paperkit" / "_cfg" / "schemas" / "workflow-schema.json"))
     
     if args.workflows_dir:
         workflows_dir = Path(args.workflows_dir)
     else:
         workflows_dir = Path(os.getenv('PAPERKIT_WORKFLOWS_DIR',
-                                        repo_root / ".paper" / "_cfg" / "workflows"))
+                                        repo_root / ".paperkit" / "_cfg" / "workflows"))
     
     print("Workflow Schema Validation")
     print("=" * 70)

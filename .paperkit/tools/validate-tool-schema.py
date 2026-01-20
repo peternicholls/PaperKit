@@ -116,8 +116,8 @@ def main():
     parser.add_argument('--tool', help='Validate specific tool only')
     parser.add_argument('--verbose', action='store_true', help='Show detailed information')
     parser.add_argument('--ci', action='store_true', help='CI mode: exit with error on failure')
-    parser.add_argument('--schema', help='Path to JSON Schema file (default: .paper/_cfg/schemas/tool-schema.json)')
-    parser.add_argument('--tools-dir', help='Path to tools directory (default: .paper/_cfg/tools)')
+    parser.add_argument('--schema', help='Path to JSON Schema file (default: .paperkit/_cfg/schemas/tool-schema.json)')
+    parser.add_argument('--tools-dir', help='Path to tools directory (default: .paperkit/_cfg/tools)')
     args = parser.parse_args()
     
     # Paths - support environment variables and command-line overrides
@@ -127,13 +127,13 @@ def main():
         schema_path = Path(args.schema)
     else:
         schema_path = Path(os.getenv('PAPERKIT_TOOL_SCHEMA_PATH', 
-                                     repo_root / ".paper" / "_cfg" / "schemas" / "tool-schema.json"))
+                                     repo_root / ".paperkit" / "_cfg" / "schemas" / "tool-schema.json"))
     
     if args.tools_dir:
         tools_dir = Path(args.tools_dir)
     else:
         tools_dir = Path(os.getenv('PAPERKIT_TOOLS_DIR',
-                                    repo_root / ".paper" / "_cfg" / "tools"))
+                                    repo_root / ".paperkit" / "_cfg" / "tools"))
     
     print("Tool Schema Validation")
     print("=" * 70)
