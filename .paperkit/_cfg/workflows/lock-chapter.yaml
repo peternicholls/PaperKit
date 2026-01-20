@@ -5,8 +5,8 @@ name: lock-chapter
 displayName: Lock Chapter
 description: Sign off and lock a chapter or section from further conceptual edits
 module: core
-category: governance
-path: .paperkit/core/workflows/governance/lock-chapter.yaml
+category: assembly
+path: .paperkit/core/workflows/assembly/lock-chapter.yaml
 
 agents:
   - paper-architect
@@ -94,21 +94,8 @@ outputSchema:
       type: boolean
       description: Whether lock succeeded
 
-lockPolicy:
-  permitted:
-    - Typo corrections
-    - LaTeX formatting fixes
-    - Build error resolution
-    - Reference formatting
-  prohibited:
-    - Conceptual changes
-    - Content additions/removals
-    - Structural modifications
-    - Substantive rewording
-  unlockRequires:
-    - Documented rationale
-    - Approval from Paper Architect
-    - New revision tag
+# NOTE: lockPolicy moved to workflow documentation
+# See: docs/dev/CHAPTER-LOCKS.md for policy details
 
 exampleUsage:
   - "Lock Chapter 2 (Perceptual Foundations)"

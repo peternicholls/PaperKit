@@ -6,7 +6,7 @@ displayName: Build Document
 description: Compile LaTeX document to PDF
 module: core
 category: assembly
-path: .paper/core/workflows/assembly/build.yaml
+path: .paperkit/core/workflows/assembly/build.yaml
 
 agents:
   - latex-assembler
@@ -35,7 +35,7 @@ inputSchema:
     outputDir:
       type: string
       description: Directory for output files
-      default: .paper/data/output-final/pdf/
+      default: .paperkit/data/output-final/pdf/
 
 outputSchema:
   type: object

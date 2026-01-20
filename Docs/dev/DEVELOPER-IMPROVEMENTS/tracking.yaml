@@ -36,22 +36,22 @@ specifications:
           - ".paperkit/data/duplication-baseline.md (22.7% duplication)"
           - "Updated validation scripts (.paper/ → .paperkit/)"
           - "Fixed workflow schema violations"
-        
+
       phase_2:
         name: "Skills Framework Implementation"
         status: NOT_STARTED
         tasks_total: 8
-      
+
       phase_3:
         name: "Agent Refactoring"
         status: NOT_STARTED
         tasks_total: 7
-      
+
       phase_4:
         name: "Testing and Documentation"
         status: NOT_STARTED
         tasks_total: 5
-      
+
       phase_5:
         name: "Validation and Deployment"
         status: NOT_STARTED
@@ -62,7 +62,7 @@ specifications:
         - "Baseline duplication: 22.7% (target: <10%)"
         - "14 skill candidates identified"
         - "All .paper/ paths migrated to .paperkit/"
-        
+
       next_actions:
         - "Begin Phase 2: Create skills/ directory structure"
         - "Implement shared skill modules"
