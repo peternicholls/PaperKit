@@ -109,6 +109,7 @@ As a **system administrator**, I need observability into agent performance and t
 **Skills Framework (Phase 2)**:
 - What happens when a skill declares a prerequisite that doesn't exist? → Schema validation fails with dependency resolution error
 - What happens when skill execution reaches maximum depth (recursive skills)? → System enforces depth limit (e.g., 5 levels) and returns error
+- What happens when a skill fails mid-execution (e.g., step 2 of 5 fails)? → System checkpoints completed steps, then offers user choice to retry from failure point or rollback all changes
 - What happens when a skill's output schema doesn't match next step's input schema? → Validation fails at workflow generation time before execution
 - What happens when a skill requires a tool that isn't installed? → System checks tool availability at workflow generation and prompts user to install missing tools
 
@@ -161,7 +162,7 @@ As a **system administrator**, I need observability into agent performance and t
 - **FR-018**: Orchestrator MUST analyze user requests to identify single or multiple intents
 - **FR-019**: Orchestrator MUST generate multi-step workflows with dependency resolution
 - **FR-020**: Orchestrator MUST calculate confidence scores for agent routing using keyword matching and routing registry rules
-- **FR-021**: System MUST request user clarification when confidence scores fall below threshold (e.g., < 0.7)
+- **FR-021**: System MUST request user clarification when confidence scores fall below threshold (< 0.7). When no agents meet minimum threshold, system presents top 3 agents with their confidence scores and asks user to select one or rephrase request
 - **FR-022**: Orchestrator MUST apply explicit tie-break rules when multiple agents have equal scores
 - **FR-023**: System MUST present generated workflows to users for review before execution
 - **FR-024**: System MUST checkpoint workflow state after each completed step
@@ -174,7 +175,7 @@ As a **system administrator**, I need observability into agent performance and t
 - **FR-028**: System MUST provide tool registry with discovery API for agents
 - **FR-029**: Tools MUST declare input/output schemas and consent requirements
 - **FR-030**: System MUST enforce user consent workflow for tools marked `requiresConsent: true`
-- **FR-031**: System MUST remember user consent preferences (session-based or persistent based on user configuration)
+- **FR-031**: System MUST remember user consent preferences per-tool with session-scoped duration by default. Users can opt-in to persistent consent for specific tools, storing preferences in user-specific configuration file. Persistent consent can be revoked at any time through settings.
 - **FR-032**: Tool invocations MUST validate outputs against declared schemas
 - **FR-033**: System MUST log all tool invocations to audit trail with timestamp, agent, inputs, outputs, and status
 - **FR-034**: System MUST support fallback strategies when tool execution fails
@@ -233,15 +234,15 @@ As a **system administrator**, I need observability into agent performance and t
 
 4. **File System Structure**: Assumes existing `.paperkit/` directory structure is canonical and `.paper/` legacy paths will be completely removed.
 
-5. **Backward Compatibility Window**: Migration period of 2 weeks where both old and new formats are supported, with warnings for deprecated usage.
+5. **Backward Compatibility Window**: Migration period of 2 weeks where both old and new formats are supported. When both formats exist for the same agent, the new format (YAML metadata) takes precedence and old format (MD frontmatter) generates deprecation warnings but continues to function. After the 2-week period, old format support is completely removed and validation fails for any remaining frontmatter.
 
 6. **Performance Targets**: Orchestrator routing decision must complete within 100ms for single-intent requests, 500ms for multi-intent workflow generation.
 
 7. **Concurrency Model**: Initial implementation assumes single-user, serial workflow execution. Parallel step execution is best-effort (Phase 3 stretch goal).
 
-8. **Metrics Storage**: Metrics stored in local SQLite database for first iteration. Future enhancement may use time-series database for production deployments.
+8. **Metrics Storage**: Metrics stored in local SQLite database for first iteration with 90-day retention policy (automatic cleanup of older data). Future enhancement may use time-series database for production deployments.
 
-9. **Security Model**: Tool consent is per-session by default. Persistent consent requires explicit user opt-in and stores preferences in user-specific configuration file.
+9. **Security Model**: Tool consent is per-tool and session-scoped by default (consent expires when session ends). Users can opt-in to persistent consent for trusted tools on a per-tool basis. Persistent consent requires explicit user opt-in and stores preferences in user-specific configuration file with ability to revoke at any time.
 
 10. **Documentation Standard**: All schemas, manifests, and configuration files include inline comments and link to comprehensive documentation in `docs/dev/`.
 
@@ -530,3 +531,15 @@ python .paperkit/tools/benchmark.py --duration 300 --report metrics-report.html
 - **Skill**: Reusable capability that agents can invoke
 - **Tool**: External executable invoked by agents to perform concrete actions
 - **Workflow**: Multi-step orchestration of agents, skills, and tools
+
+---
+
+## Clarifications
+
+### Session 2026-01-20
+
+- Q: During the 2-week backward compatibility window (Assumption #5), when both old and new agent formats coexist, how should the system handle conflicts? → A: New format takes precedence; old format generates warnings but still works
+- Q: How long should the system retain historical metrics data? → A: 90 days
+- Q: What should happen when NO agents meet the minimum confidence threshold (< 0.7)? → A: Present top 3 agents with scores and ask user to select
+- Q: When a skill execution fails mid-way through its multi-step workflow (e.g., step 2 of 5 fails), how should the system handle partial completion? → A: Checkpoint completed steps; offer retry from failure point or rollback
+- Q: When a user grants consent for a tool like `build-latex`, what should be the scope of that consent? → A: Per-tool, session-scoped by default with opt-in for persistent
