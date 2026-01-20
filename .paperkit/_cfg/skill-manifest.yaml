@@ -1,0 +1,85 @@
+# PaperKit Skill Manifest
+#
+# This file provides an index of all skills in the PaperKit system.
+# Individual skill definitions are stored in .paperkit/_cfg/skills/
+#
+# Schema: .paperkit/_cfg/schemas/skill-schema.json
+# Validation: Run `python3 .paperkit/tools/validate-skills.py`
+
+schemaVersion: 1.0.0
+lastUpdated: 2026-01-20
+
+# Skills Framework Overview
+# Skills are reusable capability units that agents can invoke:
+# - Atomic: Single agent, single action (base building blocks)
+# - Composite: Multi-step sequences (orchestrated workflows)
+# - Conditional: Branching logic based on inputs (complex scenarios)
+#
+# Maximum composition depth: 5 levels
+
+skills:
+  # ==========================================================================
+  # Citation & Reference Skills
+  # ==========================================================================
+  - name: cite-source
+    path: .paperkit/_cfg/skills/cite-source.yaml
+    displayName: Cite Source
+    type: composite
+    description: Extract metadata and format citation in Harvard style
+    category: citations
+    status: active
+
+  - name: validate-citation
+    path: .paperkit/_cfg/skills/validate-citation.yaml
+    displayName: Validate Citation
+    type: conditional
+    description: Validate citation format and verify source exists
+    category: citations
+    status: active
+
+  # ==========================================================================
+  # Writing Skills
+  # ==========================================================================
+  - name: draft-section
+    path: .paperkit/_cfg/skills/draft-section.yaml
+    displayName: Draft Section
+    type: composite
+    description: Draft a paper section with outline, content, and citations
+    category: writing
+    status: active
+
+  # ==========================================================================
+  # Research Skills
+  # ==========================================================================
+  - name: research-topic
+    path: .paperkit/_cfg/skills/research-topic.yaml
+    displayName: Research Topic
+    type: composite
+    description: Research a topic and consolidate findings
+    category: research
+    status: active
+
+  # ==========================================================================
+  # Build Skills
+  # ==========================================================================
+  - name: compile-latex
+    path: .paperkit/_cfg/skills/compile-latex.yaml
+    displayName: Compile LaTeX
+    type: atomic
+    description: Compile LaTeX document to PDF
+    category: build
+    status: active
+
+statistics:
+  totalSkills: 5
+  byType:
+    atomic: 1
+    composite: 3
+    conditional: 1
+  byCategory:
+    citations: 2
+    writing: 1
+    research: 1
+    build: 1
+  activeSkills: 5
+  deprecatedSkills: 0

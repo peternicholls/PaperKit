@@ -1,0 +1,86 @@
+# Cite Source Skill
+# Composite skill: Extracts metadata and formats citation in Harvard style
+#
+# This skill coordinates the reference-manager agent to:
+# 1. Extract bibliographic metadata from a source
+# 2. Format the citation in Harvard style
+# 3. Generate BibTeX entry
+
+name: cite-source
+displayName: Cite Source
+description: Extract metadata from a source and format citation in Harvard style
+version: 1.0.0
+type: composite
+
+prerequisites: []
+
+steps:
+  - action: extract-metadata
+    agent: reference-manager
+    inputs:
+      - source_url
+      - source_type
+    outputs:
+      - metadata
+    onError: fail
+
+  - action: format-citation
+    agent: reference-manager
+    inputs:
+      - metadata
+    outputs:
+      - harvard_citation
+      - bibtex_entry
+    onError: fail
+
+inputSchema:
+  type: object
+  properties:
+    source_url:
+      type: string
+      description: URL or DOI of the source
+    source_type:
+      type: string
+      description: Type of source (article, book, website, etc.)
+      enum:
+        - article
+        - book
+        - website
+        - conference
+        - thesis
+        - report
+  required:
+    - source_url
+
+outputSchema:
+  type: object
+  properties:
+    harvard_citation:
+      type: string
+      description: Formatted Harvard-style citation
+    bibtex_entry:
+      type: string
+      description: BibTeX entry for references.bib
+    metadata:
+      type: object
+      description: Raw bibliographic metadata
+  required:
+    - harvard_citation
+    - bibtex_entry
+
+timeout: 60000
+
+retryPolicy:
+  maxRetries: 2
+  backoffMs: 1000
+  retryableErrors:
+    - network_timeout
+    - rate_limited
+
+metadata:
+  author: core-team
+  tags:
+    - citation
+    - reference
+    - harvard
+  category: citations

@@ -4,29 +4,57 @@
 name: search-sources
 displayName: Search Sources
 description: Find research sources on topic
-module: specialist
-category: librarian
-path: .paperkit/specialist/workflows/librarian/search.yaml
+version: "1.0.0"
+type: composite
 
-agents:
-  - librarian
+metadata:
+  author: specialist-team
+  category: librarian
+  tags:
+    - search
+    - sources
+    - bibliography
 
 steps:
-  - name: clarify-query
+  - action: clarify-query
     agent: librarian
-    description: Refine search query and criteria
-  - name: search-databases
+    inputs:
+      - topic
+      - filters
+    outputs:
+      - refinedQuery
+      - searchCriteria
+
+  - action: search-databases
     agent: librarian
-    description: Search academic databases and repositories
-  - name: filter-results
+    inputs:
+      - refinedQuery
+      - searchCriteria
+    outputs:
+      - rawResults
+
+  - action: filter-results
     agent: librarian
-    description: Filter and rank relevant sources
-  - name: compile-bibliography
+    inputs:
+      - rawResults
+      - filters
+      - maxResults
+    outputs:
+      - filteredResults
+      - sources
+
+  - action: compile-bibliography
     agent: librarian
-    description: Compile bibliography entries
+    skill: bibtex-management
+    inputs:
+      - sources
+    outputs:
+      - bibEntries
 
 inputSchema:
   type: object
+  required:
+    - topic
   properties:
     topic:
       type: string
@@ -34,6 +62,7 @@ inputSchema:
     filters:
       type: object
       description: Search filters (year range, publication type, etc.)
+      default: {}
     maxResults:
       type: integer
       description: Maximum number of sources to return
@@ -52,6 +81,8 @@ outputSchema:
             type: string
           authors:
             type: array
+            items:
+              type: string
           year:
             type: integer
           citation:
@@ -61,9 +92,3 @@ outputSchema:
       description: BibTeX entries for sources
       items:
         type: string
-
-exampleUsage:
-  - "Search sources on machine learning ethics"
-  - "Find papers about climate change published after 2020"
-
-owner: specialist-team

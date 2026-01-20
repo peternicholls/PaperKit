@@ -1,121 +1,104 @@
-# Implementation Plan: Agent System Upgrade - 5-Phase Enhancement
+# Implementation Plan: [FEATURE]
 
-**Branch**: `001-agent-system-upgrade` | **Date**: 2026-01-20 | **Spec**: [spec.md](spec.md)
-**Input**: Feature specification from `/specs/001-agent-system-upgrade/spec.md`
+**Branch**: `[###-feature-name]` | **Date**: [DATE] | **Spec**: [link]
+**Input**: Feature specification from `/specs/[###-feature-name]/spec.md`
+
+**Note**: This template is filled in by the `/speckit.plan` command. See `.specify/templates/commands/plan.md` for the execution workflow.
 
 ## Summary
 
-Transform PaperKit's agent system from a fragmented 3-part architecture (YAML metadata, MD frontmatter, legacy paths) into a unified, composable platform with:
-1. **Single source of truth** for agent metadata (Phase 1)
-2. **Reusable skills framework** for capability composition (Phase 2)
-3. **Intelligent orchestration** with intent classification and workflow generation (Phase 3)
-4. **Programmatic tool integration** with consent management (Phase 4)
-5. **Production observability** with metrics, versioning, and A/B testing (Phase 5)
+[Extract from feature spec: primary requirement + technical approach from research]
 
 ## Technical Context
 
-**Language/Version**: Python 3.8+ (compatible with existing tooling)  
-**Primary Dependencies**: PyYAML >=6.0, jsonschema >=4.0, pytest (testing), sqlite3 (stdlib)  
-**Storage**: SQLite for metrics (90-day retention), YAML files for definitions, JSON schemas for validation  
-**Testing**: pytest with 80% minimum coverage target  
-**Target Platform**: macOS/Linux CLI, GitHub Copilot Chat, VS Code integration  
-**Project Type**: Single project with modular architecture  
-**Performance Goals**: <100ms routing (single intent), <500ms workflow generation (multi-intent), <2s response time (95th percentile)  
-**Constraints**: Backward compatible during 2-week migration, per-tool session-scoped consent, 5-level skill depth limit  
-**Scale/Scope**: 10 agents, 16 workflows, 5-10 initial skills, ~50 tools
+<!--
+  ACTION REQUIRED: Replace the content in this section with the technical details
+  for the project. The structure here is presented in advisory capacity to guide
+  the iteration process.
+-->
+
+**Language/Version**: [e.g., Python 3.11, Swift 5.9, Rust 1.75 or NEEDS CLARIFICATION]  
+**Primary Dependencies**: [e.g., FastAPI, UIKit, LLVM or NEEDS CLARIFICATION]  
+**Storage**: [if applicable, e.g., PostgreSQL, CoreData, files or N/A]  
+**Testing**: [e.g., pytest, XCTest, cargo test or NEEDS CLARIFICATION]  
+**Target Platform**: [e.g., Linux server, iOS 15+, WASM or NEEDS CLARIFICATION]
+**Project Type**: [single/web/mobile - determines source structure]  
+**Performance Goals**: [domain-specific, e.g., 1000 req/s, 10k lines/sec, 60 fps or NEEDS CLARIFICATION]  
+**Constraints**: [domain-specific, e.g., <200ms p95, <100MB memory, offline-capable or NEEDS CLARIFICATION]  
+**Scale/Scope**: [domain-specific, e.g., 10k users, 1M LOC, 50 screens or NEEDS CLARIFICATION]
 
 ## Constitution Check
 
 *GATE: Must pass before Phase 0 research. Re-check after Phase 1 design.*
 
-| Principle | Status | Notes |
-|-----------|--------|-------|
-| Library-First | ✅ PASS | Skills framework creates reusable, testable units |
-| CLI Interface | ✅ PASS | All validation tools expose CLI; JSON + human output |
-| Test-First | ✅ PASS | 80% coverage required; acceptance scenarios defined |
-| Integration Testing | ✅ PASS | Multi-component workflows tested end-to-end |
-| Observability | ✅ PASS | Phase 5 adds comprehensive metrics and logging |
-| Simplicity | ✅ PASS | Phased rollout; skills limited to 5 depth levels |
-
-**Gate Decision**: ✅ PROCEED - No violations
+[Gates determined based on constitution file]
 
 ## Project Structure
 
 ### Documentation (this feature)
 
 ```text
-specs/001-agent-system-upgrade/
-├── spec.md              # Feature specification (complete)
-├── plan.md              # This file
-├── research.md          # Phase 0: Technical research findings
-├── data-model.md        # Phase 1: Entity definitions
-├── quickstart.md        # Phase 1: Developer onboarding
-├── contracts/           # Phase 1: API contracts
-│   ├── skill-schema.json
-│   ├── metrics-api.yaml
-│   └── tool-registry-api.yaml
-└── tasks.md             # Phase 2: Task breakdown (via /speckit.tasks)
+specs/[###-feature]/
+├── plan.md              # This file (/speckit.plan command output)
+├── research.md          # Phase 0 output (/speckit.plan command)
+├── data-model.md        # Phase 1 output (/speckit.plan command)
+├── quickstart.md        # Phase 1 output (/speckit.plan command)
+├── contracts/           # Phase 1 output (/speckit.plan command)
+└── tasks.md             # Phase 2 output (/speckit.tasks command - NOT created by /speckit.plan)
 ```
 
 ### Source Code (repository root)
+<!--
+  ACTION REQUIRED: Replace the placeholder tree below with the concrete layout
+  for this feature. Delete unused options and expand the chosen structure with
+  real paths (e.g., apps/admin, packages/something). The delivered plan must
+  not include Option labels.
+-->
 
 ```text
-.paperkit/
-├── _cfg/
-│   ├── agents/*.yaml           # Agent metadata (single source of truth)
-│   ├── skills/                 # NEW: Skill definitions
-│   │   ├── cite-source.yaml
-│   │   ├── validate-citation.yaml
-│   │   ├── draft-section.yaml
-│   │   ├── research-topic.yaml
-│   │   └── compile-latex.yaml
-│   ├── schemas/
-│   │   ├── agent-schema.json   # Existing
-│   │   ├── skill-schema.json   # NEW
-│   │   ├── consent-schema.json # NEW
-│   │   └── metrics-schema.json # NEW
-│   ├── routing.registry.yaml   # Enhanced with confidence thresholds
-│   └── consent.registry.yaml   # NEW: Tool consent preferences
-├── core/agents/*.md            # Instructions only (no frontmatter)
-├── specialist/agents/*.md      # Instructions only (no frontmatter)
-├── tools/
-│   ├── check-agents.py         # Updated: duplicate detection, path fixes
-│   ├── validate-skills.py      # NEW
-│   ├── skill-executor.py       # NEW
-│   ├── tool-registry.py        # NEW
-│   ├── consent-manager.py      # NEW
-│   └── metrics-collector.py    # NEW
-└── data/
-    └── metrics.db              # NEW: SQLite metrics storage
-
-docs/dev/
-├── PATHS.md                    # NEW: Canonical path reference
-├── SKILLS.md                   # NEW: Skills framework guide
-└── MIGRATION.md                # NEW: Migration playbook
+# [REMOVE IF UNUSED] Option 1: Single project (DEFAULT)
+src/
+├── models/
+├── services/
+├── cli/
+└── lib/
 
 tests/
-├── unit/
-│   ├── test_skill_loader.py
-│   ├── test_orchestrator_router.py
-│   └── test_tool_registry.py
+├── contract/
 ├── integration/
-│   ├── test_skill_execution.py
-│   ├── test_workflow_generation.py
-│   └── test_consent_flow.py
-└── contract/
-    ├── test_agent_schema.py
-    └── test_skill_schema.py
+└── unit/
+
+# [REMOVE IF UNUSED] Option 2: Web application (when "frontend" + "backend" detected)
+backend/
+├── src/
+│   ├── models/
+│   ├── services/
+│   └── api/
+└── tests/
+
+frontend/
+├── src/
+│   ├── components/
+│   ├── pages/
+│   └── services/
+└── tests/
+
+# [REMOVE IF UNUSED] Option 3: Mobile + API (when "iOS/Android" detected)
+api/
+└── [same as backend above]
+
+ios/ or android/
+└── [platform-specific structure: feature modules, UI flows, platform tests]
 ```
 
-**Structure Decision**: Single project extending existing `.paperkit/` structure. New directories for skills, metrics, and consent management. All validation tools remain in `.paperkit/tools/`.
+**Structure Decision**: [Document the selected structure and reference the real
+directories captured above]
 
 ## Complexity Tracking
 
-> No constitution violations requiring justification.
+> **Fill ONLY if Constitution Check has violations that must be justified**
 
-| Aspect | Complexity Level | Justification |
-|--------|------------------|---------------|
-| Skills Framework | Medium | Required for capability composition; limited to 5 depth levels |
-| Orchestration | Medium | Multi-intent detection adds value; <500ms constraint keeps it simple |
-| Tool Consent | Low | Session-scoped default minimizes storage complexity |
-| Metrics | Low | SQLite with 90-day auto-cleanup; no external dependencies |
+| Violation | Why Needed | Simpler Alternative Rejected Because |
+|-----------|------------|-------------------------------------|
+| [e.g., 4th project] | [current need] | [why 3 projects insufficient] |
+| [e.g., Repository pattern] | [specific problem] | [why direct DB access insufficient] |

@@ -4,29 +4,55 @@
 name: generate-ideas
 displayName: Generate Ideas
 description: Brainstorm ideas on a topic
-module: specialist
-category: brainstorm
-path: .paperkit/specialist/workflows/brainstorm/generate.yaml
+version: "1.0.0"
+type: composite
 
-agents:
-  - brainstorm
+metadata:
+  author: specialist-team
+  category: brainstorm
+  tags:
+    - brainstorm
+    - ideas
+    - creativity
 
 steps:
-  - name: explore-topic
+  - action: explore-topic
     agent: brainstorm
-    description: Explore topic from multiple angles
-  - name: generate-ideas
+    skill: brainstorming
+    inputs:
+      - topic
+      - constraints
+    outputs:
+      - topicExploration
+
+  - action: generate-ideas
     agent: brainstorm
-    description: Generate diverse ideas and approaches
-  - name: organize-ideas
+    skill: brainstorming
+    inputs:
+      - topicExploration
+      - quantity
+    outputs:
+      - rawIdeas
+
+  - action: organize-ideas
     agent: brainstorm
-    description: Categorize and structure ideas
-  - name: prioritize
+    inputs:
+      - rawIdeas
+    outputs:
+      - organizedIdeas
+
+  - action: prioritize
     agent: brainstorm
-    description: Identify most promising ideas
+    inputs:
+      - organizedIdeas
+      - constraints
+    outputs:
+      - ideas
 
 inputSchema:
   type: object
+  required:
+    - topic
   properties:
     topic:
       type: string
@@ -36,6 +62,7 @@ inputSchema:
       description: Any constraints or requirements
       items:
         type: string
+      default: []
     quantity:
       type: integer
       description: Number of ideas to generate
@@ -56,9 +83,7 @@ outputSchema:
             type: string
           priority:
             type: string
-
-exampleUsage:
-  - "Generate research paper topics on AI"
-  - "Brainstorm approaches to data visualization"
-
-owner: specialist-team
+            enum:
+              - high
+              - medium
+              - low

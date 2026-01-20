@@ -66,35 +66,145 @@ python .paperkit/tools/check-agents.py --ci
 
 ---
 
-## Phase 2: Creating a New Skill
+## Phase 2: Two Skill Concepts
 
-### 2.1 Skill File Location
+**IMPORTANT**: Phase 2 introduces TWO distinct concepts:
+
+| Concept | Purpose | Format | Location |
+|---------|---------|--------|----------|
+| **Agent Skills** | Teach agents HOW (instructions) | SKILL.md | `.paperkit/_cfg/skills/{name}/SKILL.md` |
+| **Compositional Workflows** | Define WHAT steps (orchestration) | YAML | `.paperkit/_cfg/workflows/{name}.yaml` |
+
+---
+
+## Phase 2a: Creating an Agent Skill (Industry Standard)
+
+Agent Skills follow the [agentskills.io](https://agentskills.io) specification.
+
+### 2a.1 Skill Directory Structure
 
 ```
-.paperkit/_cfg/skills/{skill-name}.yaml
+.paperkit/_cfg/skills/{skill-name}/
+├── SKILL.md          # Required: frontmatter + instructions
+├── scripts/          # Optional: executable code
+├── references/       # Optional: additional docs  
+└── assets/           # Optional: templates, data
 ```
 
-### 2.2 Skill Template
+### 2a.2 SKILL.md Template
+
+```markdown
+---
+name: my-skill
+description: What this skill does and when to use it. Include keywords that help agents identify relevant tasks.
+metadata:
+  author: your-name
+  version: "1.0.0"
+allowed-tools: Read Write Edit
+---
+
+# My Skill Name
+
+You are [description of persona/role for this skill].
+
+## When to Use
+
+Use this skill when:
+- [Trigger condition 1]
+- [Trigger condition 2]
+
+## Process
+
+1. [Step 1]
+2. [Step 2]
+3. [Step 3]
+
+## Examples
+
+### Input
+[Example input]
+
+### Output
+[Example output]
+
+## Guidelines
+
+- [Guideline 1]
+- [Guideline 2]
+
+## Common Mistakes
+
+- [Mistake to avoid]
+```
+
+### 2a.3 Validate Skill Frontmatter
+
+```bash
+python .paperkit/tools/validate-skill-frontmatter.py --path .paperkit/_cfg/skills/my-skill/
+```
+
+### 2a.4 Real Example: humanizer
+
+```markdown
+---
+name: humanizer
+description: Remove signs of AI-generated writing from text. Use when editing or reviewing text to make it sound more natural and human-written.
+metadata:
+  author: core-team
+  version: "2.1.1"
+allowed-tools: Read Write Edit Grep Glob
+---
+
+# Humanizer: Remove AI Writing Patterns
+
+You are a writing editor that identifies and removes signs of AI-generated text...
+
+[Full instructions follow]
+```
+
+---
+
+## Phase 2b: Creating a Compositional Workflow
+
+Compositional Workflows define WHAT steps to execute.
+
+### 2b.1 Workflow File Location
+
+```
+.paperkit/_cfg/workflows/{workflow-name}.yaml
+```
+
+### 2b.2 Workflow Template
 
 ```yaml
-# .paperkit/_cfg/skills/my-skill.yaml
-name: my-skill
-displayName: My Skill
-description: What this skill does
+# .paperkit/_cfg/workflows/my-workflow.yaml
+name: my-workflow
+displayName: My Workflow
+description: What this workflow does
 version: 1.0.0
-type: atomic  # or composite, conditional
+type: composite  # or atomic, conditional
 
 prerequisites:
   - type: tool
     name: some-tool
 
 steps:
-  - action: do_something
+  - action: step-one
     agent: some-agent
+    skill: relevant-skill     # Optional: load Agent Skill for context
     inputs:
       - input_var
     outputs:
+      - intermediate_var
+    onError: fail
+
+  - action: step-two
+    agent: another-agent
+    inputs:
+      - intermediate_var
+    outputs:
       - output_var
+    onError: fail
 
 inputSchema:
   type: object
@@ -115,10 +225,38 @@ outputSchema:
     - output_var
 ```
 
-### 2.3 Validate Skill
+### 2b.3 Validate Workflow
 
 ```bash
-python .paperkit/tools/validate-skills.py --file .paperkit/_cfg/skills/my-skill.yaml
+python .paperkit/tools/validate-workflows.py --file .paperkit/_cfg/workflows/my-workflow.yaml
+```
+
+---
+
+## How Skills and Workflows Work Together
+
+1. **Agent loads Skill**: Agent declares `suggestedSkills: [academic-writing]` → skill instructions loaded into context
+
+2. **Workflow step loads Skill**: Workflow step specifies `skill: harvard-citations` → agent gets citation instructions for that step
+
+3. **Skill references Workflow**: Skill instructions can say "run the cite-source workflow" → orchestrator executes workflow
+
+Example integration:
+
+```yaml
+# Workflow that uses an Agent Skill
+steps:
+  - action: draft-section
+    agent: section-drafter
+    skill: academic-writing     # Load writing guidelines
+    inputs: [section_name, outline]
+    outputs: [draft_content]
+    
+  - action: format-citations
+    agent: reference-manager
+    skill: harvard-citations    # Load citation style guide
+    inputs: [draft_content]
+    outputs: [formatted_content]
 ```
 
 ---
@@ -263,9 +401,22 @@ print(f"7-day routing accuracy: {accuracy:.1%}")
 .paperkit/
 ├── _cfg/
 │   ├── agents/*.yaml          # Agent metadata (edit here)
-│   ├── skills/*.yaml          # Skill definitions (NEW)
+│   ├── skills/                # Agent Skills (SKILL.md format - NEW)
+│   │   ├── humanizer/
+│   │   │   └── SKILL.md
+│   │   ├── academic-writing/
+│   │   │   ├── SKILL.md
+│   │   │   └── references/
+│   │   └── harvard-citations/
+│   │       └── SKILL.md
+│   ├── workflows/             # Compositional Workflows (YAML - RENAMED)
+│   │   ├── cite-source.yaml
+│   │   ├── compile-latex.yaml
+│   │   └── draft-section.yaml
 │   ├── tools/*.yaml           # Tool definitions
 │   ├── schemas/               # JSON schemas for validation
+│   │   ├── skill-frontmatter-schema.json  # For SKILL.md
+│   │   └── workflow-schema.json           # For workflow YAML
 │   ├── routing.registry.yaml  # Intent routing rules
 │   └── consent.registry.yaml  # Tool consent (NEW)
 ├── core/agents/*.md           # Agent instructions (no frontmatter)

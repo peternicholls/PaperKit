@@ -4,29 +4,56 @@
 name: analyze-problem
 displayName: Analyze Problem
 description: Root cause analysis and solution options
-module: specialist
-category: problem-solving
-path: .paperkit/specialist/workflows/problem-solving/analyze.yaml
+version: "1.0.0"
+type: composite
 
-agents:
-  - problem-solver
+metadata:
+  author: specialist-team
+  category: problem-solving
+  tags:
+    - problem-solving
+    - analysis
+    - debugging
 
 steps:
-  - name: define-problem
+  - action: define-problem
     agent: problem-solver
-    description: Clearly define the problem
-  - name: identify-causes
+    skill: problem-analysis
+    inputs:
+      - problem
+      - context
+    outputs:
+      - problemDefinition
+
+  - action: identify-causes
     agent: problem-solver
-    description: Identify root causes
-  - name: generate-solutions
+    skill: problem-analysis
+    inputs:
+      - problemDefinition
+    outputs:
+      - rootCauses
+
+  - action: generate-solutions
     agent: problem-solver
-    description: Generate potential solutions
-  - name: evaluate-options
+    inputs:
+      - problemDefinition
+      - rootCauses
+      - objectives
+    outputs:
+      - solutions
+
+  - action: evaluate-options
     agent: problem-solver
-    description: Evaluate solutions and recommend approach
+    inputs:
+      - solutions
+      - objectives
+    outputs:
+      - recommendation
 
 inputSchema:
   type: object
+  required:
+    - problem
   properties:
     problem:
       type: string
@@ -39,6 +66,7 @@ inputSchema:
       description: Objectives or success criteria
       items:
         type: string
+      default: []
 
 outputSchema:
   type: object
@@ -53,12 +81,19 @@ outputSchema:
       description: Potential solutions
       items:
         type: object
+        properties:
+          name:
+            type: string
+          description:
+            type: string
+          pros:
+            type: array
+            items:
+              type: string
+          cons:
+            type: array
+            items:
+              type: string
     recommendation:
       type: string
       description: Recommended approach
-
-exampleUsage:
-  - "Analyze why paper structure is unclear"
-  - "Find solutions for slow LaTeX compilation"
-
-owner: specialist-team

@@ -1,5 +1,5 @@
 # PaperKit Developer Improvements - Implementation Tracking
-# Last Updated: 2025-12-28
+# Last Updated: 2026-01-20
 
 meta:
   project: PaperKit Developer Improvements
@@ -7,7 +7,7 @@ meta:
   completed_specs: 1
   in_progress_specs: 1
   total_estimated_effort_hours: 569
-  total_actual_effort_hours: 73
+  total_actual_effort_hours: 142
   current_phase: "Foundation Phase"
   active_branch: "001-agent-system-upgrade"
 
@@ -19,16 +19,16 @@ specifications:
     priority: High
     category: Core Architecture
     estimated_hours: 36
-    actual_hours: 3
+    actual_hours: 72
     start_date: "2025-12-28"
     branch: "001-agent-system-upgrade"
     progress:
       phase_1:
-        name: "System Consolidation"
+        name: "Setup (Shared Infrastructure)"
         status: COMPLETE
-        tasks_completed: 10
-        tasks_total: 10
-        completion_date: "2025-12-28"
+        tasks_completed: 3
+        tasks_total: 3
+        completion_date: "2026-01-20"
         deliverables:
           - "docs/dev/PATHS.md (canonical path reference)"
           - ".paperkit/tools/migrate-agent-format.py (migration tool)"
@@ -38,35 +38,75 @@ specifications:
           - "Fixed workflow schema violations"
 
       phase_2:
-        name: "Skills Framework Implementation"
-        status: NOT_STARTED
-        tasks_total: 8
+        name: "Foundational Consolidation"
+        status: COMPLETE
+        tasks_completed: 9
+        tasks_total: 9
+        completion_date: "2026-01-20"
+        deliverables:
+          - "Updated validation scripts (.paper/ → .paperkit/)"
+          - "Agent YAML frontmatter removal"
+          - "CI validation updates"
+
+      phase_2a:
+        name: "Agent Skills Framework"
+        status: COMPLETE
+        tasks_completed: 11
+        tasks_total: 11
+        completion_date: "2026-01-20"
+        deliverables:
+          - ".paperkit/_cfg/skills/ (SKILL.md corpus)"
+          - ".paperkit/_cfg/skill-manifest.yaml"
+          - "Skill discovery + validators"
+          - "CI skill validation"
+
+      phase_2b:
+        name: "Workflows Framework"
+        status: COMPLETE
+        tasks_completed: 12
+        tasks_total: 12
+        completion_date: "2026-01-20"
+        deliverables:
+          - ".paperkit/_cfg/workflows/*.yaml (migrated workflows)"
+          - "Workflow registry + validation"
+          - "Workflow depth validation"
 
       phase_3:
-        name: "Agent Refactoring"
+        name: "Enhanced Orchestration"
+        status: COMPLETE
+        tasks_completed: 12
+        tasks_total: 12
+        completion_date: "2026-01-20"
+        deliverables:
+          - ".paperkit/tools/orchestrator.py"
+          - ".paperkit/data/checkpoints/ (workflow state)"
+          - "Intent routing + workflow generation"
+
+      phase_4:
+        name: "Tool Integration Layer"
+        status: NOT_STARTED
+        tasks_total: 11
+
+      phase_5:
+        name: "Advanced Features"
+        status: NOT_STARTED
+        tasks_total: 11
+
+      phase_6:
+        name: "Polish & Cross-Cutting Concerns"
         status: NOT_STARTED
         tasks_total: 7
 
-      phase_4:
-        name: "Testing and Documentation"
-        status: NOT_STARTED
-        tasks_total: 5
-
-      phase_5:
-        name: "Validation and Deployment"
-        status: NOT_STARTED
-        tasks_total: 3
-
       current_status:
-        - "Phase 1 complete - all validation passing"
+        - "Phases 1-3 complete (skills, workflows, orchestration)"
         - "Baseline duplication: 22.7% (target: <10%)"
-        - "14 skill candidates identified"
-        - "All .paper/ paths migrated to .paperkit/"
+        - "Skill + workflow registries operational"
+        - "Checkpoint-based workflow resumption enabled"
 
       next_actions:
-        - "Begin Phase 2: Create skills/ directory structure"
-        - "Implement shared skill modules"
-        - "Refactor agents to use skills"
+        - "Begin Phase 4: Tool integration layer"
+        - "Implement consent workflow + tool registry"
+        - "Complete Phase 6 polish tasks (docs, manifests, validation)"
 
   "001-agent-metadata":
     title: "Incomplete/Fragmented Agent Metadata"
@@ -403,39 +443,39 @@ phases:
 
 # Current Context
 current_context:
-  last_work_date: "2025-12-28"
+  last_work_date: "2026-01-20"
   days_since_last_work: 0
-  current_focus: "Spec 001-agent-system-upgrade Phase 1 complete"
+  current_focus: "Spec 001-agent-system-upgrade Phase 3 complete"
   active_branch: "001-agent-system-upgrade"
 
   recent_accomplishments:
-    - "Completed Phase 1: System Consolidation (10/10 tasks)"
-    - "Created PATHS.md canonical reference"
-    - "Fixed all .paper/ → .paperkit/ path issues"
-    - "Generated baseline duplication metrics (22.7%)"
-    - "Created migration tooling for future format changes"
+    - "Completed Phase 2a: Skills framework + validators"
+    - "Completed Phase 2b: Workflow registry + migrations"
+    - "Completed Phase 3: Orchestration + checkpointing"
+    - "Added skill + workflow manifests"
+    - "Updated CI validation to cover skills/workflows"
 
   next_steps:
     immediate:
-      - "Commit Phase 1 changes in logical batches"
-      - "Begin Phase 2: Skills framework implementation"
-      - "Create .paperkit/skills/ directory structure"
+      - "Start Phase 4 tool integration work"
+      - "Draft consent workflow + registry design"
+      - "Run validation suite and update specs"
 
     short_term:
-      - "Implement shared skill modules (8 tasks)"
-      - "Refactor agents to use skills (7 tasks)"
-      - "Achieve <10% duplication target"
+      - "Implement tool schema validation + timeouts"
+      - "Add tool audit logging + error context"
+      - "Complete Phase 6 polish tasks"
 
     long_term:
-      - "Complete remaining phases (Testing, Deployment)"
+      - "Complete Phase 4/5 advanced features"
       - "Begin spec 002 (workflow-agent contract)"
       - "Evaluate spec 005 (testing) integration"
 
   blockers: []
 
   decisions_needed:
-    - "Approve Phase 1 commits before proceeding?"
-    - "Phase 2 timeline and resource allocation?"
+    - "Confirm actual hours for Phases 2a-3"
+    - "Define tool consent UX (Phase 4)"
 
   technical_debt:
     - "CSV format still exists (deprecated but not removed)"

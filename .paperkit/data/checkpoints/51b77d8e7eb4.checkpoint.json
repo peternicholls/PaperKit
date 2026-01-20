@@ -1,0 +1,71 @@
+{
+  "workflow_id": "51b77d8e7eb4",
+  "user_request": "Research color theory then draft my introduction section",
+  "current_step": 2,
+  "state": {},
+  "step_outputs": {
+    "step_1": {
+      "agent": "reference-manager",
+      "action": "research",
+      "result": "Completed research with reference-manager",
+      "artifacts": [
+        "step_1_artifact.md"
+      ]
+    },
+    "step_2": {
+      "agent": "section-drafter",
+      "action": "draft",
+      "result": "Completed draft with section-drafter",
+      "artifacts": [
+        "step_2_artifact.md"
+      ]
+    }
+  },
+  "created_at": "2026-01-20T19:03:43.566713",
+  "updated_at": "2026-01-20T19:03:43.567180",
+  "approved": true,
+  "steps": [
+    {
+      "step_id": "step_1",
+      "agent": "reference-manager",
+      "action": "research",
+      "inputs": [],
+      "outputs": [
+        "output_step_1"
+      ],
+      "depends_on": [],
+      "status": "completed",
+      "result": {
+        "agent": "reference-manager",
+        "action": "research",
+        "result": "Completed research with reference-manager",
+        "artifacts": [
+          "step_1_artifact.md"
+        ]
+      }
+    },
+    {
+      "step_id": "step_2",
+      "agent": "section-drafter",
+      "action": "draft",
+      "inputs": [
+        "introduction"
+      ],
+      "outputs": [
+        "output_step_2"
+      ],
+      "depends_on": [
+        "step_1"
+      ],
+      "status": "completed",
+      "result": {
+        "agent": "section-drafter",
+        "action": "draft",
+        "result": "Completed draft with section-drafter",
+        "artifacts": [
+          "step_2_artifact.md"
+        ]
+      }
+    }
+  ]
+}

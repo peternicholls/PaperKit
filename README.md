@@ -102,6 +102,8 @@ PaperKit is a **complete system for academic paper writing** with:
 
 ✓ **10 specialized agents** — Each handles one aspect of paper creation  
 ✓ **Multi-IDE support** — Works with GitHub Copilot (VS Code) or OpenAI Codex  
+✓ **Agent Skills** — Reusable instruction documents (agentskills.io standard)  
+✓ **Compositional Workflows** — Multi-step task orchestration  
 ✓ **Modular LaTeX** — Small atomic section files for clean version control  
 ✓ **Progressive refinement** — Multiple passes to improve clarity and quality  
 ✓ **Citation management** — Harvard style (Cite Them Right) with validation  
@@ -159,6 +161,29 @@ Workflows combine multiple agents in sequences. Key workflows:
 | 8 | 🔧 **LaTeX Assembler** | Build the final PDF |
 
 This is only a suggested starting point—you can adapt the workflow to your needs, skipping or repeating steps as necessary.
+
+## Agent Skills
+
+PaperKit includes **Agent Skills**—instruction documents that teach agents HOW to perform specific tasks. Skills follow the [agentskills.io](https://agentskills.io) specification.
+
+| Skill | Description |
+|-------|-------------|
+| `humanizer` | Remove AI writing patterns from text |
+| `academic-writing` | Academic paper composition guidelines |
+| `harvard-citations` | Harvard citation style (Cite Them Right) |
+| `latex-best-practices` | LaTeX document best practices |
+
+Skills are automatically loaded by agents when relevant. You can also invoke them directly:
+
+```bash
+# List available skills
+python .paperkit/tools/skill_registry.py skills --list
+
+# Get skill details
+python .paperkit/tools/skill_registry.py skills --get harvard-citations
+```
+
+**Note**: Skills (SKILL.md) teach agents HOW to do things. Compositional Workflows (YAML) define WHAT steps to execute. See [docs/dev/SKILLS.md](docs/dev/SKILLS.md) for the full architecture.
 
 
 ## Academic Integrity
@@ -450,6 +475,7 @@ For detailed information on the LaTeX assembly process, including file structure
 
 - **[Docs/COMMANDS.md](Docs/COMMANDS.md)** — Complete commands reference
 - **[Docs/LATEX-ASSEMBLY.md](Docs/LATEX-ASSEMBLY.md)** — How the final LaTeX document is assembled
+- **[docs/dev/SKILLS.md](docs/dev/SKILLS.md)** — Agent Skills & Workflows architecture
 - **AGENTS.md** — Quick reference for all agents
 - **.paperkit/docs/github-copilot-instructions.md** — Copilot usage guide
 - **.paperkit/docs/codex-instructions.md** — Codex usage guide

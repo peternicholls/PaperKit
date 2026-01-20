@@ -4,29 +4,55 @@
 name: outline
 displayName: Create Outline
 description: Design paper structure and create detailed outline
-module: core
-category: planning
-path: .paperkit/core/workflows/planning/outline.yaml
+version: "1.0.0"
+type: composite
 
-agents:
-  - paper-architect
+metadata:
+  author: core-team
+  category: planning
+  tags:
+    - planning
+    - structure
+    - architecture
 
 steps:
-  - name: analyze-topic
+  - action: analyze-topic
     agent: paper-architect
-    description: Understand the paper topic and scope
-  - name: design-structure
+    inputs:
+      - topic
+      - scope
+    outputs:
+      - topicAnalysis
+
+  - action: design-structure
     agent: paper-architect
-    description: Create hierarchical section structure
-  - name: create-outline
+    inputs:
+      - topicAnalysis
+      - targetLength
+    outputs:
+      - structureDesign
+
+  - action: create-outline
     agent: paper-architect
-    description: Generate detailed outline with subsections
-  - name: validate-flow
+    inputs:
+      - structureDesign
+    outputs:
+      - outline
+      - sections
+
+  - action: validate-flow
     agent: paper-architect
-    description: Ensure logical flow and coherence
+    inputs:
+      - outline
+      - sections
+    outputs:
+      - validatedOutline
+      - flowReport
 
 inputSchema:
   type: object
+  required:
+    - topic
   properties:
     topic:
       type: string
@@ -37,6 +63,7 @@ inputSchema:
     targetLength:
       type: integer
       description: Target paper length in pages
+      default: 20
 
 outputSchema:
   type: object
@@ -47,12 +74,16 @@ outputSchema:
     sections:
       type: array
       description: List of section names and descriptions
-    structure:
+      items:
+        type: object
+        properties:
+          name:
+            type: string
+          description:
+            type: string
+    validatedOutline:
+      type: string
+      description: Final validated outline
+    flowReport:
       type: object
-      description: Hierarchical structure definition
-
-exampleUsage:
-  - "Create outline for machine learning research paper"
-  - "Design structure for climate change impact study"
-
-owner: core-team
+      description: Validation report for logical flow

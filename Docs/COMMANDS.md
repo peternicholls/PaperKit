@@ -71,3 +71,69 @@ Extract text evidence from PDF files based on search terms. Useful for forensic 
 ./paperkit evidence --dir <pdf_dir> --output <output_md> [--terms "term1" "term2" ...]
 ./paperkit evidence --help             # Show evidence extraction help
 ```
+
+## Agent Skills & Workflows
+
+PaperKit uses a dual architecture: **Agent Skills** (SKILL.md instructions) and **Compositional Workflows** (YAML orchestration). See [docs/dev/SKILLS.md](dev/SKILLS.md) for details.
+
+### Agent Skills (SKILL.md)
+
+Agent Skills teach agents HOW to perform tasks. They follow the [agentskills.io](https://agentskills.io) specification.
+
+```bash
+# List all Agent Skills
+python .paperkit/tools/skill_registry.py skills --list
+
+# Search for skills
+python .paperkit/tools/skill_registry.py skills --find "citation"
+
+# Get skill metadata
+python .paperkit/tools/skill_registry.py skills --get harvard-citations
+
+# View full skill content
+python .paperkit/tools/skill_registry.py skills --content humanizer
+
+# Benchmark skill registry load time (target: <50ms)
+python .paperkit/tools/skill_registry.py skills --benchmark
+
+# Validate all SKILL.md files
+python .paperkit/tools/validate-skill-frontmatter.py --all
+python .paperkit/tools/validate-skill-frontmatter.py --all --ci    # CI mode
+```
+
+### Compositional Workflows (YAML)
+
+Workflows define WHAT steps to execute and orchestrate multiple agents.
+
+```bash
+# List all workflows
+python .paperkit/tools/skill_registry.py workflows --list
+
+# Search for workflows
+python .paperkit/tools/skill_registry.py workflows --find "citation"
+
+# Get workflow details
+python .paperkit/tools/skill_registry.py workflows --get cite-source
+
+# View statistics
+python .paperkit/tools/skill_registry.py workflows --stats
+```
+
+### Available Skills
+
+| Skill | Description |
+|-------|-------------|
+| `humanizer` | Remove AI writing patterns from text |
+| `academic-writing` | Academic paper composition guidelines |
+| `harvard-citations` | Harvard citation style (Cite Them Right) |
+| `latex-best-practices` | LaTeX document best practices |
+
+### Available Workflows
+
+| Workflow | Description |
+|----------|-------------|
+| `cite-source` | Extract metadata and format citation |
+| `validate-citation` | Validate citation format and verify source |
+| `draft-section` | Draft paper section with outline |
+| `research-topic` | Research and consolidate findings |
+| `compile-latex` | Compile LaTeX to PDF |

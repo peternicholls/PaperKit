@@ -106,12 +106,20 @@ As a **system administrator**, I need observability into agent performance and t
 - What happens when validation detects path references to non-existent files? → CI blocks merge and reports specific broken references
 - What happens when two agents claim the same name? → Validation fails with conflict resolution guidance
 
-**Skills Framework (Phase 2)**:
-- What happens when a skill declares a prerequisite that doesn't exist? → Schema validation fails with dependency resolution error
-- What happens when skill execution reaches maximum depth (recursive skills)? → System enforces depth limit (e.g., 5 levels) and returns error
-- What happens when a skill fails mid-execution (e.g., step 2 of 5 fails)? → System checkpoints completed steps, then offers user choice to retry from failure point or rollback all changes
-- What happens when a skill's output schema doesn't match next step's input schema? → Validation fails at workflow generation time before execution
-- What happens when a skill requires a tool that isn't installed? → System checks tool availability at workflow generation and prompts user to install missing tools
+**Agent Skills (Phase 2a)**:
+- What happens when a SKILL.md file has invalid frontmatter? → Schema validation fails with clear error listing missing/invalid fields
+- What happens when two skills declare the same name? → Validation fails with conflict resolution guidance
+- What happens when an agent references a non-existent skill in `suggestedSkills`? → Warning logged, agent loads without skill suggestions
+- What happens when skill instructions exceed 5000 token limit? → Validation warning, skill still loads but triggers progressive disclosure
+- What happens when skill directory contains no SKILL.md? → Directory ignored, warning logged
+
+**Compositional Workflows (Phase 2b)**:
+- What happens when a workflow declares a prerequisite that doesn't exist? → Schema validation fails with dependency resolution error
+- What happens when workflow execution reaches maximum depth (recursive workflows)? → System enforces depth limit (e.g., 5 levels) and returns error
+- What happens when a workflow step fails mid-execution (e.g., step 2 of 5 fails)? → System checkpoints completed steps, then offers user choice to retry from failure point or rollback all changes
+- What happens when a workflow step's output schema doesn't match next step's input schema? → Validation fails at workflow generation time before execution
+- What happens when a workflow requires a tool that isn't installed? → System checks tool availability at workflow generation and prompts user to install missing tools
+- What happens when a workflow step references a skill that doesn't exist? → Validation fails with clear error identifying missing skill
 
 **Enhanced Orchestration (Phase 3)**:
 - What happens when user request is completely ambiguous (no clear intent)? → Orchestrator returns clarifying questions with suggested interpretations
@@ -145,17 +153,31 @@ As a **system administrator**, I need observability into agent performance and t
 - **FR-007**: System MUST provide clear, actionable error messages for all validation failures
 - **FR-008**: System MUST document canonical paths in `docs/dev/PATHS.md`
 
-**Phase 2: Skills Framework (Weeks 3-5)**
+**Phase 2a: Agent Skills (Weeks 3-4)**
 
-- **FR-009**: System MUST define skills in `.paperkit/_cfg/skills/*.yaml` files with schema validation
-- **FR-010**: System MUST validate skill prerequisite dependencies at definition time
-- **FR-011**: Skills MUST declare input and output schemas using JSON Schema format
-- **FR-012**: System MUST support three skill types: atomic (single agent/action), composite (multi-step), and conditional (branching logic)
-- **FR-013**: System MUST enforce maximum skill composition depth of 5 levels to prevent infinite recursion
-- **FR-014**: System MUST provide skill registry for agent discovery of available capabilities
-- **FR-015**: Skills MUST specify required agents and tools with version constraints
-- **FR-016**: System MUST validate that agents and tools referenced by skills actually exist
-- **FR-017**: CI workflow MUST validate all skill definitions on every commit
+- **FR-2A-01**: Agent Skills MUST be defined in `.paperkit/_cfg/skills/{name}/SKILL.md` files following agentskills.io specification
+- **FR-2A-02**: SKILL.md files MUST contain YAML frontmatter validated against `skill-frontmatter-schema.json`
+- **FR-2A-03**: Skill frontmatter MUST include: `name` (1-64 chars, lowercase+hyphens), `description` (1-1024 chars), and optional `license`, `compatibility`, `allowed-tools`, `metadata`
+- **FR-2A-04**: System MUST support progressive disclosure: frontmatter loaded at startup (~100 tokens), full instructions loaded on activation (<5000 tokens)
+- **FR-2A-05**: System MUST support three skill activation methods: description matching (automatic), explicit invocation (`/skill {name}`), and agent hints (`suggestedSkills` field)
+- **FR-2A-06**: System MUST provide skill discovery registry returning skill metadata without loading full instructions
+- **FR-2A-07**: Agents MUST be able to declare `suggestedSkills` array in their metadata referencing available skills
+- **FR-2A-08**: CI workflow MUST validate all SKILL.md frontmatter on every commit
+- **FR-2A-09**: System MUST migrate existing instruction files (e.g., `humanizer.md`) to `skills/{name}/SKILL.md` format
+- **FR-2A-10**: Skill directories MAY contain additional resources (`examples/`, `templates/`) loaded on demand
+
+**Phase 2b: Compositional Workflows (Weeks 5-6)**
+
+- **FR-009**: System MUST define workflows in `.paperkit/_cfg/workflows/*.yaml` files with schema validation
+- **FR-010**: System MUST validate workflow prerequisite dependencies at definition time
+- **FR-011**: Workflows MUST declare input and output schemas using JSON Schema format
+- **FR-012**: System MUST support three workflow types: atomic (single agent/action), composite (multi-step), and conditional (branching logic)
+- **FR-013**: System MUST enforce maximum workflow composition depth of 5 levels to prevent infinite recursion
+- **FR-014**: System MUST provide workflow registry for agent discovery of available capabilities
+- **FR-015**: Workflows MUST specify required agents and tools with version constraints
+- **FR-016**: System MUST validate that agents, skills, and tools referenced by workflows actually exist
+- **FR-017**: CI workflow MUST validate all workflow definitions on every commit
+- **FR-2B-01**: Workflow steps MAY include `skill` field to load Agent Skill context during execution
 
 **Phase 3: Enhanced Orchestration (Weeks 6-8)**
 
@@ -206,7 +228,9 @@ As a **system administrator**, I need observability into agent performance and t
 
 - **Agent**: Represents a specialized AI persona with specific capabilities, constraints, and behavioral instructions. Defined by YAML metadata file (schema, capabilities, I/O contracts) and Markdown instruction file (behavioral prompts, examples, tie-breaks).
 
-- **Skill**: Reusable capability composed of one or more actions that agents can invoke. Includes prerequisites (required skills/tools), execution steps, and input/output schemas. Three types: atomic, composite, conditional.
+- **Agent Skill**: Industry-standard instruction file following agentskills.io specification. Defines HOW to perform a task through SKILL.md files containing YAML frontmatter (name, description, compatibility) and markdown instructions. Loaded via progressive disclosure: metadata at startup (~100 tokens), full instructions on activation (<5000 tokens). Activated by description matching, explicit invocation (`/skill {name}`), or agent hints (`suggestedSkills`). Location: `.paperkit/_cfg/skills/{name}/SKILL.md`. **Intent**: Provide reusable, portable behavioral instructions that work across AI coding agents (VS Code, Claude Code, Cursor, Gemini CLI).
+
+- **Compositional Workflow**: PaperKit-internal YAML orchestration file defining WHAT steps to execute in sequence. Specifies agent assignments, inputs/outputs, and step dependencies. May reference Agent Skills via `skill` field to load contextual instructions during execution. Location: `.paperkit/_cfg/workflows/{name}.yaml`. **Intent**: Coordinate multi-agent, multi-step processes like "research → draft → refine → compile".
 
 - **Workflow**: Multi-step orchestration generated dynamically or defined statically. Contains ordered steps with dependencies, checkpoint locations, and parallel execution groups.
 
@@ -259,13 +283,21 @@ As a **system administrator**, I need observability into agent performance and t
 - **SC-004**: System documentation completeness score reaches 100% (all required docs exist and reference correct paths)
 - **SC-005**: Agent manifest validation confirms all agents are listed (zero orphaned agent files)
 
-**Phase 2: Skills Framework**
+**Phase 2a: Agent Skills**
 
-- **SC-006**: At least 5 core skills are defined, validated, and invokable by agents
-- **SC-007**: Skills reduce code duplication by 40% (measured by eliminated duplicate logic in agent instructions)
-- **SC-008**: 100% of skill definitions pass schema validation and dependency checks
-- **SC-009**: Skill invocation success rate exceeds 95% when prerequisites are met
-- **SC-010**: Agent developers can create new skill in under 30 minutes using documented process
+- **SC-2A-01**: 100% of Agent Skills in `skills/` directory have valid SKILL.md frontmatter passing schema validation
+- **SC-2A-02**: Skill discovery returns metadata for all registered skills in under 50ms
+- **SC-2A-03**: At least 3 existing instruction files are migrated to SKILL.md format (humanizer, etc.)
+- **SC-2A-04**: Progressive disclosure reduces initial load by 80% (frontmatter only vs full instructions)
+- **SC-2A-05**: Agent `suggestedSkills` references resolve correctly 100% of the time
+
+**Phase 2b: Compositional Workflows**
+
+- **SC-006**: At least 5 core workflows are defined, validated, and invokable by agents
+- **SC-007**: Workflows reduce code duplication by 40% (measured by eliminated duplicate logic in agent instructions)
+- **SC-008**: 100% of workflow definitions pass schema validation and dependency checks
+- **SC-009**: Workflow invocation success rate exceeds 95% when prerequisites are met
+- **SC-010**: Agent developers can create new workflow in under 30 minutes using documented process
 
 **Phase 3: Enhanced Orchestration**
 
@@ -314,8 +346,15 @@ Each phase must meet these criteria before proceeding to next phase:
 - CI workflow operational ✓
 - Stakeholder sign-off ✓
 
-**Phase 2 Exit Criteria**:
-- Minimum 5 skills operational ✓
+**Phase 2a Exit Criteria**:
+- All SKILL.md files pass schema validation ✓
+- Skill discovery registry operational ✓
+- At least 3 skills migrated ✓
+- Progressive disclosure verified ✓
+- Documentation updated ✓
+
+**Phase 2b Exit Criteria**:
+- Minimum 5 workflows operational ✓
 - Schema validation passing ✓
 - Agent integration demonstrated ✓
 - 80% test coverage achieved ✓
@@ -384,16 +423,27 @@ Each phase must meet these criteria before proceeding to next phase:
 7. Run full validation suite
 8. Update all documentation
 
-**Week 3-5: Phase 2 Implementation**
-1. Design and document skill schema (`skill-schema.json`)
-2. Create skills directory structure (`.paperkit/_cfg/skills/`)
-3. Implement skill validator
-4. Create 5 prototype skills (cite-source, validate-citation, draft-section, research-topic, compile-latex)
-5. Extend orchestrator with skill registry
-6. Test skill invocation from agents
-7. Document skill creation process
+**Week 3-4: Phase 2a Implementation (Agent Skills)**
+1. Create `skills/{name}/SKILL.md` directory structure
+2. Design and document skill frontmatter schema (`skill-frontmatter-schema.json`)
+3. Implement SKILL.md frontmatter validator
+4. Migrate existing instruction files to SKILL.md format (humanizer, etc.)
+5. Implement skill discovery registry (metadata only)
+6. Add `suggestedSkills` support to agent schema
+7. Implement progressive disclosure loading
+8. Document skill creation process
 
-**Week 6-8: Phase 3 Implementation**
+**Week 5-6: Phase 2b Implementation (Compositional Workflows)**
+1. Rename existing skill YAML files to workflows directory
+2. Design and document workflow schema (`workflow-schema.json`)
+3. Implement workflow validator with skill reference support
+4. Create 5 prototype workflows (cite-source, validate-citation, draft-section, research-topic, compile-latex)
+5. Extend orchestrator with workflow registry
+6. Add skill-loading to workflow steps
+7. Test workflow invocation from agents
+8. Document workflow creation process
+
+**Week 7-9: Phase 3 Implementation**
 1. Enhance orchestrator intent classification
 2. Implement dependency resolver
 3. Create workflow state machine

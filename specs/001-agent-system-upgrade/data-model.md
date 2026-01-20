@@ -11,31 +11,53 @@
 │                           AGENT SYSTEM DATA MODEL                           │
 ├─────────────────────────────────────────────────────────────────────────────┤
 │                                                                             │
-│  ┌──────────┐    invokes    ┌──────────┐    requires    ┌──────────┐       │
-│  │  Agent   │──────────────▶│  Skill   │───────────────▶│  Tool    │       │
-│  └──────────┘               └──────────┘                └──────────┘       │
-│       │                          │                           │              │
-│       │ routes via               │ composed of               │ requires     │
-│       ▼                          ▼                           ▼              │
-│  ┌──────────┐               ┌──────────┐               ┌──────────┐        │
-│  │ Routing  │               │  Skill   │               │ Consent  │        │
-│  │ Registry │               │  Step    │               │ Record   │        │
-│  └──────────┘               └──────────┘               └──────────┘        │
-│       │                                                      │              │
-│       │ classifies                                           │ logged to    │
-│       ▼                                                      ▼              │
-│  ┌──────────┐    generates    ┌──────────┐    tracked    ┌──────────┐      │
-│  │  Intent  │────────────────▶│ Workflow │──────────────▶│  Metric  │      │
-│  └──────────┘                 └──────────┘               └──────────┘      │
-│                                    │                                        │
-│                                    │ saves state to                         │
-│                                    ▼                                        │
-│                               ┌──────────┐                                  │
-│                               │Checkpoint│                                  │
-│                               └──────────┘                                  │
+│  ┌──────────┐   loads      ┌───────────┐    invokes    ┌──────────┐        │
+│  │  Agent   │─────────────▶│Agent Skill│◀──────────────│ Workflow │        │
+│  └──────────┘              └───────────┘               │   Step   │        │
+│       │                         │                      └──────────┘        │
+│       │ executes                │ references                 │              │
+│       ▼                         ▼                           │              │
+│  ┌──────────┐              ┌───────────┐                    │              │
+│  │Comp.     │              │  scripts/ │                    │ composed of  │
+│  │Workflow  │              │references/│                    │              │
+│  └──────────┘              │  assets/  │                    │              │
+│       │                    └───────────┘                    │              │
+│       │ composed of                                         │              │
+│       ▼                                                     ▼              │
+│  ┌──────────┐    requires    ┌──────────┐    requires   ┌──────────┐      │
+│  │ Workflow │───────────────▶│  Tool    │◀──────────────│Comp.     │      │
+│  │   Step   │                └──────────┘               │Workflow  │      │
+│  └──────────┘                     │                     └──────────┘      │
+│       │                           │ requires                               │
+│       │ routes via                ▼                                        │
+│       ▼                      ┌──────────┐                                  │
+│  ┌──────────┐                │ Consent  │                                  │
+│  │ Routing  │                │ Record   │                                  │
+│  │ Registry │                └──────────┘                                  │
+│  └──────────┘                     │                                        │
+│       │                           │ logged to                              │
+│       │ classifies                ▼                                        │
+│       ▼                      ┌──────────┐                                  │
+│  ┌──────────┐  generates     │  Metric  │                                  │
+│  │  Intent  │───────────────▶└──────────┘                                  │
+│  └──────────┘                                                              │
+│       │                                                                     │
+│       │ generates                                                           │
+│       ▼                                                                     │
+│  ┌──────────┐    saves state    ┌──────────┐                               │
+│  │ Workflow │──────────────────▶│Checkpoint│                               │
+│  │ Instance │                   └──────────┘                               │
+│  └──────────┘                                                              │
 │                                                                             │
 └─────────────────────────────────────────────────────────────────────────────┘
 ```
+
+**IMPORTANT: Two Distinct Skill Concepts**
+
+| Concept | Purpose | Format | Storage |
+|---------|---------|--------|---------|
+| **Agent Skills** | Instructions/knowledge to teach agents HOW | SKILL.md (frontmatter + markdown) | `.paperkit/_cfg/skills/{name}/SKILL.md` |
+| **Compositional Workflows** | Orchestration to define WHAT steps | YAML (steps, agents, I/O) | `.paperkit/_cfg/workflows/{name}.yaml` |
 
 ---
 
@@ -57,13 +79,15 @@
 | `capabilities` | string[] | ❌ | What the agent can do |
 | `constraints` | string[] | ❌ | What the agent cannot do |
 | `principles` | string[] | ❌ | Guiding behavioral principles |
+| `suggestedSkills` | string[] | ❌ | **NEW**: Agent Skills to auto-load |
 | `inputSchema` | JSONSchema | ❌ | Expected input format |
 | `outputSchema` | JSONSchema | ❌ | Expected output format |
 | `path` | string | ✅ | Path to MD instruction file |
 
 **Relationships**:
 - **Routes via** Routing Registry (1:1)
-- **Invokes** Skills (1:N)
+- **Loads** Agent Skills (1:N)
+- **Executes** Compositional Workflows (1:N)
 - **Tracked by** Metrics (1:N)
 
 **Validation**: `agent-schema.json`
@@ -72,9 +96,89 @@
 
 ---
 
-## 2. Skill
+## 2. Agent Skill (NEW - Industry Standard)
 
-**Definition**: Reusable capability composed of one or more actions that agents can invoke.
+**Definition**: A folder containing instructions, scripts, and resources that agents load dynamically to perform better at specific tasks. Follows the agentskills.io specification.
+
+**Purpose**: Teaches agents HOW to do something through knowledge transfer and procedural instructions.
+
+**Directory Structure**:
+
+```
+skill-name/
+├── SKILL.md          # Required: YAML frontmatter + markdown instructions
+├── scripts/          # Optional: executable code
+├── references/       # Optional: additional documentation
+└── assets/           # Optional: templates, data files
+```
+
+**SKILL.md Frontmatter Attributes**:
+
+| Field | Type | Required | Description |
+|-------|------|----------|-------------|
+| `name` | string | ✅ | 1-64 chars, lowercase + hyphens only, matches directory name |
+| `description` | string | ✅ | 1-1024 chars, what skill does AND when to use it |
+| `license` | string | ❌ | License name or reference to bundled LICENSE file |
+| `compatibility` | string | ❌ | 1-500 chars, environment requirements |
+| `allowed-tools` | string | ❌ | Space-delimited pre-approved tools (experimental) |
+| `metadata` | map | ❌ | Arbitrary key-value pairs (author, version, etc.) |
+
+**SKILL.md Body Content**:
+- Step-by-step instructions (no format restrictions)
+- Examples of inputs and outputs
+- Common edge cases and guidelines
+- Recommended: Keep under 500 lines; use references/ for details
+
+**Progressive Disclosure**:
+1. **Metadata** (~100 tokens): `name` + `description` loaded at startup
+2. **Instructions** (<5000 tokens): Full SKILL.md body loaded on activation
+3. **Resources** (as needed): scripts/, references/, assets/ loaded on demand
+
+**Activation Mechanisms**:
+- Description matching (automatic)
+- Explicit invocation (`/skill humanizer`)
+- Agent hints (`suggestedSkills` in agent definition)
+
+**Relationships**:
+- **Loaded by** Agents (N:M)
+- **Referenced by** Workflow Steps (N:M)
+- **Contains** scripts, references, assets (1:N)
+
+**Validation**: `skill-frontmatter-schema.json`
+
+**Storage**: `.paperkit/_cfg/skills/{skill-name}/SKILL.md`
+
+**Example**:
+
+```yaml
+---
+name: humanizer
+description: Remove signs of AI-generated writing from text. Use when editing 
+  or reviewing text to make it sound more natural and human-written.
+metadata:
+  author: core-team
+  version: "2.1.1"
+allowed-tools: Read Write Edit Grep Glob
+---
+
+# Humanizer: Remove AI Writing Patterns
+
+You are a writing editor that identifies and removes signs of AI-generated text...
+
+## Process
+1. Read the input text carefully
+2. Identify all instances of the patterns below
+3. Rewrite each problematic section
+...
+```
+
+---
+
+## 3. Compositional Workflow (Renamed from "Skill")
+
+**Definition**: Declarative orchestration defining a sequence of steps executed by agents. Previously called "Skill" in Phase 2 implementation.
+
+**Purpose**: Defines WHAT steps to execute and in what order - automation/orchestration.
 
 **Attributes**:
 
@@ -82,36 +186,75 @@
 |-------|------|----------|-------------|
 | `name` | string | ✅ | Machine identifier (kebab-case) |
 | `displayName` | string | ✅ | Human-readable name |
-| `description` | string | ✅ | What the skill does |
+| `description` | string | ✅ | What the workflow does |
 | `version` | semver | ✅ | Semantic version |
 | `type` | enum | ✅ | `atomic`, `composite`, `conditional` |
-| `prerequisites` | array | ❌ | Required skills/tools before execution |
-| `steps` | SkillStep[] | ✅ | Ordered execution steps |
+| `prerequisites` | array | ❌ | Required workflows/tools before execution |
+| `steps` | WorkflowStep[] | ✅ | Ordered execution steps |
 | `inputSchema` | JSONSchema | ✅ | Required inputs |
 | `outputSchema` | JSONSchema | ✅ | Guaranteed outputs |
 | `timeout` | integer | ❌ | Max execution time (ms) |
 | `retryPolicy` | object | ❌ | Retry behavior on failure |
 
-**Skill Types**:
+**Workflow Types**:
 - **Atomic**: Single agent, single action (e.g., `extract-metadata`)
 - **Composite**: Multi-step sequence (e.g., `cite-source` = extract → format)
 - **Conditional**: Branching logic based on inputs (e.g., `validate-citation` with type-specific paths)
 
 **Relationships**:
-- **Invoked by** Agents (N:1)
-- **Composed of** Skill Steps (1:N)
+- **Executed by** Agents (N:1)
+- **Composed of** Workflow Steps (1:N)
 - **Requires** Tools (N:M)
-- **Depends on** other Skills (N:M)
+- **Depends on** other Workflows (N:M)
+- **Can load** Agent Skills (N:M)
 
-**Validation**: `skill-schema.json`
+**Validation**: `workflow-schema.json`
 
-**Storage**: `.paperkit/_cfg/skills/{name}.yaml`
+**Storage**: `.paperkit/_cfg/workflows/{name}.yaml`
+
+**Example**:
+
+```yaml
+name: cite-source
+displayName: Cite Source
+description: Extract metadata from a source and format citation in Harvard style
+version: 1.0.0
+type: composite
+
+steps:
+  - action: extract-metadata
+    agent: reference-manager
+    skill: harvard-citations       # Can load Agent Skill for context
+    inputs: [source_url, source_type]
+    outputs: [metadata]
+    
+  - action: format-citation
+    agent: reference-manager
+    inputs: [metadata]
+    outputs: [harvard_citation, bibtex_entry]
+
+inputSchema:
+  type: object
+  properties:
+    source_url:
+      type: string
+  required: [source_url]
+
+outputSchema:
+  type: object
+  properties:
+    harvard_citation:
+      type: string
+    bibtex_entry:
+      type: string
+  required: [harvard_citation, bibtex_entry]
+```
 
 ---
 
-## 3. Skill Step
+## 4. Workflow Step
 
-**Definition**: Single action within a skill execution.
+**Definition**: Single action within a compositional workflow execution.
 
 **Attributes**:
 
@@ -119,20 +262,22 @@
 |-------|------|----------|-------------|
 | `action` | string | ✅ | Step identifier |
 | `agent` | string | ✅ | Agent to execute this step |
+| `skill` | string | ❌ | **NEW**: Agent Skill to load for context |
 | `inputs` | string[] | ✅ | Input variable names |
 | `outputs` | string[] | ✅ | Output variable names |
-| `condition` | string | ❌ | Conditional expression (for conditional skills) |
+| `condition` | string | ❌ | Conditional expression (for conditional workflows) |
 | `onError` | enum | ❌ | `fail`, `skip`, `retry` |
 
 **Relationships**:
-- **Belongs to** Skill (N:1)
+- **Belongs to** Compositional Workflow (N:1)
 - **Executed by** Agent (N:1)
+- **Loads** Agent Skill (N:1, optional)
 
-**Storage**: Embedded in parent Skill YAML
+**Storage**: Embedded in parent Workflow YAML
 
 ---
 
-## 4. Tool
+## 5. Tool
 
 **Definition**: External executable that agents invoke to perform concrete actions.
 
@@ -153,7 +298,7 @@
 | `category` | string | ❌ | Tool category for grouping |
 
 **Relationships**:
-- **Invoked by** Skills (N:M)
+- **Invoked by** Workflows (N:M)
 - **Requires** Consent Records (1:N)
 - **Logged to** Metrics (1:N)
 
@@ -163,7 +308,7 @@
 
 ---
 
-## 5. Routing Registry
+## 6. Routing Registry
 
 **Definition**: Centralized rules mapping user intents to appropriate agents.
 
@@ -197,7 +342,7 @@
 
 ---
 
-## 6. Intent
+## 7. Intent
 
 **Definition**: Parsed user goal extracted from natural language request.
 
@@ -223,7 +368,7 @@
 
 ---
 
-## 7. Workflow
+## 8. Workflow Instance
 
 **Definition**: Multi-step orchestration generated dynamically or defined statically.
 
@@ -262,7 +407,7 @@
 
 ---
 
-## 8. Checkpoint
+## 9. Checkpoint
 
 **Definition**: Workflow execution state snapshot enabling resumption.
 
@@ -285,7 +430,7 @@
 
 ---
 
-## 9. Consent Record
+## 10. Consent Record
 
 **Definition**: User consent for tool execution.
 
@@ -308,7 +453,7 @@
 
 ---
 
-## 10. Metric
+## 11. Metric
 
 **Definition**: Performance measurement collected during system operation.
 
