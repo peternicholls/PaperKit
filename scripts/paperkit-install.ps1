@@ -6,7 +6,8 @@ $ErrorActionPreference = "Stop"
 
 # Get version and title from version.yaml
 $ScriptDir = Split-Path -Parent $MyInvocation.MyCommand.Path
-$VersionYamlPath = Join-Path $ScriptDir ".paperkit\_cfg\version.yaml"
+$RepoRoot = Split-Path -Parent $ScriptDir
+$VersionYamlPath = Join-Path $RepoRoot ".paperkit\_cfg\version.yaml"
 
 $Version = "unknown"
 $TitleShort = "PaperKit"
@@ -190,8 +191,8 @@ Write-Success "Platform detected: Windows $($osInfo.Version)"
 Write-Host ""
 Write-Info "Determining installation method..."
 
-# Check if we're in a git repository that might be paperkit
-if ((Test-Path ".git") -and (Test-Path "AGENTS.md") -and (Test-Path "VERSION")) {
+# Check if we're in a git repository that looks like PaperKit
+if ((Test-Path ".git") -and (Test-Path "AGENTS.md") -and (Test-Path ".paperkit")) {
     Write-Info "Detected existing PaperKit installation in current directory."
     $reinit = Read-Host "Reinitialize this installation? (yes/no)"
     if ($reinit -notmatch '^[Yy][Ee][Ss]$') {
@@ -201,7 +202,7 @@ if ((Test-Path ".git") -and (Test-Path "AGENTS.md") -and (Test-Path "VERSION")) 
 }
 
 # Check if paperkit files exist in current directory
-if ((Test-Path "VERSION") -or (Test-Path ".paper")) {
+if ((Test-Path ".paperkit") -or (Test-Path "paperkit") -or (Test-Path "AGENTS.md")) {
     Write-Warning-Custom "PaperKit files detected in current directory."
     $continueAnyway = Read-Host "This may be an existing installation. Continue anyway? (yes/no)"
     if ($continueAnyway -notmatch '^[Yy][Ee][Ss]$') {
@@ -214,24 +215,30 @@ if ((Test-Path "VERSION") -or (Test-Path ".paper")) {
 Write-Host ""
 Write-Info "Starting installation..."
 
-# For now, this is a placeholder for actual file copying/downloading
-# In a real implementation, this would:
-# 1. Download or copy PaperKit files
-# 2. Set up directory structure
-# 3. Initialize configuration
-
-Write-Warning-Custom "Installation script is in alpha stage."
-Write-Info "This installer currently validates prerequisites and directory setup."
-Write-Info "Full installation logic will be implemented in subsequent versions."
+Write-Info "Preparing local PaperKit workspace from the current checkout."
+Write-Info "This bootstrap path validates prerequisites, creates required directories, and can set up Python dependencies."
 
 # Create basic directory structure
 Write-Info "Creating directory structure..."
 $directories = @(
-    ".paper\data\output-drafts",
-    ".paper\data\output-refined",
-    ".paper\data\output-final",
+    ".paperkit\data\output-drafts\sections",
+    ".paperkit\data\output-drafts\outlines",
+    ".paperkit\data\output-refined\sections",
+    ".paperkit\data\output-refined\research",
+    ".paperkit\data\output-refined\references",
+    ".paperkit\data\output-final\pdf",
+    ".paperkit\core\agents",
+    ".paperkit\specialist\agents",
+    ".paperkit\_cfg\agents",
+    ".paperkit\_cfg\workflows",
+    ".paperkit\_cfg\tools",
+    ".paperkit\_cfg\guides",
+    ".paperkit\_cfg\schemas",
+    ".paperkit\_cfg\ides",
+    ".paperkit\docs",
     "latex\sections",
     "latex\references",
+    "latex\appendices",
     "planning"
 )
 
@@ -314,17 +321,17 @@ Write-Host @"
 ║                                                   ║
 ║         ✓ Installation Complete!                  ║
 ║                                                   ║
-║    PaperKit alpha-1.0.0 is ready to use.         ║
+║    PaperKit workspace is ready to use.           ║
 ║                                                   ║
 ╚═══════════════════════════════════════════════════╝
 
 "@ -ForegroundColor Green
 
 Write-Info "Next steps:"
-Write-Host "  1. If you have the complete PaperKit bundle, review AGENTS.md for available agents"
+Write-Host "  1. Review AGENTS.md for available agents"
 Write-Host "  2. Open GitHub Copilot or Codex in your IDE"
 Write-Host "  3. Use paper-architect to begin your research paper"
 Write-Host ""
-Write-Info "Note: This alpha installer creates the directory structure."
-Write-Info "Ensure you have the complete PaperKit files (.paper/, .github/, etc.) in this directory."
+Write-Info "If you update canonical files under .paperkit, regenerate IDE files from a bash shell with ./paperkit generate."
+Write-Info "Ensure you have the complete PaperKit files (.paperkit/, .github/, etc.) in this directory."
 Write-Host ""

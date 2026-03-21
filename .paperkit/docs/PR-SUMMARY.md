@@ -26,7 +26,7 @@ Previously, `AGENTS.md` and `COPILOT.md` were manually maintained, creating risk
   - Added conditional execution for documentation generation
 
 #### Installation Updates  
-- **`paperkit-install.sh`**
+- **`scripts/paperkit-install.sh`**
   - Added automatic generation step after IDE installation
   - Ensures generated files created during installation
   - Includes error handling with warning messages
@@ -160,7 +160,7 @@ To regenerate all files after modifying source definitions:
 
 ### Installation Flow After Merge
 ```bash
-# Users running paperkit-install.sh will automatically get:
+# Users running ./paperkit init will automatically get:
 1. IDE installation (GitHub Copilot or OpenAI Codex)
 2. Automatic generation of all 22 files
 3. PyYAML check with helpful error message if missing
@@ -182,7 +182,7 @@ To regenerate all files after modifying source definitions:
 ## 🔮 Future Enhancements
 
 ### Potential Improvements (Not in this PR)
-1. Add PyYAML installation to `paperkit-install.sh`
+1. Add PyYAML installation to `scripts/paperkit-install.sh`
 2. Add pre-commit hooks to warn about manual edits to generated files
 3. Add CI validation that tests regeneration
 4. Create `requirements.txt` for Python dependencies

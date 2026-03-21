@@ -67,8 +67,8 @@ Before you begin, make sure you have:
 git clone https://github.com/peternicholls/PaperKit.git
 cd PaperKit
 
-# Run the installer
-./paperkit-install.sh
+# Initialize via the CLI
+./paperkit init
 ```
 
 ### Step 2: Activate Your First Agent

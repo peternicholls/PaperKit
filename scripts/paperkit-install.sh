@@ -17,20 +17,23 @@ BOLD='\033[1m'
 
 # Global variables
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+REPO_ROOT="$(cd "${SCRIPT_DIR}/.." && pwd)"
+PLATFORM_KIND="unknown"
+PLATFORM_LABEL="unknown"
 
 # Get version and title from version.yaml
-if [ -f "${SCRIPT_DIR}/.paperkit/tools/get-version.sh" ]; then
-    VERSION=$("${SCRIPT_DIR}/.paperkit/tools/get-version.sh" 2>/dev/null || echo "unknown")
+if [ -f "${REPO_ROOT}/.paperkit/tools/get-version.sh" ]; then
+    VERSION=$("${REPO_ROOT}/.paperkit/tools/get-version.sh" 2>/dev/null || echo "unknown")
 else
     VERSION="unknown"
 fi
 
 # Get title info from version.yaml using Python
-if command -v python3 >/dev/null 2>&1 && [ -f "${SCRIPT_DIR}/.paperkit/_cfg/version.yaml" ]; then
+if command -v python3 >/dev/null 2>&1 && [ -f "${REPO_ROOT}/.paperkit/_cfg/version.yaml" ]; then
     TITLE_INFO=$(python3 -c "
 import yaml
 try:
-    with open('${SCRIPT_DIR}/.paperkit/_cfg/version.yaml', 'r') as f:
+    with open('${REPO_ROOT}/.paperkit/_cfg/version.yaml', 'r') as f:
         data = yaml.safe_load(f)
         title = data.get('version', {}).get('title', {})
         print(title.get('short', 'PaperKit'))
@@ -66,6 +69,63 @@ error_exit() { echo -e "${RED}❌ Error: $1${NC}" >&2; exit 1; }
 success_msg() { echo -e "${GREEN}✓ $1${NC}"; }
 warning_msg() { echo -e "${YELLOW}⚠ $1${NC}"; }
 info_msg() { echo -e "${BLUE}ℹ $1${NC}"; }
+
+is_wsl() {
+    [[ -n "${WSL_DISTRO_NAME:-}" || -n "${WSL_INTEROP:-}" ]] && return 0
+    grep -qiE "(microsoft|wsl)" /proc/version 2>/dev/null
+}
+
+python_venv_exact_package() {
+    python3 -c "import sys; print(f'python{sys.version_info.major}.{sys.version_info.minor}-venv')" 2>/dev/null
+}
+
+python_venv_bootstrap_works() {
+    local probe_root
+    local probe_env
+
+    probe_root=$(mktemp -d 2>/dev/null) || return 1
+    probe_env="${probe_root}/venv-probe"
+
+    if python3 -m venv "$probe_env" >/dev/null 2>&1 && [ -f "${probe_env}/bin/activate" ] && [ -x "${probe_env}/bin/python" ]; then
+        rm -rf "$probe_root"
+        return 0
+    fi
+
+    rm -rf "$probe_root"
+    return 1
+}
+
+show_venv_remediation() {
+    local exact_package
+    exact_package=$(python_venv_exact_package)
+
+    case "$PLATFORM_KIND" in
+        wsl|linux)
+            warning_msg "Python can import venv, but cannot bootstrap a working virtual environment."
+            info_msg "On Debian/Ubuntu and WSL, install the OS venv package and rerun the installer:"
+            echo "  sudo apt update"
+            echo "  sudo apt install python3-venv"
+            if [ -n "$exact_package" ]; then
+                echo "  # If the generic package is unavailable, install the interpreter-specific package:"
+                echo "  sudo apt install $exact_package"
+            fi
+            ;;
+        macos)
+            warning_msg "Python cannot bootstrap a working virtual environment."
+            info_msg "On macOS, install a full Python 3 distribution that includes venv and pip, then rerun the installer:"
+            echo "  brew install python"
+            echo "  # or install the latest Python 3 from python.org"
+            ;;
+        windows-bash)
+            warning_msg "Python cannot bootstrap a working virtual environment from this shell."
+            info_msg "Windows support is currently WSL-only. Open the repository in WSL and rerun ./paperkit init there."
+            ;;
+        *)
+            warning_msg "Python cannot bootstrap a working virtual environment."
+            info_msg "Install the platform package that provides venv/ensurepip support, then rerun the installer."
+            ;;
+    esac
+}
 
 # Check if fzf is available
 has_fzf() {
@@ -193,11 +253,16 @@ check_prerequisites() {
         local py_version=$(python3 --version | cut -d' ' -f2)
         success_msg "Python3: $py_version"
         
-        # Check for venv module
+        # Check for venv module and real bootstrap support
         if python3 -c "import venv" 2>/dev/null; then
-            success_msg "Python venv module: available"
+            if python_venv_bootstrap_works; then
+                success_msg "Python virtual environment bootstrap: available"
+            else
+                show_venv_remediation
+            fi
         else
-            warning_msg "Python venv module not found. Install python3-venv package."
+            warning_msg "Python venv module not found."
+            show_venv_remediation
         fi
         
         # Check for pip
@@ -230,15 +295,24 @@ detect_platform() {
     info_msg "Detecting platform..."
     local os_type="unknown"
     
-    if [[ "$OSTYPE" == "linux-gnu"* ]]; then
+    if is_wsl; then
+        PLATFORM_KIND="wsl"
+        os_type="WSL"
+    elif [[ "$OSTYPE" == "linux-gnu"* ]]; then
+        PLATFORM_KIND="linux"
         os_type="Linux"
     elif [[ "$OSTYPE" == "darwin"* ]]; then
+        PLATFORM_KIND="macos"
         os_type="macOS"
     elif [[ "$OSTYPE" == "cygwin" ]] || [[ "$OSTYPE" == "msys" ]] || [[ "$OSTYPE" == "win32" ]]; then
+        PLATFORM_KIND="windows-bash"
         os_type="Windows (via $OSTYPE)"
     else
+        PLATFORM_KIND="$OSTYPE"
         os_type="$OSTYPE"
     fi
+
+    PLATFORM_LABEL="$os_type"
     
     success_msg "Platform: $os_type"
 }
@@ -262,29 +336,44 @@ setup_python_env() {
     
     case $py_choice in
         1)
-            info_msg "Creating Python virtual environment..."
-            if python3 -m venv .venv 2>/dev/null; then
+            if [ -d .venv ] && [ ! -f .venv/bin/activate ]; then
+                warning_msg "Removing incomplete .venv left by a previous failed setup."
+                rm -rf .venv
+            fi
+
+            if [ -f .venv/bin/activate ] && [ -x .venv/bin/python ]; then
+                success_msg "Virtual environment already exists: .venv/"
+            else
+                if ! python_venv_bootstrap_works; then
+                    show_venv_remediation
+                    return
+                fi
+
+                info_msg "Creating Python virtual environment..."
+                if ! python3 -m venv .venv 2>/dev/null; then
+                    warning_msg "Failed to create virtual environment."
+                    show_venv_remediation
+                    return
+                fi
+
                 success_msg "Virtual environment created: .venv/"
-                
-                # Try to install dependencies
-                if [ -f "${SCRIPT_DIR}/requirements.txt" ]; then
-                    info_msg "Installing Python dependencies..."
-                    if .venv/bin/pip install -r "${SCRIPT_DIR}/requirements.txt" > /dev/null 2>&1; then
-                        success_msg "Dependencies installed (pyyaml, jsonschema)"
-                        echo ""
-                        info_msg "To activate the environment:"
-                        echo -e "  ${CYAN}source .venv/bin/activate${NC}"
-                    else
-                        warning_msg "Failed to install dependencies. Run manually:"
-                        echo "  source .venv/bin/activate"
-                        echo "  pip install -r requirements.txt"
-                    fi
+            fi
+
+            # Try to install dependencies
+            if [ -f "${REPO_ROOT}/requirements.txt" ]; then
+                info_msg "Installing Python dependencies..."
+                if .venv/bin/pip install -r "${REPO_ROOT}/requirements.txt" > /dev/null 2>&1; then
+                    success_msg "Dependencies installed (pyyaml, jsonschema)"
+                    echo ""
+                    info_msg "To activate the environment:"
+                    echo -e "  ${CYAN}source .venv/bin/activate${NC}"
                 else
-                    warning_msg "requirements.txt not found. Install manually if needed."
+                    warning_msg "Failed to install dependencies. Run manually:"
+                    echo "  source .venv/bin/activate"
+                    echo "  pip install -r requirements.txt"
                 fi
             else
-                warning_msg "Failed to create virtual environment."
-                info_msg "You can create it manually: python3 -m venv .venv"
+                warning_msg "requirements.txt not found. Install manually if needed."
             fi
             ;;
         2)
@@ -293,6 +382,9 @@ setup_python_env() {
             echo "  python3 -m venv .venv"
             echo "  source .venv/bin/activate"
             echo "  pip install -r requirements.txt"
+            if [[ "$PLATFORM_KIND" == "wsl" || "$PLATFORM_KIND" == "linux" ]]; then
+                echo "  # If venv creation fails on Debian/Ubuntu/WSL, install python3-venv first"
+            fi
             ;;
     esac
 }
@@ -336,8 +428,8 @@ install_copilot() {
     mkdir -p .github/agents
     
     # Generate agent files from .paperkit source
-    if [ -x "${SCRIPT_DIR}/.paperkit/tools/generate.sh" ]; then
-        "${SCRIPT_DIR}/.paperkit/tools/generate.sh" --target=copilot
+    if [ -x "${REPO_ROOT}/.paperkit/tools/generate.sh" ]; then
+        "${REPO_ROOT}/.paperkit/tools/generate.sh" --target=copilot
     else
         warning_msg "Generator not found. Creating placeholder agents."
         
@@ -383,8 +475,8 @@ install_codex() {
     mkdir -p .codex/prompts
     
     # Generate prompt files from .paperkit source
-    if [ -x "${SCRIPT_DIR}/.paperkit/tools/generate.sh" ]; then
-        "${SCRIPT_DIR}/.paperkit/tools/generate.sh" --target=codex
+    if [ -x "${REPO_ROOT}/.paperkit/tools/generate.sh" ]; then
+        "${REPO_ROOT}/.paperkit/tools/generate.sh" --target=codex
     else
         warning_msg "Generator not found. Creating placeholder prompts."
         
@@ -480,10 +572,10 @@ main() {
     confirm_directory
     
     echo ""
-    check_prerequisites
+    detect_platform
     
     echo ""
-    detect_platform
+    check_prerequisites
     
     echo ""
     select_ides

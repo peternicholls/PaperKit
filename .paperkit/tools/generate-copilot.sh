@@ -6,7 +6,7 @@
 set -e
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-PAPERKIT_ROOT="${SCRIPT_DIR}"
+PAPERKIT_ROOT="$(cd "${SCRIPT_DIR}/../.." && pwd)"
 
 # Color codes
 RED='\033[0;31m'
@@ -45,14 +45,15 @@ fi
 info_msg "Generating .copilot/ files from .paperkit/ manifests..."
 
 # Generate .copilot/agents.yaml and .copilot/workflows.yaml
-"$PYTHON_CMD" << 'PYTHON_SCRIPT'
+PAPERKIT_ROOT="$PAPERKIT_ROOT" "$PYTHON_CMD" << 'PYTHON_SCRIPT'
 import yaml
 import os
 from pathlib import Path
 from datetime import datetime
 
-paperkit_root = Path(os.getcwd())
+paperkit_root = Path(os.environ['PAPERKIT_ROOT'])
 copilot_dir = paperkit_root / '.copilot'
+copilot_dir.mkdir(parents=True, exist_ok=True)
 
 # Load manifests
 agent_manifest_path = paperkit_root / '.paperkit' / '_cfg' / 'agent-manifest.yaml'

@@ -215,12 +215,12 @@ init_project() {
         fi
     fi
     
-    # Run the installer (prefer v2 if available)
+    # Run the installer from scripts/ (prefer v2 if available)
     SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-    if [ -f "$SCRIPT_DIR/paperkit-install-v2.sh" ]; then
-        "$SCRIPT_DIR/paperkit-install-v2.sh"
-    elif [ -f "$SCRIPT_DIR/paperkit-install.sh" ]; then
-        "$SCRIPT_DIR/paperkit-install.sh"
+    if [ -f "$SCRIPT_DIR/scripts/paperkit-install-v2.sh" ]; then
+        "$SCRIPT_DIR/scripts/paperkit-install-v2.sh"
+    elif [ -f "$SCRIPT_DIR/scripts/paperkit-install.sh" ]; then
+        "$SCRIPT_DIR/scripts/paperkit-install.sh"
     else
         echo -e "${RED}Error: paperkit installer not found.${NC}"
         echo "Make sure you have the complete paperkit distribution."

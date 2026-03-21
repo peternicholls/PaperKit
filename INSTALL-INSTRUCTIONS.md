@@ -9,7 +9,7 @@ A complete **Open Agent System** for planning, researching, structuring, draftin
 ### Installation
 
 **Prerequisites:**
-- Bash (Mac/Linux) or PowerShell (Windows)
+- Bash (macOS/Linux/WSL)
 - Git (recommended)
 - Python 3.8+ (recommended for validation tools)
 - Node.js (optional)
@@ -22,39 +22,39 @@ Run the base installation script to install PaperKit to your home directory:
 curl -sSL https://raw.githubusercontent.com/peternicholls/PaperKit/master/scripts/base-install.sh | bash
 ```
 
-This creates `~/paperkit` with the default configuration containing agents, workflows, and tools.
+This creates `~/paperkit` with the default configuration containing agents, workflows, and tools. After the initial bootstrap, `./paperkit` is the normal user-facing interface.
 
 **Alternatively:** You can manually download the files from the GitHub repository and place them in your home directory at `~/paperkit/`.
 
 **Updating?** If you already have PaperKit installed, you'll be prompted with update options and the ability to create a backup.
 
-**Windows Users:** The installation command requires a bash shell. We recommend using **Windows Subsystem for Linux (WSL)**, which provides a full Linux environment on Windows. Alternatively, you can use **Git Bash** (included with Git for Windows) to run the installation command. Once installed, open your bash terminal and run the curl command above.
+**Windows Users:** Use **Windows Subsystem for Linux (WSL)**. Windows support is currently WSL-only, and the normal PaperKit workflow runs from a bash shell inside WSL.
 
 ### Alternative Installation Methods
 
 #### For Mac/Linux (Custom Location):
 
 ```bash
-# Option 1: Clone and use paperkit command
-git clone https://github.com/peternicholls/PaperKit.git
-cd PaperKit
-./paperkit init
-
-# Option 2: Direct installation script
-git clone https://github.com/peternicholls/PaperKit.git
-cd PaperKit
-./paperkit-install.sh
-```
-
-#### For Windows:
-
-```powershell
 # Clone the repository
 git clone https://github.com/peternicholls/PaperKit.git
 cd PaperKit
 
-# Run in PowerShell
-.\paperkit-install.ps1
+# Initialize via the PaperKit CLI
+./paperkit init
+```
+
+`./paperkit init` is the public setup command. The installer shell scripts are implementation details behind the CLI and are not the normal user workflow.
+
+#### For Windows:
+
+Use WSL for the supported Windows workflow:
+
+```powershell
+# Open WSL, then run the normal PaperKit CLI flow
+wsl
+git clone https://github.com/peternicholls/PaperKit.git
+cd PaperKit
+./paperkit init
 ```
 
 ### Python Environment Setup (Recommended)
@@ -72,6 +72,21 @@ source .venv/bin/activate
 
 # Install dependencies
 pip install -r requirements.txt
+```
+
+If `python3 -m venv .venv` fails on Ubuntu, Debian, or WSL with an `ensurepip` error, install the distro venv package first and rerun the command:
+
+```bash
+sudo apt update
+sudo apt install python3-venv
+# If needed for your exact interpreter version:
+sudo apt install python3.12-venv
+```
+
+If it fails on macOS, install a full Python 3 distribution first, for example:
+
+```bash
+brew install python
 ```
 
 #### Windows:
@@ -149,21 +164,33 @@ git stash pop  # Restore your changes
 
 ### Installation Steps (Custom Location)
 
-1. **Navigate to your project directory** - The installer will set up PaperKit in your current location
+1. **Navigate to your project directory** - The CLI will set up PaperKit in your current location
    ```bash
    cd /path/to/your/project
    ```
 
-2. **Run the installer** - The script will:
+2. **Run the CLI setup command**
+   ```bash
+   ./paperkit init
+   ```
+
+   This will:
    - Verify you're in the correct directory
    - Check for required dependencies
-   - Detect your platform (Mac/Linux/Windows)
+   - Detect your platform (macOS/Linux/WSL)
    - Create necessary directory structures
    - Set up the agent system
 
-3. **Follow the prompts** - The installer will ask you to confirm:
-   - Installation directory is correct
-   - Whether to proceed if directory is not empty
+3. **Regenerate generated IDE files only when needed**
+   ```bash
+   ./paperkit generate
+   ./paperkit generate --target=copilot
+   ./paperkit generate --target=codex
+   ```
+
+4. **Follow the prompts** - `./paperkit init` may ask you to confirm:
+   - IDE integration choices
+   - Whether to proceed if the directory is not empty
    - Whether to reinitialize if PaperKit is already present
 
 ## 📋 What You Get
@@ -276,7 +303,7 @@ This creates `paperkit-alpha-1.0.0.tar.gz` containing all necessary files.
 ## 🔧 Requirements
 
 ### Required
-- **Bash** (Mac/Linux) or **PowerShell** (Windows)
+- **Bash** (macOS/Linux/WSL)
 - A directory where you want to create your research paper project
 
 ### Recommended
@@ -285,6 +312,8 @@ This creates `paperkit-alpha-1.0.0.tar.gz` containing all necessary files.
   - Create a virtual environment: `python3 -m venv .venv`
   - Activate: `source .venv/bin/activate` (Mac/Linux) or `.venv\Scripts\activate` (Windows)
   - Install deps: `pip install -r requirements.txt`
+   - On Debian/Ubuntu/WSL, if venv creation fails with `ensurepip`, install `python3-venv` first
+   - On macOS, if venv creation fails, install a full Python distribution such as Homebrew Python
 - **LaTeX** - For compiling the final PDF (TeX Live, MiKTeX, or similar)
 
 ### Optional

@@ -120,12 +120,12 @@ detect_platform() {
         os_type="macOS"
     elif [[ "$OSTYPE" == "cygwin" ]] || [[ "$OSTYPE" == "msys" ]] || [[ "$OSTYPE" == "win32" ]]; then
         os_type="Windows (via $OSTYPE)"
-        warning_msg "You are running on Windows. For best experience, use WSL (Windows Subsystem for Linux)."
+        warning_msg "Windows support is currently WSL-only. Run this installer from WSL instead."
         echo ""
         echo -e "${CYAN}Windows Users:${NC}"
-        echo "  • Recommended: Windows Subsystem for Linux (WSL) - provides a full Linux environment"
-        echo "  • Alternative: Git Bash (included with Git for Windows)"
-        echo "  • Once installed, open your bash terminal and rerun this script"
+        echo "  • Install and open Windows Subsystem for Linux (WSL)"
+        echo "  • Open a WSL shell in your home directory or project directory"
+        echo "  • Rerun this installer from that WSL shell"
         echo ""
     else
         os_type="$OSTYPE"
@@ -411,7 +411,7 @@ run_post_install_setup() {
         echo "yes" >> "$temp_response"  # Continue with non-empty directory
         echo "2" >> "$temp_response"    # Skip Python venv setup (user can do later)
         
-        # Note: The paperkit-install.sh expects interactive input
+        # Note: scripts/paperkit-install.sh expects interactive input
         # For now, we'll just notify the user to run it manually
         # Trap handler will clean up temp file on function exit
         

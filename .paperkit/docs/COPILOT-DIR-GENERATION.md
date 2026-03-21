@@ -190,7 +190,7 @@ research-consolidator:
 #### During Installation
 Automatically runs when installing:
 ```bash
-./paperkit-install.sh
+./paperkit init
 ```
 
 ### Testing

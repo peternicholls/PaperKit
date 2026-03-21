@@ -6,7 +6,7 @@
 set -e
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-PAPERKIT_ROOT="${SCRIPT_DIR}"
+PAPERKIT_ROOT="$(cd "${SCRIPT_DIR}/../.." && pwd)"
 
 # Color codes
 RED='\033[0;31m'
@@ -45,12 +45,12 @@ fi
 info_msg "Generating documentation from .paperkit/ manifests..."
 
 # Generate AGENTS.md
-"$PYTHON_CMD" << 'PYTHON_SCRIPT'
+PAPERKIT_ROOT="$PAPERKIT_ROOT" "$PYTHON_CMD" << 'PYTHON_SCRIPT'
 import yaml
 import os
 from pathlib import Path
 
-paperkit_root = Path(os.getcwd())
+paperkit_root = Path(os.environ['PAPERKIT_ROOT'])
 manifest_path = paperkit_root / '.paperkit' / '_cfg' / 'agent-manifest.yaml'
 
 # Load agent manifest
