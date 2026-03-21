@@ -44,3 +44,6 @@ main.run.xml
 *.bcf
 build_report.md
 latex/main.bcf
+
+# Swift DocC generated output
+open-agents/source/reference-materials/tech-docs-from-exisiting-software-repo/Docs/generated/
