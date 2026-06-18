@@ -1,6 +1,6 @@
 # Comprehensive Citation Audit Report
 ## LaTeX Section Files Analysis
-**Generated:** 2025-12-30  
+**Generated:** 2025-12-30
 **Scope:** All `.tex` files in `latex/sections/`
 
 ---
@@ -36,24 +36,24 @@
 
 1. **Line 77** - `\citep[p.~11]{judd1940}`
    ```latex
-   This is not a limitation of current measurement techniques—it is a 
-   mathematical constraint arising from the ``super-importance of hue'' 
+   This is not a limitation of current measurement techniques—it is a
+   mathematical constraint arising from the ``super-importance of hue''
    first identified by Judd \citep[p.~11]{judd1940}.
    ```
 
 2. **Line 106** - `\citep[p.~3]{kong2021}`
    ```latex
-   Kong \citeyearpar{kong2021} notes explicitly: ``CIELAB is not a useful space 
-   to predict the perception of dynamic colored light. Today, no color spaces 
-   are available that accurately predict the visibility of color differences 
+   Kong \citeyearpar{kong2021} notes explicitly: ``CIELAB is not a useful space
+   to predict the perception of dynamic colored light. Today, no color spaces
+   are available that accurately predict the visibility of color differences
    over time'' \citep[p.~3]{kong2021}.
    ```
 
 3. **Line 219** - `\citealt{fairchild2013}, Chapter~3`
    ```latex
-   the cube root models nonlinear perceptual compression—a principle dating 
-   to Fechner's seminal psychophysical work (as discussed in 
-   \citealt{fairchild2013}, Chapter~3) and refined through modern 
+   the cube root models nonlinear perceptual compression—a principle dating
+   to Fechner's seminal psychophysical work (as discussed in
+   \citealt{fairchild2013}, Chapter~3) and refined through modern
    understanding of cone response functions \citep{ottosson2020};
    ```
 
@@ -432,8 +432,8 @@ Organized by cite key with all occurrences listed.
 ## File-by-File Breakdown
 
 ### 01_introduction.tex
-**Total Citations:** 20  
-**With Page Numbers:** 0  
+**Total Citations:** 20
+**With Page Numbers:** 0
 **Without Page Numbers:** 20
 
 | Line | Citation | Cite Key |
@@ -458,8 +458,8 @@ Organized by cite key with all occurrences listed.
 ---
 
 ### 02_perceptual_foundations.tex
-**Total Citations:** 44  
-**With Page Numbers:** 3  
+**Total Citations:** 44
+**With Page Numbers:** 3
 **Without Page Numbers:** 41
 
 | Line | Citation | Cite Key | Has Page? |
@@ -508,8 +508,8 @@ Organized by cite key with all occurrences listed.
 ---
 
 ### 03_journey_construction.tex
-**Total Citations:** 5  
-**With Page Numbers:** 0  
+**Total Citations:** 5
+**With Page Numbers:** 0
 **Without Page Numbers:** 5
 
 | Line | Citation | Cite Key |
@@ -524,8 +524,8 @@ Organized by cite key with all occurrences listed.
 ---
 
 ### 04_perceptual_constraints.tex
-**Total Citations:** 6  
-**With Page Numbers:** 0  
+**Total Citations:** 6
+**With Page Numbers:** 0
 **Without Page Numbers:** 6
 
 | Line | Citation | Cite Key |
@@ -540,8 +540,8 @@ Organized by cite key with all occurrences listed.
 ---
 
 ### 05_style_controls.tex
-**Total Citations:** 2  
-**With Page Numbers:** 0  
+**Total Citations:** 2
+**With Page Numbers:** 0
 **Without Page Numbers:** 2
 
 | Line | Citation | Cite Key |
@@ -552,8 +552,8 @@ Organized by cite key with all occurrences listed.
 ---
 
 ### 06_modes_of_operation.tex
-**Total Citations:** 2  
-**With Page Numbers:** 0  
+**Total Citations:** 2
+**With Page Numbers:** 0
 **Without Page Numbers:** 2
 
 | Line | Citation | Cite Key |
@@ -564,8 +564,8 @@ Organized by cite key with all occurrences listed.
 ---
 
 ### 07_loop_strategies.tex
-**Total Citations:** 1  
-**With Page Numbers:** 0  
+**Total Citations:** 1
+**With Page Numbers:** 0
 **Without Page Numbers:** 1
 
 | Line | Citation | Cite Key |
@@ -575,8 +575,8 @@ Organized by cite key with all occurrences listed.
 ---
 
 ### 08_gamut_management.tex
-**Total Citations:** 7  
-**With Page Numbers:** 0  
+**Total Citations:** 7
+**With Page Numbers:** 0
 **Without Page Numbers:** 7
 
 | Line | Citation | Cite Key |
@@ -593,8 +593,8 @@ Organized by cite key with all occurrences listed.
 ---
 
 ### 09_variation_determinism.tex
-**Total Citations:** 2  
-**With Page Numbers:** 0  
+**Total Citations:** 2
+**With Page Numbers:** 0
 **Without Page Numbers:** 2
 
 | Line | Citation | Cite Key |
@@ -605,8 +605,8 @@ Organized by cite key with all occurrences listed.
 ---
 
 ### 10_api_design.tex
-**Total Citations:** 2  
-**With Page Numbers:** 0  
+**Total Citations:** 2
+**With Page Numbers:** 0
 **Without Page Numbers:** 2
 
 | Line | Citation | Cite Key |
@@ -617,8 +617,8 @@ Organized by cite key with all occurrences listed.
 ---
 
 ### 11_caller_responsibilities.tex
-**Total Citations:** 1  
-**With Page Numbers:** 0  
+**Total Citations:** 1
+**With Page Numbers:** 0
 **Without Page Numbers:** 1
 
 | Line | Citation | Cite Key |
@@ -628,8 +628,8 @@ Organized by cite key with all occurrences listed.
 ---
 
 ### 12_conclusion.tex
-**Total Citations:** 5  
-**With Page Numbers:** 0  
+**Total Citations:** 5
+**With Page Numbers:** 0
 **Without Page Numbers:** 5
 
 | Line | Citation | Cite Key |
@@ -686,7 +686,7 @@ These could remain as general citations but would be strengthened with page numb
 **Harvard Style (Cite Them Right) Recommendations:**
 
 - **Direct quotes:** ALWAYS include page number(s)
-- **Specific data/figures:** STRONGLY RECOMMENDED to include page number(s)  
+- **Specific data/figures:** STRONGLY RECOMMENDED to include page number(s)
 - **General concepts:** Page numbers optional but recommended
 - **Multiple pages:** Use `pp.~XX--YY` format
 - **Single page:** Use `p.~XX` format
@@ -701,7 +701,7 @@ These could remain as general citations but would be strengthened with page numb
 
 ---
 
-**Report Generated:** 2025-12-30  
-**Total Files Analyzed:** 12  
-**Total Citations:** 93 (91 unique command instances)  
+**Report Generated:** 2025-12-30
+**Total Files Analyzed:** 12
+**Total Citations:** 93 (91 unique command instances)
 **Missing Page Numbers:** 90 (96.8%)
