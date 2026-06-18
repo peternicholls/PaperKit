@@ -28,3 +28,19 @@ AGENTS.md
 # Specific directories to ignore
 BacktimeCalculator/
 open-agents/source/reference-materials/tech-docs-from-exisiting-software-repo/
+
+# LaTeX build artifacts
+*.aux
+*.bbl
+*.blg
+*.log
+*.out
+*.toc
+*.lof
+*.lot
+*.fidx
+main-blx.bib
+main.run.xml
+*.bcf
+build_report.md
+latex/main.bcf

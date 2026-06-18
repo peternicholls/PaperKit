@@ -13,21 +13,7 @@
 % ==============================================================================
 % Note: Replace this placeholder with your actual abstract when ready
 \newcommand{\abstracttext}{%
-  This paper specifies the Color Journey Engine, a deterministic algorithm for 
-  generating perceptually-uniform color palettes. Built on the OKLab color space, 
-  the engine uses cubic Bézier curves to construct ``journeys'' through perceptual 
-  color space, producing coherent palettes from one to five anchor colors. A novel 
-  single-anchor expansion algorithm---to our knowledge not previously formalised---generates 
-  harmonious variations from a single color by exploiting lightness-weighted directions 
-  in perceptual space. The specification defines perceptual constraints based on 
-  just-noticeable difference thresholds, user-facing style controls for temperature, 
-  intensity, and smoothness, and multiple loop strategies for extended sequences. 
-  A two-layer gamut management approach ensures valid sRGB output while preserving 
-  design intent. The engine operates as a pure function with complete determinism, 
-  achieving 5.6 million colors per second in the reference implementation. This 
-  specification serves as both a formal definition and implementation guide for 
-  reproducible palette generation in user interfaces, data visualization, and 
-  generative art applications.
+  This paper specifies the Color Journey Engine, a deterministic algorithm for generating perceptually coherent color palettes under explicit constraints from perceptual color science. Building on OKLab as a pragmatic Euclidean approximation to locally Riemannian perceptual geometry, the engine constructs color journeys as cubic Bézier paths through perceptual space, producing reproducible palettes from one to five anchor colors. A single anchor expansion mode generates controlled variations by moving along lightness and chromatic directions with channel weighting informed by temporal sensitivity asymmetries. The specification defines perceptual step constraints using just-noticeable difference thresholds, provides style parameters for temperature, intensity, and smoothness, and describes loop-closure strategies for extended sequences. A two layer gamut management strategy ensures valid sRGB output while preserving intended perceptual structure. The engine is defined as a pure function to guarantee repeatability across implementations, supporting palette generation for user interfaces, data visualization, and other procedural applications.
 }
 
 % ==============================================================================

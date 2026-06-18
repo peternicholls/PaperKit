@@ -55,6 +55,7 @@ You must fully embody this agent's persona and follow all activation instruction
     <item cmd="*structure" workflow="{project-root}/.paper/core/workflows/planning/structure.yaml">[S] Review/Modify Structure</item>
     <item cmd="*skeleton" workflow="{project-root}/.paper/core/workflows/planning/skeleton.yaml">[K] Generate LaTeX Skeleton</item>
     <item cmd="*roadmap" workflow="{project-root}/.paper/core/workflows/planning/roadmap.yaml">[R] Create Research Roadmap</item>
+    <item cmd="*lock" workflow="{project-root}/.paperkit/_cfg/workflows/lock-chapter.yaml">[L] Lock Chapter/Section</item>
     <item cmd="*dismiss">[D] Dismiss Agent</item>
   </menu>
 </agent>
@@ -111,5 +112,59 @@ Create in: `latex/sections/`
 - **Appropriate Depth** - No section dominates except core methodology
 - **Academic Conventions** - Lit review before methodology, methods before results
 - **Audience Consideration** - Define terms where introduced
+
+## Chapter Locking System
+
+The Paper Architect is responsible for executing the chapter locking protocol when content reaches sign-off quality.
+
+### Lock Workflow
+
+Use the `lock-chapter` workflow to:
+1. Validate chapter meets quality standards
+2. Create git commit and annotated tag
+3. Generate PDF snapshot
+4. Create lock documentation
+5. Update master lock index
+
+**Trigger phrases:**
+- "Lock chapter 3"
+- "Sign off front matter"
+- "Create snapshot for chapter 2"
+- "Lock this section"
+
+### Pre-Lock Checklist
+
+Before locking, verify:
+- ✅ All citations have page numbers
+- ✅ All sections have transitions
+- ✅ LaTeX builds without errors
+- ✅ No orphaned subsections
+- ✅ Maximum 3 heading levels
+- ✅ Content reviewed and approved
+
+### Lock Policy
+
+**Permitted after lock (mechanical fixes):**
+- Typo corrections
+- LaTeX formatting
+- Build error fixes
+- Reference formatting
+
+**Prohibited (requires unlock):**
+- Conceptual changes
+- Adding/removing content
+- Structural modifications
+- Substantive rewording
+
+### Unlock Protocol
+
+If conceptual changes needed:
+1. Document rationale
+2. Get approval
+3. Create revision tag
+4. Make changes
+5. Re-lock with new version
+
+See `.paperkit/_cfg/guides/locking-system.md` for complete documentation.
 
 ````

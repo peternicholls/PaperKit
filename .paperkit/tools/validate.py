@@ -61,12 +61,12 @@ def check_dependencies() -> bool:
 
 
 def find_project_root() -> Optional[Path]:
-    """Find the project root by looking for .paper/ directory."""
+    """Find the project root by looking for .paperkit/ directory."""
     current = Path.cwd()
     
     # Check current directory and parents
     for path in [current] + list(current.parents):
-        if (path / ".paper").is_dir():
+        if (path / ".paperkit").is_dir():
             return path
         if (path / "paperkit").is_file():
             return path
@@ -157,7 +157,7 @@ def validate_agents(project_root: Path, verbose: bool = False) -> Tuple[int, int
     """Validate all agent definitions. Returns (passed, failed) counts."""
     import yaml
     
-    schema_path = project_root / ".paper/_cfg/schemas/agent-schema.json"
+    schema_path = project_root / ".paperkit/_cfg/schemas/agent-schema.json"
     schema = load_json_schema(schema_path)
     
     if not schema:
@@ -172,8 +172,8 @@ def validate_agents(project_root: Path, verbose: bool = False) -> Tuple[int, int
     
     # Check both core and specialist agents
     agent_dirs = [
-        project_root / ".paper/core/agents",
-        project_root / ".paper/specialist/agents"
+        project_root / ".paperkit/core/agents",
+        project_root / ".paperkit/specialist/agents"
     ]
     
     for agent_dir in agent_dirs:
@@ -205,7 +205,7 @@ def validate_agents(project_root: Path, verbose: bool = False) -> Tuple[int, int
 
 def validate_workflows(project_root: Path, verbose: bool = False) -> Tuple[int, int]:
     """Validate all workflow definitions. Returns (passed, failed) counts."""
-    schema_path = project_root / ".paper/_cfg/schemas/workflow-schema.json"
+    schema_path = project_root / ".paperkit/_cfg/schemas/workflow-schema.json"
     schema = load_json_schema(schema_path)
     
     if not schema:
@@ -220,9 +220,9 @@ def validate_workflows(project_root: Path, verbose: bool = False) -> Tuple[int, 
     
     # Check both core and specialist workflows
     workflow_dirs = [
-        project_root / ".paper/core/workflows",
-        project_root / ".paper/specialist/workflows",
-        project_root / ".paper/_cfg/workflows"
+        project_root / ".paperkit/core/workflows",
+        project_root / ".paperkit/specialist/workflows",
+        project_root / ".paperkit/_cfg/workflows"
     ]
     
     for workflow_dir in workflow_dirs:
@@ -255,7 +255,7 @@ def validate_workflows(project_root: Path, verbose: bool = False) -> Tuple[int, 
 
 def validate_tools(project_root: Path, verbose: bool = False) -> Tuple[int, int]:
     """Validate all tool definitions. Returns (passed, failed) counts."""
-    schema_path = project_root / ".paper/_cfg/schemas/tool-schema.json"
+    schema_path = project_root / ".paperkit/_cfg/schemas/tool-schema.json"
     schema = load_json_schema(schema_path)
     
     if not schema:
@@ -268,7 +268,7 @@ def validate_tools(project_root: Path, verbose: bool = False) -> Tuple[int, int]
     passed = 0
     failed = 0
     
-    tool_dir = project_root / ".paper/_cfg/tools"
+    tool_dir = project_root / ".paperkit/_cfg/tools"
     
     if not tool_dir.is_dir():
         print(color("  No tool definitions directory found", Colors.YELLOW))
@@ -313,7 +313,7 @@ def validate_manifests(project_root: Path, verbose: bool = False) -> Tuple[int, 
     ]
     
     for manifest_name, required_keys in manifests:
-        manifest_path = project_root / f".paper/_cfg/{manifest_name}"
+        manifest_path = project_root / f".paperkit/_cfg/{manifest_name}"
         
         if not manifest_path.exists():
             print(color(f"⚠ {manifest_name}: Not found", Colors.YELLOW))
@@ -341,7 +341,7 @@ def validate_manifests(project_root: Path, verbose: bool = False) -> Tuple[int, 
 
 
 def validate_ide_sync(project_root: Path, verbose: bool = False) -> Tuple[int, int]:
-    """Check if IDE files are in sync with .paper/ source. Returns (passed, failed) counts."""
+    """Check if IDE files are in sync with .paperkit/ source. Returns (passed, failed) counts."""
     print(color("\n📋 Checking IDE File Sync", Colors.BOLD))
     print("-" * 40)
     
@@ -350,7 +350,7 @@ def validate_ide_sync(project_root: Path, verbose: bool = False) -> Tuple[int, i
     
     # Find all agent definitions
     agent_names = []
-    for agent_dir in [project_root / ".paper/core/agents", project_root / ".paper/specialist/agents"]:
+    for agent_dir in [project_root / ".paperkit/core/agents", project_root / ".paperkit/specialist/agents"]:
         if agent_dir.is_dir():
             for f in agent_dir.glob("*.md"):
                 # Extract name from filename (paper-xxx.md -> xxx)

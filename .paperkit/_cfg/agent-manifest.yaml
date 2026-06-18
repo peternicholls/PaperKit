@@ -4,10 +4,10 @@
 # Individual agent definitions are stored in .paperkit/_cfg/agents/
 #
 # Schema: .paperkit/_cfg/schemas/agent-schema.json
-# Validation: Run `python3 open-agents/tools/validate-agent-schema.py`
+# Validation: Run `python3 .paperkit/tools/validate-agent-schema.py --ci --schema .paperkit/_cfg/schemas/agent-schema.json --agents-dir .paperkit/_cfg/agents`
 
 schemaVersion: 1.0.0
-lastUpdated: 2025-12-19
+lastUpdated: 2026-01-06
 
 # Academic Integrity Notice
 # ALL agents in this system follow these critical principles:
@@ -71,6 +71,14 @@ agents:
     icon: 🔧
     status: active
 
+  - name: orchestrator
+    module: core
+    path: .paperkit/_cfg/agents/orchestrator.yaml
+    displayName: Avery
+    title: Orchestrator — Agent Router
+    icon: 🧭
+    status: active
+
   # Specialist Support Agents
   - name: brainstorm
     module: specialist
@@ -105,8 +113,8 @@ agents:
     status: active
 
 statistics:
-  totalAgents: 10
-  coreAgents: 6
+  totalAgents: 11
+  coreAgents: 7
   specialistAgents: 4
-  activeAgents: 10
+  activeAgents: 11
   deprecatedAgents: 0

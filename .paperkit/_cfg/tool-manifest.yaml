@@ -62,7 +62,17 @@ tools:
     requiresConsent: true
     status: active
 
+  # ==========================================================================
+  # Governance Tools
+  # ==========================================================================
+  - name: lock-chapter
+    path: .paperkit/_cfg/tools/lock-chapter.yaml
+    displayName: Lock Chapter
+    description: Execute chapter locking protocol - commit, tag, snapshot, document
+    requiresConsent: true
+    status: active
+
 statistics:
-  totalTools: 6
-  activeTools: 6
+  totalTools: 7
+  activeTools: 7
   deprecatedTools: 0

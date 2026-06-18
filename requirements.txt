@@ -12,3 +12,8 @@ pyyaml>=6.0
 
 # JSON Schema validation for agent definitions
 jsonschema>=4.0
+
+# Numerical and plotting libraries used by scripts
+numpy>=1.22
+matplotlib>=3.0
+colormath>=3.0

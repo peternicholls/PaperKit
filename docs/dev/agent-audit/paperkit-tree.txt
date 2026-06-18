@@ -1,0 +1,142 @@
+.paperkit
+├── _cfg
+│   ├── agent-manifest.yaml
+│   ├── agents
+│   │   ├── README.md
+│   │   ├── brainstorm.yaml
+│   │   ├── latex-assembler.yaml
+│   │   ├── librarian.yaml
+│   │   ├── orchestrator.yaml
+│   │   ├── paper-architect.yaml
+│   │   ├── problem-solver.yaml
+│   │   ├── quality-refiner.yaml
+│   │   ├── reference-manager.yaml
+│   │   ├── research-consolidator.yaml
+│   │   ├── section-drafter.yaml
+│   │   └── tutor.yaml
+│   ├── guides
+│   │   ├── README.md
+│   │   ├── acadmic-integrity-guide.md
+│   │   ├── harvard-citation-guide.md
+│   │   └── locking-system.md
+│   ├── ides
+│   │   ├── codex.yaml
+│   │   └── github-copilot.yaml
+│   ├── manifest.yaml
+│   ├── resources
+│   │   └── citation-rules.yaml
+│   ├── routing.registry.yaml
+│   ├── schemas
+│   │   ├── README.md
+│   │   ├── agent-schema.json
+│   │   ├── tool-schema.json
+│   │   └── workflow-schema.json
+│   ├── tool-manifest.yaml
+│   ├── tools
+│   │   ├── README.md
+│   │   ├── build-latex.yaml
+│   │   ├── check-dependencies.yaml
+│   │   ├── extract-evidence.yaml
+│   │   ├── format-references.yaml
+│   │   ├── lint-latex.yaml
+│   │   ├── lock-chapter.yaml
+│   │   └── validate-structure.yaml
+│   ├── validation
+│   │   └── README.md
+│   ├── version.yaml
+│   ├── workflow-manifest.yaml
+│   └── workflows
+│       ├── README.md
+│       ├── analyze-problem.yaml
+│       ├── build.yaml
+│       ├── citation-completeness.yaml
+│       ├── consolidate.yaml
+│       ├── extract-citations.yaml
+│       ├── format-bibliography.yaml
+│       ├── generate-ideas.yaml
+│       ├── lock-chapter.yaml
+│       ├── outline.yaml
+│       ├── refine-section.yaml
+│       ├── review-draft.yaml
+│       ├── search-sources.yaml
+│       ├── skeleton.yaml
+│       ├── validate-citations.yaml
+│       └── write-section.yaml
+├── core
+│   ├── agents
+│   │   ├── latex-assembler.md
+│   │   ├── orchestrator.md
+│   │   ├── paper-architect.md
+│   │   ├── quality-refiner.md
+│   │   ├── reference-manager.md
+│   │   ├── research-consolidator.md
+│   │   └── section-drafter.md
+│   └── config.yaml
+├── data
+│   ├── output-drafts
+│   │   ├── outlines
+│   │   │   └── paper_outline.md
+│   │   └── sections
+│   │       └── 02_perceptual_foundations_v2.tex
+│   ├── output-final
+│   │   ├── build_report.md
+│   │   └── pdf
+│   │       └── main.pdf
+│   └── output-refined
+│       ├── references
+│       │   └── reference-status.md
+│       └── research
+│           ├── CITATION-VALUE-ANALYSIS.md
+│           ├── FINAL-CITATION-MAPPING.md
+│           ├── HANDOFF-TO-ARCHITECT.md
+│           ├── RESEARCH-CONSOLIDATION-REPORT.md
+│           ├── prior-art-synthesis.md
+│           └── technical-documentation-consolidated.md
+├── docs
+│   ├── COPILOT-COMPARISON.md
+│   ├── COPILOT-DIR-GENERATION.md
+│   ├── DEPRECATION-NOTICE.md
+│   ├── IMPLEMENTATION-COMPLETE.md
+│   ├── PR-SUMMARY.md
+│   ├── TEST-PLAN-REGENERATION.md
+│   ├── TEST-RESULTS-REGENERATION.md
+│   ├── codex-instructions.md
+│   ├── github-copilot-instructions.md
+│   ├── legacy-agent-examples.md
+│   ├── release-quick-start.md
+│   └── release-workflow.md
+├── open-agent-system
+│   ├── LICENSE
+│   ├── OpenAgentDefinition.md
+│   └── README.md
+├── specialist
+│   ├── agents
+│   │   ├── brainstorm.md
+│   │   ├── librarian.md
+│   │   ├── problem-solver.md
+│   │   └── tutor.md
+│   └── config.yaml
+└── tools
+    ├── README.md
+    ├── build-latex.sh
+    ├── bundle.sh
+    ├── check-dependencies.sh
+    ├── extract-evidence.sh
+    ├── format-references.py
+    ├── generate-copilot.sh
+    ├── generate-docs.sh
+    ├── generate.ps1
+    ├── generate.sh
+    ├── get-title.sh
+    ├── get-version.sh
+    ├── lint-latex.sh
+    ├── lock-chapter.sh
+    ├── test-version-system.sh
+    ├── validate-agent-schema.py
+    ├── validate-structure.py
+    ├── validate-tool-schema.py
+    ├── validate-workflow-schema.py
+    ├── validate.py
+    └── version-manager.py
+
+26 directories, 114 files

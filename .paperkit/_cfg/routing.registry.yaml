@@ -1,0 +1,74 @@
+schemaVersion: 1.0.0
+lastUpdated: 2026-01-06
+
+agents:
+  - name: research-consolidator
+    whenToUse:
+      - "Synthesize multiple sources/notes into a coherent research picture"
+      - "Compare/contrast papers; extract consensus vs disagreement"
+    keywords: ["synthesise", "consolidate", "compare", "triangulate", "state of the art", "tensions", "themes"]
+    requiredInputs: []
+    hardExclusions: ["format bibliography", "fix latex compile"]
+
+  - name: paper-architect
+    whenToUse:
+      - "Create/repair paper structure: outline, argument arc, section plan"
+    keywords: ["outline", "structure", "architect", "sections", "flow", "argument", "contribution", "research question"]
+    requiredInputs: []
+    hardExclusions: ["write full prose section", "fix bib entries"]
+
+  - name: section-drafter
+    whenToUse:
+      - "Draft a specific section from provided notes/plan"
+    keywords: ["draft", "write section", "introduction", "methods", "related work", "discussion", "conclusion"]
+    requiredInputs: ["section_target"]
+    hardExclusions: ["choose sources from scratch"]
+
+  - name: quality-refiner
+    whenToUse:
+      - "Rewrite/polish/improve clarity and academic style without changing meaning"
+    keywords: ["refine", "polish", "rewrite", "tighten", "clarity", "tone", "cohesion", "edit"]
+    requiredInputs: ["text_to_refine"]
+    hardExclusions: ["do research search"]
+
+  - name: reference-manager
+    whenToUse:
+      - "Harvard citations, bibliography hygiene, BibTeX/BibLaTeX issues, missing citations"
+    keywords: ["harvard", "citation", "cite", "bib", "bibtex", "biblatex", "biber", "doi", "bibliography"]
+    requiredInputs: []
+    hardExclusions: ["latex layout debugging unless bib-related"]
+
+  - name: latex-assembler
+    whenToUse:
+      - "LaTeX project assembly, compile errors/warnings, formatting issues"
+    keywords: ["latex", "pdflatex", "xelatex", "compile", "package", "error", "warning", "tex", "log"]
+    requiredInputs: []
+    hardExclusions: ["evaluate paper credibility"]
+
+  - name: brainstorm
+    whenToUse:
+      - "Ideation, alternative angles, creative research directions"
+    keywords: ["brainstorm", "ideas", "angles", "hypothesis", "approach", "naming", "scope"]
+    requiredInputs: []
+    hardExclusions: ["final academic prose"]
+
+  - name: problem-solver
+    whenToUse:
+      - "Hard reasoning, algorithms, modelling, debugging non-LaTeX technical problems"
+    keywords: ["debug", "why", "model", "algorithm", "math", "prove", "derive", "approach", "design"]
+    requiredInputs: []
+    hardExclusions: ["formatting citations"]
+
+  - name: tutor
+    whenToUse:
+      - "Explain/teach/review: make the user understand"
+    keywords: ["explain", "teach", "help me understand", "distil", "review", "walk me through"]
+    requiredInputs: []
+    hardExclusions: ["do broad literature search"]
+
+  - name: librarian
+    whenToUse:
+      - "Forensic audit of sources, provenance, citation trail, credibility checks"
+    keywords: ["peer reviewed", "cited by", "discredited", "provenance", "verify", "source audit", "rigour", "credibility"]
+    requiredInputs: []
+    hardExclusions: ["rewrite prose", "latex compile"]
