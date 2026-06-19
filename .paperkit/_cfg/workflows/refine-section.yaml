@@ -4,29 +4,61 @@
 name: refine-section
 displayName: Refine Section
 description: Improve draft quality through iterative refinement
-module: core
-category: refinement
-path: .paperkit/core/workflows/refinement/refine-section.yaml
+version: "1.0.0"
+type: composite
 
-agents:
-  - quality-refiner
+metadata:
+  author: core-team
+  category: refinement
+  tags:
+    - refinement
+    - quality
+    - editing
 
 steps:
-  - name: analyze-draft
+  - action: analyze-draft
     agent: quality-refiner
-    description: Identify areas for improvement
-  - name: improve-clarity
+    skill: text-refinement
+    inputs:
+      - sectionName
+      - content
+    outputs:
+      - analysisReport
+      - improvementAreas
+
+  - action: improve-clarity
     agent: quality-refiner
-    description: Enhance clarity and readability
-  - name: strengthen-flow
+    skill: text-refinement
+    inputs:
+      - content
+      - improvementAreas
+    outputs:
+      - clarifiedContent
+
+  - action: strengthen-flow
     agent: quality-refiner
-    description: Improve logical flow and transitions
-  - name: polish-language
+    skill: text-refinement
+    inputs:
+      - clarifiedContent
+      - focusAreas
+    outputs:
+      - flowImprovedContent
+
+  - action: polish-language
     agent: quality-refiner
-    description: Refine language and academic tone
+    skill: academic-writing
+    inputs:
+      - flowImprovedContent
+    outputs:
+      - refinedContent
+      - changes
+      - suggestions
 
 inputSchema:
   type: object
+  required:
+    - sectionName
+    - content
   properties:
     sectionName:
       type: string
@@ -39,6 +71,7 @@ inputSchema:
       description: Specific areas to focus on
       items:
         type: string
+      default: []
 
 outputSchema:
   type: object
@@ -54,9 +87,5 @@ outputSchema:
     suggestions:
       type: array
       description: Further improvement suggestions
-
-exampleUsage:
-  - "Refine introduction for better clarity"
-  - "Improve flow in methodology section"
-
-owner: core-team
+      items:
+        type: string

@@ -202,9 +202,9 @@ init_project() {
         init_usage
         return 0
     fi
-    
+
     echo -e "${BLUE}Initializing ${TITLE_SHORT} in current directory...${NC}"
-    
+
     # Check if already initialized
     if [ -f "VERSION" ] && [ -d ".paper" ]; then
         echo -e "${YELLOW}⚠ ${TITLE_SHORT} appears to already be initialized here.${NC}"
@@ -214,13 +214,13 @@ init_project() {
             exit 0
         fi
     fi
-    
-    # Run the installer (prefer v2 if available)
+
+    # Run the installer from scripts/ (prefer v2 if available)
     SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-    if [ -f "$SCRIPT_DIR/paperkit-install-v2.sh" ]; then
-        "$SCRIPT_DIR/paperkit-install-v2.sh"
-    elif [ -f "$SCRIPT_DIR/paperkit-install.sh" ]; then
-        "$SCRIPT_DIR/paperkit-install.sh"
+    if [ -f "$SCRIPT_DIR/scripts/paperkit-install-v2.sh" ]; then
+        "$SCRIPT_DIR/scripts/paperkit-install-v2.sh"
+    elif [ -f "$SCRIPT_DIR/scripts/paperkit-install.sh" ]; then
+        "$SCRIPT_DIR/scripts/paperkit-install.sh"
     else
         echo -e "${RED}Error: paperkit installer not found.${NC}"
         echo "Make sure you have the complete paperkit distribution."
@@ -272,9 +272,9 @@ generate_ide_files() {
             return 0
         fi
     done
-    
+
     SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-    
+
     if [ -f "$SCRIPT_DIR/.paperkit/tools/generate.sh" ]; then
         "$SCRIPT_DIR/.paperkit/tools/generate.sh" "$@"
     else
@@ -451,15 +451,15 @@ validate_schemas() {
         validate_usage
         return 0
     fi
-    
+
     SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-    
+
     # Check .paper directory exists
     if [ ! -d ".paper" ]; then
         echo -e "${YELLOW}⚠ .paperkit/ directory not found. Run 'paperkit init' first.${NC}"
         exit 1
     fi
-    
+
     # Prefer Python validator if available and dependencies are met
     if [ -f "$SCRIPT_DIR/.paperkit/tools/validate.py" ]; then
         # Check if required Python packages are available
@@ -472,11 +472,11 @@ validate_schemas() {
             echo ""
         fi
     fi
-    
+
     # Fallback to basic validation
     echo -e "${BLUE}Validating ${TITLE_SHORT} schemas (basic mode)...${NC}"
     local has_errors=false
-    
+
     # Check for validation tools (prefer .paperkit/tools/, fall back to legacy)
     local validate_script=""
     if [ -f "$SCRIPT_DIR/.paperkit/tools/validate-structure.py" ]; then
@@ -484,12 +484,12 @@ validate_schemas() {
     elif [ -f "$SCRIPT_DIR/open-agents/tools/validate-structure.py" ]; then
         validate_script="$SCRIPT_DIR/open-agents/tools/validate-structure.py"
     fi
-    
+
     if [ -n "$validate_script" ] && python3 -c "import yaml" 2>/dev/null; then
         echo "Running structure validation..."
         python3 "$validate_script" || has_errors=true
     fi
-    
+
     # Basic checks
     echo "Checking agent definitions..."
     local agent_count=0
@@ -497,7 +497,7 @@ validate_schemas() {
         [ -f "$f" ] && ((agent_count++))
     done
     echo -e "${GREEN}✓ Found $agent_count agent definitions${NC}"
-    
+
     echo "Checking manifests..."
     for manifest in .paperkit/_cfg/agent-manifest.yaml .paperkit/_cfg/workflow-manifest.yaml .paperkit/_cfg/tool-manifest.yaml; do
         if [ -f "$manifest" ]; then
@@ -506,7 +506,7 @@ validate_schemas() {
             echo -e "${YELLOW}⚠ $(basename $manifest) missing${NC}"
         fi
     done
-    
+
     if $has_errors; then
         echo -e "${RED}Validation completed with errors.${NC}"
         exit 1

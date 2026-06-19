@@ -1,0 +1,124 @@
+# Validate Citation Skill
+# Conditional skill: Validates citation format and verifies source
+#
+# This skill performs type-specific validation:
+# - For DOIs: Validates DOI format and resolves to verify existence
+# - For URLs: Checks accessibility and extracts metadata
+# - For books: Validates ISBN if present
+# - For all: Checks Harvard format compliance
+
+name: validate-citation
+displayName: Validate Citation
+description: Validate citation format and verify source exists
+version: 1.0.0
+type: conditional
+
+prerequisites:
+  - type: workflow
+    name: cite-source
+
+steps:
+  - action: detect-citation-type
+    agent: reference-manager
+    inputs:
+      - citation_text
+    outputs:
+      - citation_type
+      - parsed_fields
+    onError: fail
+
+  - action: validate-doi
+    agent: reference-manager
+    inputs:
+      - parsed_fields
+    outputs:
+      - doi_valid
+      - resolved_metadata
+    condition: "citation_type == 'doi'"
+    onError: skip
+
+  - action: validate-url
+    agent: reference-manager
+    inputs:
+      - parsed_fields
+    outputs:
+      - url_accessible
+      - page_title
+    condition: "citation_type == 'url'"
+    onError: skip
+
+  - action: validate-isbn
+    agent: reference-manager
+    inputs:
+      - parsed_fields
+    outputs:
+      - isbn_valid
+    condition: "citation_type == 'book' and 'isbn' in parsed_fields"
+    onError: skip
+
+  - action: check-harvard-format
+    agent: reference-manager
+    inputs:
+      - citation_text
+      - citation_type
+    outputs:
+      - format_valid
+      - format_errors
+    onError: fail
+
+inputSchema:
+  type: object
+  properties:
+    citation_text:
+      type: string
+      description: The citation text to validate
+    strict_mode:
+      type: boolean
+      description: Whether to enforce strict Harvard format compliance
+      default: true
+  required:
+    - citation_text
+
+outputSchema:
+  type: object
+  properties:
+    valid:
+      type: boolean
+      description: Overall validation result
+    citation_type:
+      type: string
+      description: Detected citation type
+    errors:
+      type: array
+      description: List of validation errors
+      items:
+        type: string
+    warnings:
+      type: array
+      description: List of validation warnings
+      items:
+        type: string
+    suggestions:
+      type: array
+      description: Suggested corrections
+      items:
+        type: string
+  required:
+    - valid
+    - citation_type
+
+timeout: 30000
+
+retryPolicy:
+  maxRetries: 1
+  backoffMs: 500
+  retryableErrors:
+    - network_timeout
+
+metadata:
+  author: core-team
+  tags:
+    - citation
+    - validation
+    - harvard
+  category: citations

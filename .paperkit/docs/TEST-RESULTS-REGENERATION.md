@@ -2,9 +2,9 @@
 
 ## Test Execution Summary
 
-**Date:** 2025-01-20  
-**Branch:** `test/regeneration-validation`  
-**Tester:** GitHub Copilot  
+**Date:** 2025-01-20
+**Branch:** `test/regeneration-validation`
+**Tester:** GitHub Copilot
 **Test Plan:** `.paperkit/docs/TEST-PLAN-REGENERATION.md`
 
 ## Overall Result: ✅ PASS
@@ -35,8 +35,8 @@ Codex prompts: 0
 ```
 
 ### ✅ Phase 3: Install PyYAML Dependency
-**Issue Discovered:** PyYAML not installed in Python environment  
-**Resolution:** 
+**Issue Discovered:** PyYAML not installed in Python environment
+**Resolution:**
 - Configured Python venv for workspace
 - Installed PyYAML via `install_python_packages`
 - Updated `paperkit-generate-docs.sh` to prefer venv Python
@@ -136,7 +136,7 @@ Checked for old `.paper/` references that should now be `.paperkit/`:
 All expected files modified:
 - 20 IDE agent/prompt files (10 Copilot + 10 Codex)
 - 2 documentation files (AGENTS.md, COPILOT.md)
-- 2 generator scripts (paperkit-generate.sh, paperkit-install.sh)
+- 2 generator scripts (paperkit-generate.sh, scripts/paperkit-install.sh)
 - 1 new generator (paperkit-generate-docs.sh)
 
 No unexpected changes to source files in `.paperkit/`
@@ -179,8 +179,8 @@ No unexpected changes to source files in `.paperkit/`
 ## Issues Found and Resolved
 
 ### Issue 1: PyYAML Dependency Missing
-**Description:** Initial generation failed because PyYAML was not installed  
-**Impact:** Documentation generation (AGENTS.md, COPILOT.md) failed  
+**Description:** Initial generation failed because PyYAML was not installed
+**Impact:** Documentation generation (AGENTS.md, COPILOT.md) failed
 **Resolution:**
 1. Configured Python venv for workspace
 2. Installed PyYAML dependency
@@ -189,8 +189,8 @@ No unexpected changes to source files in `.paperkit/`
 **Status:** ✅ RESOLVED
 
 ### Issue 2: System Python vs Venv Python
-**Description:** Script was calling `python3` directly instead of using venv  
-**Impact:** PyYAML not found even after installation in venv  
+**Description:** Script was calling `python3` directly instead of using venv
+**Impact:** PyYAML not found even after installation in venv
 **Resolution:**
 ```bash
 # Updated to check for venv first
@@ -253,10 +253,10 @@ COPILOT.md               → Copilot integration docs
 Add PyYAML to installation requirements:
 - Update installation docs
 - Add to requirements.txt (if not already present)
-- Add check to paperkit-install.sh
+- Add check to scripts/paperkit-install.sh
 
 ### 2. Add Dependency Verification to Installer
-Update `paperkit-install.sh` to:
+Update `scripts/paperkit-install.sh` to:
 ```bash
 # Check/install PyYAML before running generation
 if ! python3 -c "import yaml" 2>/dev/null; then
@@ -302,7 +302,7 @@ Implements automated generation of AGENTS.md and COPILOT.md from `.paperkit/` so
 ### Changes
 - Created `paperkit-generate-docs.sh` for documentation generation
 - Updated `paperkit-generate.sh` to call documentation generator
-- Updated `paperkit-install.sh` to run generation during installation
+- Updated `scripts/paperkit-install.sh` to run generation during installation
 - Fixed remaining `.paper/` → `.paperkit/` references
 
 ### Testing

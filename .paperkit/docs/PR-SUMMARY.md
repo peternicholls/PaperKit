@@ -25,8 +25,8 @@ Previously, `AGENTS.md` and `COPILOT.md` were manually maintained, creating risk
   - Integrated call to `paperkit-generate-docs.sh`
   - Added conditional execution for documentation generation
 
-#### Installation Updates  
-- **`paperkit-install.sh`**
+#### Installation Updates
+- **`scripts/paperkit-install.sh`**
   - Added automatic generation step after IDE installation
   - Ensures generated files created during installation
   - Includes error handling with warning messages
@@ -36,11 +36,11 @@ Previously, `AGENTS.md` and `COPILOT.md` were manually maintained, creating risk
   - Updated source of truth references
   - Added auto-generation notice
   - Agent descriptions now match manifest titles
-  
+
 - **`COPILOT.md`** - Now auto-generated from manifests
   - Updated paths to `.paperkit/`
   - Added auto-generation notice
-  
+
 - All 20 IDE files (`.github/agents/*.agent.md`, `.codex/prompts/*.md`)
   - Updated with correct `.paperkit/` paths
   - No more `.paper/` references
@@ -96,7 +96,7 @@ COPILOT.md               → Copilot integration docs
 
 #### File Generation
 - ✅ 10/10 Copilot agent files regenerated
-- ✅ 10/10 Codex prompt files regenerated  
+- ✅ 10/10 Codex prompt files regenerated
 - ✅ AGENTS.md regenerated with correct structure
 - ✅ COPILOT.md regenerated with correct structure
 
@@ -160,7 +160,7 @@ To regenerate all files after modifying source definitions:
 
 ### Installation Flow After Merge
 ```bash
-# Users running paperkit-install.sh will automatically get:
+# Users running ./paperkit init will automatically get:
 1. IDE installation (GitHub Copilot or OpenAI Codex)
 2. Automatic generation of all 22 files
 3. PyYAML check with helpful error message if missing
@@ -170,7 +170,7 @@ To regenerate all files after modifying source definitions:
 
 ### Files Changed
 - 6 new/modified core files
-- 20 regenerated IDE files  
+- 20 regenerated IDE files
 - 2 regenerated documentation files
 - 2 new test/documentation files
 
@@ -182,7 +182,7 @@ To regenerate all files after modifying source definitions:
 ## 🔮 Future Enhancements
 
 ### Potential Improvements (Not in this PR)
-1. Add PyYAML installation to `paperkit-install.sh`
+1. Add PyYAML installation to `scripts/paperkit-install.sh`
 2. Add pre-commit hooks to warn about manual edits to generated files
 3. Add CI validation that tests regeneration
 4. Create `requirements.txt` for Python dependencies

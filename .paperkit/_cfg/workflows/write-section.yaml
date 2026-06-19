@@ -4,39 +4,70 @@
 name: write-section
 displayName: Write Section
 description: Draft a complete section with academic rigor
-module: core
-category: drafting
-path: .paperkit/core/workflows/drafting/write-section.yaml
+version: "1.0.0"
+type: composite
 
-agents:
-  - section-drafter
+metadata:
+  author: core-team
+  category: drafting
+  tags:
+    - drafting
+    - writing
+    - sections
 
 steps:
-  - name: understand-context
+  - action: understand-context
     agent: section-drafter
-    description: Review outline and surrounding sections
-  - name: verify-sources
+    inputs:
+      - sectionName
+      - outline
+      - context
+    outputs:
+      - sectionContext
+      - requirements
+
+  - action: verify-sources
     agent: section-drafter
-    description: >-
-      Verify all sources are reputable and accessible via open access channels.
-      Academic integrity: prioritize proper citation practices.
-  - name: draft-content
+    inputs:
+      - citations
+      - sectionContext
+    outputs:
+      - verifiedSources
+
+  - action: draft-content
     agent: section-drafter
-    description: Write section content with academic tone
-  - name: add-citations
+    skill: section-writing
+    inputs:
+      - sectionContext
+      - requirements
+      - verifiedSources
+    outputs:
+      - draftContent
+
+  - action: add-citations
     agent: section-drafter
-    description: >-
-      Include proper Harvard-style citations with complete attribution.
-      Every quote must have: quote text, page number, and full citation.
-      No summarizing or quoting without proper referencing.
-  - name: review-quality
+    skill: harvard-citations
+    inputs:
+      - draftContent
+      - verifiedSources
+    outputs:
+      - citedContent
+      - usedCitations
+
+  - action: review-quality
     agent: section-drafter
-    description: >-
-      Self-review for clarity, coherence, and academic integrity.
-      Verify all citations are complete and properly attributed.
+    skill: academic-writing
+    inputs:
+      - citedContent
+    outputs:
+      - content
+      - citations
+      - wordCount
 
 inputSchema:
   type: object
+  required:
+    - sectionName
   properties:
     sectionName:
       type: string
@@ -50,6 +81,9 @@ inputSchema:
     citations:
       type: array
       description: Available citations to use
+      items:
+        type: string
+      default: []
 
 outputSchema:
   type: object
@@ -60,12 +94,8 @@ outputSchema:
     citations:
       type: array
       description: Citations used in section
+      items:
+        type: string
     wordCount:
       type: integer
       description: Approximate word count
-
-exampleUsage:
-  - "Write introduction section"
-  - "Draft methodology section with 5 subsections"
-
-owner: core-team

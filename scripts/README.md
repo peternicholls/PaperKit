@@ -2,6 +2,15 @@
 
 This directory contains installation scripts for PaperKit.
 
+## Installation Entry Points
+
+User-facing setup should normally go through `./paperkit init` from the repository root.
+
+This directory contains the bootstrap and implementation scripts behind that CLI:
+
+- `base-install.sh` - Remote bootstrap installer for `~/paperkit`
+- `paperkit-install.sh` - Bash installer invoked by `./paperkit init`
+
 ## Base Installation Script
 
 ### `base-install.sh`
@@ -31,7 +40,7 @@ chmod +x base-install.sh
 - ✓ Prerequisite checking
 - ✓ IDE selection (GitHub Copilot, OpenAI Codex, both, or none)
 - ✓ Automatic IDE file generation
-- ✓ Windows/WSL guidance
+- ✓ WSL guidance for Windows users
 
 **What it does:**
 
@@ -60,7 +69,7 @@ chmod +x base-install.sh
 
 - **macOS**: Native support (Intel and Apple Silicon)
 - **Linux**: Native support (all distributions)
-- **Windows**: Via WSL (recommended) or Git Bash
+- **Windows**: Via WSL only
 
 **Prerequisites:**
 
@@ -73,6 +82,12 @@ chmod +x base-install.sh
 - Python 3.7+ (for validation tools)
 - fzf (for enhanced IDE selection)
 - LaTeX distribution (for PDF compilation)
+
+## Repository Installer Scripts
+
+### `paperkit-install.sh`
+
+This is the bash installer used internally by `./paperkit init`.
 
 ## Testing
 
@@ -103,7 +118,7 @@ When updating the script:
   - Added base installation to `~/paperkit`
   - Added update detection
   - Added backup functionality
-  - Added Windows/WSL guidance
+   - Added WSL guidance for Windows users
   - Added automatic stashing of local changes
 
 - **v2.0.0**

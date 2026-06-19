@@ -6,43 +6,67 @@ displayName: Format Bibliography
 description: >
   Generate a properly formatted bibliography from BibTeX database.
   Applies Harvard style (Cite Them Right) formatting rules.
-module: core
-category: references
-path: .paperkit/core/workflows/references/format-bibliography.yaml
+version: "1.0.0"
+type: composite
 
-agents:
-  - reference-manager
+metadata:
+  author: core-team
+  category: references
+  tags:
+    - bibliography
+    - formatting
+    - harvard
 
 steps:
-  - name: load-guide
+  - action: load-guide
     agent: reference-manager
-    description: Load Harvard citation style guide
+    skill: harvard-citations
+    inputs: []
+    outputs:
+      - styleGuide
 
-  - name: parse-bibtex
+  - action: parse-bibtex
     agent: reference-manager
-    description: Parse all entries from BibTeX database
+    skill: bibtex-management
+    inputs:
+      - bibFile
+    outputs:
+      - parsedEntries
 
-  - name: sort-entries
+  - action: sort-entries
     agent: reference-manager
-    description: Sort entries alphabetically by author surname
+    inputs:
+      - parsedEntries
+    outputs:
+      - sortedEntries
 
-  - name: format-entries
+  - action: format-entries
     agent: reference-manager
-    description: >
-      Format each entry according to its type and Harvard rules.
-      Apply proper punctuation, italics markers, and structure.
+    skill: harvard-citations
+    inputs:
+      - sortedEntries
+      - styleGuide
+      - includeKeys
+      - excludeUnused
+    outputs:
+      - formattedEntries
 
-  - name: generate-bibliography
+  - action: generate-bibliography
     agent: reference-manager
-    description: >
-      Generate formatted bibliography document.
-      Apply hanging indent structure.
+    inputs:
+      - formattedEntries
+      - outputFormat
+    outputs:
+      - bibliography
+      - entryCount
 
-  - name: output-formats
+  - action: output-formats
     agent: reference-manager
-    description: >
-      Output in requested formats (Markdown, LaTeX, plain text).
-      Save to output-refined/references/.
+    inputs:
+      - bibliography
+      - outputFormat
+    outputs:
+      - outputPath
 
 inputSchema:
   type: object
@@ -54,13 +78,17 @@ inputSchema:
     outputFormat:
       type: string
       description: Output format for bibliography
-      enum: [markdown, latex, text]
+      enum:
+        - markdown
+        - latex
+        - text
       default: markdown
     includeKeys:
       type: array
       description: Only include these citation keys (default all)
       items:
         type: string
+      default: []
     excludeUnused:
       type: boolean
       description: Exclude entries not cited in document
@@ -78,10 +106,3 @@ outputSchema:
     outputPath:
       type: string
       description: Path where bibliography was saved
-
-exampleUsage:
-  - "Generate formatted bibliography"
-  - "Create Markdown bibliography for review"
-  - "Format bibliography excluding unused entries"
-
-owner: core-team

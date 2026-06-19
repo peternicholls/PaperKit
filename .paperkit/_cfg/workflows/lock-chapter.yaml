@@ -4,36 +4,66 @@
 name: lock-chapter
 displayName: Lock Chapter
 description: Sign off and lock a chapter or section from further conceptual edits
-module: core
-category: governance
-path: .paperkit/core/workflows/governance/lock-chapter.yaml
+version: "1.0.0"
+type: composite
 
-agents:
-  - paper-architect
-  - quality-refiner
+metadata:
+  author: core-team
+  category: assembly
+  tags:
+    - assembly
+    - locking
+    - versioning
 
 steps:
-  - name: pre-lock-validation
-    description: Verify chapter meets quality standards before locking
-    checks:
-      - all-citations-have-page-numbers
-      - all-sections-have-transitions
-      - builds-without-errors
-      - no-orphaned-subsections
-      - maximum-three-heading-levels
+  - action: pre-lock-validation
+    agent: paper-architect
+    inputs:
+      - target
+      - targetType
+      - filePaths
+    outputs:
+      - validationResults
+      - validationPassed
 
-  - name: create-git-commit
-    description: Commit the final state of the chapter
+  - action: create-git-commit
+    agent: latex-assembler
+    inputs:
+      - target
+      - title
+      - filePaths
+    outputs:
+      - commitHash
 
-  - name: create-annotated-tag
-    description: Create git tag marking the locked state
-    format: "paper-v{major}.{minor}-{target}-signedoff"
+  - action: create-annotated-tag
+    agent: latex-assembler
+    inputs:
+      - target
+      - versionMajor
+      - versionMinor
+      - commitHash
+    outputs:
+      - tag
 
-  - name: create-snapshot
-    description: Generate PDF snapshot of locked state
+  - action: create-snapshot
+    agent: latex-assembler
+    inputs:
+      - target
+      - tag
+    outputs:
+      - snapshotPath
 
-  - name: update-documentation
-    description: Update lock index and create lock summary
+  - action: update-documentation
+    agent: paper-architect
+    inputs:
+      - target
+      - targetType
+      - title
+      - tag
+      - snapshotPath
+    outputs:
+      - summaryPath
+      - success
 
 inputSchema:
   type: object
@@ -44,10 +74,6 @@ inputSchema:
     target:
       type: string
       description: What to lock (e.g., "ch2", "frontmatter", "ch3")
-      examples:
-        - "ch2"
-        - "frontmatter"
-        - "ch12"
     targetType:
       type: string
       description: Type of content being locked
@@ -59,9 +85,6 @@ inputSchema:
     title:
       type: string
       description: Human-readable title of locked content
-      examples:
-        - "Perceptual Foundations"
-        - "Abstract, Metadata, Spelling Note"
     versionMajor:
       type: number
       description: Major version number
@@ -74,9 +97,7 @@ inputSchema:
       description: Files being locked
       items:
         type: string
-      examples:
-        - ["latex/sections/02_perceptual_foundations.tex"]
-        - ["latex/metadata.tex", "latex/main.tex"]
+      default: []
 
 outputSchema:
   type: object
@@ -93,26 +114,3 @@ outputSchema:
     success:
       type: boolean
       description: Whether lock succeeded
-
-lockPolicy:
-  permitted:
-    - Typo corrections
-    - LaTeX formatting fixes
-    - Build error resolution
-    - Reference formatting
-  prohibited:
-    - Conceptual changes
-    - Content additions/removals
-    - Structural modifications
-    - Substantive rewording
-  unlockRequires:
-    - Documented rationale
-    - Approval from Paper Architect
-    - New revision tag
-
-exampleUsage:
-  - "Lock Chapter 2 (Perceptual Foundations)"
-  - "Lock front matter"
-  - "Sign off Chapter 3"
-
-owner: core-team

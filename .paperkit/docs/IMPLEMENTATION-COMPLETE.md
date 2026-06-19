@@ -14,7 +14,7 @@
    - Integrated documentation generation step
    - Added conditional execution for complete generation
 
-3. **Updated paperkit-install.sh** - Installation automation
+3. **Updated scripts/paperkit-install.sh** - Installation automation
    - Added automatic generation after IDE installation
    - Ensures all files created during first install
    - Includes error handling
@@ -89,7 +89,7 @@ These are nice-to-haves but not required:
 
 #### A. Add PyYAML to Installation Script
 ```bash
-# Edit paperkit-install.sh, add before generation:
+# Edit scripts/paperkit-install.sh, add before generation:
 if ! python3 -c "import yaml" 2>/dev/null; then
     info_msg "Installing Python dependencies..."
     pip3 install pyyaml
@@ -112,7 +112,7 @@ Add to installation section:
 ## What Happens After Merge
 
 ### For Users
-1. Run `paperkit-install.sh` → all files auto-generate
+1. Run `./paperkit init` → all files auto-generate
 2. Run `./paperkit generate` → regenerates from source
 3. Edit `.paperkit/` configs → regenerate with one command
 
@@ -212,7 +212,7 @@ All requested work completed:
 
 ---
 
-**Implementation Date:** 2025-01-20  
-**Branch:** test/regeneration-validation  
-**Commit:** a770482  
+**Implementation Date:** 2025-01-20
+**Branch:** test/regeneration-validation
+**Commit:** a770482
 **Status:** ✅ COMPLETE - READY FOR MERGE

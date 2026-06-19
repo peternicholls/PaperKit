@@ -16,6 +16,8 @@ PaperKit is a **document-first, agentic workflow** for researching and writing *
 curl -sSL https://raw.githubusercontent.com/peternicholls/PaperKit/master/scripts/base-install.sh | bash
 ```
 
+That bootstrap command installs PaperKit into `~/paperkit`. After that, use `./paperkit ...` commands as the normal interface.
+
 **Or clone and run locally:**
 
 ```bash
@@ -26,16 +28,16 @@ cd PaperKit
 
 ## ‼️ IMPORTANT Activate Your Agent System
 
-After installation, you **must** generate the IDE-specific agent files for your chosen environment:
+After installation, use the CLI for setup and regeneration:
 
 ```bash
-./paperkit generate                       # Generate all IDE files
-# OR target specific IDE:
-./paperkit generate --target=copilot      # For GitHub Copilot (VS Code)
-./paperkit generate --target=codex        # For OpenAI Codex
+./paperkit init                           # Set up or repair the local PaperKit installation
+./paperkit generate                       # Regenerate all IDE files when needed
+./paperkit generate --target=copilot      # Regenerate Copilot files only
+./paperkit generate --target=codex        # Regenerate Codex files only
 ```
 
-**Without running this command, the agents will not be available in your IDE.** The `./paperkit init` command helps you select your IDE, but `./paperkit generate` actually creates the necessary agent files.
+`./paperkit init` is the normal user-facing setup command in a repo checkout. Use `./paperkit generate` after editing `.paperkit/` or when you want to refresh generated IDE files.
 
 For detailed installation instructions, prerequisites, and platform-specific guidance, see [INSTALL-INSTRUCTIONS.md](INSTALL-INSTRUCTIONS.md).
 
@@ -100,14 +102,16 @@ As it grew beyond that initial paper, I realized it could be useful to others to
 
 PaperKit is a **complete system for academic paper writing** with:
 
-✓ **10 specialized agents** — Each handles one aspect of paper creation  
-✓ **Multi-IDE support** — Works with GitHub Copilot (VS Code) or OpenAI Codex  
-✓ **Modular LaTeX** — Small atomic section files for clean version control  
-✓ **Progressive refinement** — Multiple passes to improve clarity and quality  
-✓ **Citation management** — Harvard style (Cite Them Right) with validation  
-✓ **Build automation** — Compile, lint, and validate your document  
-✓ **Core Framework** — All definitions centralized in `.paperkit/`  
-✓ **Forensic audit tools** — Extract evidence from PDFs with context and mapping  
+✓ **10 specialized agents** — Each handles one aspect of paper creation
+✓ **Multi-IDE support** — Works with GitHub Copilot (VS Code) or OpenAI Codex
+✓ **Agent Skills** — Reusable instruction documents (agentskills.io standard)
+✓ **Compositional Workflows** — Multi-step task orchestration
+✓ **Modular LaTeX** — Small atomic section files for clean version control
+✓ **Progressive refinement** — Multiple passes to improve clarity and quality
+✓ **Citation management** — Harvard style (Cite Them Right) with validation
+✓ **Build automation** — Compile, lint, and validate your document
+✓ **Core Framework** — All definitions centralized in `.paperkit/`
+✓ **Forensic audit tools** — Extract evidence from PDFs with context and mapping
 
 ### Meet The Agents
 
@@ -160,6 +164,29 @@ Workflows combine multiple agents in sequences. Key workflows:
 
 This is only a suggested starting point—you can adapt the workflow to your needs, skipping or repeating steps as necessary.
 
+## Agent Skills
+
+PaperKit includes **Agent Skills**—instruction documents that teach agents HOW to perform specific tasks. Skills follow the [agentskills.io](https://agentskills.io) specification.
+
+| Skill | Description |
+|-------|-------------|
+| `humanizer` | Remove AI writing patterns from text |
+| `academic-writing` | Academic paper composition guidelines |
+| `harvard-citations` | Harvard citation style (Cite Them Right) |
+| `latex-best-practices` | LaTeX document best practices |
+
+Skills are automatically loaded by agents when relevant. You can also invoke them directly:
+
+```bash
+# List available skills
+python .paperkit/tools/skill_registry.py skills --list
+
+# Get skill details
+python .paperkit/tools/skill_registry.py skills --get harvard-citations
+```
+
+**Note**: Skills (SKILL.md) teach agents HOW to do things. Compositional Workflows (YAML) define WHAT steps to execute. See [docs/dev/SKILLS.md](docs/dev/SKILLS.md) for the full architecture.
+
 
 ## Academic Integrity
 
@@ -178,7 +205,7 @@ PaperKit enforces rigorous citation standards:
 ### Requirements
 
 - **macOS** (Intel/Apple Silicon) or **Linux** or **Windows**
-- **Bash** (for shell scripts) or **PowerShell** (for Windows)
+- **Bash** (macOS/Linux/WSL)
 - **Python 3.7+** (for validation and tools)
 - **LaTeX distribution** (pdflatex, bibtex)
 - **GitHub Copilot** or **OpenAI Codex** (or both)
@@ -191,17 +218,17 @@ Run the base installation script to install PaperKit to your home directory:
 curl -sSL https://raw.githubusercontent.com/peternicholls/PaperKit/master/scripts/base-install.sh | bash
 ```
 
-This creates `~/paperkit` with the default configuration containing agents, workflows, and tools.
+This creates `~/paperkit` with the default configuration containing agents, workflows, and tools. After the bootstrap step, treat `./paperkit` as the public interface.
 
 **Alternatively:** You can manually download the files from the GitHub repository and place them in your home directory at `~/paperkit/`.
 
 **Updating?** If you already have PaperKit installed, you'll be prompted with update options and the ability to create a backup. For more information on updating, see [INSTALL-INSTRUCTIONS.md](INSTALL-INSTRUCTIONS.md).
 
-**Windows Users:** The installation command requires a bash shell. We recommend using **Windows Subsystem for Linux (WSL)**, which provides a full Linux environment on Windows. Alternatively, you can use **Git Bash** (included with Git for Windows) to run the installation command. Once installed, open your bash terminal and run the curl command above.
+**Windows Users:** Use **Windows Subsystem for Linux (WSL)**. Windows support is currently WSL-only, and the normal PaperKit workflow runs from a bash shell inside WSL.
 
-### Alternative: Manual Installation
+### Repository Checkout Workflow
 
-If you prefer to install to a custom location or clone the repository directly:
+If you prefer to work from a cloned repository in a custom location, use the CLI workflow:
 
 ```bash
 git clone https://github.com/peternicholls/PaperKit.git
@@ -209,13 +236,15 @@ cd PaperKit
 ./paperkit init
 ```
 
+Use `./paperkit generate` later when you need to refresh generated IDE files after editing `.paperkit/`.
+
 ### Verify Dependencies
 
 ```bash
 ./.paperkit/tools/check-dependencies.sh
 ```
 
-For platform-specific setup (including Windows/PowerShell), see [INSTALL-INSTRUCTIONS.md](INSTALL-INSTRUCTIONS.md).
+For platform-specific setup, including WSL guidance for Windows, see [INSTALL-INSTRUCTIONS.md](INSTALL-INSTRUCTIONS.md).
 
 ---
 
@@ -256,9 +285,8 @@ Developer commands require authorization via git user.email to prevent accidenta
 ### Typical Workflow
 
 ```bash
-# 1. Initialize and activate
-./paperkit init                    # Set up IDE selection
-./paperkit generate                # Generate IDE-specific agent files (REQUIRED!)
+# 1. Initialize
+./paperkit init                    # Set up the project and IDE integration
 
 # 2. Plan (in your IDE, invoke agents)
 Paper Architect                    # Create outline
@@ -276,6 +304,8 @@ Reference Manager                  # Format bibliography
 ./paperkit latex build             # Compile PDF
 ./paperkit latex open              # Preview output
 ```
+
+Run `./paperkit generate` only when you have changed `.paperkit/` definitions or want to regenerate a specific IDE target.
 
 ### Using with GitHub Copilot (VS Code)
 
@@ -450,6 +480,7 @@ For detailed information on the LaTeX assembly process, including file structure
 
 - **[Docs/COMMANDS.md](Docs/COMMANDS.md)** — Complete commands reference
 - **[Docs/LATEX-ASSEMBLY.md](Docs/LATEX-ASSEMBLY.md)** — How the final LaTeX document is assembled
+- **[docs/dev/SKILLS.md](docs/dev/SKILLS.md)** — Agent Skills & Workflows architecture
 - **AGENTS.md** — Quick reference for all agents
 - **.paperkit/docs/github-copilot-instructions.md** — Copilot usage guide
 - **.paperkit/docs/codex-instructions.md** — Codex usage guide

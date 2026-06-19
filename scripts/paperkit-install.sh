@@ -1,0 +1,616 @@
+#!/bin/bash
+
+# PaperKit Installer
+# Installs the Research Paper Assistant Kit with IDE selection
+
+set -e
+
+# Color codes
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[1;33m'
+BLUE='\033[0;34m'
+CYAN='\033[0;36m'
+MAGENTA='\033[0;35m'
+NC='\033[0m'
+BOLD='\033[1m'
+
+# Global variables
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+REPO_ROOT="$(cd "${SCRIPT_DIR}/.." && pwd)"
+PLATFORM_KIND="unknown"
+PLATFORM_LABEL="unknown"
+
+# Get version and title from version.yaml
+if [ -f "${REPO_ROOT}/.paperkit/tools/get-version.sh" ]; then
+    VERSION=$("${REPO_ROOT}/.paperkit/tools/get-version.sh" 2>/dev/null || echo "unknown")
+else
+    VERSION="unknown"
+fi
+
+# Get title info from version.yaml using Python
+if command -v python3 >/dev/null 2>&1 && [ -f "${REPO_ROOT}/.paperkit/_cfg/version.yaml" ]; then
+    TITLE_INFO=$(python3 -c "
+import yaml
+try:
+    with open('${REPO_ROOT}/.paperkit/_cfg/version.yaml', 'r') as f:
+        data = yaml.safe_load(f)
+        title = data.get('version', {}).get('title', {})
+        print(title.get('short', 'PaperKit'))
+        print(title.get('long', 'Research Paper Assistant'))
+except:
+    print('PaperKit')
+    print('Research Paper Assistant')
+" 2>/dev/null)
+    TITLE_SHORT=$(echo "$TITLE_INFO" | sed -n '1p')
+    TITLE_LONG=$(echo "$TITLE_INFO" | sed -n '2p')
+else
+    TITLE_SHORT="PaperKit"
+    TITLE_LONG="Research Paper Assistant"
+fi
+
+SELECTED_IDES=()
+
+# Display banner
+show_banner() {
+    echo -e "${CYAN}"
+    echo "╔═══════════════════════════════════════════════════╗"
+    echo "║                                                   ║"
+    echo "║             📝 PaperKit Installer                 ║"
+    echo "║                                                   ║"
+    printf "║    %-47s║\n" "${TITLE_LONG} ${VERSION}"
+    echo "║                                                   ║"
+    echo "╚═══════════════════════════════════════════════════╝"
+    echo -e "${NC}"
+}
+
+# Utility functions
+error_exit() { echo -e "${RED}❌ Error: $1${NC}" >&2; exit 1; }
+success_msg() { echo -e "${GREEN}✓ $1${NC}"; }
+warning_msg() { echo -e "${YELLOW}⚠ $1${NC}"; }
+info_msg() { echo -e "${BLUE}ℹ $1${NC}"; }
+
+is_wsl() {
+    [[ -n "${WSL_DISTRO_NAME:-}" || -n "${WSL_INTEROP:-}" ]] && return 0
+    grep -qiE "(microsoft|wsl)" /proc/version 2>/dev/null
+}
+
+python_venv_exact_package() {
+    python3 -c "import sys; print(f'python{sys.version_info.major}.{sys.version_info.minor}-venv')" 2>/dev/null
+}
+
+python_venv_bootstrap_works() {
+    local probe_root
+    local probe_env
+
+    probe_root=$(mktemp -d 2>/dev/null) || return 1
+    probe_env="${probe_root}/venv-probe"
+
+    if python3 -m venv "$probe_env" >/dev/null 2>&1 && [ -f "${probe_env}/bin/activate" ] && [ -x "${probe_env}/bin/python" ]; then
+        rm -rf "$probe_root"
+        return 0
+    fi
+
+    rm -rf "$probe_root"
+    return 1
+}
+
+show_venv_remediation() {
+    local exact_package
+    exact_package=$(python_venv_exact_package)
+
+    case "$PLATFORM_KIND" in
+        wsl|linux)
+            warning_msg "Python can import venv, but cannot bootstrap a working virtual environment."
+            info_msg "On Debian/Ubuntu and WSL, install the OS venv package and rerun the installer:"
+            echo "  sudo apt update"
+            echo "  sudo apt install python3-venv"
+            if [ -n "$exact_package" ]; then
+                echo "  # If the generic package is unavailable, install the interpreter-specific package:"
+                echo "  sudo apt install $exact_package"
+            fi
+            ;;
+        macos)
+            warning_msg "Python cannot bootstrap a working virtual environment."
+            info_msg "On macOS, install a full Python 3 distribution that includes venv and pip, then rerun the installer:"
+            echo "  brew install python"
+            echo "  # or install the latest Python 3 from python.org"
+            ;;
+        windows-bash)
+            warning_msg "Python cannot bootstrap a working virtual environment from this shell."
+            info_msg "Windows support is currently WSL-only. Open the repository in WSL and rerun ./paperkit init there."
+            ;;
+        *)
+            warning_msg "Python cannot bootstrap a working virtual environment."
+            info_msg "Install the platform package that provides venv/ensurepip support, then rerun the installer."
+            ;;
+    esac
+}
+
+# Check if fzf is available
+has_fzf() {
+    command -v fzf &> /dev/null
+}
+
+# IDE selection with fzf (interactive multi-select)
+select_ides_fzf() {
+    info_msg "Select IDE integrations (TAB to select, ENTER to confirm):"
+    echo ""
+    
+    local options="GitHub Copilot (VS Code)
+OpenAI Codex
+Both (recommended)
+None (core only)"
+    
+    local selection=$(echo "$options" | fzf --multi --header="Select IDE(s) - TAB to toggle, ENTER to confirm" \
+        --preview="echo 'Selected: {}'" \
+        --height=10 \
+        --reverse \
+        --bind="tab:toggle" \
+        --marker="✓" \
+        --prompt="IDE> ")
+    
+    if [[ -z "$selection" ]]; then
+        warning_msg "No IDE selected. Installing core only."
+        return
+    fi
+    
+    while IFS= read -r line; do
+        case "$line" in
+            *"GitHub Copilot"*)
+                SELECTED_IDES+=("copilot")
+                ;;
+            *"OpenAI Codex"*)
+                SELECTED_IDES+=("codex")
+                ;;
+            *"Both"*)
+                SELECTED_IDES=("copilot" "codex")
+                break
+                ;;
+            *"None"*)
+                SELECTED_IDES=()
+                break
+                ;;
+        esac
+    done <<< "$selection"
+}
+
+# IDE selection fallback (numbered menu)
+select_ides_menu() {
+    echo ""
+    echo -e "${BOLD}Select IDE integration(s):${NC}"
+    echo ""
+    echo -e "  ${CYAN}1)${NC} GitHub Copilot (VS Code chat modes)"
+    echo -e "  ${CYAN}2)${NC} OpenAI Codex (prompt library)"
+    echo -e "  ${CYAN}3)${NC} Both (recommended)"
+    echo -e "  ${CYAN}4)${NC} None (core .paperkit system only)"
+    echo ""
+    
+    while true; do
+        read -p "Selection [3]: " choice
+        choice=${choice:-3}
+        
+        case $choice in
+            1)
+                SELECTED_IDES=("copilot")
+                break
+                ;;
+            2)
+                SELECTED_IDES=("codex")
+                break
+                ;;
+            3)
+                SELECTED_IDES=("copilot" "codex")
+                break
+                ;;
+            4)
+                SELECTED_IDES=()
+                break
+                ;;
+            *)
+                warning_msg "Invalid choice. Please enter 1, 2, 3, or 4."
+                ;;
+        esac
+    done
+}
+
+# Select IDEs based on available tools
+select_ides() {
+    if has_fzf; then
+        select_ides_fzf
+    else
+        info_msg "Tip: Install 'fzf' for a better selection experience."
+        select_ides_menu
+    fi
+    
+    echo ""
+    if [ ${#SELECTED_IDES[@]} -eq 0 ]; then
+        info_msg "IDE integrations: None (core only)"
+    else
+        info_msg "IDE integrations: ${SELECTED_IDES[*]}"
+    fi
+}
+
+# Check prerequisites
+check_prerequisites() {
+    info_msg "Checking prerequisites..."
+    
+    # Bash version
+    if ! command -v bash &> /dev/null; then
+        error_exit "Bash is required but not found."
+    fi
+    success_msg "Bash: $(bash --version | head -n1 | cut -d' ' -f1-4)"
+    
+    # Git (recommended)
+    if command -v git &> /dev/null; then
+        success_msg "Git: $(git --version | cut -d' ' -f3)"
+    else
+        warning_msg "Git not found. Version control features limited."
+    fi
+    
+    # Python3 (recommended for tools)
+    if command -v python3 &> /dev/null; then
+        local py_version=$(python3 --version | cut -d' ' -f2)
+        success_msg "Python3: $py_version"
+        
+        # Check for venv module and real bootstrap support
+        if python3 -c "import venv" 2>/dev/null; then
+            if python_venv_bootstrap_works; then
+                success_msg "Python virtual environment bootstrap: available"
+            else
+                show_venv_remediation
+            fi
+        else
+            warning_msg "Python venv module not found."
+            show_venv_remediation
+        fi
+        
+        # Check for pip
+        if command -v pip3 &> /dev/null; then
+            success_msg "pip3: $(pip3 --version | cut -d' ' -f2)"
+        else
+            warning_msg "pip3 not found. Install python3-pip package."
+        fi
+    else
+        warning_msg "Python3 not found. Some tools may not work."
+    fi
+    
+    # pdftotext (optional, for forensic audit)
+    if command -v pdftotext &> /dev/null; then
+        success_msg "pdftotext: available (for evidence extraction)"
+    else
+        info_msg "pdftotext not found (optional - install poppler for PDF extraction)"
+    fi
+    
+    # LaTeX (optional)
+    if command -v pdflatex &> /dev/null; then
+        success_msg "pdflatex: available"
+    else
+        info_msg "pdflatex not found (optional - install TeX Live for PDF compilation)"
+    fi
+}
+
+# Detect platform
+detect_platform() {
+    info_msg "Detecting platform..."
+    local os_type="unknown"
+    
+    if is_wsl; then
+        PLATFORM_KIND="wsl"
+        os_type="WSL"
+    elif [[ "$OSTYPE" == "linux-gnu"* ]]; then
+        PLATFORM_KIND="linux"
+        os_type="Linux"
+    elif [[ "$OSTYPE" == "darwin"* ]]; then
+        PLATFORM_KIND="macos"
+        os_type="macOS"
+    elif [[ "$OSTYPE" == "cygwin" ]] || [[ "$OSTYPE" == "msys" ]] || [[ "$OSTYPE" == "win32" ]]; then
+        PLATFORM_KIND="windows-bash"
+        os_type="Windows (via $OSTYPE)"
+    else
+        PLATFORM_KIND="$OSTYPE"
+        os_type="$OSTYPE"
+    fi
+
+    PLATFORM_LABEL="$os_type"
+    
+    success_msg "Platform: $os_type"
+}
+
+# Setup Python virtual environment
+setup_python_env() {
+    if ! command -v python3 &> /dev/null; then
+        warning_msg "Python3 not found. Skipping virtual environment setup."
+        return
+    fi
+    
+    echo ""
+    info_msg "Python virtual environment setup (recommended for tools)"
+    echo ""
+    echo -e "  ${CYAN}1)${NC} Create virtual environment (.venv) and install dependencies"
+    echo -e "  ${CYAN}2)${NC} Skip (you can set up later)"
+    echo ""
+    
+    read -p "Selection [2]: " py_choice
+    py_choice=${py_choice:-2}
+    
+    case $py_choice in
+        1)
+            if [ -d .venv ] && [ ! -f .venv/bin/activate ]; then
+                warning_msg "Removing incomplete .venv left by a previous failed setup."
+                rm -rf .venv
+            fi
+
+            if [ -f .venv/bin/activate ] && [ -x .venv/bin/python ]; then
+                success_msg "Virtual environment already exists: .venv/"
+            else
+                if ! python_venv_bootstrap_works; then
+                    show_venv_remediation
+                    return
+                fi
+
+                info_msg "Creating Python virtual environment..."
+                if ! python3 -m venv .venv 2>/dev/null; then
+                    warning_msg "Failed to create virtual environment."
+                    show_venv_remediation
+                    return
+                fi
+
+                success_msg "Virtual environment created: .venv/"
+            fi
+
+            # Try to install dependencies
+            if [ -f "${REPO_ROOT}/requirements.txt" ]; then
+                info_msg "Installing Python dependencies..."
+                if .venv/bin/pip install -r "${REPO_ROOT}/requirements.txt" > /dev/null 2>&1; then
+                    success_msg "Dependencies installed (pyyaml, jsonschema)"
+                    echo ""
+                    info_msg "To activate the environment:"
+                    echo -e "  ${CYAN}source .venv/bin/activate${NC}"
+                else
+                    warning_msg "Failed to install dependencies. Run manually:"
+                    echo "  source .venv/bin/activate"
+                    echo "  pip install -r requirements.txt"
+                fi
+            else
+                warning_msg "requirements.txt not found. Install manually if needed."
+            fi
+            ;;
+        2)
+            info_msg "Skipping Python environment setup."
+            info_msg "To set up later:"
+            echo "  python3 -m venv .venv"
+            echo "  source .venv/bin/activate"
+            echo "  pip install -r requirements.txt"
+            if [[ "$PLATFORM_KIND" == "wsl" || "$PLATFORM_KIND" == "linux" ]]; then
+                echo "  # If venv creation fails on Debian/Ubuntu/WSL, install python3-venv first"
+            fi
+            ;;
+    esac
+}
+
+# Create core directory structure
+create_core_structure() {
+    info_msg "Creating core directory structure..."
+    
+    # .paperkit structure (always created)
+    mkdir -p .paperkit/data/output-drafts/sections
+    mkdir -p .paperkit/data/output-drafts/outlines
+    mkdir -p .paperkit/data/output-refined/sections
+    mkdir -p .paperkit/data/output-refined/research
+    mkdir -p .paperkit/data/output-refined/references
+    mkdir -p .paperkit/data/output-final/pdf
+    mkdir -p .paperkit/core/agents
+    mkdir -p .paperkit/specialist/agents
+    mkdir -p .paperkit/_cfg/agents
+    mkdir -p .paperkit/_cfg/workflows
+    mkdir -p .paperkit/_cfg/tools
+    mkdir -p .paperkit/_cfg/guides
+    mkdir -p .paperkit/_cfg/schemas
+    mkdir -p .paperkit/_cfg/ides
+    mkdir -p .paperkit/docs
+    
+    # LaTeX structure
+    mkdir -p latex/sections
+    mkdir -p latex/references
+    mkdir -p latex/appendices
+    
+    # Planning
+    mkdir -p planning
+    
+    success_msg "Core structure created"
+}
+
+# Install GitHub Copilot integration
+install_copilot() {
+    info_msg "Installing GitHub Copilot integration..."
+    
+    mkdir -p .github/agents
+    
+    # Generate agent files from .paperkit source
+    if [ -x "${REPO_ROOT}/.paperkit/tools/generate.sh" ]; then
+        "${REPO_ROOT}/.paperkit/tools/generate.sh" --target=copilot
+    else
+        warning_msg "Generator not found. Creating placeholder agents."
+        
+        # Create minimal placeholder
+        cat > .github/agents/paper-architect.agent.md << 'EOFAGENT'
+```chatagent
+---
+description: "Paper Architect - Design paper structure and outline"
+tools: ["changes","edit","fetch","problems","search","runSubagent","usages"]
+---
+
+# Paper Architect
+
+<agent-activation CRITICAL="TRUE">
+1. LOAD the FULL agent file from @.paperkit/core/agents/paper-architect.md
+2. Execute ALL activation steps
+3. Stay in character throughout
+</agent-activation>
+```
+EOFAGENT
+    fi
+    
+    # VS Code settings
+    mkdir -p .vscode
+    if [ ! -f .vscode/settings.json ]; then
+        cat > .vscode/settings.json << 'EOFSETTINGS'
+{
+    "github.copilot.advanced": {
+        "maxRequestsPerSession": 150
+    },
+    "github.copilot.editor.enableAutoCompletions": true
+}
+EOFSETTINGS
+    fi
+    
+    success_msg "GitHub Copilot integration installed"
+}
+
+# Install OpenAI Codex integration
+install_codex() {
+    info_msg "Installing OpenAI Codex integration..."
+    
+    mkdir -p .codex/prompts
+    
+    # Generate prompt files from .paperkit source
+    if [ -x "${REPO_ROOT}/.paperkit/tools/generate.sh" ]; then
+        "${REPO_ROOT}/.paperkit/tools/generate.sh" --target=codex
+    else
+        warning_msg "Generator not found. Creating placeholder prompts."
+        
+        # Create minimal placeholder
+        cat > .codex/prompts/paper-architect.md << 'EOFPROMPT'
+# Paper Architect
+
+Activate the **Paper Architect** persona from PaperKit.
+
+## Instructions
+
+1. Load `.paperkit/core/agents/paper-architect.md`
+2. Follow all activation steps
+3. Present menu and wait for input
+EOFPROMPT
+    fi
+    
+    success_msg "OpenAI Codex integration installed"
+}
+
+# Confirm directory
+confirm_directory() {
+    local current_dir=$(pwd)
+    
+    if [ "$current_dir" = "/" ]; then
+        error_exit "Cannot install in root directory."
+    fi
+    
+    echo ""
+    echo -e "${YELLOW}Installation directory:${NC}"
+    echo -e "${BOLD}$current_dir${NC}"
+    echo ""
+    
+    read -p "Is this correct? (yes/no): " confirm
+    if [[ ! "$confirm" =~ ^[Yy]([Ee][Ss])?$ ]]; then
+        warning_msg "Installation cancelled."
+        exit 0
+    fi
+    
+    # Warn if not empty
+    if [ "$(ls -A 2>/dev/null)" ]; then
+        warning_msg "Directory is not empty."
+        read -p "Continue anyway? (yes/no): " cont
+        if [[ ! "$cont" =~ ^[Yy]([Ee][Ss])?$ ]]; then
+            warning_msg "Installation cancelled."
+            exit 0
+        fi
+    fi
+}
+
+# Show completion message
+show_completion() {
+    echo ""
+    echo -e "${GREEN}"
+    cat << "EOF"
+╔═══════════════════════════════════════════════════╗
+║                                                   ║
+║         ✓ PaperKit Installation Complete!         ║
+║                                                   ║
+╚═══════════════════════════════════════════════════╝
+EOF
+    echo -e "${NC}"
+    
+    info_msg "Installed components:"
+    echo "  • Core .paperkit/ structure"
+    echo "  • LaTeX document structure"
+    echo "  • Planning directory"
+    
+    if [[ " ${SELECTED_IDES[*]} " =~ " copilot " ]]; then
+        echo "  • GitHub Copilot agents (.github/agents/)"
+    fi
+    
+    if [[ " ${SELECTED_IDES[*]} " =~ " codex " ]]; then
+        echo "  • OpenAI Codex prompts (.codex/prompts/)"
+    fi
+    
+    echo ""
+    info_msg "Next steps:"
+    echo "  1. Review AGENTS.md for available agents"
+    echo "  2. Open your IDE (VS Code for Copilot, etc.)"
+    echo "  3. Select 'paper-architect' to begin your paper"
+    echo ""
+    
+    if [ ${#SELECTED_IDES[@]} -gt 0 ]; then
+        info_msg "To regenerate IDE files after editing .paperkit/ agents:"
+        echo "  ./paperkit generate"
+    fi
+}
+
+# Main installation
+main() {
+    show_banner
+    confirm_directory
+    
+    echo ""
+    detect_platform
+    
+    echo ""
+    check_prerequisites
+    
+    echo ""
+    select_ides
+    
+    echo ""
+    create_core_structure
+    
+    echo ""
+    setup_python_env
+    
+    # Install selected IDE integrations
+    for ide in "${SELECTED_IDES[@]}"; do
+        echo ""
+        case $ide in
+            copilot)
+                install_copilot
+                ;;
+            codex)
+                install_codex
+                ;;
+        esac
+    done
+    
+    # Generate IDE files and documentation
+    if [ ${#SELECTED_IDES[@]} -gt 0 ]; then
+        echo ""
+        info_msg "Generating IDE integration files..."
+        if [ -f "./.paperkit/tools/generate.sh" ]; then
+            ./.paperkit/tools/generate.sh || warning_msg "Generation had issues but installation continues"
+        else
+            warning_msg "generate.sh not found, skipping file generation"
+        fi
+    fi
+    
+    show_completion
+}
+
+main "$@"

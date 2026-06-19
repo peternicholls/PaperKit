@@ -7,39 +7,54 @@ description: >
   Extract all citation commands from LaTeX files and catalog them.
   Identifies \cite{}, \citep{}, \citet{}, \citeauthor{} commands
   and [CITATION NEEDED] markers.
-module: core
-category: references
-path: .paperkit/core/workflows/references/extract-citations.yaml
+version: "1.0.0"
+type: composite
 
-agents:
-  - reference-manager
+metadata:
+  author: core-team
+  category: references
+  tags:
+    - citations
+    - extraction
+    - latex
 
 steps:
-  - name: scan-files
+  - action: scan-files
     agent: reference-manager
-    description: Scan all LaTeX files in latex/sections/
+    inputs:
+      - texFiles
+    outputs:
+      - scannedFiles
 
-  - name: extract-commands
+  - action: extract-commands
     agent: reference-manager
-    description: >
-      Extract all citation commands using regex patterns.
-      Track location (file, line number) for each citation.
+    inputs:
+      - scannedFiles
+      - includeComments
+    outputs:
+      - rawCitations
 
-  - name: catalog-citations
+  - action: catalog-citations
     agent: reference-manager
-    description: >
-      Create deduplicated catalog of all citations.
-      Group by citation key and list all usage locations.
+    inputs:
+      - rawCitations
+    outputs:
+      - citations
 
-  - name: identify-markers
+  - action: identify-markers
     agent: reference-manager
-    description: >
-      Find [CITATION NEEDED] markers that need sources.
-      Note context for each to help find appropriate sources.
+    inputs:
+      - scannedFiles
+    outputs:
+      - needsCitation
 
-  - name: generate-report
+  - action: generate-report
     agent: reference-manager
-    description: Generate extraction report with statistics and listings
+    inputs:
+      - citations
+      - needsCitation
+    outputs:
+      - statistics
 
 inputSchema:
   type: object
@@ -49,6 +64,7 @@ inputSchema:
       description: "List of LaTeX files to scan (default: all in latex/sections/)"
       items:
         type: string
+      default: []
     includeComments:
       type: boolean
       description: Include citations in LaTeX comments
@@ -97,10 +113,3 @@ outputSchema:
           type: integer
         needsCitationCount:
           type: integer
-
-exampleUsage:
-  - "Extract all citations from paper"
-  - "Find places needing citations"
-  - "List citation usage across sections"
-
-owner: core-team

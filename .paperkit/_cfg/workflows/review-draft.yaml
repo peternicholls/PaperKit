@@ -4,29 +4,59 @@
 name: review-draft
 displayName: Review Draft
 description: Tutor feedback on draft quality
-module: specialist
-category: tutor
-path: .paperkit/specialist/workflows/tutor/review.yaml
+version: "1.0.0"
+type: composite
 
-agents:
-  - tutor
+metadata:
+  author: specialist-team
+  category: tutor
+  tags:
+    - review
+    - feedback
+    - tutoring
 
 steps:
-  - name: read-draft
+  - action: read-draft
     agent: tutor
-    description: Read and understand the draft
-  - name: assess-quality
+    inputs:
+      - content
+    outputs:
+      - draftUnderstanding
+
+  - action: assess-quality
     agent: tutor
-    description: Assess overall quality and structure
-  - name: identify-issues
+    skill: structured-reviewing
+    inputs:
+      - draftUnderstanding
+      - level
+    outputs:
+      - qualityAssessment
+
+  - action: identify-issues
     agent: tutor
-    description: Identify specific issues and weaknesses
-  - name: provide-feedback
+    skill: structured-reviewing
+    inputs:
+      - qualityAssessment
+      - focusAreas
+    outputs:
+      - issues
+      - strengths
+
+  - action: provide-feedback
     agent: tutor
-    description: Provide constructive feedback and suggestions
+    inputs:
+      - qualityAssessment
+      - issues
+      - strengths
+    outputs:
+      - overallAssessment
+      - improvements
+      - grade
 
 inputSchema:
   type: object
+  required:
+    - content
   properties:
     content:
       type: string
@@ -36,10 +66,14 @@ inputSchema:
       description: Specific areas to focus feedback on
       items:
         type: string
+      default: []
     level:
       type: string
       description: Level of detail for feedback
-      enum: [high-level, detailed, comprehensive]
+      enum:
+        - high-level
+        - detailed
+        - comprehensive
       default: detailed
 
 outputSchema:
@@ -58,12 +92,13 @@ outputSchema:
       description: Suggested improvements
       items:
         type: object
+        properties:
+          area:
+            type: string
+          suggestion:
+            type: string
+          priority:
+            type: string
     grade:
       type: string
       description: Quality grade (A-F)
-
-exampleUsage:
-  - "Review introduction draft"
-  - "Provide detailed feedback on methodology section"
-
-owner: specialist-team

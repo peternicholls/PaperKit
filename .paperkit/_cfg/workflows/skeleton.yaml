@@ -4,27 +4,48 @@
 name: skeleton
 displayName: Generate Skeleton
 description: Create LaTeX skeleton files for sections
-module: core
-category: planning
-path: .paperkit/core/workflows/planning/skeleton.yaml
+version: "1.0.0"
+type: composite
 
-agents:
-  - paper-architect
-  - latex-assembler
+metadata:
+  author: core-team
+  category: planning
+  tags:
+    - planning
+    - skeleton
+    - latex
 
 steps:
-  - name: parse-outline
+  - action: parse-outline
     agent: paper-architect
-    description: Parse outline to identify sections
-  - name: create-files
+    inputs:
+      - outline
+    outputs:
+      - parsedSections
+
+  - action: create-files
     agent: latex-assembler
-    description: Generate LaTeX section files
-  - name: setup-structure
+    skill: latex-best-practices
+    inputs:
+      - parsedSections
+      - sections
+    outputs:
+      - createdFiles
+
+  - action: setup-structure
     agent: latex-assembler
-    description: Create directory structure and main.tex
-  - name: validate-skeleton
+    inputs:
+      - createdFiles
+    outputs:
+      - mainTex
+      - files
+
+  - action: validate-skeleton
     agent: latex-assembler
-    description: Verify skeleton compiles
+    inputs:
+      - mainTex
+    outputs:
+      - success
 
 inputSchema:
   type: object
@@ -37,6 +58,7 @@ inputSchema:
       description: List of section names
       items:
         type: string
+      default: []
 
 outputSchema:
   type: object
@@ -52,9 +74,3 @@ outputSchema:
     success:
       type: boolean
       description: Whether skeleton was created successfully
-
-exampleUsage:
-  - "Generate skeleton from paper outline"
-  - "Create LaTeX structure with 5 sections"
-
-owner: core-team

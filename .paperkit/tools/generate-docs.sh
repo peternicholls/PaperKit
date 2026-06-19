@@ -6,7 +6,7 @@
 set -e
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-PAPERKIT_ROOT="${SCRIPT_DIR}"
+PAPERKIT_ROOT="$(cd "${SCRIPT_DIR}/../.." && pwd)"
 
 # Color codes
 RED='\033[0;31m'
@@ -45,12 +45,12 @@ fi
 info_msg "Generating documentation from .paperkit/ manifests..."
 
 # Generate AGENTS.md
-"$PYTHON_CMD" << 'PYTHON_SCRIPT'
+PAPERKIT_ROOT="$PAPERKIT_ROOT" "$PYTHON_CMD" << 'PYTHON_SCRIPT'
 import yaml
 import os
 from pathlib import Path
 
-paperkit_root = Path(os.getcwd())
+paperkit_root = Path(os.environ['PAPERKIT_ROOT'])
 manifest_path = paperkit_root / '.paperkit' / '_cfg' / 'agent-manifest.yaml'
 
 # Load agent manifest
@@ -112,7 +112,7 @@ for agent in core_agents:
             agent_yaml = yaml.safe_load(yf)
             if 'description' in agent_yaml:
                 description = agent_yaml['description']
-    
+
     trigger = f"paper-{name}" if not name.startswith('paper-') else name
     agents_md += f"| {icon} **{title}** | {display_name} | {description} | `{trigger}` |\n"
 
@@ -136,7 +136,7 @@ for agent in specialist_agents:
             agent_yaml = yaml.safe_load(yf)
             if 'description' in agent_yaml:
                 description = agent_yaml['description']
-    
+
     trigger = f"paper-{name}" if not name.startswith('paper-') else name
     agents_md += f"| {icon} **{title}** | {display_name} | {description} | `{trigger}` |\n"
 
@@ -279,15 +279,15 @@ The Reference Manager (Harper) supports comprehensive citation management:
 
 ### ✨ Key Features
 
-✓ **10 specialized agents** for the complete paper workflow  
-✓ **Multi-IDE support** - GitHub Copilot and OpenAI Codex  
-✓ **Progressive disclosure** - agents load on demand  
-✓ **Menu-driven interaction** - each agent presents options  
-✓ **Modular LaTeX architecture** - atomic sections  
-✓ **Harvard citation style** (Cite Them Right) with validation  
-✓ **Citation workflows** - extract, validate, format, check completeness  
-✓ **Configuration per module** - customize behavior  
-✓ **Agent manifest** - discover all available agents  
+✓ **10 specialized agents** for the complete paper workflow
+✓ **Multi-IDE support** - GitHub Copilot and OpenAI Codex
+✓ **Progressive disclosure** - agents load on demand
+✓ **Menu-driven interaction** - each agent presents options
+✓ **Modular LaTeX architecture** - atomic sections
+✓ **Harvard citation style** (Cite Them Right) with validation
+✓ **Citation workflows** - extract, validate, format, check completeness
+✓ **Configuration per module** - customize behavior
+✓ **Agent manifest** - discover all available agents
 
 ### 🚀 Next Step
 
@@ -336,7 +336,7 @@ for agent in core_agents:
     display_name = agent.get('displayName', 'Agent')
     title = agent.get('title', name.title())
     trigger = f"paper-{name}" if not name.startswith('paper-') else name
-    
+
     yaml_path = paperkit_root / agent['path']
     description = title
     if yaml_path.exists():
@@ -344,7 +344,7 @@ for agent in core_agents:
             agent_yaml = yaml.safe_load(yf)
             if 'description' in agent_yaml:
                 description = agent_yaml['description']
-    
+
     copilot_md += f"| `{trigger}` | {title} ({display_name}) | {description} |\n"
 
 copilot_md += """
@@ -359,7 +359,7 @@ for agent in specialist_agents:
     display_name = agent.get('displayName', 'Agent')
     title = agent.get('title', name.title())
     trigger = f"paper-{name}" if not name.startswith('paper-') else name
-    
+
     yaml_path = paperkit_root / agent['path']
     description = title
     if yaml_path.exists():
@@ -367,7 +367,7 @@ for agent in specialist_agents:
             agent_yaml = yaml.safe_load(yf)
             if 'description' in agent_yaml:
                 description = agent_yaml['description']
-    
+
     copilot_md += f"| `{trigger}` | {title} ({display_name}) | {description} |\n"
 
 copilot_md += """

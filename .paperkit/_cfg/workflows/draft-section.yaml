@@ -1,0 +1,132 @@
+# Draft Section Skill
+# Composite skill: Drafts a paper section with outline, content, and citations
+#
+# This skill coordinates multiple agents:
+# 1. Paper Architect creates section outline
+# 2. Section Drafter writes the content
+# 3. Reference Manager adds citations
+
+name: draft-section
+displayName: Draft Section
+description: Draft a paper section with outline, content, and citations
+version: 1.0.0
+type: composite
+
+prerequisites: []
+
+steps:
+  - action: create-section-outline
+    agent: paper-architect
+    inputs:
+      - section_name
+      - section_goals
+      - paper_context
+    outputs:
+      - section_outline
+      - subsection_list
+    onError: fail
+
+  - action: gather-relevant-research
+    agent: research-consolidator
+    inputs:
+      - section_name
+      - section_outline
+    outputs:
+      - relevant_sources
+      - key_findings
+    onError: skip
+
+  - action: draft-content
+    agent: section-drafter
+    inputs:
+      - section_outline
+      - relevant_sources
+      - key_findings
+      - writing_style
+    outputs:
+      - draft_content
+      - citation_placeholders
+    onError: fail
+
+  - action: add-citations
+    agent: reference-manager
+    inputs:
+      - draft_content
+      - citation_placeholders
+      - relevant_sources
+    outputs:
+      - content_with_citations
+      - bibtex_entries
+    onError: retry
+
+inputSchema:
+  type: object
+  properties:
+    section_name:
+      type: string
+      description: Name of the section to draft (e.g., "Introduction", "Methodology")
+    section_goals:
+      type: array
+      description: Key goals for this section
+      items:
+        type: string
+    paper_context:
+      type: object
+      description: Context about the overall paper
+      properties:
+        title:
+          type: string
+        abstract:
+          type: string
+        audience:
+          type: string
+    writing_style:
+      type: string
+      description: Writing style (academic, technical, general)
+      enum:
+        - academic
+        - technical
+        - general
+      default: academic
+  required:
+    - section_name
+
+outputSchema:
+  type: object
+  properties:
+    section_outline:
+      type: object
+      description: Hierarchical outline of the section
+    draft_content:
+      type: string
+      description: Draft LaTeX content for the section
+    content_with_citations:
+      type: string
+      description: Final content with proper citations
+    bibtex_entries:
+      type: array
+      description: BibTeX entries for new citations
+      items:
+        type: string
+    word_count:
+      type: integer
+      description: Word count of the draft
+  required:
+    - section_outline
+    - draft_content
+
+timeout: 180000
+
+retryPolicy:
+  maxRetries: 1
+  backoffMs: 2000
+  retryableErrors:
+    - agent_timeout
+
+metadata:
+  author: core-team
+  tags:
+    - writing
+    - drafting
+    - section
+  category: writing

@@ -38,12 +38,14 @@ echo "Copying core files..."
 
 cd "$PAPERKIT_ROOT"
 
-# Installation scripts
-cp paperkit-install.sh "$BUNDLE_DIR/"
-cp paperkit-install.ps1 "$BUNDLE_DIR/"
+# CLI and installation scripts
+mkdir -p "$BUNDLE_DIR/scripts"
 cp paperkit "$BUNDLE_DIR/"
+cp scripts/paperkit-install.sh "$BUNDLE_DIR/scripts/"
+cp scripts/base-install.sh "$BUNDLE_DIR/scripts/"
 chmod +x "$BUNDLE_DIR/paperkit"
-chmod +x "$BUNDLE_DIR/paperkit-install.sh"
+chmod +x "$BUNDLE_DIR/scripts/paperkit-install.sh"
+chmod +x "$BUNDLE_DIR/scripts/base-install.sh"
 
 # Version and documentation
 cp AGENTS.md "$BUNDLE_DIR/"

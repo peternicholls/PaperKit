@@ -52,7 +52,7 @@ get_install_directory() {
     echo ""
     read -p "Selection [1]: " location_choice </dev/tty
     location_choice=${location_choice:-1}
-    
+
     case $location_choice in
         1)
             INSTALL_DIR="$(pwd)/paperkit"
@@ -74,7 +74,7 @@ get_install_directory() {
             error_exit "Invalid selection"
             ;;
     esac
-    
+
     # Create parent directory if it doesn't exist
     local parent_dir=$(dirname "$INSTALL_DIR")
     if [ ! -d "$parent_dir" ]; then
@@ -87,7 +87,7 @@ get_install_directory() {
             error_exit "Cannot proceed without parent directory"
         fi
     fi
-    
+
     echo ""
     info_msg "Installing to: ${INSTALL_DIR}"
     echo ""
@@ -113,48 +113,48 @@ has_fzf() {
 detect_platform() {
     info_msg "Detecting platform..."
     local os_type="unknown"
-    
+
     if [[ "$OSTYPE" == "linux-gnu"* ]]; then
         os_type="Linux"
     elif [[ "$OSTYPE" == "darwin"* ]]; then
         os_type="macOS"
     elif [[ "$OSTYPE" == "cygwin" ]] || [[ "$OSTYPE" == "msys" ]] || [[ "$OSTYPE" == "win32" ]]; then
         os_type="Windows (via $OSTYPE)"
-        warning_msg "You are running on Windows. For best experience, use WSL (Windows Subsystem for Linux)."
+        warning_msg "Windows support is currently WSL-only. Run this installer from WSL instead."
         echo ""
         echo -e "${CYAN}Windows Users:${NC}"
-        echo "  • Recommended: Windows Subsystem for Linux (WSL) - provides a full Linux environment"
-        echo "  • Alternative: Git Bash (included with Git for Windows)"
-        echo "  • Once installed, open your bash terminal and rerun this script"
+        echo "  • Install and open Windows Subsystem for Linux (WSL)"
+        echo "  • Open a WSL shell in your home directory or project directory"
+        echo "  • Rerun this installer from that WSL shell"
         echo ""
     else
         os_type="$OSTYPE"
     fi
-    
+
     success_msg "Platform: $os_type"
 }
 
 # Check prerequisites
 check_prerequisites() {
     info_msg "Checking prerequisites..."
-    
+
     # Bash version
     if ! command -v bash &> /dev/null; then
         error_exit "Bash is required but not found."
     fi
     success_msg "Bash: $(bash --version | head -n1 | cut -d' ' -f1-4)"
-    
+
     # Git (required for clone)
     if ! command -v git &> /dev/null; then
         error_exit "Git is required but not found. Please install Git first."
     fi
     success_msg "Git: $(git --version | cut -d' ' -f3)"
-    
+
     # curl (should be available if we got here)
     if command -v curl &> /dev/null; then
         success_msg "curl: available"
     fi
-    
+
     # Python3 (recommended for tools)
     if command -v python3 &> /dev/null; then
         local py_version=$(python3 --version | cut -d' ' -f2)
@@ -162,7 +162,7 @@ check_prerequisites() {
     else
         warning_msg "Python3 not found. Some tools may not work."
     fi
-    
+
     # LaTeX (optional)
     if command -v pdflatex &> /dev/null; then
         success_msg "pdflatex: available"
@@ -183,10 +183,10 @@ check_existing_installation() {
         echo -e "  ${CYAN}2)${NC} Backup and reinstall (creates backup, fresh install)"
         echo -e "  ${CYAN}3)${NC} Cancel installation"
         echo ""
-        
+
         read -p "Selection [1]: " choice </dev/tty
         choice=${choice:-1}
-        
+
         case $choice in
             1)
                 info_msg "Updating existing installation..."
@@ -213,14 +213,14 @@ check_existing_installation() {
 create_backup() {
     local timestamp=$(date +%Y%m%d_%H%M%S)
     BACKUP_DIR="${INSTALL_DIR}_backup_${timestamp}"
-    
+
     info_msg "Creating backup..."
     echo "  From: $INSTALL_DIR"
     echo "  To:   $BACKUP_DIR"
-    
+
     if cp -r "$INSTALL_DIR" "$BACKUP_DIR"; then
         success_msg "Backup created successfully"
-        
+
         # Remove old installation
         info_msg "Removing old installation..."
         rm -rf "$INSTALL_DIR"
@@ -233,7 +233,7 @@ create_backup() {
 # Update existing installation
 update_installation() {
     cd "$INSTALL_DIR"
-    
+
     info_msg "Checking for local changes..."
     if ! git diff-index --quiet HEAD -- 2>/dev/null; then
         warning_msg "You have local changes. Stashing them before update..."
@@ -245,17 +245,17 @@ update_installation() {
         echo ""
         read -p "Press Enter to continue with update..." </dev/tty
     fi
-    
+
     info_msg "Pulling latest changes..."
     if git pull origin master; then
         success_msg "Installation updated successfully"
-        
+
         # Regenerate IDE files if needed
         if [ -x "./paperkit" ]; then
             info_msg "Regenerating IDE integration files..."
             ./paperkit generate || warning_msg "Generation had issues but update continues"
         fi
-        
+
         show_update_completion
         exit 0
     else
@@ -269,7 +269,7 @@ clone_repository() {
     echo "  From: $REPO_URL"
     echo "  To:   $INSTALL_DIR"
     echo ""
-    
+
     if git clone "$REPO_URL" "$INSTALL_DIR"; then
         success_msg "Repository cloned successfully"
         cd "$INSTALL_DIR"
@@ -282,12 +282,12 @@ clone_repository() {
 select_ides_fzf() {
     info_msg "Select IDE integrations (TAB to select, ENTER to confirm):"
     echo ""
-    
+
     local options="GitHub Copilot (VS Code)
 OpenAI Codex
 Both (recommended)
 None (core only)"
-    
+
     local selection=$(echo "$options" | fzf --multi --header="Select IDE(s) - TAB to toggle, ENTER to confirm" \
         --preview="echo 'Selected: {}'" \
         --height=10 \
@@ -295,12 +295,12 @@ None (core only)"
         --bind="tab:toggle" \
         --marker="✓" \
         --prompt="IDE> ")
-    
+
     if [[ -z "$selection" ]]; then
         warning_msg "No IDE selected. Installing core only."
         return
     fi
-    
+
     while IFS= read -r line; do
         case "$line" in
             *"GitHub Copilot"*)
@@ -331,11 +331,11 @@ select_ides_menu() {
     echo -e "  ${CYAN}3)${NC} Both (recommended)"
     echo -e "  ${CYAN}4)${NC} None (core .paperkit system only)"
     echo ""
-    
+
     while true; do
         read -p "Selection [3]: " choice </dev/tty
         choice=${choice:-3}
-        
+
         case $choice in
             1)
                 SELECTED_IDES=("copilot")
@@ -368,7 +368,7 @@ select_ides() {
         info_msg "Tip: Install 'fzf' for a better selection experience."
         select_ides_menu
     fi
-    
+
     echo ""
     if [ ${#SELECTED_IDES[@]} -eq 0 ]; then
         info_msg "IDE integrations: None (core only)"
@@ -380,17 +380,17 @@ select_ides() {
 # Run post-install setup
 run_post_install_setup() {
     info_msg "Running post-installation setup..."
-    
+
     # Run the paperkit init command if available
     if [ -x "./paperkit" ]; then
         # Create a temporary response file to automate the installer
         # Using mktemp for secure temporary file creation instead of PID-based naming
         local temp_response
         temp_response=$(mktemp "/tmp/paperkit_install_response.XXXXXX")
-        
+
         # Ensure cleanup on exit or interruption
         trap 'rm -f "$temp_response"' EXIT INT TERM
-        
+
         # Prepare responses based on selected IDEs
         case "${#SELECTED_IDES[@]}" in
             0)
@@ -410,11 +410,11 @@ run_post_install_setup() {
         echo "yes" >> "$temp_response"  # Confirm directory
         echo "yes" >> "$temp_response"  # Continue with non-empty directory
         echo "2" >> "$temp_response"    # Skip Python venv setup (user can do later)
-        
-        # Note: The paperkit-install.sh expects interactive input
+
+        # Note: scripts/paperkit-install.sh expects interactive input
         # For now, we'll just notify the user to run it manually
         # Trap handler will clean up temp file on function exit
-        
+
         info_msg "Generating IDE integration files..."
         if [ ${#SELECTED_IDES[@]} -gt 0 ]; then
             for ide in "${SELECTED_IDES[@]}"; do
@@ -438,29 +438,29 @@ show_completion() {
 ╚═══════════════════════════════════════════════════╝
 EOF
     echo -e "${NC}"
-    
+
     info_msg "Installation location: ${BOLD}${INSTALL_DIR}${NC}"
-    
+
     if [ -n "$BACKUP_DIR" ]; then
         echo ""
         info_msg "Previous installation backed up to:"
         echo "  $BACKUP_DIR"
     fi
-    
+
     echo ""
     info_msg "Installed components:"
     echo "  • Core .paperkit/ structure"
     echo "  • LaTeX document structure"
     echo "  • Planning directory"
-    
+
     if [[ " ${SELECTED_IDES[*]} " =~ " copilot " ]]; then
         echo "  • GitHub Copilot agents (.github/agents/)"
     fi
-    
+
     if [[ " ${SELECTED_IDES[*]} " =~ " codex " ]]; then
         echo "  • OpenAI Codex prompts (.codex/prompts/)"
     fi
-    
+
     echo ""
     info_msg "Next steps:"
     echo -e "  1. Navigate to PaperKit: ${CYAN}cd $INSTALL_DIR${NC}"
@@ -472,11 +472,11 @@ EOF
     echo "  4. Open your IDE (VS Code for Copilot, etc.)"
     echo "  5. Select 'paper-architect' to begin your paper"
     echo ""
-    
+
     info_msg "To regenerate IDE files after editing .paperkit/ agents:"
     echo -e "  ${CYAN}cd $INSTALL_DIR${NC}"
     echo -e "  ${CYAN}./paperkit generate${NC}"
-    
+
     echo ""
     info_msg "For more information, see:"
     echo "  • README.md - Quick start guide"
@@ -497,7 +497,7 @@ show_update_completion() {
 ╚═══════════════════════════════════════════════════╝
 EOF
     echo -e "${NC}"
-    
+
     info_msg "Installation location: ${BOLD}${INSTALL_DIR}${NC}"
     echo ""
     info_msg "Your PaperKit installation has been updated to the latest version."
@@ -512,34 +512,34 @@ EOF
 main() {
     # Get version from GitHub first
     get_version_from_github
-    
+
     show_banner
-    
+
     # Get installation directory first
     get_install_directory
-    
+
     echo ""
     detect_platform
-    
+
     echo ""
     check_prerequisites
-    
+
     # Check for existing installation
     if check_existing_installation; then
         # User chose to update
         update_installation
         # This will exit, so code below won't run
     fi
-    
+
     # Fresh installation (or after backup)
     clone_repository
-    
+
     echo ""
     select_ides
-    
+
     echo ""
     run_post_install_setup
-    
+
     show_completion
 }
 

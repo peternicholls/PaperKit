@@ -1,0 +1,167 @@
+# Research Topic Skill
+# Composite skill: Research a topic and consolidate findings
+#
+# This skill coordinates research activities:
+# 1. Librarian finds relevant sources
+# 2. Research Consolidator analyzes and extracts key findings
+# 3. Results are organized for paper integration
+
+name: research-topic
+displayName: Research Topic
+description: Research a topic and consolidate findings
+version: 1.0.0
+type: composite
+
+prerequisites: []
+
+steps:
+  - action: find-sources
+    agent: librarian
+    inputs:
+      - topic
+      - search_terms
+      - source_types
+    outputs:
+      - source_list
+      - source_summaries
+    onError: fail
+
+  - action: analyze-sources
+    agent: research-consolidator
+    inputs:
+      - source_list
+      - research_questions
+    outputs:
+      - key_findings
+      - evidence_map
+      - gaps_identified
+    onError: fail
+
+  - action: extract-quotes
+    agent: librarian
+    inputs:
+      - source_list
+      - key_findings
+    outputs:
+      - quotable_evidence
+      - page_references
+    onError: skip
+    tool: extract-evidence
+
+  - action: consolidate-research
+    agent: research-consolidator
+    inputs:
+      - key_findings
+      - evidence_map
+      - quotable_evidence
+    outputs:
+      - research_summary
+      - section_mappings
+      - citation_list
+    onError: fail
+
+inputSchema:
+  type: object
+  properties:
+    topic:
+      type: string
+      description: Main research topic
+    search_terms:
+      type: array
+      description: Additional search terms
+      items:
+        type: string
+    source_types:
+      type: array
+      description: Types of sources to search
+      items:
+        type: string
+        enum:
+          - academic_papers
+          - books
+          - conference_proceedings
+          - technical_reports
+          - websites
+      default:
+        - academic_papers
+    research_questions:
+      type: array
+      description: Specific questions to answer
+      items:
+        type: string
+    depth:
+      type: string
+      description: Research depth level
+      enum:
+        - quick
+        - standard
+        - comprehensive
+      default: standard
+  required:
+    - topic
+
+outputSchema:
+  type: object
+  properties:
+    research_summary:
+      type: string
+      description: Consolidated summary of findings
+    key_findings:
+      type: array
+      description: List of key findings with sources
+      items:
+        type: object
+        properties:
+          finding:
+            type: string
+          sources:
+            type: array
+            items:
+              type: string
+          confidence:
+            type: string
+    evidence_map:
+      type: object
+      description: Mapping of evidence to paper sections
+    quotable_evidence:
+      type: array
+      description: Direct quotes with page references
+      items:
+        type: object
+        properties:
+          quote:
+            type: string
+          source:
+            type: string
+          page:
+            type: string
+    gaps_identified:
+      type: array
+      description: Identified gaps in research
+      items:
+        type: string
+    citation_list:
+      type: array
+      description: Harvard-formatted citations
+      items:
+        type: string
+  required:
+    - research_summary
+    - key_findings
+
+timeout: 300000
+
+retryPolicy:
+  maxRetries: 2
+  backoffMs: 3000
+  retryableErrors:
+    - network_timeout
+    - rate_limited
+
+metadata:
+  author: core-team
+  tags:
+    - research
+    - analysis
+    - evidence
+  category: research

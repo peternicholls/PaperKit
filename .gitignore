@@ -23,6 +23,9 @@ paperkit-*.zip
 COPILOT.md
 AGENTS.md
 .venv/ # install your own python env
+__pycache__/
+*.py[cod]
+.paperkit/data/checkpoints/*.checkpoint.json
 
 
 # Specific directories to ignore
@@ -44,3 +47,6 @@ main.run.xml
 *.bcf
 build_report.md
 latex/main.bcf
+
+# Swift DocC generated output
+open-agents/source/reference-materials/tech-docs-from-exisiting-software-repo/Docs/generated/

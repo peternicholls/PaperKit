@@ -88,6 +88,24 @@
         "type": "string"
       }
     },
+    "suggestedSkills": {
+      "type": "array",
+      "description": "Agent Skills (SKILL.md) to auto-load when this agent is activated. References skill names from .paperkit/_cfg/skills/{name}/SKILL.md",
+      "items": {
+        "type": "string",
+        "pattern": "^[a-z][a-z0-9]*(-[a-z0-9]+)*$"
+      },
+      "examples": [
+        [
+          "humanizer",
+          "academic-writing"
+        ],
+        [
+          "harvard-citations",
+          "latex-best-practices"
+        ]
+      ]
+    },
     "inputSchema": {
       "type": "object",
       "description": "JSON Schema for expected input format",

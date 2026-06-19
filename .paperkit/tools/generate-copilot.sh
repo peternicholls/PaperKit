@@ -6,7 +6,7 @@
 set -e
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-PAPERKIT_ROOT="${SCRIPT_DIR}"
+PAPERKIT_ROOT="$(cd "${SCRIPT_DIR}/../.." && pwd)"
 
 # Color codes
 RED='\033[0;31m'
@@ -45,14 +45,15 @@ fi
 info_msg "Generating .copilot/ files from .paperkit/ manifests..."
 
 # Generate .copilot/agents.yaml and .copilot/workflows.yaml
-"$PYTHON_CMD" << 'PYTHON_SCRIPT'
+PAPERKIT_ROOT="$PAPERKIT_ROOT" "$PYTHON_CMD" << 'PYTHON_SCRIPT'
 import yaml
 import os
 from pathlib import Path
 from datetime import datetime
 
-paperkit_root = Path(os.getcwd())
+paperkit_root = Path(os.environ['PAPERKIT_ROOT'])
 copilot_dir = paperkit_root / '.copilot'
+copilot_dir.mkdir(parents=True, exist_ok=True)
 
 # Load manifests
 agent_manifest_path = paperkit_root / '.paperkit' / '_cfg' / 'agent-manifest.yaml'
@@ -115,7 +116,7 @@ def extract_triggers(agent_details, agent_name):
     # Check for explicit triggers
     if 'triggers' in agent_details:
         return agent_details['triggers']
-    
+
     # Check for example prompts to infer triggers
     triggers = []
     if 'examplePrompts' in agent_details:
@@ -134,11 +135,11 @@ def extract_triggers(agent_details, agent_name):
                 if 'draft' in lower_prompt or 'write' in lower_prompt:
                     triggers.extend(['draft [section]', 'write'])
                     break
-    
+
     # Default fallback
     if not triggers:
         triggers = [agent_name]
-    
+
     return triggers
 
 # Helper to extract inputs from inputSchema
@@ -153,7 +154,7 @@ def extract_inputs(agent_details):
 # Helper to extract outputs from outputSchema or constraints
 def extract_outputs(agent_details, agent_name):
     outputs = []
-    
+
     # Try to get from outputSchema
     if 'outputSchema' in agent_details and 'properties' in agent_details['outputSchema']:
         # Map to typical output directories
@@ -171,34 +172,34 @@ def extract_outputs(agent_details, agent_name):
             elif 'refiner' in agent_name:
                 outputs.append('output-refined/sections/')
                 outputs.append('memory/section-status.yaml (updated)')
-    
+
     # Reference manager special case
     if 'reference' in agent_name:
         outputs.append('latex/references/references.bib')
         outputs.append('output-refined/references/')
-    
+
     # LaTeX assembler special case
     if 'latex' in agent_name or 'assembler' in agent_name:
         outputs.append('latex/ (integrated)')
         outputs.append('output-final/pdf/')
         outputs.append('Build logs')
-    
+
     return outputs
 
 # Process core agents
 for agent in core_agents:
     name = agent['name']
     agent_key = name  # Use name directly as key
-    
+
     # Load detailed agent YAML for additional info
     agent_yaml_path = paperkit_root / agent['path']
     agent_details = {}
     if agent_yaml_path.exists():
         with open(agent_yaml_path) as f:
             agent_details = yaml.safe_load(f) or {}
-    
+
     category, role = agent_category_map.get(name, ('general', 'Agent'))
-    
+
     # Extract description from identity section
     description = agent.get('title', agent['name'].replace('-', ' ').title())
     if 'identity' in agent_details and 'description' in agent_details['identity']:
@@ -206,7 +207,7 @@ for agent in core_agents:
         full_desc = agent_details['identity']['description'].strip()
         description = full_desc.split('.')[0] if '.' in full_desc else full_desc
         description = description.replace('\n', ' ').strip()
-    
+
     agent_config = {
         'name': agent.get('title', agent['name'].replace('-', ' ').title()),
         'description': description,
@@ -220,38 +221,38 @@ for agent in core_agents:
         'requires-tools': agent_details.get('tools', []),
         'requires-consent': bool(agent_details.get('tools'))
     }
-    
+
     # Add workflows if present
     if 'workflows' in agent_details:
         agent_config['workflows'] = agent_details['workflows']
-    
-    # Add knowledge base if present  
+
+    # Add knowledge base if present
     if 'knowledgeBase' in agent:
         agent_config['knowledgeBase'] = agent['knowledgeBase']
-    
+
     copilot_agents['agents']['core'][agent_key] = agent_config
 
 # Process specialist agents
 for agent in specialist_agents:
     name = agent['name']
     agent_key = name
-    
+
     # Load detailed agent YAML
     agent_yaml_path = paperkit_root / agent['path']
     agent_details = {}
     if agent_yaml_path.exists():
         with open(agent_yaml_path) as f:
             agent_details = yaml.safe_load(f) or {}
-    
+
     category, role = agent_category_map.get(name, ('support', 'Agent'))
-    
+
     # Extract description
     description = agent.get('title', agent['name'].replace('-', ' ').title())
     if 'identity' in agent_details and 'description' in agent_details['identity']:
         full_desc = agent_details['identity']['description'].strip()
         description = full_desc.split('.')[0] if '.' in full_desc else full_desc
         description = description.replace('\n', ' ').strip()
-    
+
     # Extract triggers for specialist agents
     triggers = []
     if name == 'brainstorm':
@@ -264,10 +265,10 @@ for agent in specialist_agents:
         triggers = ['librarian-research', 'librarian-sources', 'librarian-gaps', 'find sources']
     else:
         triggers = [name]
-    
+
     # Outputs for specialist agents
     outputs = [f"planning/YYYYMMDD-[name]/{name}.md"] if name != 'librarian' else [f"planning/YYYYMMDD-[name]/research-roadmap.md"]
-    
+
     agent_config = {
         'name': agent.get('title', agent['name'].replace('-', ' ').title()),
         'description': description,
@@ -281,7 +282,7 @@ for agent in specialist_agents:
         'requires-tools': [],
         'requires-consent': False
     }
-    
+
     copilot_agents['agents']['specialist'][agent_key] = agent_config
 
 # Write .copilot/agents.yaml
@@ -322,16 +323,16 @@ copilot_workflows = {
 for workflow in workflows_list:
     name = workflow['name']
     category = workflow.get('category', 'general')
-    
+
     # Load detailed workflow YAML for additional info
     workflow_yaml_path = paperkit_root / workflow['path']
     workflow_details = {}
     if workflow_yaml_path.exists():
         with open(workflow_yaml_path) as f:
             workflow_details = yaml.safe_load(f) or {}
-    
+
     workflow_type = workflow_type_map.get(category, 'writing')
-    
+
     # Map to .copilot workflow structure
     workflow_config = {
         'name': workflow.get('displayName', workflow['name'].replace('-', ' ').title()),
@@ -341,7 +342,7 @@ for workflow in workflows_list:
         'typical-duration': workflow_details.get('duration', 'Variable'),
         'phases': workflow_details.get('steps', workflow_details.get('phases', []))
     }
-    
+
     copilot_workflows['workflows'][name] = workflow_config
 
 # Write .copilot/workflows.yaml

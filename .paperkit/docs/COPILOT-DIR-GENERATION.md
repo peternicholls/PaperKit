@@ -137,7 +137,7 @@ research-consolidator:
 
 research-consolidator:
   name: Research Consolidator
-  description: Transforms scattered research materials into polished, synthesized 
+  description: Transforms scattered research materials into polished, synthesized
     research documents with proper citations and clear narrative structure
   triggers:                                          # Extracted from examplePrompts
   - research
@@ -190,17 +190,17 @@ research-consolidator:
 #### During Installation
 Automatically runs when installing:
 ```bash
-./paperkit-install.sh
+./paperkit init
 ```
 
 ### Testing
 
-✅ Generated `.copilot/agents.yaml` with all 10 agents  
-✅ Generated `.copilot/workflows.yaml` with all workflows  
-✅ Validated extracted triggers match expected patterns  
-✅ Confirmed inputs extracted from schemas  
-✅ Verified outputs inferred correctly  
-✅ Checked auto-generation notices present  
+✅ Generated `.copilot/agents.yaml` with all 10 agents
+✅ Generated `.copilot/workflows.yaml` with all workflows
+✅ Validated extracted triggers match expected patterns
+✅ Confirmed inputs extracted from schemas
+✅ Verified outputs inferred correctly
+✅ Checked auto-generation notices present
 
 ### Migration Notes
 
@@ -234,6 +234,6 @@ The `.copilot/` directory is now fully automated. Future enhancements could incl
 
 ---
 
-**Status**: ✅ Complete  
-**Implementation Date**: 2025-12-19  
+**Status**: ✅ Complete
+**Implementation Date**: 2025-12-19
 **Automated Generation**: Working perfectly!
