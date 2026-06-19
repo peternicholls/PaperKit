@@ -5,23 +5,17 @@
 Thumbs.db
 *.swp
 *.swo
-*~
 .env
 .env.local
 .idea/
 node_modules/
+.omx/
 
 # PaperKit distribution artifacts
 paperkit-*.tar.gz
 paperkit-*.zip
 
 # Generated files
-.codex/
-.copilot/
-.github/agents
-.vscode/
-COPILOT.md
-AGENTS.md
 .venv/ # install your own python env
 __pycache__/
 *.py[cod]
